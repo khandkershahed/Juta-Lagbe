@@ -1,0 +1,39 @@
+.font-18{
+    font-size: 18px;
+}
+.form-control {
+    height: 37px;
+}
+.updatebutton{
+    padding-bottom: 22px;
+    margin-top: 10px;
+    padding-bottom: 29px;
+    font-size: 16px;
+}
+.btn{
+    font-size: 15px;
+}
+
+.mt-60{
+    margin-top: 60px;
+}
+.mt-20{
+    margin-top: 20px;
+}
+.text-22{
+    font-size: 22px !important;
+}
+
+
+
+/* d-sm-none */
+@media only screen and (max-width: 768px) {
+    .ps-shopping .ps-shopping__checkout .ps-btn{
+        padding: 10px 5px;
+        width: 100%;
+    }
+    .ps-shopping .ps-shopping__link {
+        margin-left: 5px;
+        font-size: 15px;
+    }
+}
