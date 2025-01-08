@@ -142,10 +142,12 @@
     <!-- Preloader HTML -->
     <div id="preloader" class="flex-column">
         <div class="wave-text">
-            <span>অ</span>
-            <span>র্ধা</span>
-            <span>ঙ্গি</span>
-            <span>নী</span>
+            <span>জু</span>
+            <span>তা</span>
+            <span>-</span>
+            <span>লা</span>
+            <span>গ</span>
+            <span>বে</span>
         </div>
     </div>
     <div id="main-content" style="display: none;">
@@ -156,7 +158,7 @@
             {{ $slot }}
             {{-- Footer --}}
             @include('frontend.layouts.footer')
-        {{-- Footer --}}
+            {{-- Footer --}}
         </div>
         {{-- Sidebar Cart Common Start --}}
         <div>
@@ -170,7 +172,7 @@
 
     <!-- Scroll to Top Button -->
     <a href="#" class="scroll-top" style="display: none;">↑</a>
- 
+
     @include('frontend.layouts.extra')
     <script src="{{ asset('frontend/plugins/jquery.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>

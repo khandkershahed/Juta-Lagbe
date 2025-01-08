@@ -16,7 +16,7 @@
                             background-repeat: no-repeat;
                             background-size: cover;
                             background-position: center center;
-                            height: 600px;
+                            height: 720px;
                             width: 100%;
                         ">
                                 <div class="container container-initial">
@@ -32,7 +32,7 @@
                                                     {{ $slider->button_name }}
                                                 </a>
                                             @endif
-                                            {{-- <div class="ps-banner__persen bg-yellow ps-top"><small>only</small>$25</div> --}}
+                                            <div class="ps-banner__persen ps-top  fa-bounce"><small>only</small>$25</div>
                                         </div>
                                         <div class="ps-banner__thumnail">
                                             {{-- <img class="ps-banner__round"
@@ -48,20 +48,14 @@
                 </div>
             </div>
             <div class="owl-nav">
-                {{-- <button type="button" role="presentation" class="owl-prev">
-                    <i class="fa fa-chevron-left text-white"></i>
-                </button>
-                <button type="button" role="presentation" class="owl-next">
-                    <i class="fa fa-chevron-right text-white"></i>
-                </button> --}}
+
             </div>
         </div>
     </section>
     <div class="ps-home ps-home--14">
-        @if ($categorys->count() > 0)
+        {{-- @if ($categorys->count() > 0)
             <section class="ps-section--categories top-up-section">
                 <div class="container px-0" style="border-radius: 5px; background-color: #ffffffe6;">
-                    {{-- <h3 class="ps-section__title py-5" style="font-size: 30px;">Popular Categories</h3> --}}
                     <div class="ps-section__content py-0 py-lg-5">
                         <div class="ps-categories__list owl-carousel">
                             @foreach ($categorys as $category)
@@ -87,7 +81,35 @@
                     </div>
                 </div>
             </section>
-        @endif
+        @endif --}}
+        @if (!empty(optional($special_offer)->slug) || !empty(optional($special_offer)->header_slogan))
+        <div class="ps-noti">
+            <section>
+                <div class="marquee marquee--hover-pause enable-animation">
+                    <div class="marquee__content">
+                        @for ($i = 0; $i < 10; $i++)
+                            <a href="{{ route('special.products', optional($special_offer)->slug) }}">
+                                <p class="text-white marquee-text mb-0 d-flex align-items-center">
+                                    <span><img class="pr-3 img-fluid" width="60px" src="{{ asset('images/markque-icons.png') }}" alt=""></span>
+                                    <span>{{ optional($special_offer)->header_slogan }}</span>
+                                </p>
+                            </a>
+                        @endfor
+                    </div>
+                    <div aria-hidden="true" class="marquee__content">
+                        @for ($i = 0; $i < 10; $i++)
+                            <a href="{{ route('special.products', optional($special_offer)->slug) }}">
+                                <p class="text-white marquee-text mb-0 d-flex align-items-center">
+                                    <span><img class="pr-3 img-fluid" width="60px" src="{{ asset('images/markque-icons.png') }}" alt=""></span>
+                                    <span>{{ optional($special_offer)->header_slogan }}</span>
+                                </p>
+                            </a>
+                        @endfor
+                    </div>
+                </div>
+            </section>
+        </div>
+    @endif
         <div class="ps-home__content">
             @if ($latest_products->count() > 0)
                 <section class="ps-section--latest-horizontal pb-5">
@@ -125,7 +147,7 @@
                                                                         $imagePath = 'storage/' . $image->photo;
                                                                         $imageSrc = file_exists(public_path($imagePath))
                                                                             ? asset($imagePath)
-                                                                            : // : asset('frontend/img/no-product.jpg');
+                                                                            :
                                                                             asset('frontend/img/no-product.jpg');
                                                                     @endphp
                                                                     <img src="{{ $imageSrc }}"
@@ -174,7 +196,6 @@
                                                                 ? optional($latest_product->reviews)->sum('rating') /
                                                                     count($latest_product->reviews)
                                                                 : 0;
-                                                        // dd($latest_product->name, $review);
                                                     @endphp
                                                     <div class="d-flex justify-content-between align-items-center mb-3 rating-area">
                                                         <div class="ps-product__rating">
@@ -243,11 +264,6 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-
-                                                        {{-- <div class="ps-product__item cart" data-toggle="tooltip"
-                                                            data-placement="left" title="Add to cart"><a
-                                                                href="#"><i class="fa fa-eye"></i></a>
-                                                        </div> --}}
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Wishlist"><a
                                                                 class="add_to_wishlist"
@@ -309,7 +325,7 @@
                                                                         $imagePath = 'storage/' . $image->photo;
                                                                         $imageSrc = file_exists(public_path($imagePath))
                                                                             ? asset($imagePath)
-                                                                            : // : asset('frontend/img/no-product.jpg');
+                                                                            :
                                                                             asset('frontend/img/no-product.jpg');
                                                                     @endphp
                                                                     <img src="{{ $imageSrc }}"
@@ -474,10 +490,6 @@
                                         <h3 class="ps-section__title mb-0" style="font-size: 30px;">
                                             {{ optional($categorytwo)->name }}</h3>
                                     </div>
-                                    {{-- <div class="pl-3">
-                                        <img class="" src="{{ asset('storage/' . $categorytwo->logo) }}"
-                                            alt="{{ $categorytwo->name }}" width="50px">
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>

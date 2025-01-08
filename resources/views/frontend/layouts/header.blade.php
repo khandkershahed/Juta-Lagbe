@@ -107,11 +107,11 @@
         justify-content: center;
         overflow: hidden;
         transition: all 0.25s ease;
-        background: linear-gradient(90deg, #f68e39 0%, #ea6867 29%, #cb4b98 64%, #9256c6 100%);
+        background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);
         border-radius: var(--round);
         border: none;
         outline: none;
-        padding: 12px 18px;
+        padding: 10px 7px;
     }
 
     .button-new::before,
@@ -126,14 +126,11 @@
 
     .button-new::before {
         --space: 1px;
-        background: linear-gradient(177.95deg,
-                rgba(255, 255, 255, 0.19) 0%,
-                rgba(255, 255, 255, 0) 100%);
     }
 
     .button-new::after {
         --space: 2px;
-        background: linear-gradient(90deg, #f68e39 0%, #ea6867 29%, #cb4b98 64%, #9256c6 100%);
+        background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);
     }
 
     .button-new:active {
@@ -327,76 +324,93 @@
     }
 </style>
 <header class="ps-header ps-header--2">
-    @if (!empty(optional($special_offer)->slug) || !empty(optional($special_offer)->header_slogan))
-        <div class="ps-noti">
-            <section>
-                <div class="marquee marquee--hover-pause enable-animation">
-                    <div class="marquee__content">
-                        @for ($i = 0; $i < 10; $i++)
-                            <a href="{{ route('special.products', optional($special_offer)->slug) }}">
-                                <p class="text-white marquee-text mb-0 d-flex align-items-center">
-                                    <span><i class="fa-solid fa-cart-shopping pr-3"></i></span>
-                                    <span>{{ optional($special_offer)->header_slogan }}</span>
-                                </p>
-                            </a>
-                        @endfor
-                    </div>
-                    <div aria-hidden="true" class="marquee__content">
-                        @for ($i = 0; $i < 10; $i++)
-                            <a href="{{ route('special.products', optional($special_offer)->slug) }}">
-                                <p class="text-white marquee-text mb-0 d-flex align-items-center">
-                                    <span><i class="fa-solid fa-cart-shopping pr-3"></i></span>
-                                    <span>{{ optional($special_offer)->header_slogan }}</span>
-                                </p>
-                            </a>
-                        @endfor
-                    </div>
-                </div>
-            </section>
-        </div>
-    @endif
     <div class="ps-header__top">
         <div class="container">
-            <div class="ps-header__text"> {{ optional($setting)->site_motto }} </div>
+            <div class="ps-header__text">
+               <i class="fa-solid fa-location-dot"></i> {{ optional($setting)->address_line_one }},{{ optional($setting)->address_line_two }}
+            </div>
             <div class="ps-top__right">
-                <div class="ps-top__social">
-                    <ul class="ps-social">
-                        @if (optional($setting)->facebook_url)
-                            <li><a class="ps-social__link facebook" href="{{ optional($setting)->facebook_url }}"
-                                    target="_blank">
-                                    <i class="fa fa-facebook" style="color: #3D6AD6;"> </i>
-                                    <span class="ps-tooltip">Facebook</span>
-                                </a>
-                            </li>
-                        @endif
-                        @if (optional($setting)->instagram_url)
-                            <li>
-                                <a class="ps-social__link instagram" href="{{ optional($setting)->instagram_url }}"
-                                    target="_blank">
-                                    <i class="fa fa-instagram"
-                                        style="
-                                        background: linear-gradient(90deg, #f68e39 0%, #ea6867 29%, #cb4b98 64%, #9256c6 100%);
-                                        -webkit-background-clip: text;
-                                        color: transparent;"></i>
-                                    <span class="ps-tooltip">Instagram </span>
-                                </a>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
                 <ul class="menu-top">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('allproducts') }}">Shop</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('about-us') }}">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
-                    @auth
-                        <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">My Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('user.order.history') }}">My Order
-                                History</a></li>
-                    @else
-                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
-                    @endauth
+                    <li class="nav-item px-1">
+                        {{-- Log Out --}}
+                        <a class="nav-link" href="javascript:void(0)" id="login-modal">
+                            <i class="fa-solid fa-user header-icons"></i>
+                        </a>
+                        @auth
+                            <div class="ps-login--modal">
+                                <!-- If the user is authenticated, show these options -->
+                                <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                <a class="dropdown-item" href="#"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    {{ __('Log Out') }}
+                                </a>
+                                <!-- Hidden logout form -->
+                                <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        @else
+                            <div class="ps-login--modal">
+                                @guest
+                                    <div>
+                                        <p>Already Have An Account?</p>
+                                        <a class="btn btn-primary w-100" href="{{ route('login') }}">
+                                            Log in
+                                        </a>
+                                    </div>
+                                    <div class="mt-3">
+                                        <p>Don't Have An Account?</p>
+                                        <a class="btn btn-primary w-100" href="{{ route('register') }}">
+                                            Register
+                                        </a>
+                                    </div>
+                                @endguest
+                                {{-- If Logged In --}}
+                                @auth
+                                    <div>
+                                        <p>Manage Your Dashboard?</p>
+                                        <a class="btn btn-primary w-100" href="{{ route('dashboard') }}">
+                                            Dashboard
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <p>Want to Log Out?</p>
+                                        <a class="btn btn-primary w-100" href="#"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            Log Out
+                                        </a>
+                                        <form id="logout-form" method="POST" action="{{ route('logout') }}"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                @endauth
+                            </div>
+                        @endauth
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-1" href="{{ route('user.wishlist') }}">
+                            <i class="fa-solid fa-heart header-icons"></i>
+                            @php
+                                $wishlistCount = 0; // Default value in case user is not authenticated
+                                if (Auth::check()) {
+                                    $userId = Auth::id();
+                                    $wishlistCount = App\Models\Wishlist::where('user_id', $userId)->count();
+                                }
+                            @endphp
+                            <span class="top-badge badge wishlistCount">{{ $wishlistCount }}</span>
+
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-1" href="#" id="cart-mini">
+                            <i class="fa-solid fa-shopping-cart header-icons"></i>
+                            <span class="top-badge badge cartCount">{{ Cart::instance('cart')->count() }}</span>
+                        </a>
+                        <div class="ps-cart--mini miniCart">
+                            @include('frontend.pages.cart.partials.minicart')
+                        </div>
+                    </li>
                 </ul>
                 @if (!empty(optional($setting)->primary_phone))
                     <div class="ps-header__text">Need help? <strong>{{ optional($setting)->primary_phone }}</strong>
@@ -411,107 +425,19 @@
                 <a href="{{ route('home') }}">
                     <img class="rounded-2"
                         src="{{ !empty(optional($setting)->site_logo_white) ? asset('storage/' . optional($setting)->site_logo_white) : asset('frontend/img/logo.png') }}"
-                        alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.jpg';">
+                        alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
                     <img class="sticky-logo rounded-2"
                         src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
-                        alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.jpg';">
+                        alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
                 </a>
             </div>
             <a class="ps-menu--sticky" href="#">
                 <i class="fa fa-bars"></i>
             </a>
             <div class="ps-header__right">
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-lg-12">
-                        <ul class="ps-header__icons">
-                            <li>
-                                {{-- Log Out --}}
-                                <a class="ps-header__item" href="javascript:void(0)" id="login-modal">
-                                    <img src="{{ asset('images/icon-profile.svg') }}" class="header-icons"
-                                        alt="">
-                                </a>
-                                @auth
-                                    <div class="ps-login--modal">
-                                        <!-- If the user is authenticated, show these options -->
-                                        <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
-                                        <a class="dropdown-item" href="#"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            {{ __('Log Out') }}
-                                        </a>
-                                        <!-- Hidden logout form -->
-                                        <form id="logout-form" method="POST" action="{{ route('logout') }}"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                @else
-                                    <div class="ps-login--modal">
-                                        @guest
-                                            <div>
-                                                <p>Already Have An Account?</p>
-                                                <a class="btn btn-primary w-100" href="{{ route('login') }}">
-                                                    Log in
-                                                </a>
-                                            </div>
-                                            <div class="mt-3">
-                                                <p>Don't Have An Account?</p>
-                                                <a class="btn btn-primary w-100" href="{{ route('register') }}">
-                                                    Register
-                                                </a>
-                                            </div>
-                                        @endguest
-
-                                        {{-- If Logged In --}}
-                                        @auth
-                                            <div>
-                                                <p>Manage Your Dashboard?</p>
-                                                <a class="btn btn-primary w-100" href="{{ route('dashboard') }}">
-                                                    Dashboard
-                                                </a>
-                                            </div>
-                                            <div>
-                                                <p>Want to Log Out?</p>
-                                                <a class="btn btn-primary w-100" href="#"
-                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                    Log Out
-                                                </a>
-                                                <form id="logout-form" method="POST" action="{{ route('logout') }}"
-                                                    style="display: none;">
-                                                    @csrf
-                                                </form>
-                                            </div>
-                                        @endauth
-                                    </div>
-                                @endauth
-                            </li>
-                            <li>
-                                <a class="ps-header__item" href="{{ route('user.wishlist') }}">
-                                    {{-- <i class="fa fa-heart-o"></i> --}}
-                                    <img src="{{ asset('images/icon-heart.svg') }}" class="header-icons"
-                                        alt="">
-                                    @php
-                                        $wishlistCount = 0; // Default value in case user is not authenticated
-                                        if (Auth::check()) {
-                                            $userId = Auth::id();
-                                            $wishlistCount = App\Models\Wishlist::where('user_id', $userId)->count();
-                                        }
-                                    @endphp
-                                    <span class="badge wishlistCount">{{ $wishlistCount }}</span>
-
-                                </a>
-                            </li>
-                            <li>
-                                <a class="ps-header__item" href="#" id="cart-mini">
-                                    {{-- <i class="icon-cart-empty"></i> --}}
-                                    <img src="{{ asset('images/icon-cart.svg') }}" class="header-icons"
-                                        alt="">
-                                    <span class="badge cartCount">{{ Cart::instance('cart')->count() }}</span></a>
-                                <div class="ps-cart--mini miniCart">
-                                    @include('frontend.pages.cart.partials.minicart')
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="ps-header__search">
+                         <div class="ps-header__search">
                             <form action="{{ route('allproducts') }}">
                                 <div class="ps-search-table">
                                     <div class="input-group rounded-pill">
@@ -525,28 +451,26 @@
                             </form>
                             <div id="search_container" class="ps-search--result search_container d-none"
                                 style="height: 50vh;overflow-y: auto;">
-                                <!-- Search results will be injected here -->
+                                Search results will be injected here
                             </div>
                         </div>
-                        {{-- @if (!empty(optional($setting)->primary_phone))
-                            <div class="ps-middle__text">Need help? <strong>{{ optional($setting)->primary_phone }}</strong>
+                        @if (!empty(optional($setting)->primary_phone))
+                            <div class="ps-middle__text">Need help?
+                                <strong>{{ optional($setting)->primary_phone }}</strong>
                             </div>
-                        @endif --}}
+                        @endif
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-10 pr-0">
-                        <div class="d-flex justify-content-center align-items-center" style="padding-top: 2rem;">
+                </div> --}}
+                <div class="row align-items-center">
+                    <div class="col-lg-9 pr-0">
+                        <div class="d-flex justify-content-center align-items-center">
                             <div class="ps-navigation__left">
                                 <nav class="ps-main-menu">
                                     <div class="menu-container">
-                                        <!-- Previous Button -->
-                                        <button id="prevButton" onclick="showPrevious()"
-                                            class="button-nav-arrow-prev" style="display: none;">
-                                            <i class="fa fa-chevron-left text-white"></i>
-                                        </button>
-                                        <!-- Menu Items -->
                                         <ul class="menu">
+                                            <li class="menu-item menus-items-head">
+                                                <a href="{{ route('home') }}">Home</a>
+                                            </li>
                                             @foreach ($categories as $index => $category)
                                                 <li class="menu-item menus-items-head"
                                                     data-index="{{ $index }}">
@@ -556,21 +480,17 @@
                                                 </li>
                                             @endforeach
                                         </ul>
-                                        <!-- Next Button -->
-                                        <button id="nextButton" onclick="showNext()" class="button-nav-arrow">
-                                            <i class="fa fa-chevron-right text-white"></i>
-                                        </button>
                                     </div>
                                 </nav>
                             </div>
                         </div>
                     </div>
                     @if (!empty(optional($special_offer)->slug))
-                        <div class="col-lg-2">
-                            <div class="text-right pt-3">
+                        <div class="col-lg-3">
+                            <div class="text-right">
                                 {{-- <a href="#" class="animated-button">11:11 SALE</a> --}}
                                 <a href="{{ route('special.products', optional($special_offer)->slug) }}"
-                                    class="button-new mt-2">
+                                    class="button-new">
                                     <span class="fold"></span>
 
                                     <div class="points_wrapper">
@@ -686,166 +606,6 @@
     </div>
 
 </header>
-{{-- <div class="ps-search">
-    <div class="ps-search__content ps-search--mobile"><a class="ps-search__close" href="#"
-            id="close-search"><i class="icon-cross"></i></a>
-        <h3>Search</h3>
-        <form action="{{ route('allproducts') }}">
-            <div class="ps-search-table">
-                <div class="input-group">
-                    <input id="search_text" class="form-control form-control search_text" type="text"
-                        placeholder="Search for products">
-                    <div class="input-group-append"><a href="#"><i class="fa fa-search"></i></a></div>
-                </div>
-            </div>
-        </form>
-        <div id="search_container" class="ps-search--result search_container d-none"
-            style="height: 60vh;overflow-y: auto;">
-            <!-- Search results will be injected here -->
-        </div>
-    </div>
-</div> --}}
-{{-- <script>
-    function handleLogout() {
-        fetch('{{ route('logout') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    _method: 'POST'
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = '{{ url('/') }}'; // Redirect after logout
-                } else {
-                    console.error('Logout failed.');
-                }
-            })
-            .catch(error => console.error('Logout error:', error));
-    }
-</script>
-
-<script>
-    let currentIndex = 0;
-    const itemsPerPage = 5;
-    const items = document.querySelectorAll('.menu-item');
-    const totalItems = items.length;
-
-    function updateVisibility() {
-        items.forEach((item, index) => {
-            item.style.display = (index >= currentIndex && index < currentIndex + itemsPerPage) ? 'block' :
-                'none';
-        });
-
-        // Show/hide buttons based on current index
-        document.getElementById('prevButton').style.display = currentIndex === 0 ? 'none' : 'inline';
-        document.getElementById('nextButton').style.display = currentIndex + itemsPerPage >= totalItems ? 'none' :
-            'inline';
-    }
-
-    function showNext() {
-        if (currentIndex + itemsPerPage < totalItems) {
-            currentIndex += 1; // Move one item at a time
-            updateVisibility();
-        }
-    }
-
-    function showPrevious() {
-        if (currentIndex > 0) {
-            currentIndex -= 1; // Move one item back at a time
-            updateVisibility();
-        }
-    }
-
-    // Initial setup
-    updateVisibility();
-</script>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const menuItems = document.querySelectorAll(".menu .menus-items-head");
-
-        // Check if there are at least 5 items and set the fifth item's ::before color to transparent
-        if (menuItems.length >= 7) {
-            menuItems[6].classList.add("transparent-before");
-        }
-        if (menuItems.length >= 6) {
-            menuItems[5].classList.add("transparent-before");
-        }
-    });
-</script>
-<script>
-    const sections = document.querySelectorAll("section");
-
-    sections.forEach((section) => {
-        section.classList.toggle("enable-animation");
-    });
-</script> --}}
-
-@push('scripts')
-    <script>
-        let currentIndex = 0;
-        const itemsPerPage = 5;
-        const items = document.querySelectorAll('.menu-item');
-        const totalItems = items.length;
-
-        function updateVisibility() {
-            // Show or hide items based on the current index
-            items.forEach((item, index) => {
-                item.style.display = (index >= currentIndex && index < currentIndex + itemsPerPage) ? 'block' :
-                    'none';
-            });
-
-            // Show/hide buttons based on current index
-            document.getElementById('prevButton').style.display = currentIndex === 0 ? 'none' : 'inline';
-            document.getElementById('nextButton').style.display = currentIndex + itemsPerPage >= totalItems ? 'none' :
-                'inline';
-
-            // Call function to hide the span in the first visible item
-            hideSpanInFirstVisibleItem();
-        }
-
-        function showNext() {
-            if (currentIndex + itemsPerPage < totalItems) {
-                currentIndex += 1; // Move one item at a time
-                updateVisibility();
-            }
-        }
-
-        function showPrevious() {
-            if (currentIndex > 0) {
-                currentIndex -= 1; // Move one item back at a time
-                updateVisibility();
-            }
-        }
-
-        // Function to hide the span in the first visible item
-        function hideSpanInFirstVisibleItem() {
-            const visibleItems = Array.from(items).slice(currentIndex, currentIndex + itemsPerPage);
-
-            // Ensure the span in the first item is hidden
-            visibleItems.forEach((item, index) => {
-                const span = item.querySelector('.text-white');
-                if (index === 0 && span) {
-                    span.style.display = 'none'; // Hide the span of the first item
-                } else if (span) {
-                    span.style.display = 'inline'; // Make the span visible in all other items
-                }
-            });
-        }
-
-        // Initial setup
-        updateVisibility();
-
-        // Event listeners for next and previous buttons
-        document.getElementById('nextButton').addEventListener('click', showNext);
-        document.getElementById('prevButton').addEventListener('click', showPrevious);
-    </script>
-@endpush
 <script>
     const placeholders = [
         "Tote Bag",
