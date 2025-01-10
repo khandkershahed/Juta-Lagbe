@@ -2,7 +2,7 @@
     <div>
         <a href="{{ route('home') }}">
             <img src="{{ !empty(optional($setting)->site_logo_white) ? asset('storage/' . optional($setting)->site_logo_white) : asset('frontend/img/logo.png') }}"
-                style="width: 80px; padding: 8px; border-radius: 12px"
+                style="width: 100%; padding: 20px; border-radius: 12px"
                 onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
         </a>
     </div>

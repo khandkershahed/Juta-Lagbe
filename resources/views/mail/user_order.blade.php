@@ -17,7 +17,7 @@
                             <table style="width: 100%; border-spacing: 0; text-align: center;">
                                 <tr>
                                     <td>
-                                        <img src="https://i.ibb.co.com/PrHfD92/Ardhanggini-logo-White.png"
+                                        <img src="https://i.ibb.co.com/PrHfD92/জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।-logo-White.png"
                                             alt="Logo"
                                             style="max-width: 100%; height: 60px; margin: 20px auto; display: block;" />
                                     </td>
@@ -134,8 +134,8 @@
                         <td class="footer"
                             style="text-align: center;padding: 10px 0;background-color: #eee;color: #252525;border-radius: 0 0 5px 5px;">
                             <p style="margin: 0; font-size: 16px; padding: 15px;">
-                                &copy; Copyright @ 2024 Ardhanggini, All rights reserved <a
-                                    href="ardhanggini.com">ardhanggini.com</a>
+                                &copy; Copyright @ 2024 জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।, All rights reserved <a
+                                    href="জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।.com">জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।.com</a>
                             </p>
                         </td>
                     </tr>

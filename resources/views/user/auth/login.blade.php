@@ -4,50 +4,7 @@
             color: #000 !important;
             opacity: 1;
             font-size: 16px;
-            /* Firefox */
         }
-
-        body {
-            background-color: #eee;
-        }
-
-        .row-equal-height {
-            display: flex;
-        }
-
-        .column-equal-height {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .login-imge {
-            height: 880px;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .home-logo {
-            width: 200px;
-        }
-
-        .login-divider {}
-
-        .devider {
-            background: #eee;
-            height: 2px;
-            position: relative;
-            top: -3px;
-        }
-
-        .divider-text {
-            position: relative;
-            bottom: -10px;
-            z-index: 5;
-            background: white;
-            width: 100px;
-            margin: auto;
-        }
-
         .inner {
             z-index: 2;
             position: relative;
@@ -56,14 +13,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(12px, 2vw, 16px);
-            /* Adjust values as needed */
+            font-size: clamp(12px, 2vw, 16px);=
             font-weight: 500;
             line-height: 1.5;
             transition: color 0.2s ease-in-out;
             text-align: center;
             word-break: break-word;
-            /* Handles long text */
         }
     </style>
     <div class="ps-account my-lg-5 py-lg-5 my-0 py-0">
@@ -73,14 +28,14 @@
                     <div class="row">
                         <div class="col-lg-12 pl-5">
                             <div class="p-3">
-                                <div class="pb-5 d-flex justify-content-center align-items-center">
+                                <div class="d-flex justify-content-center align-items-center mb-4">
                                     <a href="{{ route('home') }}" class="">
-                                        <img class="img-fluid" width="125px"
+                                        <img class="img-fluid" width="200px"
                                             src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
                                             alt="">
                                     </a>
                                 </div>
-                                <div class="mb-5 text-lg-start text-center">
+                                <div class="text-lg-start text-center">
                                     <h2 class="ps-form__title mb-0">Welcome Back!</h2>
                                     <p>Enter To Get Unlimited Access & Data</p>
                                 </div>
@@ -166,7 +121,8 @@
                 </div>
                 <div class="col-12 col-md-6 column-equal-height px-0">
                     <div>
-                        <img class="img-fluid login-imge" src="{{ asset('frontend/img/bg-login.jpg') }}" alt="">
+                        <img class="img-fluid login-imge" src="{{ asset('images/login-side-banner.png') }}"
+                            alt="">
                     </div>
                 </div>
             </div>

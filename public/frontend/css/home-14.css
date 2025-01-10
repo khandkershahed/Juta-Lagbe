@@ -137,11 +137,7 @@
 }
 
 .ps-home--14 .owl-dots .owl-dot.active {
-  background-color: #333;
-}
-
-.ps-home--14 .owl-nav button:hover {
-  background-color: #9E9E9E !important;
+  background-color: var(--site-primary);
 }
 
 .ps-home--14 .ps-home__block {

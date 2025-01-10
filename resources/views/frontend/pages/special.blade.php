@@ -1,24 +1,14 @@
 <x-frontend-app-layout :title="'Special Offers'">
     <style>
-        /* .special-banner-container {
-                height: 250px;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: #f8f9fa;
-                overflow: hidden;
-            }
-        */
         .special-banner {
-            height: 250px;
+            height: 100%;
             width: 100%;
             object-fit: cover;
         }
 
         @media (max-width: 480px) {
             .special-banner {
-                height: 75px;
+                height: 100%;
                 width: 100%;
                 object-fit: cover;
                 margin-top: 110px;
@@ -29,28 +19,22 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="special-banner-container">
-                    <img class="special-banner" src="{{ asset('storage/' . $special_offer->banner_image) }}"
-                        onerror="this.onerror=null; this.src='{{ asset('images/no-preview2.png') }}';"
+                    <img class="special-banner img-fluid" src="{{ asset('storage/' . $special_offer->banner_image) }}"
+                        onerror="this.onerror=null; this.src='{{ asset('images/Untitled-2.png') }}';"
                         alt="Special Banner">
                 </div>
             </div>
         </div>
     </div>
     <div class="ps-categogy ps-categogy--separate">
-        <div class="container">
-            <ul class="ps-breadcrumb faq-breadcumb">
-                <li class="ps-breadcrumb__item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="ps-breadcrumb__item active" aria-current="page">Shop</li>
-            </ul>
-        </div>
-        <div class="ps-categogy__main mb-0">
+        <div class="ps-categogy__main">
             <div class="container px-0">
                 <div class="ps-categogy__product">
-                    <div class="row m-0">
+                    <div class="row mb-4">
                         @if ($special_products)
                             @foreach ($special_products as $latest_product)
                                 <div class="col-6 col-md-4 col-lg-3 dot4 p-0">
-                                    <div class="ps-section__product">
+                                    <div class="ps-section__product pr-2">
                                         <div class="ps-product ps-product--standard">
                                             <div class="ps-product__thumbnail">
                                                 <a class="ps-product__image"
@@ -73,8 +57,7 @@
                                                                     $imagePath = 'storage/' . $image->photo;
                                                                     $imageSrc = file_exists(public_path($imagePath))
                                                                         ? asset($imagePath)
-                                                                        : // : asset('frontend/img/no-product.jpg');
-                                                                        asset('frontend/img/no-product.jpg');
+                                                                        : asset('frontend/img/no-product.jpg');
                                                                 @endphp
                                                                 <img src="{{ $imageSrc }}"
                                                                     alt="{{ $latest_product->meta_title }}"
@@ -83,6 +66,51 @@
                                                         @endif
                                                     </figure>
                                                 </a>
+                                                {{-- Review --}}
+                                                @if (count($latest_product->reviews) > 0)
+                                                    <div>
+                                                        @php
+                                                            $review =
+                                                                count($latest_product->reviews) > 0
+                                                                    ? optional($latest_product->reviews)->sum(
+                                                                            'rating',
+                                                                        ) / count($latest_product->reviews)
+                                                                    : 0;
+                                                        @endphp
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center my-2 rating-area px-3">
+                                                            <div style="color: var(--site-primary)">
+                                                                Reviews
+                                                                ({{ count($latest_product->reviews) }})
+                                                            </div>
+                                                            <div class="ps-product__rating">
+                                                                @if ($review > 0)
+                                                                    <div class="br-wrapper br-theme-fontawesome-stars">
+                                                                        <select class="ps-rating" data-read-only="true"
+                                                                            style="display: none;">
+                                                                            @php
+                                                                                $maxRating = min(
+                                                                                    5,
+                                                                                    max(1, floor($review)),
+                                                                                ); // Get the highest full rating value
+                                                                            @endphp
+                                                                            @for ($i = 1; $i <= $maxRating; $i++)
+                                                                                <option value="{{ $i }}">
+                                                                                    {{ $i }}
+                                                                                </option>
+                                                                            @endfor
+                                                                        </select>
+                                                                    </div>
+                                                                @else
+                                                                    <span class="no-found">N/A</span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <hr class="my-0">
+                                                    </div>
+                                                @endif
+
+                                                {{-- Review End --}}
                                                 <div class="ps-product__actions">
                                                     <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Wishlist">
@@ -97,6 +125,15 @@
                                                             <i class="fa fa-eye"></i>
                                                         </a>
                                                     </div>
+                                                    <div class="ps-product__item" data-toggle="tooltip"
+                                                        data-placement="left" title="Quick view">
+                                                        <a class="add_to_cart"
+                                                            href="{{ route('cart.store', $latest_product->id) }}"
+                                                            data-product_id="{{ $latest_product->id }}"
+                                                            data-product_qty="1">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                        </a>
+                                                    </div>
 
                                                 </div>
                                                 @if (!empty($latest_product->unit_discount_price))
@@ -104,7 +141,7 @@
                                                         <div class="ps-badge ps-badge--sale">
                                                             -
                                                             {{ !empty($latest_product->unit_discount_price) && $latest_product->unit_discount_price > 0 ? number_format((($latest_product->unit_price - $latest_product->unit_discount_price) / $latest_product->unit_price) * 100, 1) : 0 }}
-                                                            % Off
+                                                            % অফ
                                                         </div>
                                                     </div>
                                                 @endif
@@ -115,64 +152,30 @@
                                                         {{ implode(' ', array_slice(explode(' ', $latest_product->name), 0, 5)) }}
                                                     </a>
                                                 </h5>
-                                                @php
-                                                    $review =
-                                                        count($latest_product->reviews) > 0
-                                                            ? optional($latest_product->reviews)->sum('rating') /
-                                                                count($latest_product->reviews)
-                                                            : 0;
-                                                    // dd($latest_product->name, $review);
-                                                @endphp
-                                                <div
-                                                    class="d-flex justify-content-between align-items-center rating-area">
-                                                    <div class="ps-product__rating">
-                                                        @if ($review > 0)
-                                                            <div class="br-wrapper br-theme-fontawesome-stars">
-                                                                <select class="ps-rating" data-read-only="true"
-                                                                    style="display: none;">
-                                                                    @php
-                                                                        $maxRating = min(5, max(1, floor($review))); // Get the highest full rating value
-                                                                    @endphp
-                                                                    @for ($i = 1; $i <= $maxRating; $i++)
-                                                                        <option value="{{ $i }}">
-                                                                            {{ $i }}</option>
-                                                                    @endfor
-                                                                </select>
-                                                            </div>
-                                                        @else
-                                                            <span class="no-found">N/A</span>
-                                                        @endif
-                                                    </div>
-                                                    <div>
-                                                        @if (count($latest_product->reviews) > 0)
-                                                            Reviews ({{ count($latest_product->reviews) }})
-                                                        @else
-                                                            <span class="no-found">N/A</span>
-                                                        @endif
-                                                    </div>
+                                                <div class="pb-3">
+                                                    @if (!empty($latest_product->unit_discount_price))
+                                                        <div class="ps-product__meta">
+                                                            <span
+                                                                class="ps-product__price sale">{{ $latest_product->unit_discount_price }}
+                                                                টাকা</span>
+                                                            <span
+                                                                class="ps-product__del text-danger">{{ $latest_product->unit_price }}
+                                                                টাকা</span>
+                                                        </div>
+                                                    @else
+                                                        <div class="ps-product__meta">
+                                                            <span
+                                                                class="ps-product__price sale">{{ $latest_product->unit_price }}
+                                                                টাকা</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                @if (!empty($latest_product->unit_discount_price))
-                                                    <div class="ps-product__meta mb-3">
-                                                        <span
-                                                            class="ps-product__price sale">৳{{ $latest_product->unit_discount_price }}</span>
-                                                        <span
-                                                            class="ps-product__del">৳{{ $latest_product->unit_price }}</span>
-                                                    </div>
-                                                @else
-                                                    <div class="ps-product__meta mb-3">
-                                                        <span
-                                                            class="ps-product__price sale">৳{{ $latest_product->unit_price }}</span>
-                                                    </div>
-                                                @endif
                                                 <div class="d-flex align-items-center card-cart-btn">
                                                     <a href="{{ route('buy.now', $latest_product->id) }}"
-                                                        class="btn btn-primary mr-1 mr-lg-3">
-                                                        Buy Now
-                                                    </a>
-                                                    <a href="{{ route('cart.store', $latest_product->id) }}"
-                                                        class="btn btn-outline-primary add_to_cart p-2 p-lg-1" data-product_id="{{ $latest_product->id }}"
-                                                        data-product_qty="1">
-                                                        Add To Cart
+                                                        class="btn btn-primary rounded-0 w-100">
+                                                        <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                        অর্ডার
+                                                        করুন
                                                     </a>
                                                 </div>
                                                 <div class="ps-product__actions ps-product__group-mobile">
@@ -189,11 +192,6 @@
                                                                     class="icon-plus"></i>
                                                             </button>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="ps-product__item cart" data-toggle="tooltip"
-                                                        data-placement="left" title="Add to cart"><a href="#"><i
-                                                                class="fa fa-eye"></i></a>
                                                     </div>
                                                     <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Wishlist"><a
@@ -215,29 +213,32 @@
                             </div>
                         @endif
                     </div>
-                    <div class="ps-pagination">
-                        {{-- <ul class="pagination">
-                            <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                        </ul> --}}
-                        {{-- {{ $special_products->links() }} --}}
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+            <div class="container juta-delivery">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="ps-delivery ps-delivery--info">
+                            <div class="ps-delivery__content">
+                                <div class="ps-delivery__text text-white">
+                                    <i class="icon-shield-check"></i>
+                                    <span>
+                                        <strong>100% Secure Delivery</strong> Without Courier Communication.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ps-delivery ps-delivery--info my-5"
-                        data-background="{{ asset('images/delivery_banner.jpg') }}"
-                        style="background-image: url({{ asset('images/delivery_banner.jpg') }});">
-                        <div class="ps-delivery__content">
-                            <div class="ps-delivery__text"> <i class="icon-shield-check"></i><span> <strong>100%
-                                        Secure delivery </strong>without courier communication</span></div><a
-                                class="ps-delivery__more" href="{{ route('allproducts') }}">Shop</a>
+                    <div class="col-lg-4">
+                        <div class="delivery-icons">
+                            <img class="img-fluid" src="{{ asset('images/delivery-icons.png') }}"
+                                alt="">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @push('scripts')
-    @endpush
 </x-frontend-app-layout>

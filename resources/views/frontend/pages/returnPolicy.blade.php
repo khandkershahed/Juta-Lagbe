@@ -73,7 +73,7 @@
                 <div class="mt-5 pb-5">
                     <h1 class="text-start mb-5 display-4">Contact Us</h1>
                     <p class="mb-5">If you have any questions on how to return your item to us, contact us at <a
-                            href="mailto:info.ardhanggini@gmail.com">info.ardhanggini@gmail.com</a>.</p>
+                            href="mailto:info.জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।@gmail.com">info.জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।@gmail.com</a>.</p>
                 </div>
             </div>
         </div>

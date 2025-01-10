@@ -2,7 +2,7 @@
     .ps-footer {
         position: relative;
         width: 100%;
-        min-height: 300px;
+        min-height: 440px;
         /* Adjust as needed */
         background-image: url('{{ asset('frontend/img/footer_bg.jpg') }}');
         background-size: containe;
@@ -19,7 +19,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: #f5f5f5c2;
+        background: #004d7ad1;
         /* White overlay with 91% opacity */
         z-index: 1;
     }
@@ -51,33 +51,33 @@
 </style>
 <footer class="ps-footer ps-footer--13 ps-footer--14">
     <div class="ps-footer--top">
-        <div class="container">
+        <div class="container px-0" style="background-color: #fff;">
             <div class="row m-0">
                 <div class="col-12 col-sm-3 p-0">
                     <p class="text-center">
-                        <span class="ps-footer__link">
-                            <i class="icon-wallet"></i>Full Cash on Delivery
+                        <span class="ps-footer__link site-text">
+                            <i class="icon-wallet site-text"></i>Full Cash on Delivery
                         </span>
                     </p>
                 </div>
                 <div class="col-12 col-sm-2 p-0">
                     <p class="text-center">
-                        <span class="ps-footer__link">
-                            <i class="icon-truck"></i>In Dhaka- 70 TK
+                        <span class="ps-footer__link site-text">
+                            <i class="icon-truck site-text"></i>In Dhaka- 70 TK
                         </span>
                     </p>
                 </div>
                 <div class="col-12 col-sm-3 p-0">
                     <p class="text-center">
-                        <span class="ps-footer__link">
-                            <i class="icon-truck"></i>Outside Dhaka- 150 TK
+                        <span class="ps-footer__link site-text">
+                            <i class="icon-truck site-text"></i>Outside Dhaka- 150 TK
                         </span>
                     </p>
                 </div>
                 <div class="col-12 col-sm-4 p-0">
                     <p class="text-center">
-                        <span class="ps-footer__link">
-                            <i class="icon-check"></i>Check Product In Front Of Delivery Man
+                        <span class="ps-footer__link site-text">
+                            <i class="icon-check site-text"></i>Check Product In Front Of Delivery Man
                         </span>
                     </p>
                 </div>
@@ -93,16 +93,15 @@
                             <div class="ps-footer--address">
                                 <div class="ps-logo">
                                     <a href="{{ route('home') }}">
-                                        <img src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                                        <img src="{{ !empty(optional($setting)->site_logo_white) ? asset('storage/' . optional($setting)->site_logo_white) : asset('frontend/img/logo.png') }}"
                                             alt=""
                                             onerror="this.onerror=null; this.src='{{ asset('frontend/img/logo.png') }}';">
                                     </a>
                                 </div>
-                                <div class="ps-footer__title">Our store</div>
-                                <p class="pb-3">
-                                    {{ optional($setting)->address_line_one }}<br>{{ optional($setting)->address_line_two }}
-                                </p>
-
+                                <div class="ps-footer--contact">
+                                    <p class="ps-footer__work">Premium Footwear At Affordable Prices – Style Meets
+                                        Comfort At JutaLagbe.</p>
+                                </div>
                                 <!-- In your Blade view (e.g., resources/views/your_view_name.blade.php) -->
                                 <ul class="ps-social">
                                     @if (optional($setting)->facebook_url)
@@ -191,16 +190,17 @@
                                 <h5 class="ps-footer__title">Need help</h5>
                                 <div class="ps-footer__fax">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('images/whatsapp-icons.gif') }}" alt=""
-                                            width="55px">
+                                        <i class="fa-brands fa-whatsapp pl-3 text-white fa-bounce"></i>
                                         {{ optional($setting)->primary_phone }}
                                     </div>
-
                                 </div>
                                 <p class="ps-footer__work">
                                     Saturday to Friday: 11 AM - 6PM
                                     <a
                                         href="mailto:{{ optional($setting)->contact_email }}">{{ optional($setting)->contact_email }}</a>
+                                </p>
+                                <p class="ps-footer__work"><i class="fa-solid fa-store"></i>
+                                    {{ optional($setting)->address_line_one }}<br>{{ optional($setting)->address_line_two }}
                                 </p>
                             </div>
                         </div>
@@ -237,7 +237,7 @@
                                     <div class="main-counter">
                                         <h1 class="mb-0">{{ $getOnlineVisitorCount + 10 }}</h1>
                                         <div class="sub-counter">
-                                            <p>ONLINE NOW</p>
+                                            <p>ONLINE</p>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center counter-container">
@@ -247,7 +247,8 @@
                                         </div> --}}
                                         <div class="total-count">
                                             <small class="mb-0 text-white">Total Visitor</small>
-                                            <small class="mb-0 text-white fw-bold">{{ getTotalVisitorCount() + 1000 }}</small>
+                                            <small
+                                                class="mb-0 text-white fw-bold">{{ getTotalVisitorCount() + 1000 }}</small>
                                         </div>
                                     </div>
                                 </div>
@@ -256,17 +257,22 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</footer>
+<section class="bg-white">
+    <div class="container-fluid">
+        <div class="container">
             <div class="ps-footer--bottom">
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <a href="{{ optional($setting)->copyright_url }}" target="_blank">
-                            <p>{{ optional($setting)->copyright_title }}</p>
+                            <small class="site-text">{{ optional($setting)->copyright_title }}</small>
                         </a>
                     </div>
                     <div class="col-12 col-md-6 d-flex justify-content-end align-items-center">
-                        {{-- <img src="{{ asset('frontend/img/payment.png') }}" alt>
-                        <img class="payment-light" src="{{ asset('frontend/img/payment-light.png') }}" alt> --}}
-                        {{-- <div class="">
+                        <img class="payment-light" src="{{ asset('frontend/img/payment-light.png') }}" alt>
+                        <div class="pl-3">
                             <p style="margin: 5px 0; font-size: 10px;" class="text-right w-100">
                                 Developed with ❤️ by
                                 <strong>
@@ -274,9 +280,10 @@
                                         style="color: #252525; text-decoration: none;">digiXsolve</a>
                                 </strong>
                             </p>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-</footer>
+    </div>
+</section>

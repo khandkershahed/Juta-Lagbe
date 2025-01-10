@@ -63,8 +63,8 @@
                 <div class="row align-items-center py-5">
                     <div class="col-lg-6">
                         <div class="ps-banner__content">
-                            <h1 class="about-main-title">Welcome to Ardhanggini. Your trusted destination for stylish,
-                                high-quality women's bags.</h1>
+                            <h1 class="about-main-title">Welcome to Juta Lagbe. Your trusted destination for stylish,
+                                high-quality Footware Store.</h1>
                         </div>
                     </div>
                     <div class="col-lg-6 d-flex justify-content-center align-items-center">
@@ -133,7 +133,7 @@
                         <div class="col-lg-6">
                             <div class="about-middle-img-box">
                                 <img class="img-fluid about-middle-img"
-                                    src="{{ asset('frontend/img/about/Ardhanggini Image.png') }}" alt="">
+                                    src="{{ asset('frontend/img/about/জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে । Image.png') }}" alt="">
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
         </div>
         <section class="ps-about__project pb-0">
             <div class="">
-                <h4 class="ps-about__title pt-3">Why Choose Ardhanggini?
+                <h4 class="ps-about__title pt-3">Why Choose জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।?
                 </h4>
                 <div>
                     <div class="container box-padding pt-4">
@@ -159,7 +159,7 @@
                                 <div class="ps-section__content">
                                     <h3 class="ps-section__title site-text mb-2 about-title">Affordable Luxury:</h3>
                                     <div class="ps-section__desc mb-1 about-description">Enjoy the perfect balance of style and affordability.
-                                        At Ardhanggini, we believe that everyone deserves access to high-quality,
+                                        At জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।, we believe that everyone deserves access to high-quality,
                                         fashionable bags without breaking the bank.</div>
                                 </div>
                             </div>
@@ -204,13 +204,13 @@
                         <div class="ps-section__content mb-3  mb-lg-0">
                             <h3 class="ps-section__title mb-2 about-title">Our Mission:</h3>
                             <div class="ps-section__desc pb-3 mb-0 about-description">
-                                At Ardhanggini, we are passionate about empowering women with bags that reflect their
+                                At জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।, we are passionate about empowering women with bags that reflect their
                                 style and confidence. We are committed to providing products that combine beauty,
                                 practicality, and affordability to elevate your everyday look.
                             </div>
                             <div class="ps-section__desc mb-1 about-description">
                                 Browse our collections today and experience the perfect blend of fashion and function
-                                with Ardhanggini.
+                                with জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।.
                             </div>
                         </div>
                     </section>
@@ -223,7 +223,7 @@
                                     <div class="col-lg-6">
                                         <div class="ps-banner__content">
                                             <h2 class="ps-banner__title extra-font">Thank you</h2>
-                                            <p class="ps-banner__desc">For choosing Ardhanggini.
+                                            <p class="ps-banner__desc">For choosing জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।.
                                                 Where fashion meets function. Happy shopping!</p>
                                             <a class="ps-banner__shop bg-warning"
                                                 href="{{ route('allproducts') }}">Shop Now
