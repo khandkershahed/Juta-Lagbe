@@ -1,5 +1,4 @@
 <x-frontend-app-layout :title="'Product Details'" :product="$product">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     @push('heads')
         @php
             $isProductPage = true; // Flag to indicate this is a product details page
@@ -9,328 +8,288 @@
         @endphp
     @endpush
     <style>
-        .product-slider-wrapper {
-            /* width: 600px;
-            height: 800px; */
-            width: 100%;
-            height: 100%;
+        .slider-nav-thumbnails {
+            margin-top: 10px;
         }
 
-        .swiper {
-            width: 100%;
-            height: 100%;
+        .slider-nav-thumbnails .slick-slide {
+            cursor: pointer;
+            outline: none;
         }
 
-        .swiper-slide {
-            text-align: center;
-            font-size: 18px;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .swiper-slide img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .swiper {
-            width: 100%;
-            height: 300px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .swiper-slide {
-            background-size: cover;
-            background-position: center;
-        }
-
-        .mySwiper2 {
-            height: 80%;
-            width: 100%;
-        }
-
-        .mySwiper {
-            height: 20%;
-            box-sizing: border-box;
-            padding: 10px 0;
-        }
-
-        .mySwiper .swiper-slide,
-        .mySwiperDesktop .swiper-slide {
-            width: 25%;
-            height: 100%;
-            opacity: 0.4;
-        }
-
-        .mySwiper .swiper-slide-thumb-active,
-        .mySwiperDesktop .swiper-slide-thumb-active {
+        .slider-nav-thumbnails .slick-slide.slick-current.slick-active {
             opacity: 1;
         }
 
-        .mySwiperDesktop {
-            margin-bottom: 10px;
+        .slider-nav-thumbnails .slick-slide img {
+            padding: 5px;
+            background: transparent;
         }
 
-        .swiper-slide img {
-            display: block;
-            width: 100%;
-            height: 100%;
+        .slider-nav-thumbnails .slick-slide.slick-current.slick-active img {
+            background: #500066;
+        }
+
+        .slider-nav-thumbnails img {
+            width: 100px;
             object-fit: cover;
+            margin: 0 5px;
         }
 
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: #fff !important;
+        .slider-nav-thumbnails .slick-slide:first-child img {
+            margin-left: 0;
         }
 
-
-
-        @media (min-width: 768px) {
-            .mySwiper {
-                display: none;
-            }
-
-            .product-slider-wrapper {
-                display: flex;
-                flex-direction: row;
-            }
-
-            .mySwiper2 {
-                height: 100%;
-            }
-
-            .swiper {
-                width: 100%;
-                height: 850px;
-            }
-
-            .mySwiperDesktop .swiper-slide {
-                width: 100%;
-            }
-
-            .mySwiperDesktop {
-                width: calc(22% - 20px);
-            }
-
-            .mySwiper2 {
-                width: 78%;
-            }
+        .slider-nav-thumbnails .slick-slide:last-child img {
+            margin-right: 0;
         }
 
-        @media (max-width: 767px) {
-            .product-slider-wrapper {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .mySwiperDesktop {
-                display: none;
-            }
-
-            .product-slider-wrapper {
-                width: 100%;
-                height: 70%;
-            }
-
-            .mySwiperDesktop {
-                height: 250px;
-            }
+        .main_product_img img {
+            width: 530px;
+            height: 430px;
+            object-fit: contain;
         }
     </style>
-    <section>
+    <div class="ps-page--product3">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="ps-breadcrumb">
-                        <li class="ps-breadcrumb__item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="ps-breadcrumb__item"><a href="{{ route('allproducts') }}">All Products</a></li>
-                        <li class="ps-breadcrumb__item active" aria-current="page">{{ $product->name }}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="container product-details">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="product-slider-wrapper">
-                        <div thumbsSlider="" class="swiper mySwiperDesktop">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/GROUP_COTTON_THREAD+%28Custom%29.jpg" />
+            <ul class="ps-breadcrumb">
+                <li class="ps-breadcrumb__item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="ps-breadcrumb__item"><a href="{{ route('allproducts') }}">All Products</a></li>
+                <li class="ps-breadcrumb__item active" aria-current="page">{{ $product->name }}</li>
+            </ul>
+            <div class="ps-page__content">
+                <div class="ps-product--detail">
+                    <div class="row">
+                        <div class="col-12 col-md-9">
+                            <div class="row">
+                                <div class="col-12 col-xl-6">
+
+                                    <div class="videos-slider-2">
+                                        <div class="main_product_img">
+                                            <img class="img-fluid" src="{{ asset('storage/' . $product->thumbnail) }}"
+                                                alt="{{ $product->meta_title }}" />
+                                        </div>
+                                        @foreach ($product->multiImages as $image)
+                                            <div class="main_product_img">
+                                                <img class="img-fluid" src="{{ asset('storage/' . $image->photo) }}"
+                                                    alt="{{ $product->meta_title }}"
+                                                    onerror="this.onerror=null;this.src='{{ asset('images/no-preview.png') }}';" />
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="slider-nav-thumbnails">
+                                        <div>
+                                            <img class="img-fluid" src="{{ asset('storage/' . $product->thumbnail) }}"
+                                                alt="{{ $product->meta_title }}"
+                                                onerror="this.onerror=null;this.src='{{ asset('images/no-preview.png') }}';" />
+                                        </div>
+                                        @foreach ($product->multiImages as $image)
+                                            <div>
+                                                <img class="img-fluid" src="{{ asset('storage/' . $image->photo) }}"
+                                                    alt="{{ $product->meta_title }}"
+                                                    onerror="this.onerror=null;this.src='{{ asset('images/no-preview.png') }}';" />
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    {{-- <div class="ps-product--gallery">
+                                        <div class="ps-product__thumbnail">
+                                            @foreach ($product->multiImages as $image)
+                                                <div class="slide">
+                                                    <img src="{{ asset('storage/' . $image->photo) }}"
+                                                        alt="{{ $product->meta_title }}" />
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="ps-gallery--image">
+                                            @foreach ($product->multiImages as $image)
+                                                <div class="slide">
+                                                    <div class="ps-gallery__item">
+                                                        <img src="{{ asset('storage/' . $image->photo) }}"
+                                                            alt="{{ $product->meta_title }}" />
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div> --}}
                                 </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/NOIR_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img
-                                        src="https://assets.codepen.io/849488/ESPRESSO_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/SAND_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/GROUP_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/NOIR_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img
-                                        src="https://assets.codepen.io/849488/ESPRESSO_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/SAND_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Swiper -->
-                        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-                            class="swiper mySwiper2">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/GROUP_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/NOIR_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img
-                                        src="https://assets.codepen.io/849488/ESPRESSO_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/SAND_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/GROUP_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/NOIR_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img
-                                        src="https://assets.codepen.io/849488/ESPRESSO_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/SAND_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                            </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div>
-                        <h3 class="title">{{ $product->name }}</h3>
-                        <div>
-                            @if (!empty($product->stock) && $product->stock > 0)
-                                <div class="mb-0">
-                                    <span class="ps-badge bg-success rounded-0">{{ $product->stock }} In Stock</span>
-                                </div>
-                            @else
-                                <div class="mb-0">
-                                    <span class="ps-badge ps-badge--outstock rounded-0">Out Of Stock</span>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="w-100 pt-3">
-                            @if (!empty($product->unit_discount_price))
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <h4 class="mb-0">দামঃ</h4>
-                                    <h4 class="text-success pl-2 mb-0"> {{ $product->unit_discount_price }} টাকা</h4>
-                                    <h4 class="ps-product__del text-danger pl-4 mb-0">{{ $product->unit_price }} টাকা
-                                    </h4>
-                                </div>
-                            @else
-                                <div class="">
-                                    {{ $product->unit_price }} টাকা
-                                </div>
-                            @endif
-                        </div>
-                        <div class="pt-3">
-                            <p class="">{{ $product->specification ?? 'There Is No Specification' }}</p>
-                            <div class="pl-3">
-                                <ul>
-                                    <li><strong>Brand:</strong> Juta Lagbe</li>
-                                    <li><strong>Model:</strong> Footware</li>
-                                    <li><strong>Weight:</strong> Light Weight</li>
-                                    <li><strong>Outsole:</strong> PU Leater/Leather</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="ps-page__content py-2">
-                            <div class="ps-product--detail">
-                                <div class="ps-product__feature">
-                                    <div class="ps-product__quantity">
-                                        <h6>Quantity</h6>
-                                        <div class="def-number-input number-input safari_only">
-                                            <button class="minus"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                    class="icon-minus"></i></button>
-                                            <input class="quantity" min="1" name="quantity" value="1"
-                                                type="number" data-product_id="{{ $product->id }}" />
-                                            <button class="plus"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                    class="icon-plus"></i></button>
+                                <div class="col-12 col-xl-6">
+                                    <div class="ps-product__info">
+                                        <div class="text-22 text-dark" style="height: auto;">
+                                            {{ $product->name }}
+                                        </div>
+                                        <table class="table ps-table ps-table--oriented m-0">
+                                            <tbody>
+                                                @if (!empty($product->sku_code))
+                                                    <tr>
+                                                        <th class="ps-table__th">CODE</th>
+                                                        <td>{{ $product->sku_code }}</td>
+                                                    </tr>
+                                                @endif
+                                                @if (!empty(optional($product->brand)->name))
+                                                    <tr>
+                                                        <th class="ps-table__th">BRAND </th>
+                                                        <td>{{ optional($product->brand)->name }}</td>
+                                                    </tr>
+                                                @endif
+                                                @if (!empty($product->stock) && !empty($product->contains))
+                                                    <tr>
+                                                        <th class="ps-table__th">PALLET QUANTITY </th>
+                                                        <td>{{ $product->stock * $product->contains }}</td>
+                                                    </tr>
+                                                @endif
+                                                {{-- @if (!empty($product->weight))
+                                                    <tr>
+                                                        <th class="ps-table__th">Weight </th>
+                                                        <td>{{ $product->weight }} gm</td>
+                                                    </tr>
+                                                @endif --}}
+                                                {{-- @if (!empty($product->length))
+                                                    <tr>
+                                                        <th class="ps-table__th">Height </th>
+                                                        <td>{{ $product->length }} cm</td>
+                                                    </tr>
+                                                @endif --}}
+                                                @if (!empty($product->width))
+                                                    <tr>
+                                                        <th class="ps-table__th">Width </th>
+                                                        <td>{{ $product->width }} cm</td>
+                                                    </tr>
+                                                @endif
+                                                @if (!empty($product->height))
+                                                    <tr>
+                                                        <th class="ps-table__th">Height </th>
+                                                        <td>{{ $product->height }} cm</td>
+                                                    </tr>
+                                                @endif
+                                                {{-- @if (!empty($product->stock))
+                                                    <tr>
+                                                        <th class="ps-table__th">NO. OF CARTONS </th>
+                                                        <td>{{ $product->stock }}</td>
+                                                    </tr>
+                                                @endif --}}
+
+                                            </tbody>
+                                        </table>
+                                        <div class="ps-product__group mt-20">
+                                            {{-- <table class="table ps-table ps-table--oriented m-0">
+                                                <tr>
+                                                    <th>Carton / Box</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Stock</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ $product->contains }}</td>
+                                                    <td>
+                                                        {{ $product->unit_price }}
+                                                    </td>
+                                                    <td>
+                                                        @if (!empty($product->stock) && $product->stock > 0)
+                                                            <i class="fa fa-check"></i>
+                                                        @else
+                                                            <span class="text-danger">X</span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            </table> --}}
+                                            <div>
+                                                <p>{!! \Illuminate\Support\Str::words($product->overview, 30) !!}</p>
+                                            </div>
+
+                                            <div class="pt-4">
+                                                <p class="fw-bold">Color Variation</p>
+                                                <div class="color-one">
+                                                    @php
+                                                        // Decode the JSON string if it's not already an array
+                                                        $colors = is_string($product->color)
+                                                            ? json_decode($product->color, true)
+                                                            : $product->color;
+                                                    @endphp
+
+                                                    @if (is_array($colors) && !empty($colors))
+                                                        <div class="color-options">
+                                                            <!-- Multi-select dropdown -->
+                                                            <select name="color" id="color-select"
+                                                                class="form-control select">
+                                                                @foreach ($colors as $color)
+                                                                    <option value="{{ strtolower($color['value']) }}">
+                                                                        {{ ucfirst($color['value']) }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    @else
+                                                        <p class="site-color">No colors available</p>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center card-cart-btn mt-4">
-                            <a href="{{ route('buy.now', $product->id) }}"
-                                class="btn btn-primary rounded-0 w-100 mr-3 py-3">
-                                <i class="fa-solid fa-basket-shopping pr-2"></i>
-                                অর্ডার করুন
-                            </a>
-                            <a href="{{ route('buy.now', $product->id) }}"
-                                class="btn btn-outline-primary rounded-0 w-100 py-3">
-                                <i class="fa-solid fa-shopping-cart"></i>
-                                কার্ট এ যোগ করুন।
-                            </a>
-                        </div>
-                        <div class="pt-3 pl-1">
-                            <ul class="ps-product__bundle" style="list-style: none">
-                                <li><strong><i class="icon-truck pr-2 site-text"></i></strong>Inside Dhaka-70 TK (24-48
-                                    hrs)</li>
-                                <li><strong><i class="icon-truck pr-2 site-text"></i></strong>Outside Dhaka-150 TK (2-4
-                                    Days)</li>
-                                </li>
-                                <li><strong><i class="icon-truck pr-2 site-text"></i></strong>Dhaka Sub-area-100 TK
-                                </li>
-                                <li><strong><i class="icon-location pr-2 site-text"></i></strong>
-                                    Keraniganj, Tangi, Savar, Gazipur, Narayanganj, Asulia (2-4 Days)
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <a href="#" class="btn btn-outline-primary rounded-0 w-100 py-3 mb-2">
-                                <i class="fab fa-whatsapp"></i>
-                                হোয়াটসঅ্যাপ এ যোগ করুন।
-                            </a>
-                            <a href="#" class="btn btn-outline-primary rounded-0 w-100 py-3 mb-2">
-                                <i class="fab fa-whatsapp"></i>
-                                কল করুন।
-                            </a>
-                            <a href="#" class="btn btn-outline-primary rounded-0 w-100 py-3 mb-2">
-                                <i class="fab fa-facebook-messenger"></i>
-                                ফেসবুক এ মেসেজ দিন।
-                            </a>
+                        <div class="col-12 col-md-3">
+                            <div class="ps-product__feature">
+                                @if (!empty($product->stock) && $product->stock > 0)
+                                    <div class="mb-0"><span class="ps-badge bg-success">{{ $product->stock }} In
+                                            Stock</span></div>
+                                @else
+                                    <div class="mb-0"><span class="ps-badge ps-badge--outstock">Out Of
+                                            Stock</span></div>
+                                @endif
+                                @if (!empty($product->unit_discount_price))
+                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
+                                        <span
+                                            class="ps-product__price sale">৳{{ $product->unit_discount_price }}</span>
+                                        <span class="ps-product__del">৳{{ $product->unit_price }}</span>
+                                    </div>
+                                @else
+                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
+                                        <span class="ps-product__price sale">৳{{ $product->unit_price }}</span>
+                                    </div>
+                                @endif
+
+                                <div class="ps-product__quantity">
+                                    <h6>Quantity</h6>
+                                    <div class="def-number-input number-input safari_only">
+                                        <button class="minus"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
+                                                class="icon-minus"></i></button>
+                                        <input class="quantity" min="1" name="quantity" value="1"
+                                            type="number" data-product_id="{{ $product->id }}" />
+                                        <button class="plus"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
+                                                class="icon-plus"></i></button>
+                                    </div>
+                                </div>
+
+                                {{-- <a class="ps-btn ps-btn--warning add_to_cart_btn_product_single"
+                                    data-product_id="{{ $product->id }}" href="#">Add to cart</a> --}}
+
+                                <div class="d-flex align-items-center">
+                                    <a class="btn btn-primary mr-1 mr-lg-3"
+                                        href="{{ route('buy.now',$product->id) }}">Buy Now</a>
+                                    <a class="btn btn-outline-primary add_to_cart_btn_product_single"
+                                        data-product_id="{{ $product->id }}" href="#">Add to cart</a>
+                                </div>
+
+                                <ul class="ps-product__bundle">
+                                    <li><i class="icon-bag2"></i>Full cash on delivery</li>
+                                    <li><i class="icon-truck"></i>Inside Dhaka-70 TK (24-48 hrs)</li>
+                                    <li><i class="icon-truck"></i>Outside Dhaka-150 TK (2-4 Days)</li>
+                                    </li>
+                                    <li><i class="icon-truck"></i>Dhaka Sub-area-100 TK </li>
+                                    <li><i class="fa-solid fa-location-dot"></i>
+                                        Sub-areas: <br>
+                                        <span class="pt-2"
+                                            style="position: relative;left: 32px;width: 94%;display: inline-block;">Keraniganj,
+                                            Tangi, Savar, Gazipur, Narayanganj, Asulia (2-4 Days)</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="ps-page--product3">
-        <div class="container">
-            <div class="ps-page__content">
-                <div class="ps-product--detail">
                     <div class="ps-product__content">
                         <ul class="nav nav-tabs ps-tab-list bg-white p-3" id="productContentTabs" role="tablist">
                             <li class="nav-item ml-3 pr-info-tabs" role="presentation">
@@ -778,93 +737,69 @@
     @endforeach
 
     @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
         <script>
-            $(function() {
-                var galleryTop, galleryThumbs;
+            //メインスライド
+            var slider = new Swiper('.gallery-slider', {
+                slidesPerView: 1,
+                centeredSlides: true,
+                loop: true,
+                loopedSlides: 6, //スライドの枚数と同じ値を指定
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
 
-                function initSwiper() {
-                    // Destroy existing Swiper instances if they exist
-                    if (galleryTop) {
-                        galleryTop.destroy(true, true);
-                    }
-                    if (galleryThumbs) {
-                        galleryThumbs.destroy(true, true);
-                    }
+            //サムネイルスライド
+            var thumbs = new Swiper('.gallery-thumbs', {
+                slidesPerView: 'auto',
+                spaceBetween: 10,
+                centeredSlides: true,
+                loop: true,
+                slideToClickedSlide: true,
+            });
 
-                    if ($(window).width() > 768) {
-                        // Initialize Swiper for mobile
-                        galleryTop = new Swiper(".mySwiperDesktop", {
-                            spaceBetween: 10,
-                            slidesPerView: 4,
-                            direction: 'vertical', // Default slides per view for mobile
-                            freeMode: false,
-                            watchSlidesProgress: true,
-                            breakpoints: {
-                                768: {
-                                    slidesPerView: 4,
-                                },
-                                530: {
-                                    slidesPerView: 3,
-                                },
-                                300: {
-                                    slidesPerView: 2,
-                                },
-                            }
-                        });
-                        galleryThumbs = new Swiper(".mySwiper2", {
-                            spaceBetween: 10,
-                            navigation: {
-                                nextEl: ".swiper-button-next",
-                                prevEl: ".swiper-button-prev",
-                            },
-                            a11y: {
-                                prevSlideMessage: "Previous slide",
-                                nextSlideMessage: "Next slide",
-                            },
-                            thumbs: {
-                                swiper: galleryTop,
-                            },
-                        });
-                    } else {
-                        // Initialize Swiper for desktop
-                        galleryTop = new Swiper(".mySwiper", {
-                            spaceBetween: 10,
-                            slidesPerView: 4,
-                            freeMode: false,
-                            watchSlidesProgress: true,
-                        });
-                        galleryThumbs = new Swiper(".mySwiper2", {
-                            spaceBetween: 10,
-                            navigation: {
-                                nextEl: ".swiper-button-next",
-                                prevEl: ".swiper-button-prev",
-                            },
-                            a11y: {
-                                prevSlideMessage: "Previous slide",
-                                nextSlideMessage: "Next slide",
-                            },
-                            thumbs: {
-                                swiper: galleryTop,
-                            },
-                        });
-                    }
+            //3系
+            //slider.params.control = thumbs;
+            //thumbs.params.control = slider;
 
-                    // Sync the slide change between galleryTop and galleryThumbs
-                    galleryTop.on("slideChangeTransitionStart", function() {
-                        galleryThumbs.slideTo(galleryTop.activeIndex);
-                    });
-                    galleryThumbs.on("transitionStart", function() {
-                        galleryTop.slideTo(galleryThumbs.activeIndex);
-                    });
-                }
+            //4系～
+            slider.controller.control = thumbs;
+            thumbs.controller.control = slider;
+        </script>
+        <script>
+            $('.videos-slider-2').slick({
+                autoplay: true,
+                slidesToScroll: 1,
+                slidesToShow: 1,
+                arrows: false,
+                dots: false,
+                asNavFor: '.slider-nav-thumbnails',
+            });
 
-                initSwiper();
+            $('.slider-nav-thumbnails').slick({
+                autoplay: true,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                asNavFor: '.videos-slider-2',
+                dots: false,
+                arrows: false,
+                focusOnSelect: true,
+                variableWidth: true
+            });
 
-                // Reinitialize Swiper on window resize
-                $(window).resize(function() {
-                    initSwiper();
-                });
+            // Remove active class from all thumbnail slides
+            $('.slider-nav-thumbnails .slick-slide').removeClass('slick-active');
+
+            // Set active class to first thumbnail slides
+            $('.slider-nav-thumbnails .slick-slide').eq(0).addClass('slick-active');
+
+            // On before slide change match active thumbnail to current slide
+            $('.videos-slider-2').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+                var mySlideNumber = nextSlide;
+                $('.slider-nav-thumbnails .slick-slide').removeClass('slick-active');
+                $('.slider-nav-thumbnails .slick-slide').eq(mySlideNumber).addClass('slick-active');
             });
         </script>
         <script>
@@ -884,6 +819,30 @@
                         1000: {
                             items: 4 // Change this to 4 as well
                         }
+                    }
+                });
+            });
+        </script>
+        <script>
+            // Get all input elements
+            const colorInputs = document.querySelectorAll('.color-one .round input[type="checkbox"]');
+
+            // Loop through each input and set the label background color
+            colorInputs.forEach(input => {
+                const label = document.querySelector(`label[for="${input.id}"]`);
+                if (label) {
+                    label.style.backgroundColor = input.value; // Set background color from input value
+                }
+
+                // Add event listener to allow only one checkbox to be checked at a time
+                input.addEventListener('change', () => {
+                    if (input.checked) {
+                        // Uncheck all other checkboxes
+                        colorInputs.forEach(otherInput => {
+                            if (otherInput !== input) {
+                                otherInput.checked = false;
+                            }
+                        });
                     }
                 });
             });
