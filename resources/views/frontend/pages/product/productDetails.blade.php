@@ -786,16 +786,6 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="checkout-checkbox">
-                                                    <input class="inp-cbx" id="cbx-005" type="radio"
-                                                        name="payment_method" />
-                                                    <label class="cbx" for="cbx-005"><span>
-                                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                                            </svg></span><span>প্রোডাক্ট হাতে পাওয়ার পরে সম্পূর্ণ টাকা
-                                                            পরিশোধ করবো।</span>
-                                                    </label>
-                                                </div>
-                                                <div class="checkout-checkbox">
                                                     <input class="inp-cbx" id="cbx-006" type="radio"
                                                         name="payment_method" />
                                                     <label class="cbx" for="cbx-006"><span>
