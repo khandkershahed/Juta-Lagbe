@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rajdhani:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=B612:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 @font-face {
     font-family: "CustomBengaliFont";
@@ -108,12 +109,12 @@ body {
     background: #f8f9fd;
     width: auto;
     height: 100%;
-    font-family: "Inter", sans-serif;
+    font-family: "B612", serif;
     margin: 0;
 }
 
 * {
-    font-family: "Inter", sans-serif;
+    font-family: "B612", serif;
     font-weight: 400;
 }
 html,
@@ -164,7 +165,7 @@ h6 {
     margin-top: 0;
     margin-bottom: 10px;
     font-weight: 600;
-    font-family: "Inter", sans-serif;
+    font-family: "B612", serif;
 }
 
 h1 a,
@@ -220,7 +221,7 @@ a {
 }
 
 a:hover {
-    color: var(--site-primary);
+    color: gold;
 }
 
 a,
@@ -1229,7 +1230,7 @@ textarea.form-control {
     margin-bottom: 0;
     position: relative;
     padding-left: 30px;
-    font-family: "Inter", sans-serif;
+    font-family: "B612", serif;
     color: rgba(34, 34, 34, 0.5);
     font-weight: 400;
     cursor: pointer;
@@ -1380,7 +1381,7 @@ textarea.form-control {
     position: relative;
     margin-bottom: 0;
     padding-left: 30px;
-    font-family: "Inter", sans-serif;
+    font-family: "B612", serif;
     color: #737373;
     font-weight: 400;
     cursor: pointer;
@@ -4075,8 +4076,8 @@ textarea.form-control {
     margin-top: -25px;
     z-index: 60;
     position: relative !important;
-    top: -245px;
-    left: 5px;
+    top: -10px;
+    left: 15px;
 }
 
 .slider-nav-thumbnails .slick-slide img {
@@ -8684,6 +8685,7 @@ textarea.form-control {
     padding: 0px 15px;
     border-color: #f0f2f5;
     font-weight: 500;
+    border-radius: 0;
 }
 
 .ps-form--review .ps-form__textarea {
@@ -10063,7 +10065,7 @@ textarea.form-control {
     .ps-widget__price
     .noUi-target.noUi-horizontal
     .noUi-tooltip {
-    background-color: #333;
+    background-color: var(--site-primary);
 }
 
 .ps-categogy--dark .sub-menu > li > a,
@@ -19001,6 +19003,9 @@ table.dataTable tbody td:last-child {
 }
 
 @media (max-width: 768px) {
+    .ps-footer--top {
+        top: 0;
+    }
     .main_product_img img {
         width: 100% !important;
         height: 100% !important;
@@ -20504,7 +20509,7 @@ table.dataTable tbody td:last-child {
     position: absolute;
     width: 100%;
     height: 100%;
-    font-family: "Inter", sans-serif;
+    font-family: "B612", serif;
     color: #ffffff;
     font-size: 15px;
     animation: textRotation 8s linear infinite;
@@ -20535,7 +20540,7 @@ table.dataTable tbody td:last-child {
     transform-origin: 0px 63px;
     top: 2px;
     word-spacing: 0;
-    font-family: "Inter", sans-serif;
+    font-family: "B612", serif;
     line-height: 18px;
 }
 
@@ -20644,11 +20649,6 @@ table.dataTable tbody td:last-child {
     display: none !important;
 }
 
-.ps-widget__block-shop {
-    border-top: 2px solid #f0f2f5 !important;
-    border-bottom: 0px solid #f0f2f5 !important;
-}
-
 .cart-table-img {
     height: 90px;
     object-fit: cover;
@@ -20732,7 +20732,7 @@ table.dataTable tbody td:last-child {
         position: relative;
         top: 3px;
     }
-    .ps-section--categories .ps-categories__name{
+    .ps-section--categories .ps-categories__name {
         line-height: 5;
     }
     .owl-carousel .owl-dots {
@@ -20782,8 +20782,8 @@ table.dataTable tbody td:last-child {
     .icon-shield-check {
         display: none;
     }
-    .h-marqee{
-            display: none;
+    .h-marqee {
+        display: none;
     }
 
     .ps-section--banner .hero-banner {
@@ -20980,11 +20980,6 @@ table.dataTable tbody td:last-child {
     .ps-product .ps-product__quantity {
         min-width: 172px;
     }
-
-    .ps-widget--product .ps-widget__block .ps-widget__category {
-        margin-top: 45px;
-    }
-
     .ps-product--detail .ps-tab-list li a {
         font-size: 12px !important;
         line-height: 14px;
@@ -21021,10 +21016,11 @@ table.dataTable tbody td:last-child {
         object-fit: cover;
         display: block;
     }
-    .section-banner-main, .banner-first-row{
+    .section-banner-main,
+    .banner-first-row {
         display: none;
     }
-    .ps-footer--bottom P{
+    .ps-footer--bottom P {
         text-align: center;
     }
     .ps-footer--top {
@@ -21064,6 +21060,10 @@ table.dataTable tbody td:last-child {
 
     .takeway-slider-img img {
         height: 320px !important;
+    }
+    .ps-categogy__content {
+        margin-top: 65px;
+        padding-bottom: 60px;
     }
 }
 
@@ -21473,7 +21473,6 @@ table.dataTable tbody td:last-child {
     width: 200px;
 }
 
-
 .devider {
     background: #eee;
     height: 2px;
@@ -21488,5 +21487,187 @@ table.dataTable tbody td:last-child {
     background: white;
     width: 100px;
     margin: auto;
+}
+.font-18 {
+    font-size: 18px;
+}
+.form-control {
+    height: 37px;
+}
+.updatebutton {
+    padding-bottom: 22px;
+    margin-top: 10px;
+    padding-bottom: 29px;
+    font-size: 16px;
+}
+
+.mt-60 {
+    margin-top: 60px;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+.text-22 {
+    font-size: 22px !important;
+}
+
+/* d-sm-none */
+@media only screen and (max-width: 768px) {
+    .ps-shopping .ps-shopping__checkout .ps-btn {
+        padding: 10px 5px;
+        width: 100%;
+    }
+    .ps-shopping .ps-shopping__link {
+        margin-left: 5px;
+        font-size: 15px;
+    }
+}
+.checkout-checkbox input[type="radio"] {
+    display: none;
+    visibility: hidden;
+}
+
+.checkout-checkbox .cbx {
+    margin: auto;
+    user-select: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.checkout-checkbox .cbx span {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+
+.checkout-checkbox .cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #9098a9;
+    transition: all 0.2s ease;
+}
+
+.checkout-checkbox .cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+}
+
+.checkout-checkbox .cbx span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #506eec;
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+}
+
+.checkout-checkbox .cbx span:last-child {
+    padding-left: 8px;
+    font-size: 15px;
+}
+
+.checkout-checkbox .cbx:hover span:first-child {
+    border-color: #506eec;
+}
+
+.checkout-checkbox .inp-cbx:checked + .cbx span:first-child {
+    background: #506eec;
+    border-color: #506eec;
+    animation: wave-46 0.4s ease;
+}
+
+.checkout-checkbox .inp-cbx:checked + .cbx span:first-child svg {
+    stroke-dashoffset: 0;
+}
+
+.checkout-checkbox .inp-cbx:checked + .cbx span:first-child:before {
+    transform: scale(3.5);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+@keyframes wave-46 {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden; /* Ensures the overlay doesn't go outside the image */
+}
+
+.image-container img {
+    width: 100%;
+    transition: transform 0.3s ease; /* Smooth transition for image scaling */
+}
+
+.image-container:hover img {
+    transform: scale(1.05); /* Slight zoom effect when hovering */
+}
+
+/* Black overlay effect */
+.image-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
+    transition: all 0.5s ease; /* Smooth transition for the overlay */
+}
+
+/* Reveal overlay and move from bottom-left to top-right on hover */
+.image-container:hover::after {
+    top: 0;
+    left: 100%;
+    transform: rotate(45deg); /* Overlay moves from bottom-left to top-right */
+    transform-origin: bottom left;
+}
+
+/* Text hidden by default */
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 20px;
+    opacity: 0; /* Initially hidden */
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease; /* Smooth transition for opacity */
+}
+
+/* Show the text when hovering */
+.image-container:hover .overlay-text {
+    opacity: 1;
+    visibility: visible;
+}
+.title-line {
+    margin-left: 8px;
+    width: 60px;
+    height: 1px;
+    background-color: var(--site-primary);
+}
+.cat-tabs-triger:hover{
+    background-color: var(--site-primary);
+    color: #fff;
 }
 /* New End */

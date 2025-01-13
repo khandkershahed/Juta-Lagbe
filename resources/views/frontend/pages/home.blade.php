@@ -188,7 +188,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
-                                                            data-placement="left" title="Quick view">
+                                                            data-placement="left" title="Add To Cart">
                                                             <a class="add_to_cart"
                                                                 href="{{ route('cart.store', $latest_product->id) }}"
                                                                 data-product_id="{{ $latest_product->id }}"
@@ -278,47 +278,50 @@
             @endif
             <section class="mb-5">
                 <div class="container">
-                    <div
-                        class="row"
-                    >
+                    <div class="row">
                         <div class="col-lg-4 pl-0">
                             <div class="row banner-first-row">
                                 <div class="col-lg-12 mb-4">
-                                    <div>
+                                    <div class="image-container">
                                         <a href="">
                                             <img class="img-fluid" src="{{ asset('images/home-banner-side-one.png') }}" alt="">
+                                            <span class="overlay-text">Your Text Here</span> <!-- Text that appears on hover -->
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div>
+                                    <div class="image-container">
                                         <a href="">
                                             <img class="img-fluid" src="{{ asset('images/home-banner-side-two.png') }}" alt="">
+                                            <span class="overlay-text">Your Text Here</span>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 px-2">
-                            <div>
+                            <div class="image-container">
                                 <a href="" class="section-banner-main">
                                     <img class="img-fluid" src="{{ asset('images/home-banner-side-center.png') }}" alt="">
+                                    <span class="overlay-text">Your Text Here</span>
                                 </a>
                             </div>
                         </div>
                         <div class="col-lg-4 pr-3 pr-lg-0">
                             <div class="row">
                                 <div class="col-lg-12 mb-4">
-                                    <div>
+                                    <div class="image-container">
                                         <a href="">
                                             <img class="img-fluid" src="{{ asset('images/home-banner-side-three.png') }}" alt="">
+                                            <span class="overlay-text">Your Text Here</span>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div>
+                                    <div class="image-container">
                                         <a href="">
                                             <img class="img-fluid" src="{{ asset('images/home-banner-side-four.png') }}" alt="">
+                                            <span class="overlay-text">Your Text Here</span>
                                         </a>
                                     </div>
                                 </div>
@@ -327,6 +330,8 @@
                     </div>
                 </div>
             </section>
+
+
             @if ($categoryone && $categoryoneproducts->count() > 0)
                 <div class="container px-0">
                     <div class="row">
@@ -408,7 +413,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
-                                                            data-placement="left" title="Quick view">
+                                                            data-placement="left" title="Add To Cart">
                                                             <a class="add_to_cart"
                                                                 href="{{ route('cart.store', $categoryoneproduct->id) }}"
                                                                 data-product_id="{{ $categoryoneproduct->id }}"
@@ -657,7 +662,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div class="ps-product__item" data-toggle="tooltip"
-                                                                    data-placement="left" title="Quick view">
+                                                                    data-placement="left" title="Add To Cart">
                                                                     <a class="add_to_cart"
                                                                         href="{{ route('cart.store', $categorytwoproduct->id) }}"
                                                                         data-product_id="{{ $categorytwoproduct->id }}"
@@ -829,7 +834,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
-                                                            data-placement="left" title="Quick view">
+                                                            data-placement="left" title="Add To Cart">
                                                             <a class="add_to_cart"
                                                                 href="{{ route('cart.store', $categorythreeproduct->id) }}"
                                                                 data-product_id="{{ $categorythreeproduct->id }}"
@@ -1075,7 +1080,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="ps-product__item" data-toggle="tooltip"
-                                                        data-placement="left" title="Quick view">
+                                                        data-placement="left" title="Add To Cart">
                                                         <a class="add_to_cart"
                                                             href="{{ route('cart.store', $deal_product->id) }}"
                                                             data-product_id="{{ $deal_product->id }}"

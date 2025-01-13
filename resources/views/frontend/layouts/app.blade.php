@@ -78,15 +78,13 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/home-14.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/sidebar.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/sidebar.css') }}">
     <link href="{{ asset('frontend/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
     <!--Start of Tawk.to Script-->
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
         var Tawk_API = Tawk_API || {},
             Tawk_LoadStart = new Date();
         (function() {
@@ -98,7 +96,7 @@
             s1.setAttribute('crossorigin', '*');
             s0.parentNode.insertBefore(s1, s0);
         })();
-    </script> --}}
+    </script>
     <!--End of Tawk.to Script-->
 
     <style>

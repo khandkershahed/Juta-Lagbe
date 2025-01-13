@@ -1,23 +1,7 @@
 <x-frontend-app-layout :title="'Special Offers'">
-    <style>
-        .special-banner {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        @media (max-width: 480px) {
-            .special-banner {
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-                margin-top: 110px;
-            }
-        }
-    </style>
-    <div class="container-fluid px-0">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 px-0">
                 <div class="special-banner-container">
                     <img class="special-banner img-fluid" src="{{ asset('storage/' . $special_offer->banner_image) }}"
                         onerror="this.onerror=null; this.src='{{ asset('images/Untitled-2.png') }}';"
@@ -26,7 +10,7 @@
             </div>
         </div>
     </div>
-    <div class="ps-categogy ps-categogy--separate">
+    <div class="ps-categogy ps-categogy--separate" style="background: #f7f8fa;">
         <div class="ps-categogy__main">
             <div class="container px-0">
                 <div class="ps-categogy__product">
@@ -126,7 +110,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="ps-product__item" data-toggle="tooltip"
-                                                        data-placement="left" title="Quick view">
+                                                        data-placement="left" title="Add To Cart">
                                                         <a class="add_to_cart"
                                                             href="{{ route('cart.store', $latest_product->id) }}"
                                                             data-product_id="{{ $latest_product->id }}"
@@ -216,7 +200,8 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid" style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+        <div class="container-fluid"
+            style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
             <div class="container juta-delivery">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
@@ -233,8 +218,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="delivery-icons">
-                            <img class="img-fluid" src="{{ asset('images/delivery-icons.png') }}"
-                                alt="">
+                            <img class="img-fluid" src="{{ asset('images/delivery-icons.png') }}" alt="">
                         </div>
                     </div>
                 </div>

@@ -61,18 +61,18 @@
         }
 
         .mySwiper .swiper-slide,
-        .mySwiperDesktop .swiper-slide {
+        .product-details-slide .swiper-slide {
             width: 25%;
             height: 100%;
             opacity: 0.4;
         }
 
         .mySwiper .swiper-slide-thumb-active,
-        .mySwiperDesktop .swiper-slide-thumb-active {
+        .product-details-slide .swiper-slide-thumb-active {
             opacity: 1;
         }
 
-        .mySwiperDesktop {
+        .product-details-slide {
             margin-bottom: 10px;
         }
 
@@ -109,11 +109,11 @@
                 height: 850px;
             }
 
-            .mySwiperDesktop .swiper-slide {
+            .product-details-slide .swiper-slide {
                 width: 100%;
             }
 
-            .mySwiperDesktop {
+            .product-details-slide {
                 width: calc(22% - 20px);
             }
 
@@ -128,7 +128,7 @@
                 flex-direction: column;
             }
 
-            .mySwiperDesktop {
+            .product-details-slide {
                 display: none;
             }
 
@@ -137,9 +137,30 @@
                 height: 70%;
             }
 
-            .mySwiperDesktop {
+            .product-details-slide {
                 height: 250px;
             }
+        }
+
+        .form-select option {
+            background-color: var(--site-primary);
+            color: #fff;
+            border-radius: 0;
+        }
+
+        option {
+            background: #fff;
+            border: 0px solid #626262;
+            padding-left: 10px;
+            font-size: 14px;
+        }
+
+        option:hover {
+            background: #fff;
+            border: 0px solid #626262;
+            padding-left: 10px;
+            font-size: 14px;
+            color: var(--site-primary);
         }
     </style>
     <section>
@@ -158,66 +179,24 @@
             <div class="row">
                 <div class="col-lg-7">
                     <div class="product-slider-wrapper">
-                        <div thumbsSlider="" class="swiper mySwiperDesktop">
+                        <div thumbsSlider="" class="swiper product-details-slide">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/GROUP_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/NOIR_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img
-                                        src="https://assets.codepen.io/849488/ESPRESSO_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/SAND_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/GROUP_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/NOIR_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img
-                                        src="https://assets.codepen.io/849488/ESPRESSO_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/SAND_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
+                                @foreach ($product->multiImages as $image)
+                                    <div class="swiper-slide">
+                                        <img src="{{ asset('storage/' . $image->photo) }}" />
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         <!-- Swiper -->
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/GROUP_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/NOIR_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img
-                                        src="https://assets.codepen.io/849488/ESPRESSO_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/SAND_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/GROUP_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/NOIR_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img
-                                        src="https://assets.codepen.io/849488/ESPRESSO_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://assets.codepen.io/849488/SAND_COTTON_THREAD+%28Custom%29.jpg" />
-                                </div>
+                                @foreach ($product->multiImages as $image)
+                                    <div class="swiper-slide">
+                                        <img src="{{ asset('storage/' . $image->photo) }}" />
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
@@ -253,19 +232,22 @@
                             @endif
                         </div>
                         <div class="pt-3">
-                            <p class="">{{ $product->specification ?? 'There Is No Specification' }}</p>
                             <div class="pl-3">
-                                <ul>
-                                    <li><strong>Brand:</strong> Juta Lagbe</li>
-                                    <li><strong>Model:</strong> Footware</li>
-                                    <li><strong>Weight:</strong> Light Weight</li>
-                                    <li><strong>Outsole:</strong> PU Leater/Leather</li>
-                                </ul>
+                                {!! $product->specification ??
+                                    ' <div>
+                                        <ul class="pl-2">
+                                            <li><strong>Brand:</strong> Juta Lagbe</li>
+                                            <li><strong>Model:</strong> Footwear</li>
+                                            <li><strong>Weight:</strong> Light Weight</li>
+                                            <li><strong>Outsole:</strong> PU Leather/Leather</li>
+                                        </ul>
+                                    </div>
+                                ' !!}
                             </div>
                         </div>
                         <div class="ps-page__content py-2">
                             <div class="ps-product--detail">
-                                <div class="ps-product__feature">
+                                <div class="ps-product__feature w-50 bg-light">
                                     <div class="ps-product__quantity">
                                         <h6>Quantity</h6>
                                         <div class="def-number-input number-input safari_only">
@@ -283,44 +265,67 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center card-cart-btn mt-4">
-                            <a href="{{ route('buy.now', $product->id) }}"
-                                class="btn btn-primary rounded-0 w-100 mr-3 py-3">
-                                <i class="fa-solid fa-basket-shopping pr-2"></i>
+                            <!-- Order Modal  -->
+                            <a href="#" class="btn btn-primary rounded-0 w-100 mr-3 py-3" data-toggle="modal"
+                                data-target="#order-product{{ $product->id }}">
+                                <i class="fa-solid fa-basket-shopping pr-2 fa-fade"></i>
                                 অর্ডার করুন
                             </a>
-                            <a href="{{ route('buy.now', $product->id) }}"
-                                class="btn btn-outline-primary rounded-0 w-100 py-3">
-                                <i class="fa-solid fa-shopping-cart"></i>
+                            <!-- Order Modal End-->
+                            <a data-product_id="{{ $product->id }}" href="#"
+                                class="btn btn-outline-primary rounded-0 w-100 py-3 add_to_cart_btn_product_single">
+                                <i class="fa-solid fa-shopping-cart fa-fade"></i>
                                 কার্ট এ যোগ করুন।
                             </a>
                         </div>
-                        <div class="pt-3 pl-1">
-                            <ul class="ps-product__bundle" style="list-style: none">
-                                <li><strong><i class="icon-truck pr-2 site-text"></i></strong>Inside Dhaka-70 TK (24-48
-                                    hrs)</li>
-                                <li><strong><i class="icon-truck pr-2 site-text"></i></strong>Outside Dhaka-150 TK (2-4
-                                    Days)</li>
-                                </li>
-                                <li><strong><i class="icon-truck pr-2 site-text"></i></strong>Dhaka Sub-area-100 TK
-                                </li>
-                                <li><strong><i class="icon-location pr-2 site-text"></i></strong>
-                                    Keraniganj, Tangi, Savar, Gazipur, Narayanganj, Asulia (2-4 Days)
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <a href="#" class="btn btn-outline-primary rounded-0 w-100 py-3 mb-2">
-                                <i class="fab fa-whatsapp"></i>
+                        <div class="mt-3">
+                            @php
+                                $phoneNumber = '+8801832828385' . $product->phone; // prepend country code dynamically
+                            @endphp
+
+                            <a href="https://wa.me/{{ $phoneNumber }}" target="_blank"
+                                class="btn btn-primary rounded-0 w-100 py-3 mb-2"
+                                style="background-color: #25D366; border-color: #25D366; color: white;">
+                                <i class="fab fa-whatsapp fa-bounce"></i>
                                 হোয়াটসঅ্যাপ এ যোগ করুন।
                             </a>
-                            <a href="#" class="btn btn-outline-primary rounded-0 w-100 py-3 mb-2">
-                                <i class="fab fa-whatsapp"></i>
+                            <a href="tel:+8801832828385" target="_blank"
+                                class="btn btn-primary rounded-0 w-100 py-3 mb-2">
+                                <i class="fab fa-whatsapp fa-bounce"></i>
                                 কল করুন।
                             </a>
-                            <a href="#" class="btn btn-outline-primary rounded-0 w-100 py-3 mb-2">
-                                <i class="fab fa-facebook-messenger"></i>
+                            <a href="https://www.facebook.com/messages/t/109206945276633" target="_blank"
+                                class="btn btn-primary rounded-0 w-100 py-3 mb-2"
+                                style="background: linear-gradient(90deg, #00B2FF, #006AFF, #00FFEB, #FFC700, #FF7EA5);
+          border: none; color: #fff; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                                <i class="fab fa-facebook-messenger fa-bounce"></i>
                                 ফেসবুক এ মেসেজ দিন।
                             </a>
+                        </div>
+                        <div class="pt-3 pl-1">
+                            <div class="table-responsive">
+                                <table class="table border bg-white">
+                                    <tbody>
+                                        <tr class="">
+                                            <td><small>ঢাকা মেট্রো সিটি ডেলিভারি খরচ :</small></td>
+                                            <td>৬০ টাকা</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td><small>ডেমরা, কামরাঙ্গীরচর ডেলিভারি খরচ :</small></td>
+                                            <td>৮০ টাকা</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td><small>সাভার, গাজীপুর, কেরানীগঞ্জ, নারায়ণগঞ্জ ডেলিভারি খরচ : </small>
+                                            </td>
+                                            <td>১০০ টাকা</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td><small>অন্যান্য জেলা, উপজেলা, বিভাগ ডেলিভারি খরচ : </small></td>
+                                            <td>১৩০ টাকা</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -333,31 +338,39 @@
                 <div class="ps-product--detail">
                     <div class="ps-product__content">
                         <ul class="nav nav-tabs ps-tab-list bg-white p-3" id="productContentTabs" role="tablist">
+
                             <li class="nav-item ml-3 pr-info-tabs" role="presentation">
                                 <a class="nav-link show active" id="information-tab" data-toggle="tab"
                                     href="#information-content" role="tab" aria-controls="information-content"
                                     aria-selected="false">
-                                    Description
+                                    প্রোডাক্ট বিস্তারিত
                                 </a>
                             </li>
                             <li class="nav-item ml-3 pr-info-tabs" role="presentation">
                                 <a class="nav-link" id="description-tab" data-toggle="tab"
                                     href="#description-content" role="tab" aria-controls="description-content"
                                     aria-selected="true">
-                                    Key Features
+                                    প্রোডাক্ট ফিচার।
                                 </a>
                             </li>
                             <li class="nav-item ml-3 pr-inf-tabs" role="presentation">
                                 <a class="nav-link" id="specification-tab" data-toggle="tab"
                                     href="#specification-content" role="tab"
                                     aria-controls="specification-content" aria-selected="false">
-                                    Specification
+                                    প্রোডাক্ট স্পেসিফিকেশন।
                                 </a>
                             </li>
                             <li class="nav-item ml-3" role="presentation">
                                 <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews-content"
                                     role="tab" aria-controls="reviews-content" aria-selected="false">
-                                    Reviews ({{ count($product->reviews) }})
+                                    প্রোডাক্ট রিভিউ ({{ count($product->reviews) }})।
+                                </a>
+                            </li>
+                            <li class="nav-item ml-3 pr-info-tabs" role="presentation">
+                                <a class="nav-link" id="delivery-tab" data-toggle="tab"
+                                    href="#delivery-process" role="tab" aria-controls="delivery-process"
+                                    aria-selected="false">
+                                    ডেলিভারি প্রসেস এবং রিটার্ন পলিসি।
                                 </a>
                             </li>
                         </ul>
@@ -443,17 +456,44 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="tab-pane fade" id="delivery-process" role="tabpanel"
+                                aria-labelledby="delivery-process">
+                                <div class="ps-document">
+                                    <div class="row row-reverse">
+                                        <div class="col-12">
+                                            <div>
+                                                <p>স্মার্ট এবং আরামদায়ক ডিজাইন সহ শু ডাবল লুপ স্নিকার্স। খুবই নরম এবং কমফোর্টেবল, ডিউরেবল এবং স্লিপ রেজিস্ট্যান্ট সোল সহ। আপনার দৈনন্দিন চলাফেরায় অত্যন্ত সুবিধাজনক। এই জুতোটি আপনার লুককে করবে আরও স্টাইলিশ।</p>
+                                                <div dir="auto">&nbsp;
+                                                    <p>🥰 প্রিমিয়াম কোয়ালিটি শু, কোড: 𝑺𝟏 👟</p>
+                                                    <p>🍁 খুচরা দাম: ১ জোড়া নিলে : ১,২০০ টাকা করে।<br>⚡ পাইকারি দাম: ৩ জোড়া বা তার বেশি নিলে প্রতি জোড়া ১,১০০ টাকা করে।</p>
+                                                    <p>👉 সাথে থাকছে আকর্ষণীয় গিফট : 🎁</p>
+                                                    <p>✅ নরম এবং আরামদায়ক প্রিমিয়াম শু।<br>✅ স্লিপ রেজিস্ট্যান্ট সোল।<br>✅ রেগুলার ফিট।<br>✅ ট্রেন্ডি ডিজাইন এবং স্টাইলিশ লুক।</p>
+
+                                                    <!-- Delivery Details Section -->
+                                                    <p><strong>🛵 ডেলিভারি তথ্য:</strong></p>
+                                                    <ul class="pl-4">
+                                                        <li>🚚 দেশব্যাপী ফ্রি ডেলিভারি, ৩-৫ কর্মদিবসের মধ্যে পৌঁছাবে।</li>
+                                                        <li>💨 এক্সপ্রেস ডেলিভারি সেবা: ১-২ দিনের মধ্যে পণ্য পৌঁছাবে (অতিরিক্ত চার্জ প্রযোজ্য)।</li>
+                                                        <li>📦 ডেলিভারি অর্ডার নিশ্চিত হওয়ার পর ২৪ ঘণ্টার মধ্যে প্রক্রিয়া করা হবে।</li>
+                                                        <li>📍 আপনার পণ্যটি প্রাপ্তি নিশ্চিত করতে আপনি পেমেন্টের পর ট্র্যাকিং তথ্য পাবেন।</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <section class="ps-section--also" data-background="img/related-bg.jpg">
                         <div class="container px-0">
-                            <h3 class="ps-section__title">Customer also bought</h3>
+                            <h3 class="ps-section__title">গ্রাহক আরও কিনেছেন</h3>
                             <div class="owl-carousel">
                                 @foreach ($related_products as $related_product)
-                                    <div class="ps-section__product">
-                                        <div class="ps-product takeway-products ps-product--standard cst-bought-pr">
+                                    <div class="ps-section__product border">
+                                        <div class="ps-product ps-product--standard">
                                             <div class="ps-product__thumbnail">
-                                                <a class="ps-product__image takeway-slider-img"
+                                                <a class="ps-product__image"
                                                     href="{{ route('product.details', $related_product->slug) }}">
                                                     <figure>
                                                         @if (!empty($related_product->thumbnail))
@@ -473,8 +513,7 @@
                                                                     $imagePath = 'storage/' . $image->photo;
                                                                     $imageSrc = file_exists(public_path($imagePath))
                                                                         ? asset($imagePath)
-                                                                        : // : asset('frontend/img/no-product.jpg');
-                                                                        asset('frontend/img/no-product.jpg');
+                                                                        : asset('frontend/img/no-product.jpg');
                                                                 @endphp
                                                                 <img src="{{ $imageSrc }}"
                                                                     alt="{{ $related_product->meta_title }}"
@@ -483,19 +522,30 @@
                                                         @endif
                                                     </figure>
                                                 </a>
+                                                {{-- Review End --}}
                                                 <div class="ps-product__actions">
                                                     <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Wishlist">
                                                         <a class="add_to_wishlist"
-                                                            href="{{ route('wishlist.store', $related_product->id) }}">
-                                                            <i class="fa fa-heart-o"></i>
+                                                            href="{{ route('wishlist.store', $related_product->id) }}"><i
+                                                                class="fa fa-heart-o"></i></a>
+                                                    </div>
+                                                    <div class="ps-product__item" data-toggle="tooltip"
+                                                        data-placement="left" title="Quick view">
+                                                        <a href="#" data-toggle="modal"
+                                                            data-target="#popupQuickview{{ $related_product->id }}">
+                                                            <i class="fa fa-eye"></i>
                                                         </a>
                                                     </div>
                                                     <div class="ps-product__item" data-toggle="tooltip"
-                                                        data-placement="left" title="Quick view"><a href="#"
-                                                            data-toggle="modal"
-                                                            data-target="#popupQuickview{{ $related_product->id }}"><i
-                                                                class="fa fa-eye"></i></a></div>
+                                                        data-placement="left" title="Add To Cart">
+                                                        <a class="add_to_cart"
+                                                            href="{{ route('cart.store', $related_product->id) }}"
+                                                            data-product_id="{{ $related_product->id }}"
+                                                            data-product_qty="1">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                        </a>
+                                                    </div>
 
                                                 </div>
                                                 @if (!empty($related_product->unit_discount_price))
@@ -503,76 +553,40 @@
                                                         <div class="ps-badge ps-badge--sale">
                                                             -
                                                             {{ !empty($related_product->unit_discount_price) && $related_product->unit_discount_price > 0 ? number_format((($related_product->unit_price - $related_product->unit_discount_price) / $related_product->unit_price) * 100, 1) : 0 }}
-                                                            % Off
+                                                            % অফ
                                                         </div>
                                                     </div>
                                                 @endif
                                             </div>
                                             <div class="ps-product__content">
-                                                <div>
-                                                    <h4 class="" style="height: 50px !important;">
-                                                        <a href="{{ route('product.details', $related_product->slug) }}"
-                                                            style="text-transform: capitalize;">
-                                                            {{ implode(' ', array_slice(explode(' ', $related_product->name), 0, 5)) }}
-                                                        </a>
-                                                    </h4>
-                                                </div>
-                                                @php
-                                                    $review =
-                                                        count($related_product->reviews) > 0
-                                                            ? optional($related_product->reviews)->sum('rating') /
-                                                                count($related_product->reviews)
-                                                            : 0;
-                                                    // dd($related_product->name, $review);
-                                                @endphp
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="ps-product__rating">
-                                                        @if ($review > 0)
-                                                            <div class="br-wrapper br-theme-fontawesome-stars">
-                                                                <select class="ps-rating" data-read-only="true"
-                                                                    style="display: none;">
-                                                                    @php
-                                                                        $maxRating = min(5, max(1, floor($review))); // Get the highest full rating value
-                                                                    @endphp
-                                                                    @for ($i = 1; $i <= $maxRating; $i++)
-                                                                        <option value="{{ $i }}">
-                                                                            {{ $i }}</option>
-                                                                    @endfor
-                                                                </select>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                    <div>
-                                                        @if (count($related_product->reviews) > 0)
-                                                            Reviews ({{ count($related_product->reviews) }})
-                                                        @else
-                                                            <p class="no-found mb-1 pb-0">N/A</p>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                @if (!empty($related_product->unit_discount_price))
-                                                    <div class="ps-product__meta pb-3">
-                                                        <span
-                                                            class="ps-product__price sale">৳{{ $related_product->unit_discount_price }}</span>
-                                                        <span
-                                                            class="ps-product__del">৳{{ $related_product->unit_price }}</span>
-                                                    </div>
-                                                @else
-                                                    <div class="ps-product__meta pb-3">
-                                                        <span
-                                                            class="ps-product__price sale">৳{{ $related_product->unit_price }}</span>
-                                                    </div>
-                                                @endif
-                                                <div class="d-flex align-items-center">
-                                                    <a href="{{ route('buy.now', $related_product->id) }}"
-                                                        class="btn btn-primary mr-1 mr-lg-3">
-                                                        Buy Now
+                                                <h5 class="ps-product__title">
+                                                    <a href="{{ route('product.details', $related_product->slug) }}">
+                                                        {{ implode(' ', array_slice(explode(' ', $related_product->name), 0, 5)) }}
                                                     </a>
-                                                    <a href="{{ route('cart.store', $related_product->id) }}"
-                                                        class="btn btn-outline-primary add_to_cart"
-                                                        data-product_id="{{ $related_product->id }}"
-                                                        data-product_qty="1">
-                                                        Add To Cart
+                                                </h5>
+                                                <div class="pb-3">
+                                                    @if (!empty($related_product->unit_discount_price))
+                                                        <div class="ps-product__meta">
+                                                            <span
+                                                                class="ps-product__price sale">{{ $related_product->unit_discount_price }}
+                                                                টাকা</span>
+                                                            <span
+                                                                class="ps-product__del text-danger">{{ $related_product->unit_price }}
+                                                                টাকা</span>
+                                                        </div>
+                                                    @else
+                                                        <div class="ps-product__meta">
+                                                            <span
+                                                                class="ps-product__price sale">{{ $related_product->unit_price }}
+                                                                টাকা</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="d-flex align-items-center card-cart-btn">
+                                                    <a href="{{ route('buy.now', $related_product->id) }}"
+                                                        class="btn btn-primary rounded-0 w-100">
+                                                        <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                        অর্ডার করুন
                                                     </a>
                                                 </div>
                                                 <div class="ps-product__actions ps-product__group-mobile">
@@ -580,29 +594,22 @@
                                                         <div class="def-number-input number-input safari_only">
                                                             <button class="minus"
                                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                                    class="icon-minus"></i></button>
+                                                                    class="icon-minus"></i>
+                                                            </button>
                                                             <input class="quantity" min="0" name="quantity"
                                                                 value="1" type="number" />
                                                             <button class="plus"
                                                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                                    class="icon-plus"></i></button>
+                                                                    class="icon-plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
-                                                    <div class="ps-product__item cart" data-toggle="tooltip"
-                                                        data-placement="left" title="Add to cart"><a
-                                                            href="#"><i class="fa fa-shopping-basket"></i></a>
-                                                    </div>
                                                     <div class="ps-product__item" data-toggle="tooltip"
-                                                        data-placement="left" title="Wishlist">
-                                                        <a class="add_to_wishlist"
-                                                            href="{{ route('wishlist.store', $related_product->id) }}">
-                                                            <i class="fa fa-heart-o"></i>
-                                                        </a>
+                                                        data-placement="left" title="Wishlist"><a
+                                                            class="add_to_wishlist"
+                                                            href="{{ route('wishlist.store', $related_product->id) }}"><i
+                                                                class="fa fa-heart-o"></i></a>
                                                     </div>
-                                                    {{-- <div class="ps-product__item rotate" data-toggle="tooltip"
-                                                        data-placement="left" title="Add to compare"><a
-                                                            href="compare.html"><i class="fa fa-align-left"></i></a>
-                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -613,19 +620,219 @@
                     </section>
                 </div>
             </div>
-            <div class="ps-delivery ps-delivery--info my-5"
-                data-background="{{ asset('images/delivery_banner.jpg') }}"
-                style="background-image: url({{ asset('images/delivery_banner.jpg') }});">
-                <div class="ps-delivery__content">
-                    <div class="ps-delivery__text"> <i class="icon-shield-check"></i><span> <strong>100%
-                                Secure
-                                delivery </strong>without courier communication</span></div><a
-                        class="ps-delivery__more" href="{{ route('allproducts') }}">Shop</a>
+        </div>
+    </div>
+    <div class="container-fluid"
+        style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+        <div class="container juta-delivery">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="ps-delivery ps-delivery--info">
+                        <div class="ps-delivery__content">
+                            <div class="ps-delivery__text text-white">
+                                <i class="icon-shield-check"></i>
+                                <span>
+                                    <strong>100% Secure Delivery</strong> Without Courier Communication.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="delivery-icons">
+                        <img class="img-fluid" src="{{ asset('images/delivery-icons.png') }}" alt="">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    {{-- @foreach ($products as $product) --}}
+    <div class="modal fade rounded-0" id="order-product{{ $product->id }}" data-backdrop="static"
+        data-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered ps-quickview">
+            <div class="modal-content">
+                <div class="modal-header rounded-0" style="background-color: var(--site-primary);">
+                    <h5 class="modal-title text-white">{{ $product->name }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="wrap-modal-slider container-fluid ps-quickview__body p-2">
+                        {{-- Product ID: {{ $product->id }}
+                        {{ $product->name }} --}}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p style="font-size: large;text-align: center">
+                                    <span class="text-danger">*</span> অর্ডার করতে,অনুগ্রহ করে আপনার সম্পূর্ণ নাম,
+                                    মোবাইল নম্বর, সম্পূর্ণ ঠিকানা লিখুন এবং <span class="text-danger">অর্ডার কনফার্ম
+                                        করুন</span> ক্লিক করুন
+                                </p>
+                            </div>
+                            <div class="col-lg-12">
+                                <form action="">
+                                    <div class="ps-form--review row">
+                                        <div class="col-12 col-xl-12">
+                                            <div class="ps-form__group pt-2">
+                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
+                                                    for="first_name">আপনার সম্পূর্ণ নাম<span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <input id="first_name" class="form-control ps-form__input"
+                                                    type="text" name="first_name" value="Roth" autofocus=""
+                                                    required="" autocomplete="first_name"
+                                                    placeholder="Enter Your First Name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-xl-6 pr-0">
+                                            <div class="ps-form__group pt-2">
+                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
+                                                    for="first_name">আপনার মোবাইল নম্বার... 01...<span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <input id="first_name" class="form-control ps-form__input"
+                                                    type="text" name="first_name" value="Roth" autofocus=""
+                                                    required="" autocomplete="first_name"
+                                                    placeholder="Enter Your First Name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-xl-6">
+                                            <div class="ps-form__group pt-2">
+                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
+                                                    for="first_name">ডেলিভারি লোকেশন সিলেক্ট করুন।
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <select name="title" class="form-select ps-form__input" required
+                                                    id="title">
+                                                    <option value="1" data-id="0" data-price="60.00">ঢাকা
+                                                        মেট্রো সিটি
+                                                        ( ৬০ Tk)</option>
+                                                    <option value="2" data-id="1" data-price="80.00">ডেমরা,
+                                                        কামরাঙ্গীরচর ( ৮০ Tk)</option>
+                                                    <option value="4" data-id="2" data-price="100.00">সাভার,
+                                                        গাজীপুর,
+                                                        কেরানীগঞ্জ, নারায়ণগঞ্জ ( ১০০Tk )</option>
+                                                    <option value="5" data-id="3" data-price="130.00">
+                                                        অন্যান্য জেলা,
+                                                        উপজেলা, বিভাগ ( ১৩০ TK )</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-xl-12">
+                                            <div class="ps-form__group pt-2">
+                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
+                                                    for="first_name">আপনার সম্পূর্ণ ঠিকানা যেমন গ্রাম , থানা , বিভাগ
+                                                    লিখুন
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <textarea class="ps-form__input w-100" name="" id="" rows="3" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-xl-12">
+                                            <div class="ps-form__group pt-2">
+                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
+                                                    for="first_name">পেমেন্ট অপশন
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="checkout-checkbox">
+                                                    <input class="inp-cbx" id="cbx-005" type="radio"
+                                                        name="payment_method" />
+                                                    <label class="cbx" for="cbx-005"><span>
+                                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                                            </svg></span><span>প্রোডাক্ট হাতে পাওয়ার পরে সম্পূর্ণ টাকা
+                                                            পরিশোধ করবো।</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkout-checkbox">
+                                                    <input class="inp-cbx" id="cbx-006" type="radio"
+                                                        name="payment_method" />
+                                                    <label class="cbx" for="cbx-006"><span>
+                                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                                            </svg></span><span>শুধুমাত্র ডেলিভারি চার্জ পরিশোধ
+                                                            করবো।</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkout-checkbox">
+                                                    <input class="inp-cbx" id="cbx-007" type="radio"
+                                                        name="payment_method" checked />
+                                                    <label class="cbx" for="cbx-007"><span>
+                                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                                            </svg></span><span>ফুল পেমেন্ট এখনি করবো।</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="card p-0 mt-3 rounded-0">
+                                                <div class="card-body p-0 rounded-0">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-lg-3">
+                                                            @php
+                                                                $thumbnailPath = 'storage/' . $product->thumbnail;
+                                                                $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                                    ? asset($thumbnailPath)
+                                                                    : asset('frontend/img/no-product.jpg');
+                                                            @endphp
+                                                            <div class="">
+                                                                <img src="{{ $thumbnailSrc }}" class="img-fluid"
+                                                                    alt="{{ $product->name }}" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-9 px-0">
+                                                            <p class="mb-0"><strong>নামঃ
+                                                                </strong>{{ $product->name }}</p>
+                                                            <p class="mb-0"><strong>দামঃ </strong><span
+                                                                    class="text-success">{{ $related_product->unit_price }}
+                                                                    টাকা</span></p>
+                                                            <p class="mb-0"><strong>সাইজঃ </strong>৪০</p>
+                                                            <p class="mb-0"><strong>কত জোড়াঃ </strong>০১</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="px-3 py-2"
+                                                        style="background-color: var(--site-primary)">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p class="mb-0 text-white">সাব টোটাল</p>
+                                                            <p class="mb-0 text-white">৮৯৯.০০ টাকা</p>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center pt-1">
+                                                            <p class="mb-0 text-white">ডেলিভারি চার্জ</p>
+                                                            <p class="mb-0 text-white">৬০.০০ টাকা</p>
+                                                        </div>
+                                                        <hr class="mb-1 bg-white">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center pt-2">
+                                                            <p class="mb-0 text-white">সর্বমোট মূল্য</p>
+                                                            <p class="mb-0 text-white fw-bold"><strong>৯৫৯.০০
+                                                                    টাকা</strong></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="mt-3">
+                                                <button type="submit"
+                                                    class="btn btn-danger rounded-0 w-100 mr-3 py-3 fa-bounce"><i
+                                                        class="fa-solid fa-shopping-cart pr-2"></i> অর্ডার কনফার্ম
+                                                    করুন</button>
+                                            </div>
+                                            <p class="pt-3 text-center mb-0">উপরের বাটনে ক্লিক করলে আপনার অর্ডারটি সাথে
+                                                সাথে কনফার্ম হয়ে যাবে !</p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- @endforeach --}}
     @foreach ($related_products as $related_product)
         <div class="modal fade" id="popupQuickview{{ $related_product->id }}" data-backdrop="static"
             data-keyboard="false" tabindex="-1" aria-hidden="true">
@@ -717,20 +924,6 @@
                                             <div class="ps-product__desc">
                                                 <p>{!! $related_product->short_description !!}</p>
                                             </div>
-                                            {{-- @if (!empty($related_product->unit_discount_price))
-                                                <div class="ps-product__meta">
-                                                    <span
-                                                        class="ps-product__price sale">৳{{ $related_product->unit_discount_price }}</span>
-                                                    <span
-                                                        class="ps-product__del">৳{{ $related_product->unit_price }}</span>
-                                                </div>
-                                            @else
-                                                <div class="ps-product__meta">
-                                                    <span
-                                                        class="ps-product__price sale">৳{{ $related_product->unit_price }}</span>
-                                                </div>
-                                            @endif --}}
-
                                             <div class="ps-product__feature">
                                                 @if (!empty($related_product->unit_discount_price))
                                                     <div class="ps-product__meta py-3 pr-details-price mt-3">
@@ -780,6 +973,19 @@
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
+            document.addEventListener('click', function(event) {
+                // Check if the clicked element is a modal trigger button
+                if (event.target.matches('[data-bs-toggle="modal"]')) {
+                    // Get the target modal ID from the data-bs-target attribute
+                    const modalId = event.target.getAttribute('data-bs-target');
+
+                    // Initialize the modal dynamically
+                    const myModal = new bootstrap.Modal(document.querySelector(modalId));
+                    myModal.show();
+                }
+            });
+        </script>
+        <script>
             $(function() {
                 var galleryTop, galleryThumbs;
 
@@ -793,13 +999,18 @@
                     }
 
                     if ($(window).width() > 768) {
-                        // Initialize Swiper for mobile
-                        galleryTop = new Swiper(".mySwiperDesktop", {
+                        // Initialize Swiper for desktop
+                        galleryTop = new Swiper(".product-details-slide", {
                             spaceBetween: 10,
                             slidesPerView: 4,
-                            direction: 'vertical', // Default slides per view for mobile
+                            direction: "vertical",
                             freeMode: false,
                             watchSlidesProgress: true,
+                            loop: true, // Enable looping
+                            autoplay: {
+                                delay: 3000, // 3 seconds delay
+                                disableOnInteraction: false, // Keep autoplay after user interaction
+                            },
                             breakpoints: {
                                 768: {
                                     slidesPerView: 4,
@@ -810,7 +1021,7 @@
                                 300: {
                                     slidesPerView: 2,
                                 },
-                            }
+                            },
                         });
                         galleryThumbs = new Swiper(".mySwiper2", {
                             spaceBetween: 10,
@@ -825,14 +1036,24 @@
                             thumbs: {
                                 swiper: galleryTop,
                             },
+                            loop: true, // Enable looping
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                            },
                         });
                     } else {
-                        // Initialize Swiper for desktop
+                        // Initialize Swiper for mobile
                         galleryTop = new Swiper(".mySwiper", {
                             spaceBetween: 10,
                             slidesPerView: 4,
                             freeMode: false,
                             watchSlidesProgress: true,
+                            loop: true, // Enable looping
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                            },
                         });
                         galleryThumbs = new Swiper(".mySwiper2", {
                             spaceBetween: 10,
@@ -846,6 +1067,11 @@
                             },
                             thumbs: {
                                 swiper: galleryTop,
+                            },
+                            loop: true, // Enable looping
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
                             },
                         });
                     }
@@ -867,6 +1093,7 @@
                 });
             });
         </script>
+
         <script>
             $(document).ready(function() {
                 $(".owl-carousel").owlCarousel({
