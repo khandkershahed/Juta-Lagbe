@@ -235,14 +235,14 @@
                             <div class="pl-3">
                                 {!! $product->specification ??
                                     ' <div>
-                                        <ul class="pl-2">
-                                            <li><strong>Brand:</strong> Juta Lagbe</li>
-                                            <li><strong>Model:</strong> Footwear</li>
-                                            <li><strong>Weight:</strong> Light Weight</li>
-                                            <li><strong>Outsole:</strong> PU Leather/Leather</li>
-                                        </ul>
-                                    </div>
-                                ' !!}
+                                                                                                                                                                        <ul class="pl-2">
+                                                                                                                                                                            <li><strong>Brand:</strong> Juta Lagbe</li>
+                                                                                                                                                                            <li><strong>Model:</strong> Footwear</li>
+                                                                                                                                                                            <li><strong>Weight:</strong> Light Weight</li>
+                                                                                                                                                                            <li><strong>Outsole:</strong> PU Leather/Leather</li>
+                                                                                                                                                                        </ul>
+                                                                                                                                                                    </div>
+                                                                                                                                                                ' !!}
                             </div>
                         </div>
                         <div class="ps-page__content py-2">
@@ -367,9 +367,8 @@
                                 </a>
                             </li>
                             <li class="nav-item ml-3 pr-info-tabs" role="presentation">
-                                <a class="nav-link" id="delivery-tab" data-toggle="tab"
-                                    href="#delivery-process" role="tab" aria-controls="delivery-process"
-                                    aria-selected="false">
+                                <a class="nav-link" id="delivery-tab" data-toggle="tab" href="#delivery-process"
+                                    role="tab" aria-controls="delivery-process" aria-selected="false">
                                     ডেলিভারি প্রসেস এবং রিটার্ন পলিসি।
                                 </a>
                             </li>
@@ -462,20 +461,73 @@
                                     <div class="row row-reverse">
                                         <div class="col-12">
                                             <div>
-                                                <p>স্মার্ট এবং আরামদায়ক ডিজাইন সহ শু ডাবল লুপ স্নিকার্স। খুবই নরম এবং কমফোর্টেবল, ডিউরেবল এবং স্লিপ রেজিস্ট্যান্ট সোল সহ। আপনার দৈনন্দিন চলাফেরায় অত্যন্ত সুবিধাজনক। এই জুতোটি আপনার লুককে করবে আরও স্টাইলিশ।</p>
-                                                <div dir="auto">&nbsp;
-                                                    <p>🥰 প্রিমিয়াম কোয়ালিটি শু, কোড: 𝑺𝟏 👟</p>
-                                                    <p>🍁 খুচরা দাম: ১ জোড়া নিলে : ১,২০০ টাকা করে।<br>⚡ পাইকারি দাম: ৩ জোড়া বা তার বেশি নিলে প্রতি জোড়া ১,১০০ টাকা করে।</p>
-                                                    <p>👉 সাথে থাকছে আকর্ষণীয় গিফট : 🎁</p>
-                                                    <p>✅ নরম এবং আরামদায়ক প্রিমিয়াম শু।<br>✅ স্লিপ রেজিস্ট্যান্ট সোল।<br>✅ রেগুলার ফিট।<br>✅ ট্রেন্ডি ডিজাইন এবং স্টাইলিশ লুক।</p>
+                                                <p>
+                                                    ডেলিভারি ও রিটার্ন পলিসি (বিস্তারিত)
+                                                    পন্য অর্ডার করার আগে:
+                                                </p>
+                                                <h4>
+                                                    <strong>বিস্তারিত তথ্য</strong> পণ্যের বিবরণ, ছবি এবং আপনার
+                                                    প্রশ্নের উত্তর সঠিকভাবে পড়ুন। কোনো সন্দেহ থাকলে অবশ্যই আমাদের
+                                                    সাথে যোগাযোগ করুন।
+                                                </h4>
 
-                                                    <!-- Delivery Details Section -->
-                                                    <p><strong>🛵 ডেলিভারি তথ্য:</strong></p>
-                                                    <ul class="pl-4">
-                                                        <li>🚚 দেশব্যাপী ফ্রি ডেলিভারি, ৩-৫ কর্মদিবসের মধ্যে পৌঁছাবে।</li>
-                                                        <li>💨 এক্সপ্রেস ডেলিভারি সেবা: ১-২ দিনের মধ্যে পণ্য পৌঁছাবে (অতিরিক্ত চার্জ প্রযোজ্য)।</li>
-                                                        <li>📦 ডেলিভারি অর্ডার নিশ্চিত হওয়ার পর ২৪ ঘণ্টার মধ্যে প্রক্রিয়া করা হবে।</li>
-                                                        <li>📍 আপনার পণ্যটি প্রাপ্তি নিশ্চিত করতে আপনি পেমেন্টের পর ট্র্যাকিং তথ্য পাবেন।</li>
+                                                <div class="my-3">
+                                                    <h4 class="site-text">পণ্য ডেলিভারি:</h4>
+                                                    <ul class="pl-3">
+                                                        <li><strong>সময়:</strong> ডেলিভারির সময়কাল অর্ডারের ধরন এবং
+                                                            আপনার অবস্থানের উপর নির্ভর করে। সাধারণত [ডেলিভারির গড় সময়]
+                                                            দিনের মধ্যে আপনি পণ্যটি পাবেন।</li>
+                                                        <li><strong>পদ্ধতি:</strong> আমরা Pathao এবং Steadfast
+                                                            কুরিয়ারের মাধ্যমে ডেলিভারি করি।</li>
+                                                        <li><strong>খরচ:</strong> ডেলিভারি খরচ পণ্যের মূল্য এবং
+                                                            অবস্থানের উপর নির্ভর করে। ডেলিভারি খরচের বিস্তারিত তথ্য
+                                                            অর্ডার সম্পন্ন করার সময় দেখতে পাবেন।</li>
+                                                        <li><strong>পেমেন্ট:</strong> আপনি অগ্রিম বিকাশ বা নগদ এর
+                                                            মাধ্যমে ডেলিভারি চার্জ দিতে পারবেন। বাকী টাকা আপনি পণ্য হাতে
+                                                            পেয়ে দিতে পারবেন।</li>
+                                                        <li><strong>ট্র্যাকিং:</strong> আপনি আপনার অর্ডারের স্ট্যাটাস
+                                                            আমাদের ওয়েবসাইট বা অ্যাপের মাধ্যমে ট্র্যাক করতে পারবেন।
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="my-3">
+                                                    <h4 class="site-text">পণ্য রিটার্ন:</h4>
+                                                    <ul class="pl-3">
+                                                        <li><strong>পণ্যের অবস্থা:</strong> পণ্যটি ছবি এবং বিবরণের সাথে
+                                                            মিল থাকলে এবং ব্যবহৃত না হলে সাধারণত রিটার্ন করা যাবে।</li>
+                                                        <li><strong>সময়সীমা:</strong> পণ্য গ্রহণের [দিন] দিনের মধ্যে
+                                                            আপনি রিটার্ন করার জন্য আবেদন করতে পারবেন।</li>
+                                                        <li><strong>বিনিময়:</strong> যদি পণ্যটি আপনার পছন্দ না হয়,
+                                                            তাহলে আপনি ডেলিভারি ম্যানকে তাৎক্ষণিকভাবে ফেরত দিতে পারেন
+                                                            অথবা আমাদের সাথে যোগাযোগ করে বিনিময়ের জন্য আবেদন করতে
+                                                            পারবেন।</li>
+                                                        <li><strong>রিফান্ড:</strong> রিফান্ডের ক্ষেত্রে, আমরা আপনার
+                                                            প্রদানকৃত পেমেন্ট পদ্ধতির মাধ্যমে ২ দিনের মধ্যে অর্থ ফেরত
+                                                            করে দেব।</li>
+                                                        <li><strong>খরচ:</strong> রিফান্ডের ক্ষেত্রে পণ্য আনা-নেয়ার
+                                                            সমস্ত খরচ আপনাকে বহন করতে হবে। তবে, যদি পণ্যটি ত্রুটিপূর্ণ
+                                                            বা ভুল হয়ে থাকে, তাহলে আমরা ডেলিভারি খরচ বহন করব।</li>
+                                                    </ul>
+                                                </div>
+
+                                                <ul class="pl-3">
+                                                    <li><strong>ক্ষতিগ্রস্ত পণ্য:</strong> যদি ডেলিভারির সময় পণ্যটি
+                                                        ক্ষতিগ্রস্ত হয়, তাহলে ডেলিভারি ম্যানকে তাৎক্ষণিকভাবে জানান এবং
+                                                        আমাদের সাথে যোগাযোগ করুন। আমরা ক্ষতিগ্রস্ত পণ্যটি বিনামূল্যে
+                                                        প্রতিস্থাপন করব।</li>
+                                                    <li><strong>ভুল পণ্য:</strong> যদি ভুল পণ্য ডেলিভারি হয়, তাহলে আমরা
+                                                        নিজ খরচে আপনাকে সঠিক পণ্য পাঠিয়ে দিব।</li>
+                                                </ul>
+
+                                                <div class="my-3">
+                                                    <h4 class="site-text">অন্যান্য:</h4>
+                                                    <ul class="pl-3">
+                                                        <li><strong>যোগাযোগ:</strong> কোনো সমস্যা বা প্রশ্ন থাকলে,
+                                                            আমাদের কাস্টমার কেয়ারে [ইমেইল, ফোন নম্বর, চ্যাট] এর মাধ্যমে
+                                                            যোগাযোগ করুন।</li>
+                                                        <li><strong>বাতিল:</strong> অর্ডার দেওয়ার পর ৬ ঘণ্টার মধ্যে
+                                                            আপনি অর্ডারটি বাতিল করতে পারবেন।</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -485,142 +537,141 @@
                             </div>
                         </div>
                     </div>
-                    <section class="ps-section--also" data-background="img/related-bg.jpg">
-                        <div class="container px-0">
-                            <h3 class="ps-section__title">গ্রাহক আরও কিনেছেন</h3>
-                            <div class="owl-carousel">
-                                @foreach ($related_products as $related_product)
-                                    <div class="ps-section__product border">
-                                        <div class="ps-product ps-product--standard">
-                                            <div class="ps-product__thumbnail">
-                                                <a class="ps-product__image"
-                                                    href="{{ route('product.details', $related_product->slug) }}">
-                                                    <figure>
-                                                        @if (!empty($related_product->thumbnail))
+                </div>
+                <section class="ps-section--also" data-background="img/related-bg.jpg">
+                    <div class="container px-0">
+                        <h3 class="ps-section__title">গ্রাহক আরও কিনেছেন</h3>
+                        <div class="owl-carousel">
+                            @foreach ($related_products as $related_product)
+                                <div class="ps-section__product border">
+                                    <div class="ps-product ps-product--standard">
+                                        <div class="ps-product__thumbnail">
+                                            <a class="ps-product__image"
+                                                href="{{ route('product.details', $related_product->slug) }}">
+                                                <figure>
+                                                    @if (!empty($related_product->thumbnail))
+                                                        @php
+                                                            $thumbnailPath = 'storage/' . $related_product->thumbnail;
+                                                            $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                                ? asset($thumbnailPath)
+                                                                : asset('frontend/img/no-product.jpg');
+                                                        @endphp
+                                                        <img src="{{ $thumbnailSrc }}"
+                                                            alt="{{ $related_product->meta_title }}" width="210"
+                                                            height="210" />
+                                                    @else
+                                                        @foreach ($related_product->multiImages->slice(0, 2) as $image)
                                                             @php
-                                                                $thumbnailPath =
-                                                                    'storage/' . $related_product->thumbnail;
-                                                                $thumbnailSrc = file_exists(public_path($thumbnailPath))
-                                                                    ? asset($thumbnailPath)
+                                                                $imagePath = 'storage/' . $image->photo;
+                                                                $imageSrc = file_exists(public_path($imagePath))
+                                                                    ? asset($imagePath)
                                                                     : asset('frontend/img/no-product.jpg');
                                                             @endphp
-                                                            <img src="{{ $thumbnailSrc }}"
+                                                            <img src="{{ $imageSrc }}"
                                                                 alt="{{ $related_product->meta_title }}"
                                                                 width="210" height="210" />
-                                                        @else
-                                                            @foreach ($related_product->multiImages->slice(0, 2) as $image)
-                                                                @php
-                                                                    $imagePath = 'storage/' . $image->photo;
-                                                                    $imageSrc = file_exists(public_path($imagePath))
-                                                                        ? asset($imagePath)
-                                                                        : asset('frontend/img/no-product.jpg');
-                                                                @endphp
-                                                                <img src="{{ $imageSrc }}"
-                                                                    alt="{{ $related_product->meta_title }}"
-                                                                    width="210" height="210" />
-                                                            @endforeach
-                                                        @endif
-                                                    </figure>
-                                                </a>
-                                                {{-- Review End --}}
-                                                <div class="ps-product__actions">
-                                                    <div class="ps-product__item" data-toggle="tooltip"
-                                                        data-placement="left" title="Wishlist">
-                                                        <a class="add_to_wishlist"
-                                                            href="{{ route('wishlist.store', $related_product->id) }}"><i
-                                                                class="fa fa-heart-o"></i></a>
-                                                    </div>
-                                                    <div class="ps-product__item" data-toggle="tooltip"
-                                                        data-placement="left" title="Quick view">
-                                                        <a href="#" data-toggle="modal"
-                                                            data-target="#popupQuickview{{ $related_product->id }}">
-                                                            <i class="fa fa-eye"></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="ps-product__item" data-toggle="tooltip"
-                                                        data-placement="left" title="Add To Cart">
-                                                        <a class="add_to_cart"
-                                                            href="{{ route('cart.store', $related_product->id) }}"
-                                                            data-product_id="{{ $related_product->id }}"
-                                                            data-product_qty="1">
-                                                            <i class="fa fa-shopping-cart"></i>
-                                                        </a>
-                                                    </div>
-
+                                                        @endforeach
+                                                    @endif
+                                                </figure>
+                                            </a>
+                                            {{-- Review End --}}
+                                            <div class="ps-product__actions">
+                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                    data-placement="left" title="Wishlist">
+                                                    <a class="add_to_wishlist"
+                                                        href="{{ route('wishlist.store', $related_product->id) }}"><i
+                                                            class="fa fa-heart-o"></i></a>
                                                 </div>
+                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                    data-placement="left" title="Quick view">
+                                                    <a href="#" data-toggle="modal"
+                                                        data-target="#popupQuickview{{ $related_product->id }}">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                    data-placement="left" title="Add To Cart">
+                                                    <a class="add_to_cart"
+                                                        href="{{ route('cart.store', $related_product->id) }}"
+                                                        data-product_id="{{ $related_product->id }}"
+                                                        data-product_qty="1">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                            @if (!empty($related_product->unit_discount_price))
+                                                <div class="ps-product__badge">
+                                                    <div class="ps-badge ps-badge--sale">
+                                                        -
+                                                        {{ !empty($related_product->unit_discount_price) && $related_product->unit_discount_price > 0 ? number_format((($related_product->unit_price - $related_product->unit_discount_price) / $related_product->unit_price) * 100, 1) : 0 }}
+                                                        % অফ
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="ps-product__content">
+                                            <h5 class="ps-product__title">
+                                                <a href="{{ route('product.details', $related_product->slug) }}">
+                                                    {{ implode(' ', array_slice(explode(' ', $related_product->name), 0, 5)) }}
+                                                </a>
+                                            </h5>
+                                            <div class="pb-3">
                                                 @if (!empty($related_product->unit_discount_price))
-                                                    <div class="ps-product__badge">
-                                                        <div class="ps-badge ps-badge--sale">
-                                                            -
-                                                            {{ !empty($related_product->unit_discount_price) && $related_product->unit_discount_price > 0 ? number_format((($related_product->unit_price - $related_product->unit_discount_price) / $related_product->unit_price) * 100, 1) : 0 }}
-                                                            % অফ
-                                                        </div>
+                                                    <div class="ps-product__meta">
+                                                        <span
+                                                            class="ps-product__price sale">{{ $related_product->unit_discount_price }}
+                                                            টাকা</span>
+                                                        <span
+                                                            class="ps-product__del text-danger">{{ $related_product->unit_price }}
+                                                            টাকা</span>
+                                                    </div>
+                                                @else
+                                                    <div class="ps-product__meta">
+                                                        <span
+                                                            class="ps-product__price sale">{{ $related_product->unit_price }}
+                                                            টাকা</span>
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div class="ps-product__content">
-                                                <h5 class="ps-product__title">
-                                                    <a href="{{ route('product.details', $related_product->slug) }}">
-                                                        {{ implode(' ', array_slice(explode(' ', $related_product->name), 0, 5)) }}
-                                                    </a>
-                                                </h5>
-                                                <div class="pb-3">
-                                                    @if (!empty($related_product->unit_discount_price))
-                                                        <div class="ps-product__meta">
-                                                            <span
-                                                                class="ps-product__price sale">{{ $related_product->unit_discount_price }}
-                                                                টাকা</span>
-                                                            <span
-                                                                class="ps-product__del text-danger">{{ $related_product->unit_price }}
-                                                                টাকা</span>
-                                                        </div>
-                                                    @else
-                                                        <div class="ps-product__meta">
-                                                            <span
-                                                                class="ps-product__price sale">{{ $related_product->unit_price }}
-                                                                টাকা</span>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                                <div class="d-flex align-items-center card-cart-btn">
-                                                    <a href="{{ route('buy.now', $related_product->id) }}"
-                                                        class="btn btn-primary rounded-0 w-100">
-                                                        <i class="fa-solid fa-basket-shopping pr-2"></i>
-                                                        অর্ডার করুন
-                                                    </a>
-                                                </div>
-                                                <div class="ps-product__actions ps-product__group-mobile">
-                                                    <div class="ps-product__quantity">
-                                                        <div class="def-number-input number-input safari_only">
-                                                            <button class="minus"
-                                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                                    class="icon-minus"></i>
-                                                            </button>
-                                                            <input class="quantity" min="0" name="quantity"
-                                                                value="1" type="number" />
-                                                            <button class="plus"
-                                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                                    class="icon-plus"></i>
-                                                            </button>
-                                                        </div>
+                                            <div class="d-flex align-items-center card-cart-btn">
+                                                <a href="{{ route('buy.now', $related_product->id) }}"
+                                                    class="btn btn-primary rounded-0 w-100">
+                                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                    অর্ডার করুন
+                                                </a>
+                                            </div>
+                                            <div class="ps-product__actions ps-product__group-mobile">
+                                                <div class="ps-product__quantity">
+                                                    <div class="def-number-input number-input safari_only">
+                                                        <button class="minus"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
+                                                                class="icon-minus"></i>
+                                                        </button>
+                                                        <input class="quantity" min="0" name="quantity"
+                                                            value="1" type="number" />
+                                                        <button class="plus"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
+                                                                class="icon-plus"></i>
+                                                        </button>
                                                     </div>
-                                                    <div class="ps-product__item" data-toggle="tooltip"
-                                                        data-placement="left" title="Wishlist"><a
-                                                            class="add_to_wishlist"
-                                                            href="{{ route('wishlist.store', $related_product->id) }}"><i
-                                                                class="fa fa-heart-o"></i></a>
-                                                    </div>
+                                                </div>
+                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                    data-placement="left" title="Wishlist"><a class="add_to_wishlist"
+                                                        href="{{ route('wishlist.store', $related_product->id) }}"><i
+                                                            class="fa fa-heart-o"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
                         </div>
-                    </section>
-                </div>
+                    </div>
+                </section>
             </div>
         </div>
+    </div>
     </div>
     <div class="container-fluid"
         style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">

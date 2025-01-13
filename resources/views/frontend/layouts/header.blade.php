@@ -107,7 +107,7 @@
         justify-content: center;
         overflow: hidden;
         transition: all 0.25s ease;
-        background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+        background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c);
         /* border-radius: var(--round); */
         border: none;
         outline: none;
@@ -129,8 +129,8 @@
     }
 
     .button-new::after {
-        --space: 2px;
-        background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+        --space: 1px;
+        background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c);
     }
 
     .button-new:active {
@@ -309,11 +309,10 @@
                                     <a href="{{ route('special.products', optional($special_offer)->slug) }}"
                                         class="button-new">
                                         <span class="fold"></span>
-
                                         <div class="points_wrapper">
                                             <i class="point"></i>
                                             <i class="point"></i>
-                                            <i class="point"></i>
+                                        <i class="point"></i>
                                             <i class="point"></i>
                                             <i class="point"></i>
                                             <i class="point"></i>
@@ -323,14 +322,14 @@
                                             <i class="point"></i>
                                         </div>
 
-                                        <span class="inner"><svg class="icon" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2.5">
+                                        <span class="inner"><svg class="icon" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
                                                 <polyline
                                                     points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
                                                 </polyline>
-                                            </svg>{{ optional($special_offer)->button_name }}</span>
+                                            </svg>{{ optional($special_offer)->button_name }}
+                                        </span>
                                     </a>
                                 </div>
                             </div>
