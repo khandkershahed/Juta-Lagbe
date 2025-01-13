@@ -341,7 +341,7 @@
                                     <h3 class="ps-section__title mb-0" style="font-size: 30px;">
                                         {{ optional($categoryone)->name }}</h3>
                                 </div>
-                                <div style="width: 100%" class="px-3">
+                                <div style="width: 900px" class="px-3">
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
                                 <div class="ps-delivery ps-delivery--info p-0">
@@ -535,7 +535,7 @@
                                         <h3 class="ps-section__title mb-0" style="font-size: 30px;">
                                             {{ optional($categorytwo)->name }}</h3>
                                     </div>
-                                    <div style="width: 100%" class="px-3">
+                                    <div style="width: 900px" class="px-3">
                                         <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                     </div>
                                     <div class="ps-delivery ps-delivery--info p-0">
@@ -762,7 +762,7 @@
                                     <h3 class="ps-section__title mb-0" style="font-size: 30px;">
                                         {{ optional($categorythree)->name }}</h3>
                                 </div>
-                                <div style="width: 100%" class="px-3">
+                                <div style="width: 900px" class="px-3">
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
                                 <div class="ps-delivery ps-delivery--info p-0">

@@ -191,7 +191,7 @@
                                 <div class="ps-footer__fax">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-brands fa-whatsapp pl-3 text-white fa-bounce"></i>
-                                        <a href="tel:{{ optional($setting)->primary_phone }}">
+                                        <a href="tel:{{ optional($setting)->primary_phone }}" style="font-size: 20px">
                                             {{ optional($setting)->primary_phone }}
                                         </a>
                                     </div>
