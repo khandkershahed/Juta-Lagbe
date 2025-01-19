@@ -1,4 +1,48 @@
 <x-frontend-app-layout :title="'Home Page'">
+    <style>
+        .video-container .content {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .video-container .video-box-img {
+            margin: auto;
+            position: relative;
+            top: -34px;
+            background: white;
+            padding: 5px
+        }
+
+        .video-player {
+            width: 100%;
+            /* Ensures full width of its container */
+            max-width: 400px;
+            /* Set a fixed width */
+            height: 300px;
+            /* Set a fixed height */
+            object-fit: cover;
+            /* Makes the video cover the area while maintaining aspect ratio */
+            border-top-left-radius: 22px;
+            /* Rounded corners */
+            border-top-right-radius: 22px;
+            margin: 0 auto;
+            /* Centers the video horizontally */
+            display: block;
+            /* Ensures no inline spacing issues */
+        }
+
+        .video-box-img {
+            width: 80px;
+            border: 1px solid #004d7a
+        }
+
+        .video-card {
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            border-radius: 20px;
+        }
+    </style>
     <section class="ps-section--banner">
         <div class="ps-section__overlay">
             <div class="ps-section__loading"></div>
@@ -139,15 +183,12 @@
                                                             @if (!empty($latest_product->thumbnail))
                                                                 @php
                                                                     $thumbnailPath =
-                                                                        'storage/' .
-                                                                        $latest_product->thumbnail;
+                                                                        'storage/' . $latest_product->thumbnail;
                                                                     $thumbnailSrc = file_exists(
                                                                         public_path($thumbnailPath),
                                                                     )
                                                                         ? asset($thumbnailPath)
-                                                                        : asset(
-                                                                            'frontend/img/no-product.jpg',
-                                                                        );
+                                                                        : asset('frontend/img/no-product.jpg');
                                                                 @endphp
                                                                 <img src="{{ $thumbnailSrc }}"
                                                                     alt="{{ $latest_product->meta_title }}"
@@ -155,15 +196,10 @@
                                                             @else
                                                                 @foreach ($latest_product->multiImages->slice(0, 2) as $image)
                                                                     @php
-                                                                        $imagePath =
-                                                                            'storage/' . $image->photo;
-                                                                        $imageSrc = file_exists(
-                                                                            public_path($imagePath),
-                                                                        )
+                                                                        $imagePath = 'storage/' . $image->photo;
+                                                                        $imageSrc = file_exists(public_path($imagePath))
                                                                             ? asset($imagePath)
-                                                                            : asset(
-                                                                                'frontend/img/no-product.jpg',
-                                                                            );
+                                                                            : asset('frontend/img/no-product.jpg');
                                                                     @endphp
                                                                     <img src="{{ $imageSrc }}"
                                                                         alt="{{ $latest_product->meta_title }}"
@@ -234,34 +270,31 @@
                                                         @endif
                                                     </div>
                                                     <div class="d-flex align-items-center card-cart-btn">
-                                                        <a href="{{ route('buy.now', $latest_product->id) }}"
+                                                        <a href="{{ route('product.details', $latest_product->slug) }}"
                                                             class="btn btn-primary rounded-0 w-100">
                                                             <i class="fa-solid fa-basket-shopping pr-2"></i>
                                                             অর্ডার
                                                             করুন
                                                         </a>
                                                     </div>
-                                                    <div
-                                                        class="ps-product__actions ps-product__group-mobile">
+                                                    <div class="ps-product__actions ps-product__group-mobile">
                                                         <div class="ps-product__quantity">
-                                                            <div
-                                                                class="def-number-input number-input safari_only">
+                                                            <div class="def-number-input number-input safari_only">
                                                                 <button class="minus"
                                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
                                                                         class="icon-minus"></i>
                                                                 </button>
                                                                 <input class="quantity" min="0"
-                                                                    name="quantity" value="1"
-                                                                    type="number" />
+                                                                    name="quantity" value="1" type="number" />
                                                                 <button class="plus"
                                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
                                                                         class="icon-plus"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <div class="ps-product__item"
-                                                            data-toggle="tooltip" data-placement="left"
-                                                            title="Wishlist"><a class="add_to_wishlist"
+                                                        <div class="ps-product__item" data-toggle="tooltip"
+                                                            data-placement="left" title="Wishlist"><a
+                                                                class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $latest_product->id) }}"><i
                                                                     class="fa fa-heart-o"></i></a>
                                                         </div>
@@ -284,15 +317,18 @@
                                 <div class="col-lg-12 mb-4">
                                     <div class="image-container">
                                         <a href="">
-                                            <img class="img-fluid" src="{{ asset('images/home-banner-side-one.png') }}" alt="">
-                                            <span class="overlay-text">Your Text Here</span> <!-- Text that appears on hover -->
+                                            <img class="img-fluid"
+                                                src="{{ asset('images/home-banner-side-one.png') }}" alt="">
+                                            <span class="overlay-text">Your Text Here</span>
+                                            <!-- Text that appears on hover -->
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="image-container">
                                         <a href="">
-                                            <img class="img-fluid" src="{{ asset('images/home-banner-side-two.png') }}" alt="">
+                                            <img class="img-fluid"
+                                                src="{{ asset('images/home-banner-side-two.png') }}" alt="">
                                             <span class="overlay-text">Your Text Here</span>
                                         </a>
                                     </div>
@@ -302,7 +338,8 @@
                         <div class="col-lg-4 px-2">
                             <div class="image-container">
                                 <a href="" class="section-banner-main">
-                                    <img class="img-fluid" src="{{ asset('images/home-banner-side-center.png') }}" alt="">
+                                    <img class="img-fluid" src="{{ asset('images/home-banner-side-center.png') }}"
+                                        alt="">
                                     <span class="overlay-text">Your Text Here</span>
                                 </a>
                             </div>
@@ -312,7 +349,9 @@
                                 <div class="col-lg-12 mb-4">
                                     <div class="image-container">
                                         <a href="">
-                                            <img class="img-fluid" src="{{ asset('images/home-banner-side-three.png') }}" alt="">
+                                            <img class="img-fluid"
+                                                src="{{ asset('images/home-banner-side-three.png') }}"
+                                                alt="">
                                             <span class="overlay-text">Your Text Here</span>
                                         </a>
                                     </div>
@@ -320,7 +359,8 @@
                                 <div class="col-lg-12">
                                     <div class="image-container">
                                         <a href="">
-                                            <img class="img-fluid" src="{{ asset('images/home-banner-side-four.png') }}" alt="">
+                                            <img class="img-fluid"
+                                                src="{{ asset('images/home-banner-side-four.png') }}" alt="">
                                             <span class="overlay-text">Your Text Here</span>
                                         </a>
                                     </div>
@@ -345,7 +385,8 @@
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
                                 <div class="ps-delivery ps-delivery--info p-0">
-                                    <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i class="fa-solid fa-"></i></a>
+                                    <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i
+                                            class="fa-solid fa-"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -364,15 +405,12 @@
                                                             @if (!empty($categoryoneproduct->thumbnail))
                                                                 @php
                                                                     $thumbnailPath =
-                                                                        'storage/' .
-                                                                        $categoryoneproduct->thumbnail;
+                                                                        'storage/' . $categoryoneproduct->thumbnail;
                                                                     $thumbnailSrc = file_exists(
                                                                         public_path($thumbnailPath),
                                                                     )
                                                                         ? asset($thumbnailPath)
-                                                                        : asset(
-                                                                            'frontend/img/no-product.jpg',
-                                                                        );
+                                                                        : asset('frontend/img/no-product.jpg');
                                                                 @endphp
                                                                 <img src="{{ $thumbnailSrc }}"
                                                                     alt="{{ $categoryoneproduct->meta_title }}"
@@ -380,15 +418,10 @@
                                                             @else
                                                                 @foreach ($categoryoneproduct->multiImages->slice(0, 2) as $image)
                                                                     @php
-                                                                        $imagePath =
-                                                                            'storage/' . $image->photo;
-                                                                        $imageSrc = file_exists(
-                                                                            public_path($imagePath),
-                                                                        )
+                                                                        $imagePath = 'storage/' . $image->photo;
+                                                                        $imageSrc = file_exists(public_path($imagePath))
                                                                             ? asset($imagePath)
-                                                                            : asset(
-                                                                                'frontend/img/no-product.jpg',
-                                                                            );
+                                                                            : asset('frontend/img/no-product.jpg');
                                                                     @endphp
                                                                     <img src="{{ $imageSrc }}"
                                                                         alt="{{ $categoryoneproduct->meta_title }}"
@@ -459,34 +492,31 @@
                                                         @endif
                                                     </div>
                                                     <div class="d-flex align-items-center card-cart-btn">
-                                                        <a href="{{ route('buy.now', $categoryoneproduct->id) }}"
+                                                        <a href="{{ route('product.details', $categoryoneproduct->slug) }}"
                                                             class="btn btn-primary rounded-0 w-100">
                                                             <i class="fa-solid fa-basket-shopping pr-2"></i>
                                                             অর্ডার
                                                             করুন
                                                         </a>
                                                     </div>
-                                                    <div
-                                                        class="ps-product__actions ps-product__group-mobile">
+                                                    <div class="ps-product__actions ps-product__group-mobile">
                                                         <div class="ps-product__quantity">
-                                                            <div
-                                                                class="def-number-input number-input safari_only">
+                                                            <div class="def-number-input number-input safari_only">
                                                                 <button class="minus"
                                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
                                                                         class="icon-minus"></i>
                                                                 </button>
                                                                 <input class="quantity" min="0"
-                                                                    name="quantity" value="1"
-                                                                    type="number" />
+                                                                    name="quantity" value="1" type="number" />
                                                                 <button class="plus"
                                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
                                                                         class="icon-plus"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <div class="ps-product__item"
-                                                            data-toggle="tooltip" data-placement="left"
-                                                            title="Wishlist"><a class="add_to_wishlist"
+                                                        <div class="ps-product__item" data-toggle="tooltip"
+                                                            data-placement="left" title="Wishlist"><a
+                                                                class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categoryoneproduct->id) }}"><i
                                                                     class="fa fa-heart-o"></i></a>
                                                         </div>
@@ -501,7 +531,8 @@
                     </div>
                 </div>
             @endif
-            <div class="container-fluid" style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+            <div class="container-fluid"
+                style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
                 <div class="container juta-delivery">
                     <div class="row align-items-center">
                         <div class="col-lg-8">
@@ -539,15 +570,16 @@
                                         <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                     </div>
                                     <div class="ps-delivery ps-delivery--info p-0">
-                                        <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i class="fa-solid fa-"></i></a>
+                                        <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i
+                                                class="fa-solid fa-"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="ps-section__carousel mb-0">
+                        <div class="ps-section__carousel mb-0 pb-0">
                             <div class="takeway-slider owl-carousel owl-loaded owl-drag">
                                 <div class="owl-stage-outer">
-                                    <div class="owl-stage"
+                                    <div class="owl-stage mb-4"
                                         style="transform: translate3d(-2228px, 0px, 0px); transition: 1s; width: 4952px;">
                                         @foreach ($categorytwoproducts as $categorytwoproduct)
                                             <div class="owl-item" style="width: 247.6px;">
@@ -566,9 +598,7 @@
                                                                                 public_path($thumbnailPath),
                                                                             )
                                                                                 ? asset($thumbnailPath)
-                                                                                : asset(
-                                                                                    'frontend/img/no-product.jpg',
-                                                                                );
+                                                                                : asset('frontend/img/no-product.jpg');
                                                                         @endphp
                                                                         <img src="{{ $thumbnailSrc }}"
                                                                             alt="{{ $categorytwoproduct->meta_title }}"
@@ -576,8 +606,7 @@
                                                                     @else
                                                                         @foreach ($categorytwoproduct->multiImages->slice(0, 2) as $image)
                                                                             @php
-                                                                                $imagePath =
-                                                                                    'storage/' . $image->photo;
+                                                                                $imagePath = 'storage/' . $image->photo;
                                                                                 $imageSrc = file_exists(
                                                                                     public_path($imagePath),
                                                                                 )
@@ -602,9 +631,7 @@
                                                                                 ? optional(
                                                                                         $categorytwoproduct->reviews,
                                                                                     )->sum('rating') /
-                                                                                    count(
-                                                                                        $categorytwoproduct->reviews,
-                                                                                    )
+                                                                                    count($categorytwoproduct->reviews)
                                                                                 : 0;
                                                                     @endphp
                                                                     <div
@@ -623,10 +650,7 @@
                                                                                         @php
                                                                                             $maxRating = min(
                                                                                                 5,
-                                                                                                max(
-                                                                                                    1,
-                                                                                                    floor($review),
-                                                                                                ),
+                                                                                                max(1, floor($review)),
                                                                                             ); // Get the highest full rating value
                                                                                         @endphp
                                                                                         @for ($i = 1; $i <= $maxRating; $i++)
@@ -708,15 +732,14 @@
                                                                 @endif
                                                             </div>
                                                             <div class="d-flex align-items-center card-cart-btn">
-                                                                <a href="{{ route('buy.now', $categorytwoproduct->id) }}"
+                                                                <a href="{{ route('product.details', $categorytwoproduct->slug) }}"
                                                                     class="btn btn-primary rounded-0 w-100">
                                                                     <i class="fa-solid fa-basket-shopping pr-2"></i>
                                                                     অর্ডার
                                                                     করুন
                                                                 </a>
                                                             </div>
-                                                            <div
-                                                                class="ps-product__actions ps-product__group-mobile">
+                                                            <div class="ps-product__actions ps-product__group-mobile">
                                                                 <div class="ps-product__quantity">
                                                                     <div
                                                                         class="def-number-input number-input safari_only">
@@ -733,9 +756,9 @@
                                                                         </button>
                                                                     </div>
                                                                 </div>
-                                                                <div class="ps-product__item"
-                                                                    data-toggle="tooltip" data-placement="left"
-                                                                    title="Wishlist"><a class="add_to_wishlist"
+                                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                                    data-placement="left" title="Wishlist"><a
+                                                                        class="add_to_wishlist"
                                                                         href="{{ route('wishlist.store', $categorytwoproduct->id) }}"><i
                                                                             class="fa fa-heart-o"></i></a>
                                                                 </div>
@@ -753,11 +776,195 @@
                     </div>
                 </section>
             @endif
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="d-flex justify-content-between align-items-center py-4 pt-0 py-lg-5">
+                                <div class="">
+                                    <h3 class="ps-section__title mb-0" style="font-size: 30px;">
+                                        {{ optional($categoryone)->name }}</h3>
+                                </div>
+                                <div style="width: 900px" class="px-3">
+                                    <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
+                                </div>
+                                <div class="ps-delivery ps-delivery--info p-0">
+                                    <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i
+                                            class="fa-solid fa-"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="col-lg-12">
+                            <div>
+                                <iframe width="200" height="200"
+                                    src="https://www.youtube-nocookie.com/embed/mlVtQDVrNns?rel=0&amp;showinfo=0"
+                                    frameborder="0" gesture="media" allowfullscreen></iframe>
+                            </div>
+                            <div>
+                                <iframe width="200" height="200"
+                                    src="https://www.youtube-nocookie.com/embed/HTPziLzmVCE?rel=0&amp;showinfo=0"
+                                    frameborder="0" gesture="media" allowfullscreen></iframe>
+                            </div>
+                            <div>
+                                <iframe width="200" height="200"
+                                    src="https://www.youtube-nocookie.com/embed/irSoaOXhbGw?rel=0&amp;showinfo=0"
+                                    frameborder="0" gesture="media" allowfullscreen></iframe>
+                            </div>
+                            <div>
+                                <iframe width="200" height="200"
+                                    src="https://www.youtube-nocookie.com/embed/DI7imXBhC4A?rel=0&amp;showinfo=0"
+                                    frameborder="0" gesture="media" allowfullscreen></iframe>
+                            </div>
+                        </div> --}}
+                        <div class="col-lg-12">
+                            <div class="row custom-carousel owl-carousel owl-loaded owl-drag pb-5">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage mb-4">
+                                        <div class="owl-item col-4">
+                                            <div class="card p-0 border-0 video-card rounded-4">
+                                                <div class="card-body p-0 video-container">
+                                                    <video class="video-player" loop>
+                                                        <source src="{{ asset('images/video1.mp4') }}" />
+                                                    </video>
+                                                    <div class="content">
+                                                        <div class="video-box-img">
+                                                            <img class="img-fluid"
+                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                                alt="">
+                                                        </div>
+                                                        <p>boAt Airdopes 71</p>
+                                                        <p><span class="site-text">Tk899</span>
+                                                            <del class="text-danger">₹3,990</del>
+                                                            <span class="text-">77% off</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="owl-item col-4">
+                                            <div class="card p-0 border-0 video-card rounded-4">
+                                                <div class="card-body p-0 video-container">
+                                                    <video class="video-player" loop>
+                                                        <source src="{{ asset('images/video2.mp4') }}" />
+                                                    </video>
+                                                    <div class="content">
+                                                        <div class="video-box-img">
+                                                            <img class="img-fluid"
+                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                                alt="">
+                                                        </div>
+                                                        <p>boAt Airdopes 71</p>
+                                                        <p><span class="site-text">Tk899</span>
+                                                            <del class="text-danger">₹3,990</del>
+                                                            <span class="text-">77% off</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="owl-item col-4">
+                                            <div class="card p-0 border-0 video-card rounded-4">
+                                                <div class="card-body p-0 video-container">
+                                                    <video class="video-player" loop>
+                                                        <source src="{{ asset('images/video3.mp4') }}" />
+                                                    </video>
+                                                    <div class="content">
+                                                        <div class="video-box-img">
+                                                            <img class="img-fluid"
+                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                                alt="">
+                                                        </div>
+                                                        <p>boAt Airdopes 71</p>
+                                                        <p><span class="site-text">Tk899</span>
+                                                            <del class="text-danger">₹3,990</del>
+                                                            <span class="text-">77% off</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="owl-item col-4">
+                                            <div class="card p-0 border-0 video-card rounded-4">
+                                                <div class="card-body p-0 video-container">
+                                                    <video class="video-player" loop>
+                                                        <source src="{{ asset('images/video4.mp4') }}" />
+                                                    </video>
+                                                    <div class="content">
+                                                        <div class="video-box-img">
+                                                            <img class="img-fluid"
+                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                                alt="">
+                                                        </div>
+                                                        <p>boAt Airdopes 71</p>
+                                                        <p><span class="site-text">Tk899</span>
+                                                            <del class="text-danger">₹3,990</del>
+                                                            <span class="text-">77% off</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="owl-item col-4">
+                                            <div class="card p-0 border-0 video-card rounded-4">
+                                                <div class="card-body p-0 video-container">
+                                                    <video class="video-player" loop>
+                                                        <source src="{{ asset('images/video5.mp4') }}" />
+                                                    </video>
+                                                    <div class="content">
+                                                        <div class="video-box-img">
+                                                            <img class="img-fluid"
+                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                                alt="">
+                                                        </div>
+                                                        <p>boAt Airdopes 71</p>
+                                                        <p><span class="site-text">Tk899</span>
+                                                            <del class="text-danger">₹3,990</del>
+                                                            <span class="text-">77% off</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="owl-item col-4">
+                                            <div class="card p-0 border-0 video-card rounded-4">
+                                                <div class="card-body p-0 video-container">
+                                                    <!-- Lazy Load Video -->
+                                                    <iframe width="100%" height="410" class="video-player"
+                                                        data-src="https://www.youtube.com/embed/b8k4s4R_Pfc?autoplay=1"
+                                                        title="Nike Invincible 3 &amp; Asics Gel-Nimbus 25"
+                                                        frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                        referrerpolicy="strict-origin-when-cross-origin"
+                                                        allowfullscreen>
+                                                    </iframe>
+
+                                                    <div class="content">
+                                                        <div class="video-box-img">
+                                                            <img class="img-fluid"
+                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                                alt="">
+                                                        </div>
+                                                        <p>boAt Airdopes 71</p>
+                                                        <p><span class="site-text">Tk899</span>
+                                                            <del class="text-danger">₹3,990</del>
+                                                            <span class="text-">77% off</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             @if ($categorythree && $categorythreeproducts->count() > 0)
                 <div class="container px-0 mb-5 pb-0 pb-lg-5">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="d-flex justify-content-between align-items-center py-4 py-lg-5">
+                            <div class="d-flex justify-content-between align-items-center pb-5">
                                 <div class="">
                                     <h3 class="ps-section__title mb-0" style="font-size: 30px;">
                                         {{ optional($categorythree)->name }}</h3>
@@ -766,7 +973,8 @@
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
                                 <div class="ps-delivery ps-delivery--info p-0">
-                                    <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i class="fa-solid fa-"></i></a>
+                                    <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i
+                                            class="fa-solid fa-"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -785,15 +993,12 @@
                                                             @if (!empty($categorythreeproduct->thumbnail))
                                                                 @php
                                                                     $thumbnailPath =
-                                                                        'storage/' .
-                                                                        $categorythreeproduct->thumbnail;
+                                                                        'storage/' . $categorythreeproduct->thumbnail;
                                                                     $thumbnailSrc = file_exists(
                                                                         public_path($thumbnailPath),
                                                                     )
                                                                         ? asset($thumbnailPath)
-                                                                        : asset(
-                                                                            'frontend/img/no-product.jpg',
-                                                                        );
+                                                                        : asset('frontend/img/no-product.jpg');
                                                                 @endphp
                                                                 <img src="{{ $thumbnailSrc }}"
                                                                     alt="{{ $categorythreeproduct->meta_title }}"
@@ -801,15 +1006,10 @@
                                                             @else
                                                                 @foreach ($categorythreeproduct->multiImages->slice(0, 2) as $image)
                                                                     @php
-                                                                        $imagePath =
-                                                                            'storage/' . $image->photo;
-                                                                        $imageSrc = file_exists(
-                                                                            public_path($imagePath),
-                                                                        )
+                                                                        $imagePath = 'storage/' . $image->photo;
+                                                                        $imageSrc = file_exists(public_path($imagePath))
                                                                             ? asset($imagePath)
-                                                                            : asset(
-                                                                                'frontend/img/no-product.jpg',
-                                                                            );
+                                                                            : asset('frontend/img/no-product.jpg');
                                                                     @endphp
                                                                     <img src="{{ $imageSrc }}"
                                                                         alt="{{ $categorythreeproduct->meta_title }}"
@@ -880,34 +1080,31 @@
                                                         @endif
                                                     </div>
                                                     <div class="d-flex align-items-center card-cart-btn">
-                                                        <a href="{{ route('buy.now', $categorythreeproduct->id) }}"
+                                                        <a href="{{ route('product.details', $categorythreeproduct->slug) }}"
                                                             class="btn btn-primary rounded-0 w-100">
                                                             <i class="fa-solid fa-basket-shopping pr-2"></i>
                                                             অর্ডার
                                                             করুন
                                                         </a>
                                                     </div>
-                                                    <div
-                                                        class="ps-product__actions ps-product__group-mobile">
+                                                    <div class="ps-product__actions ps-product__group-mobile">
                                                         <div class="ps-product__quantity">
-                                                            <div
-                                                                class="def-number-input number-input safari_only">
+                                                            <div class="def-number-input number-input safari_only">
                                                                 <button class="minus"
                                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
                                                                         class="icon-minus"></i>
                                                                 </button>
                                                                 <input class="quantity" min="0"
-                                                                    name="quantity" value="1"
-                                                                    type="number" />
+                                                                    name="quantity" value="1" type="number" />
                                                                 <button class="plus"
                                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
                                                                         class="icon-plus"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <div class="ps-product__item"
-                                                            data-toggle="tooltip" data-placement="left"
-                                                            title="Wishlist"><a class="add_to_wishlist"
+                                                        <div class="ps-product__item" data-toggle="tooltip"
+                                                            data-placement="left" title="Wishlist"><a
+                                                                class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categorythreeproduct->id) }}"><i
                                                                     class="fa fa-heart-o"></i></a>
                                                         </div>
@@ -1029,32 +1226,21 @@
                                                     <figure>
                                                         @if (!empty($deal_product->thumbnail))
                                                             @php
-                                                                $thumbnailPath =
-                                                                    'storage/' .
-                                                                    $deal_product->thumbnail;
-                                                                $thumbnailSrc = file_exists(
-                                                                    public_path($thumbnailPath),
-                                                                )
+                                                                $thumbnailPath = 'storage/' . $deal_product->thumbnail;
+                                                                $thumbnailSrc = file_exists(public_path($thumbnailPath))
                                                                     ? asset($thumbnailPath)
-                                                                    : asset(
-                                                                        'frontend/img/no-product.jpg',
-                                                                    );
+                                                                    : asset('frontend/img/no-product.jpg');
                                                             @endphp
                                                             <img src="{{ $thumbnailSrc }}"
-                                                                alt="{{ $deal_product->meta_title }}"
-                                                                width="210" height="210" />
+                                                                alt="{{ $deal_product->meta_title }}" width="210"
+                                                                height="210" />
                                                         @else
                                                             @foreach ($deal_product->multiImages->slice(0, 2) as $image)
                                                                 @php
-                                                                    $imagePath =
-                                                                        'storage/' . $image->photo;
-                                                                    $imageSrc = file_exists(
-                                                                        public_path($imagePath),
-                                                                    )
+                                                                    $imagePath = 'storage/' . $image->photo;
+                                                                    $imageSrc = file_exists(public_path($imagePath))
                                                                         ? asset($imagePath)
-                                                                        : asset(
-                                                                            'frontend/img/no-product.jpg',
-                                                                        );
+                                                                        : asset('frontend/img/no-product.jpg');
                                                                 @endphp
                                                                 <img src="{{ $imageSrc }}"
                                                                     alt="{{ $deal_product->meta_title }}"
@@ -1102,8 +1288,7 @@
                                             </div>
                                             <div class="ps-product__content">
                                                 <h5 class="ps-product__title">
-                                                    <a
-                                                        href="{{ route('product.details', $deal_product->slug) }}">
+                                                    <a href="{{ route('product.details', $deal_product->slug) }}">
                                                         {{ implode(' ', array_slice(explode(' ', $deal_product->name), 0, 5)) }}
                                                     </a>
                                                 </h5>
@@ -1126,34 +1311,31 @@
                                                     @endif
                                                 </div>
                                                 <div class="d-flex align-items-center card-cart-btn">
-                                                    <a href="{{ route('buy.now', $deal_product->id) }}"
+                                                    <a href="{{ route('product.details', $deal_product->slug) }}"
                                                         class="btn btn-primary rounded-0 w-100">
                                                         <i class="fa-solid fa-basket-shopping pr-2"></i>
                                                         অর্ডার
                                                         করুন
                                                     </a>
                                                 </div>
-                                                <div
-                                                    class="ps-product__actions ps-product__group-mobile">
+                                                <div class="ps-product__actions ps-product__group-mobile">
                                                     <div class="ps-product__quantity">
-                                                        <div
-                                                            class="def-number-input number-input safari_only">
+                                                        <div class="def-number-input number-input safari_only">
                                                             <button class="minus"
                                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
                                                                     class="icon-minus"></i>
                                                             </button>
-                                                            <input class="quantity" min="0"
-                                                                name="quantity" value="1"
-                                                                type="number" />
+                                                            <input class="quantity" min="0" name="quantity"
+                                                                value="1" type="number" />
                                                             <button class="plus"
                                                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
                                                                     class="icon-plus"></i>
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <div class="ps-product__item"
-                                                        data-toggle="tooltip" data-placement="left"
-                                                        title="Wishlist"><a class="add_to_wishlist"
+                                                    <div class="ps-product__item" data-toggle="tooltip"
+                                                        data-placement="left" title="Wishlist"><a
+                                                            class="add_to_wishlist"
                                                             href="{{ route('wishlist.store', $deal_product->id) }}"><i
                                                                 class="fa fa-heart-o"></i></a>
                                                     </div>
@@ -1169,8 +1351,89 @@
             </div>
         @endif
     </div>
+    <!-- Modal trigger button -->
+    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
+        Launch
+    </button>
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        Modal title
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Body</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional: Place to the bottom of scripts -->
+    <script>
+        const myModal = new bootstrap.Modal(
+            document.getElementById("modalId"),
+            options,
+        );
+    </script>
+
     @include('frontend.layouts.HomeQuickViewModal')
     @push('scripts')
+        <script src="https://www.youtube.com/AIzaSyCle0f2OKdN8-N-4xi0oBtlEHDCcwzdAwU"></script>
+        <script>
+            $(document).ready(function() {
+                var nowPlaying = "none";
+                $('div').hover(function() {
+                    nowPlaying = $(this).find('iframe').attr('src');
+                    $(this).find('iframe').attr('src', nowPlaying + '&autoplay=1');
+                }, function() {
+                    $(this).find('iframe').attr('src', nowPlaying);
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                // Initialize Owl Carousel
+                $('.custom-carousel').owlCarousel({
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    dots: false,
+                    autoplay: true,
+                    autoplayTimeout: 3000,
+                    autoplayHoverPause: true, // Pause on hover
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        768: {
+                            items: 2
+                        },
+                        992: {
+                            items: 3
+                        },
+                        1200: {
+                            items: 4
+                        }
+                    },
+                    navText: [
+                        '<i class="fas fa-chevron-left"></i>',
+                        '<i class="fas fa-chevron-right"></i>'
+                    ]
+                });
+            });
+        </script>
+
         <script>
             $(document).ready(function() {
                 $('.dealCarousel').owlCarousel({

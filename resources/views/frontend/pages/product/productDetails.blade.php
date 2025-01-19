@@ -9,6 +9,30 @@
         @endphp
     @endpush
     <style>
+         .magnifier-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            /* Adjust width as needed */
+            height: 100%;
+            /* Adjust height as needed */
+            cursor: crosshair;
+        }
+
+        .magnifier-container img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            /* Smooth zoom */
+        }
+
+        .magnifier-container:hover img {
+            transform: scale(1.5);
+            /* Adjust zoom level */
+            transition: transform 0.3s ease;
+        }
         .product-slider-wrapper {
             /* width: 600px;
             height: 800px; */
@@ -162,6 +186,13 @@
             font-size: 14px;
             color: var(--site-primary);
         }
+
+        .select2-search--dropdown .select2-search__field {
+            padding: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            height: 32px;
+        }
     </style>
     <section>
         <div class="container">
@@ -179,7 +210,7 @@
             <div class="row">
                 <div class="col-lg-7">
                     <div class="product-slider-wrapper">
-                        <div thumbsSlider="" class="swiper product-details-slide">
+                        <div thumbsSlider="" class="swiper product-details-slide bg-white">
                             <div class="swiper-wrapper">
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide">
@@ -193,7 +224,7 @@
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
                                 @foreach ($product->multiImages as $image)
-                                    <div class="swiper-slide">
+                                    <div class="swiper-slide magnifier-container">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
@@ -235,22 +266,21 @@
                             <div class="pl-3">
                                 {!! $product->specification ??
                                     ' <div>
-                                                                                                                                                                        <ul class="pl-2">
-                                                                                                                                                                            <li><strong>Brand:</strong> Juta Lagbe</li>
-                                                                                                                                                                            <li><strong>Model:</strong> Footwear</li>
-                                                                                                                                                                            <li><strong>Weight:</strong> Light Weight</li>
-                                                                                                                                                                            <li><strong>Outsole:</strong> PU Leather/Leather</li>
-                                                                                                                                                                        </ul>
-                                                                                                                                                                    </div>
-                                                                                                                                                                ' !!}
+                                        <ul class="pl-2">
+                                            <li><strong>Brand:</strong> Juta Lagbe</li>
+                                            <li><strong>Model:</strong> Footwear</li>
+                                            <li><strong>Weight:</strong> Light Weight</li>
+                                            <li><strong>Outsole:</strong> PU Leather/Leather</li>
+                                        </ul>
+                                    </div>
+                                ' !!}
                             </div>
                         </div>
-                        <div class="ps-page__content py-2">
-                            <div class="ps-product--detail">
-                                <div class="ps-product__feature w-50 bg-light">
-                                    <div class="ps-product__quantity">
-                                        <h6>Quantity</h6>
-                                        <div class="def-number-input number-input safari_only">
+                        <div class="ps-page__content py-2 row align-items-center">
+                            <div class="ps-product--detail col-6">
+                                <div class="ps-product__feature bg-transparent p-0">
+                                    <div class="ps-product__quantity pb-0 rounded-0">
+                                        <div class="def-number-input number-input safari_only w-100 rounded-0 py-2">
                                             <button class="minus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
                                                     class="icon-minus"></i></button>
@@ -263,20 +293,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <a data-product_id="{{ $product->id }}" href="#"
+                                    class="btn btn-outline-primary rounded-0 w-100 py-3 add_to_cart_btn_product_single">
+                                    <i class="fa-solid fa-shopping-cart fa-fade"></i>
+                                    কার্ট এ যোগ করুন।
+                                </a>
+                            </div>
                         </div>
                         <div class="d-flex align-items-center card-cart-btn mt-4">
                             <!-- Order Modal  -->
-                            <a href="#" class="btn btn-primary rounded-0 w-100 mr-3 py-3" data-toggle="modal"
+                            <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
                                 data-target="#order-product{{ $product->id }}">
-                                <i class="fa-solid fa-basket-shopping pr-2 fa-fade"></i>
+                                <i class="fa-solid fa-basket-shopping pr-2"></i>
                                 অর্ডার করুন
                             </a>
                             <!-- Order Modal End-->
-                            <a data-product_id="{{ $product->id }}" href="#"
-                                class="btn btn-outline-primary rounded-0 w-100 py-3 add_to_cart_btn_product_single">
-                                <i class="fa-solid fa-shopping-cart fa-fade"></i>
-                                কার্ট এ যোগ করুন।
-                            </a>
+
                         </div>
                         <div class="mt-3">
                             @php
@@ -286,19 +319,20 @@
                             <a href="https://wa.me/{{ $phoneNumber }}" target="_blank"
                                 class="btn btn-primary rounded-0 w-100 py-3 mb-2"
                                 style="background-color: #25D366; border-color: #25D366; color: white;">
-                                <i class="fab fa-whatsapp fa-bounce"></i>
+                                <i class="fab fa-whatsapp"></i>
                                 হোয়াটসঅ্যাপ এ যোগ করুন।
                             </a>
                             <a href="tel:+8801832828385" target="_blank"
                                 class="btn btn-primary rounded-0 w-100 py-3 mb-2">
-                                <i class="fab fa-whatsapp fa-bounce"></i>
+                                <i class="fa-solid fa-phone fa-bounce"></i>
                                 কল করুন।
                             </a>
                             <a href="https://www.facebook.com/messages/t/109206945276633" target="_blank"
                                 class="btn btn-primary rounded-0 w-100 py-3 mb-2"
-                                style="background: linear-gradient(90deg, #00B2FF, #006AFF, #00FFEB, #FFC700, #FF7EA5);
-          border: none; color: #fff; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
-                                <i class="fab fa-facebook-messenger fa-bounce"></i>
+                                style="background: linear-gradient(90deg, #00B2FF, #006AFF, #FF5F7E);
+           border: none; color: #fff; font-weight: bold;
+           text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                                <i class="fab fa-facebook-messenger"></i>
                                 ফেসবুক এ মেসেজ দিন।
                             </a>
                         </div>
@@ -346,26 +380,26 @@
                                     প্রোডাক্ট বিস্তারিত
                                 </a>
                             </li>
-                            <li class="nav-item ml-3 pr-info-tabs" role="presentation">
+                            {{-- <li class="nav-item ml-3 pr-info-tabs" role="presentation">
                                 <a class="nav-link" id="description-tab" data-toggle="tab"
                                     href="#description-content" role="tab" aria-controls="description-content"
                                     aria-selected="true">
                                     প্রোডাক্ট ফিচার।
                                 </a>
-                            </li>
-                            <li class="nav-item ml-3 pr-inf-tabs" role="presentation">
+                            </li> --}}
+                            {{-- <li class="nav-item ml-3 pr-inf-tabs" role="presentation">
                                 <a class="nav-link" id="specification-tab" data-toggle="tab"
                                     href="#specification-content" role="tab"
                                     aria-controls="specification-content" aria-selected="false">
                                     প্রোডাক্ট স্পেসিফিকেশন।
                                 </a>
-                            </li>
-                            <li class="nav-item ml-3" role="presentation">
+                            </li> --}}
+                            {{-- <li class="nav-item ml-3" role="presentation">
                                 <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews-content"
                                     role="tab" aria-controls="reviews-content" aria-selected="false">
                                     প্রোডাক্ট রিভিউ ({{ count($product->reviews) }})।
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item ml-3 pr-info-tabs" role="presentation">
                                 <a class="nav-link" id="delivery-tab" data-toggle="tab" href="#delivery-process"
                                     role="tab" aria-controls="delivery-process" aria-selected="false">
@@ -769,14 +803,298 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-12 col-xl-6">
+                                            <div class="ps-form__group pt-2">
+                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
+                                                    for="thana">
+                                                    থানা সিলেক্ট করুন।
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <select name="thana" class="form-select ps-form__input" required
+                                                    id="thana">
+                                                    <option value="" disabled selected>থানা সিলেক্ট করুন</option>
+                                                    <!-- Dhaka District -->
+                                                    <optgroup label="ঢাকা (Dhaka)">
+                                                        <option value="Dhanmondi" data-name="Dhanmondi">ধানমন্ডি
+                                                            (Dhanmondi)</option>
+                                                        <option value="Gulshan" data-name="Gulshan">গুলশান (Gulshan)
+                                                        </option>
+                                                        <option value="Mirpur" data-name="Mirpur">মিরপুর (Mirpur)
+                                                        </option>
+                                                        <option value="Uttara" data-name="Uttara">উত্তরা (Uttara)
+                                                        </option>
+                                                        <option value="Mohammadpur" data-name="Mohammadpur">
+                                                            মোহাম্মদপুর (Mohammadpur)</option>
+                                                        <option value="Savar" data-name="Savar">সাভার (Savar)
+                                                        </option>
+                                                        <option value="Keraniganj" data-name="Keraniganj">কেরানীগঞ্জ
+                                                            (Keraniganj)</option>
+                                                        <option value="Tejgaon" data-name="Tejgaon">তেজগাঁও (Tejgaon)
+                                                        </option>
+                                                    </optgroup>
+
+                                                    <!-- Chattogram District -->
+                                                    <optgroup label="চট্টগ্রাম (Chattogram)">
+                                                        <option value="Kotwali" data-name="Kotwali">কোতোয়ালী
+                                                            (Kotwali)</option>
+                                                        <option value="Panchlaish" data-name="Panchlaish">পাঁচলাইশ
+                                                            (Panchlaish)</option>
+                                                        <option value="Chandgaon" data-name="Chandgaon">চান্দগাঁও
+                                                            (Chandgaon)</option>
+                                                        <option value="Hathazari" data-name="Hathazari">হাটহাজারী
+                                                            (Hathazari)</option>
+                                                        <option value="Patenga" data-name="Patenga">পতেঙ্গা (Patenga)
+                                                        </option>
+                                                        <option value="Rangunia" data-name="Rangunia">রাঙ্গুনিয়া
+                                                            (Rangunia)</option>
+                                                    </optgroup>
+
+                                                    <!-- Khulna District -->
+                                                    <optgroup label="খুলনা (Khulna)">
+                                                        <option value="KhulnaSadar" data-name="Khulna Sadar">খুলনা সদর
+                                                            (Khulna Sadar)</option>
+                                                        <option value="Daulatpur" data-name="Daulatpur">দৌলতপুর
+                                                            (Daulatpur)</option>
+                                                        <option value="Rupsha" data-name="Rupsha">রূপসা (Rupsha)
+                                                        </option>
+                                                        <option value="Terokhada" data-name="Terokhada">তেরোখাদা
+                                                            (Terokhada)</option>
+                                                    </optgroup>
+
+                                                    <!-- Rajshahi District -->
+                                                    <optgroup label="রাজশাহী (Rajshahi)">
+                                                        <option value="Boalia" data-name="Boalia">বোয়ালিয়া (Boalia)
+                                                        </option>
+                                                        <option value="Rajpara" data-name="Rajpara">রাজপাড়া (Rajpara)
+                                                        </option>
+                                                        <option value="Motihar" data-name="Motihar">মতিহার (Motihar)
+                                                        </option>
+                                                        <option value="ShahMakhdum" data-name="Shah Makhdum">শাহ মখদুম
+                                                            (Shah Makhdum)</option>
+                                                    </optgroup>
+
+                                                    <!-- Sylhet District -->
+                                                    <optgroup label="সিলেট (Sylhet)">
+                                                        <option value="SylhetSadar" data-name="Sylhet Sadar">সিলেট সদর
+                                                            (Sylhet Sadar)</option>
+                                                        <option value="Beanibazar" data-name="Beanibazar">বিয়ানীবাজার
+                                                            (Beanibazar)</option>
+                                                        <option value="Golapganj" data-name="Golapganj">গোলাপগঞ্জ
+                                                            (Golapganj)</option>
+                                                        <option value="Jaintiapur" data-name="Jaintiapur">জৈন্তাপুর
+                                                            (Jaintiapur)</option>
+                                                    </optgroup>
+
+                                                    <!-- Barisal District -->
+                                                    <optgroup label="বরিশাল (Barisal)">
+                                                        <option value="BarishalSadar" data-name="Barisal Sadar">বরিশাল
+                                                            সদর (Barisal Sadar)</option>
+                                                        <option value="Banaripara" data-name="Banaripara">বানারীপাড়া
+                                                            (Banaripara)</option>
+                                                        <option value="Muladi" data-name="Muladi">মুলাদী (Muladi)
+                                                        </option>
+                                                        <option value="Mehendiganj" data-name="Mehendiganj">
+                                                            মেহেন্দিগঞ্জ (Mehendiganj)</option>
+                                                    </optgroup>
+
+                                                    <!-- Mymensingh District -->
+                                                    <optgroup label="ময়মনসিংহ (Mymensingh)">
+                                                        <option value="MymensinghSadar" data-name="Mymensingh Sadar">
+                                                            ময়মনসিংহ সদর (Mymensingh Sadar)</option>
+                                                        <option value="Muktagachha" data-name="Muktagachha">মুক্তাগাছা
+                                                            (Muktagachha)</option>
+                                                        <option value="Phulpur" data-name="Phulpur">ফুলপুর (Phulpur)
+                                                        </option>
+                                                        <option value="Trishal" data-name="Trishal">ত্রিশাল (Trishal)
+                                                        </option>
+                                                    </optgroup>
+
+                                                    <!-- Rangpur District -->
+                                                    <optgroup label="রংপুর (Rangpur)">
+                                                        <option value="RangpurSadar" data-name="Rangpur Sadar">রংপুর
+                                                            সদর (Rangpur Sadar)</option>
+                                                        <option value="Pirganj" data-name="Pirganj">পীরগঞ্জ (Pirganj)
+                                                        </option>
+                                                        <option value="Mithapukur" data-name="Mithapukur">মিঠাপুকুর
+                                                            (Mithapukur)</option>
+                                                        <option value="Gangachara" data-name="Gangachara">গঙ্গাচড়া
+                                                            (Gangachara)</option>
+                                                    </optgroup>
+
+                                                    <!-- Comilla District -->
+                                                    <optgroup label="কুমিল্লা (Comilla)">
+                                                        <option value="ComillaSadar" data-name="Comilla Sadar">
+                                                            কুমিল্লা সদর (Comilla Sadar)</option>
+                                                        <option value="Debidwar" data-name="Debidwar">দেবিদ্বার
+                                                            (Debidwar)</option>
+                                                        <option value="Daudkandi" data-name="Daudkandi">দাউদকান্দি
+                                                            (Daudkandi)</option>
+                                                        <option value="Homna" data-name="Homna">হোমনা (Homna)
+                                                        </option>
+                                                    </optgroup>
+
+                                                    <!-- Madaripur District -->
+                                                    <optgroup label="মাদারীপুর (Madaripur)">
+                                                        <option value="MadaripurSadar" data-name="Madaripur Sadar">
+                                                            মাদারীপুর সদর (Madaripur Sadar)</option>
+                                                        <option value="Kalkini" data-name="Kalkini">কালকিনি (Kalkini)
+                                                        </option>
+                                                        <option value="Ranishankail" data-name="Ranishankail">
+                                                            রাণীশংকাইল (Ranishankail)</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-xl-6">
+                                            <div class="ps-form__group pt-2">
+                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
+                                                    for="district">
+                                                    জেলা সিলেক্ট করুন।
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <select name="district" class="form-select ps-form__input" required
+                                                    id="district">
+                                                    <option value="" disabled selected>জেলা সিলেক্ট করুন</option>
+                                                    <option value="1" data-id="1" data-price="60.00"
+                                                        data-name="Dhaka">ঢাকা</option>
+                                                    <option value="2" data-id="2" data-price="80.00"
+                                                        data-name="Faridpur">ফরিদপুর</option>
+                                                    <option value="3" data-id="3" data-price="100.00"
+                                                        data-name="Gazipur">গাজীপুর</option>
+                                                    <option value="4" data-id="4" data-price="100.00"
+                                                        data-name="Gopalganj">গোপালগঞ্জ</option>
+                                                    <option value="5" data-id="5" data-price="130.00"
+                                                        data-name="Kishoreganj">কিশোরগঞ্জ</option>
+                                                    <option value="6" data-id="6" data-price="130.00"
+                                                        data-name="Madaripur">মাদারীপুর</option>
+                                                    <option value="7" data-id="7" data-price="130.00"
+                                                        data-name="Manikganj">মানিকগঞ্জ</option>
+                                                    <option value="8" data-id="8" data-price="130.00"
+                                                        data-name="Munshiganj">মুন্সিগঞ্জ</option>
+                                                    <option value="9" data-id="9" data-price="130.00"
+                                                        data-name="Narayanganj">নারায়ণগঞ্জ</option>
+                                                    <option value="10" data-id="10" data-price="130.00"
+                                                        data-name="Narsingdi">নরসিংদী</option>
+                                                    <option value="11" data-id="11" data-price="130.00"
+                                                        data-name="Rajbari">রাজবাড়ী</option>
+                                                    <option value="12" data-id="12" data-price="130.00"
+                                                        data-name="Shariatpur">শরীয়তপুর</option>
+                                                    <option value="13" data-id="13" data-price="130.00"
+                                                        data-name="Tangail">টাঙ্গাইল</option>
+                                                    <option value="14" data-id="14" data-price="130.00"
+                                                        data-name="Barguna">বরগুনা</option>
+                                                    <option value="15" data-id="15" data-price="130.00"
+                                                        data-name="Barisal">বরিশাল</option>
+                                                    <option value="16" data-id="16" data-price="130.00"
+                                                        data-name="Bhola">ভোলা</option>
+                                                    <option value="17" data-id="17" data-price="130.00"
+                                                        data-name="Jhalokati">ঝালকাঠি</option>
+                                                    <option value="18" data-id="18" data-price="130.00"
+                                                        data-name="Patuakhali">পটুয়াখালী</option>
+                                                    <option value="19" data-id="19" data-price="130.00"
+                                                        data-name="Pirojpur">পিরোজপুর</option>
+                                                    <option value="20" data-id="20" data-price="130.00"
+                                                        data-name="Bandarban">বান্দরবান</option>
+                                                    <option value="21" data-id="21" data-price="130.00"
+                                                        data-name="Brahmanbaria">ব্রাহ্মণবাড়িয়া</option>
+                                                    <option value="22" data-id="22" data-price="130.00"
+                                                        data-name="Chandpur">চাঁদপুর</option>
+                                                    <option value="23" data-id="23" data-price="130.00"
+                                                        data-name="Chittagong">চট্টগ্রাম</option>
+                                                    <option value="24" data-id="24" data-price="130.00"
+                                                        data-name="Comilla">কুমিল্লা</option>
+                                                    <option value="25" data-id="25" data-price="130.00"
+                                                        data-name="Cox's Bazar">কক্সবাজার</option>
+                                                    <option value="26" data-id="26" data-price="130.00"
+                                                        data-name="Feni">ফেনী</option>
+                                                    <option value="27" data-id="27" data-price="130.00"
+                                                        data-name="Khagrachari">খাগড়াছড়ি</option>
+                                                    <option value="28" data-id="28" data-price="130.00"
+                                                        data-name="Lakshmipur">লক্ষ্মীপুর</option>
+                                                    <option value="29" data-id="29" data-price="130.00"
+                                                        data-name="Noakhali">নোয়াখালী</option>
+                                                    <option value="30" data-id="30" data-price="130.00"
+                                                        data-name="Rangamati">রাঙ্গামাটি</option>
+                                                    <option value="31" data-id="31" data-price="130.00"
+                                                        data-name="Habiganj">হবিগঞ্জ</option>
+                                                    <option value="32" data-id="32" data-price="130.00"
+                                                        data-name="Moulvibazar">মৌলভীবাজার</option>
+                                                    <option value="33" data-id="33" data-price="130.00"
+                                                        data-name="Sylhet">সিলেট</option>
+                                                    <option value="34" data-id="34" data-price="130.00"
+                                                        data-name="Jamalpur">জামালপুর</option>
+                                                    <option value="35" data-id="35" data-price="130.00"
+                                                        data-name="Mymensingh">ময়মনসিংহ</option>
+                                                    <option value="36" data-id="36" data-price="130.00"
+                                                        data-name="Netrokona">নেত্রকোণা</option>
+                                                    <option value="37" data-id="37" data-price="130.00"
+                                                        data-name="Sherpur">শেরপুর</option>
+                                                    <option value="38" data-id="38" data-price="130.00"
+                                                        data-name="Bogra">বগুড়া</option>
+                                                    <option value="39" data-id="39" data-price="130.00"
+                                                        data-name="Joypurhat">জয়পুরহাট</option>
+                                                    <option value="40" data-id="40" data-price="130.00"
+                                                        data-name="Naogaon">নওগাঁ</option>
+                                                    <option value="41" data-id="41" data-price="130.00"
+                                                        data-name="Natore">নাটোর</option>
+                                                    <option value="42" data-id="42" data-price="130.00"
+                                                        data-name="Chapainawabganj">চাঁপাইনবাবগঞ্জ</option>
+                                                    <option value="43" data-id="43" data-price="130.00"
+                                                        data-name="Pabna">পাবনা</option>
+                                                    <option value="44" data-id="44" data-price="130.00"
+                                                        data-name="Rajshahi">রাজশাহী</option>
+                                                    <option value="45" data-id="45" data-price="130.00"
+                                                        data-name="Sirajganj">সিরাজগঞ্জ</option>
+                                                    <option value="46" data-id="46" data-price="130.00"
+                                                        data-name="Dinajpur">দিনাজপুর</option>
+                                                    <option value="47" data-id="47" data-price="130.00"
+                                                        data-name="Gaibandha">গাইবান্ধা</option>
+                                                    <option value="48" data-id="48" data-price="130.00"
+                                                        data-name="Kurigram">কুড়িগ্রাম</option>
+                                                    <option value="49" data-id="49" data-price="130.00"
+                                                        data-name="Lalmonirhat">লালমনিরহাট</option>
+                                                    <option value="50" data-id="50" data-price="130.00"
+                                                        data-name="Nilphamari">নীলফামারী</option>
+                                                    <option value="51" data-id="51" data-price="130.00"
+                                                        data-name="Panchagarh">পঞ্চগড়</option>
+                                                    <option value="52" data-id="52" data-price="130.00"
+                                                        data-name="Rangpur">রংপুর</option>
+                                                    <option value="53" data-id="53" data-price="130.00"
+                                                        data-name="Thakurgaon">ঠাকুরগাঁও</option>
+                                                    <option value="54" data-id="54" data-price="130.00"
+                                                        data-name="Bagerhat">বাগেরহাট</option>
+                                                    <option value="55" data-id="55" data-price="130.00"
+                                                        data-name="Chuadanga">চুয়াডাঙ্গা</option>
+                                                    <option value="56" data-id="56" data-price="130.00"
+                                                        data-name="Jessore">যশোর</option>
+                                                    <option value="57" data-id="57" data-price="130.00"
+                                                        data-name="Jhenaidah">ঝিনাইদহ</option>
+                                                    <option value="58" data-id="58" data-price="130.00"
+                                                        data-name="Khulna">খুলনা</option>
+                                                    <option value="59" data-id="59" data-price="130.00"
+                                                        data-name="Kushtia">কুষ্টিয়া</option>
+                                                    <option value="60" data-id="60" data-price="130.00"
+                                                        data-name="Magura">মাগুরা</option>
+                                                    <option value="61" data-id="61" data-price="130.00"
+                                                        data-name="Meherpur">মেহেরপুর</option>
+                                                    <option value="62" data-id="62" data-price="130.00"
+                                                        data-name="Narail">নড়াইল</option>
+                                                    <option value="63" data-id="63" data-price="130.00"
+                                                        data-name="Satkhira">সাতক্ষীরা</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="col-12 col-xl-12">
                                             <div class="ps-form__group pt-2">
                                                 <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                    for="first_name">আপনার সম্পূর্ণ ঠিকানা যেমন গ্রাম , থানা , বিভাগ
-                                                    লিখুন
+                                                    for="address">আপনার সম্পূর্ণ ঠিকানা লিখুন
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <textarea class="ps-form__input w-100" name="" id="" rows="3" required></textarea>
+                                                <input id="address" class="form-control ps-form__input"
+                                                    type="text" name="address" value="Roth" autofocus=""
+                                                    required="" autocomplete="address"
+                                                    placeholder="Enter Your Address" required>
                                             </div>
                                         </div>
                                         <div class="col-12 col-xl-12">
@@ -1013,6 +1331,77 @@
 
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            document.querySelectorAll('.magnifier-container').forEach(container => {
+                const img = container.querySelector('img');
+
+                container.addEventListener('mousemove', (e) => {
+                    const rect = container.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const xPercent = (x / rect.width) * 100;
+                    const yPercent = (y / rect.height) * 100;
+
+                    img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+                    img.style.transform = "scale(2)"; // Zoom level
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    img.style.transform = "scale(1)";
+                    img.style.transformOrigin = "center center";
+                });
+            });
+        </script>
+        <!-- Initialize Select2 -->
+        <script>
+            $(document).ready(function() {
+                // Apply Select2 to the 'thana' dropdown
+                $('#thana').select2({
+                    placeholder: "থানা সিলেক্ট করুন", // Placeholder text
+                    allowClear: true, // Allow clearing the selection
+                    matcher: function(params, data) {
+                        // If there is no search term, return all options
+                        if ($.trim(params.term) === '') {
+                            return data;
+                        }
+
+                        // Perform case-insensitive matching on both the text and the data-name attribute
+                        if (data.text.toLowerCase().includes(params.term.toLowerCase()) ||
+                            $(data.element).data('name').toLowerCase().includes(params.term.toLowerCase())
+                        ) {
+                            return data;
+                        }
+
+                        // If no match, return null
+                        return null;
+                    },
+                    width: '100%' // Set the width to 100%
+                });
+
+                // Apply Select2 to the 'district' dropdown
+                $('#district').select2({
+                    placeholder: "জেলা সিলেক্ট করুন",
+                    allowClear: true,
+                    matcher: function(params, data) {
+                        // If there is no search term, return all options
+                        if ($.trim(params.term) === '') {
+                            return data;
+                        }
+
+                        // Perform case-insensitive matching on both the text and the data-name attribute
+                        if (data.text.toLowerCase().includes(params.term.toLowerCase()) ||
+                            $(data.element).data('name').toLowerCase().includes(params.term.toLowerCase())
+                        ) {
+                            return data;
+                        }
+
+                        // If no match, return null
+                        return null;
+                    }
+                });
+            });
+        </script>
         <script>
             document.addEventListener('click', function(event) {
                 // Check if the clicked element is a modal trigger button
