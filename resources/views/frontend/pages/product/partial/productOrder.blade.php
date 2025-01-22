@@ -51,19 +51,12 @@
                                                 for="first_name">ডেলিভারি লোকেশন সিলেক্ট করুন।
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select name="title" class="form-select ps-form__input" required
-                                                id="title">
-                                                <option value="1" data-id="0" data-price="60.00">ঢাকা
-                                                    মেট্রো সিটি
-                                                    ( ৬০ Tk)</option>
-                                                <option value="2" data-id="1" data-price="80.00">ডেমরা,
-                                                    কামরাঙ্গীরচর ( ৮০ Tk)</option>
-                                                <option value="4" data-id="2" data-price="100.00">সাভার,
-                                                    গাজীপুর,
-                                                    কেরানীগঞ্জ, নারায়ণগঞ্জ ( ১০০Tk )</option>
-                                                <option value="5" data-id="3" data-price="130.00">
-                                                    অন্যান্য জেলা,
-                                                    উপজেলা, বিভাগ ( ১৩০ TK )</option>
+                                            <select name="shipping_id" class="form-select ps-form__input" required
+                                                id="shipping_id">
+                                                @foreach ($shippingmethods as $shippingmethod)
+                                                    <option value="1" data-id="0" data-price="60.00">ঢাকা
+                                                        মেট্রো সিটি ( ৬০ Tk)</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
