@@ -155,59 +155,17 @@ class CartController extends Controller
         // Validate the request data
         $totalAmount = preg_replace('/[^0-9.]/', '', $request->input('total_amount'));
         $validator = Validator::make($request->all(), [
-            // 'billing_email' => 'required|email',
-            // 'billing_first_name' => 'required|string|max:255',
-            // 'billing_last_name' => 'required|string|max:255',
-            // 'billing_address_1' => 'required|string|max:255',
-            // 'billing_state' => 'required|string|max:255',
-            // 'billing_postcode' => 'required|string|max:20',
-            // 'billing_phone' => 'required|string|max:20',
-            'shipping_first_name' => 'nullable|string|max:255',
-            'shipping_last_name'  => 'nullable|string|max:255',
-            'shipping_address'    => 'nullable|string|max:255',
-            'shipping_email'      => 'required|email',
-            'shipping_phone'      => 'required|string|max:20',
-            'shipping_state'      => 'nullable|string|max:255',
-            'shipping_postcode'   => 'nullable|string|max:20',
-            'shipping_phone'      => 'nullable|string|max:20',
-            'order_note'          => 'nullable|string',
-            'payment_method'      => 'required|in:cod,stripe,paypal',
-            'sub_total'           => 'required',
-            'total_amount'        => 'required|min:0',
-            // 'shipping_id' => 'required|exists:shipping_methods,id'
+            'name'           => 'nullable|string|max: 255',
+            'address'        => 'nullable|string',
+            'email'          => 'required|email',
+            'phone'          => 'required|string|max: 20',
+            'thana'          => 'nullable|string',
+            'district'       => 'nullable|string',
+            'order_note'     => 'nullable|string',
+            // 'payment_method' => 'required|in:cod,stripe,paypal',
+            'sub_total'      => 'required',
+            'total_amount'   => 'required|min:0',
         ], [
-            'billing_email.required' => 'The billing email is required.',
-            'billing_email.email' => 'The billing email must be a valid email address.',
-            'billing_first_name.required' => 'The billing first name is required.',
-            'billing_first_name.string' => 'The billing first name must be a string.',
-            'billing_first_name.max' => 'The billing first name may not be greater than 255 characters.',
-            'billing_last_name.required' => 'The billing last name is required.',
-            'billing_last_name.string' => 'The billing last name must be a string.',
-            'billing_last_name.max' => 'The billing last name may not be greater than 255 characters.',
-            'billing_address.required' => 'The billing address is required.',
-            'billing_address.string' => 'The billing address must be a string.',
-            'billing_address.max' => 'The billing address may not be greater than 255 characters.',
-            'billing_state.required' => 'The billing state is required.',
-            'billing_state.string' => 'The billing state must be a string.',
-            'billing_state.max' => 'The billing state may not be greater than 255 characters.',
-            'billing_postcode.required' => 'The billing postcode is required.',
-            'billing_postcode.string' => 'The billing postcode must be a string.',
-            'billing_postcode.max' => 'The billing postcode may not be greater than 20 characters.',
-            'billing_phone.required' => 'The billing phone number is required.',
-            'billing_phone.string' => 'The billing phone number must be a string.',
-            'billing_phone.max' => 'The billing phone number may not be greater than 20 characters.',
-            'shipping_first_name.string' => 'The shipping first name must be a string.',
-            'shipping_first_name.max' => 'The shipping first name may not be greater than 255 characters.',
-            'shipping_last_name.string' => 'The shipping last name must be a string.',
-            'shipping_last_name.max' => 'The shipping last name may not be greater than 255 characters.',
-            'shipping_address.string' => 'The shipping address must be a string.',
-            'shipping_address.max' => 'The shipping address may not be greater than 255 characters.',
-            'shipping_state.string' => 'The shipping state must be a string.',
-            'shipping_state.max' => 'The shipping state may not be greater than 255 characters.',
-            'shipping_postcode.string' => 'The shipping postcode must be a string.',
-            'shipping_postcode.max' => 'The shipping postcode may not be greater than 20 characters.',
-            'shipping_phone.string' => 'The shipping phone number must be a string.',
-            'shipping_phone.max' => 'The shipping phone number may not be greater than 20 characters.',
             'order_note.string' => 'The order note must be a string.',
             'payment_method.required' => 'The payment method is required.',
             'payment_method.in' => 'The selected payment method is invalid.',
@@ -222,32 +180,21 @@ class CartController extends Controller
         if ($validator->fails()) {
             foreach ($validator->messages()->all() as $message) {
                 Session::flash('error', $message);
-                // flash()->error($message);
-                // Session::flush();
             }
             return redirect()->back()->withInput();
         }
 
-        // Begin a database transaction
         DB::beginTransaction();
         try {
-            $typePrefix = 'PQ';
-            $year = date('Y'); // Get the last two digits of the year (e.g., '24' for 2024)
-
-            // Find the most recent code for the given type and year
+            $typePrefix = 'JL';
+            $year = date('Y');
             $lastCode = Order::where('order_number', 'like', $typePrefix . '-' . $year . '%')
                 ->orderBy('id', 'desc')
                 ->first();
-
-            // Extract and increment the last number or start at 1 if none exists
             $newNumber = $lastCode ? (int) substr($lastCode->order_number, strlen($typePrefix . '-' . $year)) + 1 : 1;
-
-            // Construct the new code
             $code = $typePrefix . '-' . $year . $newNumber;
-            // Create the order
 
-            $billingAddress = $request->input('billing_address_1') . ', ' . $request->input('billing_address_2');
-            $shippingAddress = !empty($request->input('shipping_address')) ? $request->input('shipping_address') : $billingAddress;
+
             $shipping_method = ShippingMethod::find($request->input('shipping_id'));
             if ($shipping_method) {
                 $shipping_method_id = $shipping_method->id;
@@ -270,23 +217,14 @@ class CartController extends Controller
                 'payment_method'               => $request->input('payment_method'),
                 'payment_status'               => 'unpaid',
                 'status'                       => 'pending',
-                'shipped_to_different_address' => $request->has('ship-address') ? 'yes' : 'no',
-                'billing_first_name'           => $request->input('billing_first_name'),
-                'billing_last_name'            => $request->input('billing_last_name'),
-                'billing_email'                => $request->input('billing_email'),
-                'billing_phone'                => $request->input('billing_phone'),
-                'billing_address'              => $billingAddress,
-                'billing_zipcode'              => $request->input('billing_postcode'),
-                'billing_state'                => $request->input('billing_state'),
-                'billing_country'              => $request->input('billing_country', 'UK'),
-                'shipping_first_name'          => $request->input('shipping_first_name'),
-                'shipping_last_name'           => $request->input('shipping_last_name'),
-                'shipping_email'               => $request->input('shipping_email'),
-                'shipping_phone'               => $request->input('shipping_phone'),
-                'shipping_address'             => $shippingAddress,
-                'shipping_zipcode'             => $request->input('shipping_postcode'),
-                'shipping_state'               => $request->input('shipping_state'),
-                'shipping_country'             => $request->input('shipping_country'),
+                'shipped_to_different_address' => $request->has('ship-address') ? 'yes': 'no',
+                'name'                         => $request->input('name'),
+                'email'                        => $request->input('email'),
+                'phone'                        => $request->input('phone'),
+                'delivery_location'            => $request->input('delivery_location'),
+                'thana'                        => $request->input('thana'),
+                'district'                     => $request->input('district'),
+                'address'                      => $request->input('address'),
                 'order_note'                   => $request->input('order_note'),
                 'created_by'                   => auth()->id(),
                 'order_created_at'             => Carbon::now(),
@@ -326,29 +264,7 @@ class CartController extends Controller
                 'order' =>  $order,
                 'user'  => $user,
             ];
-            // dd($data['order']);
-            // return view('pdf.invoice', $data);
-            // Generate and save PDF
-            // $pdf = Pdf::loadView('pdf.invoice', $data);
-            // $pdfPath = storage_path('app/public/order/' . $order->order_number . '_invoice.pdf');
 
-            // // Ensure the directory exists
-            // $directory = dirname($pdfPath);
-            // if (!File::exists($directory)) {
-            //     File::makeDirectory($directory, 0755, true);
-            // }
-
-            // try {
-            //     $pdf->save($pdfPath);
-            //     $order->update([
-            //         'invoice' => 'order/' . $order->order_number . '_invoice.pdf',
-            //     ]);
-            // } catch (\Exception $e) {
-            //     // Handle PDF save exception
-            //     // flash()->error('Failed to generate PDF: ' . $e->getMessage());
-            //     Session::flash('error', 'Failed to generate PDF: ' . $e->getMessage());
-            //     // Session::flush();
-            // }
             try {
                 $setting = Setting::first();
                 $data = [
@@ -365,24 +281,15 @@ class CartController extends Controller
                 Session::flash('error', 'Failed to send Mail: ' . $e->getMessage());
                 // Session::flush();
             }
-            // Redirect to a confirmation page or thank you page
-            // if ($order->payment_method == "stripe") {
-            //     Session::flash('success', 'Order placed successfully!');
-            //     // Session::flush();
-            //     // flash()->success('Order placed successfully!');
-            //     return redirect()->route('stripe.payment', $order->order_number);
-            // } else if ($order->payment_method == "paypal") {
-            //     return view('frontend.pages.cart.paypal', $data);
-            // } else {
-            // flash()->success('Order placed successfully!');
+
             Session::flash('success', 'Order placed successfully!');
-            // Session::flush();
+
             return redirect()->route('checkout.success', $order->order_number);
             // }
         } catch (\Exception $e) {
             DB::rollback();
             Session::flash('error', $e->getMessage());
-            // Session::flush();
+
             return redirect()->back()->withInput();
         }
     }

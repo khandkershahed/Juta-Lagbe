@@ -9,16 +9,7 @@
             </ul>
             <h3 class="ps-checkout__title">Checkout</h3>
             <div class="ps-checkout__content">
-                {{-- <div class="ps-checkout__wapper">
-                    <p class="ps-checkout__text">
-                        Returning customer?
-                        <a href="my-account.html">Click here to login</a>
-                    </p>
-                    <p class="ps-checkout__text">
-                        Have a coupon?
-                        <a href="shopping-cart.html">Click here to enter your code</a>
-                    </p>
-                </div> --}}
+                
                 <form action="{{ route('checkout.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
