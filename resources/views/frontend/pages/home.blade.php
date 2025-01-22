@@ -794,167 +794,116 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="col-lg-12">
-                            <div>
-                                <iframe width="200" height="200"
-                                    src="https://www.youtube-nocookie.com/embed/mlVtQDVrNns?rel=0&amp;showinfo=0"
-                                    frameborder="0" gesture="media" allowfullscreen></iframe>
-                            </div>
-                            <div>
-                                <iframe width="200" height="200"
-                                    src="https://www.youtube-nocookie.com/embed/HTPziLzmVCE?rel=0&amp;showinfo=0"
-                                    frameborder="0" gesture="media" allowfullscreen></iframe>
-                            </div>
-                            <div>
-                                <iframe width="200" height="200"
-                                    src="https://www.youtube-nocookie.com/embed/irSoaOXhbGw?rel=0&amp;showinfo=0"
-                                    frameborder="0" gesture="media" allowfullscreen></iframe>
-                            </div>
-                            <div>
-                                <iframe width="200" height="200"
-                                    src="https://www.youtube-nocookie.com/embed/DI7imXBhC4A?rel=0&amp;showinfo=0"
-                                    frameborder="0" gesture="media" allowfullscreen></iframe>
-                            </div>
-                        </div> --}}
                         <div class="col-lg-12">
-                            <div class="row custom-carousel owl-carousel owl-loaded owl-drag pb-5">
-                                <div class="owl-stage-outer">
-                                    <div class="owl-stage mb-4">
-                                        <div class="owl-item col-4">
-                                            <div class="card p-0 border-0 video-card rounded-4">
-                                                <div class="card-body p-0 video-container">
-                                                    <video class="video-player" loop>
-                                                        <source src="{{ asset('images/video1.mp4') }}" />
-                                                    </video>
-                                                    <div class="content">
-                                                        <div class="video-box-img">
-                                                            <img class="img-fluid"
-                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                                alt="">
-                                                        </div>
-                                                        <p>boAt Airdopes 71</p>
-                                                        <p><span class="site-text">Tk899</span>
-                                                            <del class="text-danger">₹3,990</del>
-                                                            <span class="text-">77% off</span>
-                                                        </p>
-                                                    </div>
+                            <div class="row pb-5">
+                                <div class="col-3">
+                                    <div class="card p-0 border-0 video-card rounded-4">
+                                        <div class="card-body p-0 video-container">
+                                            <iframe class="video-player" width="560" height="315"
+                                                src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                            </iframe>
+                                            <div class="content">
+                                                <div class="video-box-img">
+                                                    <img class="img-fluid"
+                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                        alt="">
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="owl-item col-4">
-                                            <div class="card p-0 border-0 video-card rounded-4">
-                                                <div class="card-body p-0 video-container">
-                                                    <video class="video-player" loop>
-                                                        <source src="{{ asset('images/video2.mp4') }}" />
-                                                    </video>
-                                                    <div class="content">
-                                                        <div class="video-box-img">
-                                                            <img class="img-fluid"
-                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                                alt="">
-                                                        </div>
-                                                        <p>boAt Airdopes 71</p>
-                                                        <p><span class="site-text">Tk899</span>
-                                                            <del class="text-danger">₹3,990</del>
-                                                            <span class="text-">77% off</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="owl-item col-4">
-                                            <div class="card p-0 border-0 video-card rounded-4">
-                                                <div class="card-body p-0 video-container">
-                                                    <video class="video-player" loop>
-                                                        <source src="{{ asset('images/video3.mp4') }}" />
-                                                    </video>
-                                                    <div class="content">
-                                                        <div class="video-box-img">
-                                                            <img class="img-fluid"
-                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                                alt="">
-                                                        </div>
-                                                        <p>boAt Airdopes 71</p>
-                                                        <p><span class="site-text">Tk899</span>
-                                                            <del class="text-danger">₹3,990</del>
-                                                            <span class="text-">77% off</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="owl-item col-4">
-                                            <div class="card p-0 border-0 video-card rounded-4">
-                                                <div class="card-body p-0 video-container">
-                                                    <video class="video-player" loop>
-                                                        <source src="{{ asset('images/video4.mp4') }}" />
-                                                    </video>
-                                                    <div class="content">
-                                                        <div class="video-box-img">
-                                                            <img class="img-fluid"
-                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                                alt="">
-                                                        </div>
-                                                        <p>boAt Airdopes 71</p>
-                                                        <p><span class="site-text">Tk899</span>
-                                                            <del class="text-danger">₹3,990</del>
-                                                            <span class="text-">77% off</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="owl-item col-4">
-                                            <div class="card p-0 border-0 video-card rounded-4">
-                                                <div class="card-body p-0 video-container">
-                                                    <video class="video-player" loop>
-                                                        <source src="{{ asset('images/video5.mp4') }}" />
-                                                    </video>
-                                                    <div class="content">
-                                                        <div class="video-box-img">
-                                                            <img class="img-fluid"
-                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                                alt="">
-                                                        </div>
-                                                        <p>boAt Airdopes 71</p>
-                                                        <p><span class="site-text">Tk899</span>
-                                                            <del class="text-danger">₹3,990</del>
-                                                            <span class="text-">77% off</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="owl-item col-4">
-                                            <div class="card p-0 border-0 video-card rounded-4">
-                                                <div class="card-body p-0 video-container">
-                                                    <!-- Lazy Load Video -->
-                                                    <iframe width="100%" height="410" class="video-player"
-                                                        data-src="https://www.youtube.com/embed/b8k4s4R_Pfc?autoplay=1"
-                                                        title="Nike Invincible 3 &amp; Asics Gel-Nimbus 25"
-                                                        frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                        referrerpolicy="strict-origin-when-cross-origin"
-                                                        allowfullscreen>
-                                                    </iframe>
-
-                                                    <div class="content">
-                                                        <div class="video-box-img">
-                                                            <img class="img-fluid"
-                                                                src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                                alt="">
-                                                        </div>
-                                                        <p>boAt Airdopes 71</p>
-                                                        <p><span class="site-text">Tk899</span>
-                                                            <del class="text-danger">₹3,990</del>
-                                                            <span class="text-">77% off</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                                <p>boAt Airdopes 71</p>
+                                                <p><span class="site-text">Tk899</span>
+                                                    <del class="text-danger">₹3,990</del>
+                                                    <span class="text-">77% off</span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                {{-- <div class="col-4">
+                                    <div class="card p-0 border-0 video-card rounded-4">
+                                        <div class="card-body p-0 video-container">
+                                            <video class="video-player" loop>
+                                                <source src="{{ asset('images/video2.mp4') }}" />
+                                            </video>
+                                            <div class="content">
+                                                <div class="video-box-img">
+                                                    <img class="img-fluid"
+                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                        alt="">
+                                                </div>
+                                                <p>boAt Airdopes 71</p>
+                                                <p><span class="site-text">Tk899</span>
+                                                    <del class="text-danger">₹3,990</del>
+                                                    <span class="text-">77% off</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="card p-0 border-0 video-card rounded-4">
+                                        <div class="card-body p-0 video-container">
+                                            <video class="video-player" loop>
+                                                <source src="{{ asset('images/video3.mp4') }}" />
+                                            </video>
+                                            <div class="content">
+                                                <div class="video-box-img">
+                                                    <img class="img-fluid"
+                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                        alt="">
+                                                </div>
+                                                <p>boAt Airdopes 71</p>
+                                                <p><span class="site-text">Tk899</span>
+                                                    <del class="text-danger">₹3,990</del>
+                                                    <span class="text-">77% off</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="card p-0 border-0 video-card rounded-4">
+                                        <div class="card-body p-0 video-container">
+                                            <video class="video-player" loop>
+                                                <source src="{{ asset('images/video4.mp4') }}" />
+                                            </video>
+                                            <div class="content">
+                                                <div class="video-box-img">
+                                                    <img class="img-fluid"
+                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                        alt="">
+                                                </div>
+                                                <p>boAt Airdopes 71</p>
+                                                <p><span class="site-text">Tk899</span>
+                                                    <del class="text-danger">₹3,990</del>
+                                                    <span class="text-">77% off</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="card p-0 border-0 video-card rounded-4">
+                                        <div class="card-body p-0 video-container">
+                                            <video class="video-player" loop>
+                                                <source src="{{ asset('images/video5.mp4') }}" />
+                                            </video>
+                                            <div class="content">
+                                                <div class="video-box-img">
+                                                    <img class="img-fluid"
+                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                        alt="">
+                                                </div>
+                                                <p>boAt Airdopes 71</p>
+                                                <p><span class="site-text">Tk899</span>
+                                                    <del class="text-danger">₹3,990</del>
+                                                    <span class="text-">77% off</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -1351,56 +1300,43 @@
             </div>
         @endif
     </div>
-    <!-- Modal trigger button -->
-    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
-        Launch
-    </button>
-
-    <!-- Modal Body -->
-    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitleId">
-                        Modal title
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">Body</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Optional: Place to the bottom of scripts -->
-    <script>
-        const myModal = new bootstrap.Modal(
-            document.getElementById("modalId"),
-            options,
-        );
-    </script>
 
     @include('frontend.layouts.HomeQuickViewModal')
     @push('scripts')
-        <script src="https://www.youtube.com/AIzaSyCle0f2OKdN8-N-4xi0oBtlEHDCcwzdAwU"></script>
-        <script>
-            $(document).ready(function() {
-                var nowPlaying = "none";
-                $('div').hover(function() {
-                    nowPlaying = $(this).find('iframe').attr('src');
-                    $(this).find('iframe').attr('src', nowPlaying + '&autoplay=1');
-                }, function() {
-                    $(this).find('iframe').attr('src', nowPlaying);
+    <script>
+        $(document).ready(function() {
+            var iframe = $('.video-player')[0];
+            var player;
+
+            // YouTube API script
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            // Create YouTube player after API script is loaded
+            window.onYouTubeIframeAPIReady = function() {
+                player = new YT.Player(iframe, {
+                    events: {
+                        'onReady': onPlayerReady
+                    }
                 });
-            });
-        </script>
+            };
+
+            // Function to play the video when it's ready
+            function onPlayerReady(event) {
+                // Allow immediate playback when hovering over the video container
+                $('.video-container').on('mouseenter', function() {
+                    player.playVideo();
+                });
+
+                // Pause the video when mouse leaves the iframe
+                $('.video-container').on('mouseleave', function() {
+                    player.pauseVideo();
+                });
+            }
+        });
+    </script>
         <script>
             $(document).ready(function() {
                 // Initialize Owl Carousel
