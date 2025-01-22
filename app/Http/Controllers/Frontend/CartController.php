@@ -170,15 +170,16 @@ class CartController extends Controller
         // Prepare payment request data
         $request_data_json = json_encode($request->all());
         // Create an instance of the BkashPaymentTokenize class
-        $bkashPayment = new BkashPaymentTokenize();
+        // $bkashPayment = new BkashPaymentTokenize();
 
         // Now call the cPayment method on the instance
-        $response = $bkashPayment->cPayment($request_data_json);
+        // $response = $bkashPayment->cPayment($request_data_json);
+        $response = BkashPaymentTokenize::cPayment($request_data_json);
+        Log::error('bKash API Error', [
+            'response' => $response,
+            'request'  => $request_data_json
+        ]);
 
-        // Call bKash API to get the payment URL
-        // $response = BkashPaymentTokenize::cPayment($request_data_json);
-        console.log($request_data_json);
-        Log::debug('bKash Response: ', $response);
         // If bKash URL exists, redirect to payment gateway
         if (isset($response['bkashURL'])) {
             return redirect()->away($response['bkashURL']);
@@ -300,6 +301,36 @@ class CartController extends Controller
             return response()->json([
                 'error' => $e->getMessage(),
             ], 500);
+        }
+    }
+
+
+    public function callBack(Request $request)
+    {
+        //callback request params
+        // paymentID=your_payment_id&status=success&apiVersion=1.2.0-beta
+        //using paymentID find the account number for sending params
+
+        if ($request->status == 'success'){
+            $response = BkashPaymentTokenize::executePayment($request->paymentID);
+            //$response = BkashPaymentTokenize::executePayment($request->paymentID, 1); //last parameter is your account number for multi account its like, 1,2,3,4,cont..
+            if (!$response){ //if executePayment payment not found call queryPayment
+                $response = BkashPaymentTokenize::queryPayment($request->paymentID);
+                //$response = BkashPaymentTokenize::queryPayment($request->paymentID,1); //last parameter is your account number for multi account its like, 1,2,3,4,cont..
+            }
+
+            if (isset($response['statusCode']) && $response['statusCode'] == "0000" && $response['transactionStatus'] == "Completed") {
+                /*
+                 * for refund need to store
+                 * paymentID and trxID
+                 * */
+                return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
+            }
+            return BkashPaymentTokenize::failure($response['statusMessage']);
+        }else if ($request->status == 'cancel'){
+            return BkashPaymentTokenize::cancel('Your payment is canceled');
+        }else{
+            return BkashPaymentTokenize::failure('Your transaction is failed');
         }
     }
 }
