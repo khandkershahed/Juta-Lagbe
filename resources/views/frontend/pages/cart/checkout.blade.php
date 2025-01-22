@@ -9,7 +9,7 @@
             </ul>
             <h3 class="ps-checkout__title">Checkout</h3>
             <div class="ps-checkout__content">
-                
+
                 <form action="{{ route('checkout.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -571,28 +571,19 @@
                                 <div class="ps-checkout__row row">
                                     <div class="ps-title col-lg-12">Shipping <span class="text-danger">*</span></div>
                                     <div class="ps-checkout__checkbox col-lg-12">
-                                        @if ($subTotal > 3999)
+                                        @foreach ($shippingmethods as $index => $shippingmethod)
                                             <div class="form-check">
                                                 <input class="form-check-input" name="shipping_id" type="radio"
-                                                    id="shipping-0" data-shipping_price="0" value="0" checked />
-                                                <label class="form-check-label" for="shipping-0">Free Delivery
-                                                    <span>(৳ 0)</span></label>
+                                                    id="shipping-{{ $shippingmethod->id }}"
+                                                    data-shipping_price="{{ $shippingmethod->price }}"
+                                                    value="{{ $shippingmethod->id }}" required
+                                                    @checked($loop->first) />
+                                                <label class="form-check-label"
+                                                    for="shipping-{{ $shippingmethod->id }}">{{ $shippingmethod->title }}
+                                                    {{ $shippingmethod->duration }}
+                                                    <span>(৳{{ number_format($shippingmethod->price, 2) }})</span></label>
                                             </div>
-                                        @else
-                                            @foreach ($shippingmethods as $index => $shippingmethod)
-                                                <div class="form-check">
-                                                    <input class="form-check-input" name="shipping_id" type="radio"
-                                                        id="shipping-{{ $shippingmethod->id }}"
-                                                        data-shipping_price="{{ $shippingmethod->price }}"
-                                                        value="{{ $shippingmethod->id }}" required
-                                                        @checked($loop->first) />
-                                                    <label class="form-check-label"
-                                                        for="shipping-{{ $shippingmethod->id }}">{{ $shippingmethod->title }}
-                                                        {{ $shippingmethod->duration }}
-                                                        <span>(৳{{ number_format($shippingmethod->price, 2) }})</span></label>
-                                                </div>
-                                            @endforeach
-                                        @endif
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="ps-checkout__row">
@@ -618,22 +609,20 @@
                                     <div class="ps-checkout__row">
                                         <div class="ps-title">Payment Method</div>
                                         <div class="ps-checkout__checkbox">
-                                            {{-- <div class="form-check">
-                                                <input class="form-check-input" name="payment_method" type="radio"
-                                                    id="cod" value="cod" checked />
-                                                <label class="form-check-label" for="cod">COD</label>
-                                            </div> --}}
                                             <div class="form-check">
-                                                <input class="form-check-input" name="payment_method" type="radio"
-                                                    id="stripe" value="stripe" checked />
-                                                <label class="form-check-label mt-0" for="stripe">Cash On
-                                                    Delivery</label>
+                                                <input class="form-check-input" name="payment_status" type="radio"
+                                                    id="cod" value="delivery_charge_paid" checked />
+                                                <label class="form-check-label" for="cod">শুধুমাত্র ডেলিভারি
+                                                    চার্জ পরিশোধ
+                                                    করবো।</label>
                                             </div>
-                                            {{-- <div class="form-check">
-                                                <input class="form-check-input" name="payment_method" type="radio"
-                                                    id="paypal" value="paypal" />
-                                                <label class="form-check-label" for="paypal">PayPal</label>
-                                            </div> --}}
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="payment_status" type="radio"
+                                                    id="stripe" value="completely_paid" checked />
+                                                <label class="form-check-label mt-0" for="stripe">ফুল পেমেন্ট এখনি
+                                                    করবো।</label>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="check-faq">
@@ -645,7 +634,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary w-100 mt-4 register-btns">
-                                        <i class="fa-solid fa-clipboard-check pr-2"></i>   Place order
+                                        <i class="fa-solid fa-clipboard-check pr-2"></i> Place order
                                     </button>
                                 </div>
                             </div>

@@ -44,7 +44,8 @@ class RegisteredUserController extends Controller
             'title'                 => 'nullable|in:Mr,Mrs,Ms',
             'name'                  => 'nullable|string|max:100',
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password'              => ['required', 'string', 'confirmed'],
+            'password'              => ['required', 'string'],
+            // 'password'              => ['required', 'string', 'confirmed'],
             'phone'                 => 'nullable|max:20|min:11',
             'address'               => 'nullable|string|max:255',
             'thana'                 => 'nullable|string|max:200',
@@ -74,7 +75,7 @@ class RegisteredUserController extends Controller
                 'address'                   => $request->address,
                 'thana'                       => $request->thana,
                 'district'                         => $request->district,
-                
+
                 'newsletter_preference'         => $request->newsletter_preference,
                 'terms_condition'               => $request->terms_condition,
                 'status'                        => $status,

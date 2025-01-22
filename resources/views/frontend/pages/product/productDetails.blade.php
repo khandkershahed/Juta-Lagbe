@@ -9,7 +9,7 @@
         @endphp
     @endpush
     <style>
-         .magnifier-container {
+        .magnifier-container {
             position: relative;
             overflow: hidden;
             width: 100%;
@@ -33,6 +33,7 @@
             /* Adjust zoom level */
             transition: transform 0.3s ease;
         }
+
         .product-slider-wrapper {
             /* width: 600px;
             height: 800px; */
@@ -266,14 +267,14 @@
                             <div class="pl-3">
                                 {!! $product->specification ??
                                     ' <div>
-                                        <ul class="pl-2">
-                                            <li><strong>Brand:</strong> Juta Lagbe</li>
-                                            <li><strong>Model:</strong> Footwear</li>
-                                            <li><strong>Weight:</strong> Light Weight</li>
-                                            <li><strong>Outsole:</strong> PU Leather/Leather</li>
-                                        </ul>
-                                    </div>
-                                ' !!}
+                                                                                                        <ul class="pl-2">
+                                                                                                            <li><strong>Brand:</strong> Juta Lagbe</li>
+                                                                                                            <li><strong>Model:</strong> Footwear</li>
+                                                                                                            <li><strong>Weight:</strong> Light Weight</li>
+                                                                                                            <li><strong>Outsole:</strong> PU Leather/Leather</li>
+                                                                                                        </ul>
+                                                                                                    </div>
+                                                                                                ' !!}
                             </div>
                         </div>
                         <div class="ps-page__content py-2 row align-items-center">
@@ -1066,5 +1067,6 @@
                 });
             });
         </script>
+        
     @endpush
 </x-frontend-app-layout>

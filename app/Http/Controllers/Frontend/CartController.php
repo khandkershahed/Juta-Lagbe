@@ -2,25 +2,28 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Log; 
 use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\Wishlist;
 use App\Models\OrderItem;
+use App\Mail\UserOrderMail;
 use Illuminate\Http\Request;
 use App\Models\ShippingMethod;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Mail\UserOrderMail;
-use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
+use Karim007\LaravelBkashTokenize\Facade\BkashRefundTokenize;
+use Karim007\LaravelBkashTokenize\Facade\BkashPaymentTokenize;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 
 class CartController extends Controller
 {
@@ -152,8 +155,38 @@ class CartController extends Controller
     public function checkoutStore(Request $request)
     {
         ini_set('max_execution_time', 300);
+
         // Validate the request data
         $totalAmount = preg_replace('/[^0-9.]/', '', $request->input('total_amount'));
+        $inv = uniqid();
+        $request['intent'] = 'sale';
+        $request['mode'] = '0011'; //0011 for checkout
+        $request['payerReference'] = $inv;
+        $request['currency'] = 'BDT';
+        $request['amount'] = $totalAmount;
+        $request['merchantInvoiceNumber'] = $inv;
+        $request['callbackURL'] = config("bkash.callbackURL");
+
+        // Prepare payment request data
+        $request_data_json = json_encode($request->all());
+        // Create an instance of the BkashPaymentTokenize class
+        $bkashPayment = new BkashPaymentTokenize();
+
+        // Now call the cPayment method on the instance
+        $response = $bkashPayment->cPayment($request_data_json);
+
+        // Call bKash API to get the payment URL
+        // $response = BkashPaymentTokenize::cPayment($request_data_json);
+        console.log($request_data_json);
+        Log::debug('bKash Response: ', $response);
+        // If bKash URL exists, redirect to payment gateway
+        if (isset($response['bkashURL'])) {
+            return redirect()->away($response['bkashURL']);
+        } else {
+            return redirect()->back()->with('error-alert2', $response['statusMessage']);
+        }
+
+        // Validation of request data
         $validator = Validator::make($request->all(), [
             'name'           => 'nullable|string|max: 255',
             'address'        => 'nullable|string',
@@ -162,20 +195,15 @@ class CartController extends Controller
             'thana'          => 'nullable|string',
             'district'       => 'nullable|string',
             'order_note'     => 'nullable|string',
-            // 'payment_method' => 'required|in:cod,stripe,paypal',
             'sub_total'      => 'required',
             'total_amount'   => 'required|min:0',
         ], [
             'order_note.string' => 'The order note must be a string.',
-            'payment_method.required' => 'The payment method is required.',
-            'payment_method.in' => 'The selected payment method is invalid.',
             'total_amount.required' => 'The total amount is required.',
             'total_amount.numeric' => 'The total amount must be a number.',
             'total_amount.min' => 'The total amount must be at least 0.',
             'shipping_id.required' => 'The shipping method is required.',
-            'shipping_id.exists' => 'The selected shipping method does not exist.',
         ]);
-
 
         if ($validator->fails()) {
             foreach ($validator->messages()->all() as $message) {
@@ -184,8 +212,10 @@ class CartController extends Controller
             return redirect()->back()->withInput();
         }
 
+        // Start the database transaction, but don't create the order yet
         DB::beginTransaction();
         try {
+            // Get the next order number
             $typePrefix = 'JL';
             $year = date('Y');
             $lastCode = Order::where('order_number', 'like', $typePrefix . '-' . $year . '%')
@@ -194,105 +224,41 @@ class CartController extends Controller
             $newNumber = $lastCode ? (int) substr($lastCode->order_number, strlen($typePrefix . '-' . $year)) + 1 : 1;
             $code = $typePrefix . '-' . $year . $newNumber;
 
-
-            $shipping_method = ShippingMethod::find($request->input('shipping_id'));
-            if ($shipping_method) {
-                $shipping_method_id = $shipping_method->id;
-                $shipping_charge = $shipping_method->price;
-            } else {
-                $shipping_charge = "0";
-                $shipping_method_id = null;
-            }
-
-            $order = Order::create([
-                'order_number'                 => $code, // Generate a unique order number
-                'user_id'                      => auth()->id(), // Assuming user is logged in
-                'shipping_method_id'           => $shipping_method_id,
-                'sub_total'                    => $request->input('sub_total'), // Use Cart instance
-                'coupon'                       => $request->input('coupon', 0),
-                'discount'                     => $request->input('discount', 0),
-                'total_amount'                 => $totalAmount,
-                'quantity'                     => Cart::instance('cart')->count(), // Total quantity of items in cart
-                'shipping_charge'              => $shipping_charge,
-                'payment_method'               => $request->input('payment_method'),
-                'payment_status'               => 'unpaid',
-                'status'                       => 'pending',
-                'shipped_to_different_address' => $request->has('ship-address') ? 'yes': 'no',
-                'name'                         => $request->input('name'),
-                'email'                        => $request->input('email'),
-                'phone'                        => $request->input('phone'),
-                'delivery_location'            => $request->input('delivery_location'),
-                'thana'                        => $request->input('thana'),
-                'district'                     => $request->input('district'),
-                'address'                      => $request->input('address'),
-                'order_note'                   => $request->input('order_note'),
-                'created_by'                   => auth()->id(),
-                'order_created_at'             => Carbon::now(),
-                'created_at'                   => Carbon::now(),
-            ]);
-
-            // Add items to order_items table
-            foreach (Cart::instance('cart')->content() as $item) {
-                OrderItem::create([
-                    'order_id'      => $order->id,
-                    'product_id'    => $item->id,
-                    'user_id'       => auth()->id(),
-                    'product_name'  => $item->name,
-                    'product_color' => $item->model->color ?? null,
-                    'product_sku'   => $item->model->sku ?? null,
-                    'price'         => $item->price,
-                    'tax'           => $item->tax ?? 0,
-                    'quantity'      => $item->qty,
-                    'subtotal'      => $item->qty * $item->price,
-                ]);
-
-                // Update product stock
-                $product = Product::find($item->id);
-                $product->update([
-                    'box_stock' => $product->box_stock - $item->qty,
-                ]);
-            }
-
-            // Commit the transaction
-            DB::commit();
-
-            // Clear the cart after successful order
-            Cart::instance('cart')->destroy();
-            $order = Order::with('orderItems')->where('id', $order->id)->first();
-            $user = Auth::user();
-            $data = [
-                'order' =>  $order,
-                'user'  => $user,
+            // Store the payment attempt without saving the order
+            $orderData = [
+                'order_number' => $code,
+                'user_id' => auth()->id(),
+                'shipping_method_id' => $request->input('shipping_id'),
+                'sub_total' => $request->input('sub_total'),
+                'total_amount' => $totalAmount,
+                'payment_status' => 'pending',
+                'status' => 'pending',
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'address' => $request->input('address'),
+                'order_note' => $request->input('order_note'),
+                'created_by' => auth()->id(),
+                'created_at' => Carbon::now(),
             ];
 
-            try {
-                $setting = Setting::first();
-                $data = [
-                    'order'             => $order,
-                    'order_items'       => $order->orderItems,
-                    'user'              => $user,
-                    'shipping_charge'   => $shipping_charge,
-                    'shipping_method'   => ($shipping_method) ? $shipping_method->title : null ,
-                ];
-                Mail::to([$request->input('shipping_email'), $user->email])->send(new UserOrderMail($user->name, $data, $setting));
-            } catch (\Exception $e) {
-                // Handle PDF save exception
-                // flash()->error('Failed to generate PDF: ' . $e->getMessage());
-                Session::flash('error', 'Failed to send Mail: ' . $e->getMessage());
-                // Session::flush();
-            }
+            // Store order temporarily
+            $tempOrder = new Order($orderData);
+            $tempOrder->save();
 
-            Session::flash('success', 'Order placed successfully!');
+            // Continue with further order processing...
+            // Store items in the order_items table (this will happen later after successful payment)
 
-            return redirect()->route('checkout.success', $order->order_number);
-            // }
+            // Do not commit yet, wait for the payment verification
+
+            return redirect()->away($response['bkashURL']); // Redirect to bKash payment gateway
         } catch (\Exception $e) {
             DB::rollback();
             Session::flash('error', $e->getMessage());
-
             return redirect()->back()->withInput();
         }
     }
+
 
     public function wishlistDestroy(string $id)
     {
