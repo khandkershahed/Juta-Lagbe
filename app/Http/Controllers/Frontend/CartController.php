@@ -255,27 +255,25 @@ class CartController extends Controller
                 'user'  => $user,
             ];
 
-            try {
-                $setting = Setting::first();
-                $data = [
-                    'order'             => $order,
-                    'order_items'       => $order->orderItems,
-                    'user'              => $user,
-                    'shipping_charge'   => $shipping_charge,
-                    'shipping_method'   => ($shipping_method) ? $shipping_method->title : null,
-                ];
-                Mail::to([$request->input('shipping_email'), $user->email])->send(new UserOrderMail($user->name, $data, $setting));
-            } catch (\Exception $e) {
-                // Handle PDF save exception
-                // flash()->error('Failed to generate PDF: ' . $e->getMessage());
-                Session::flash('error', 'Failed to send Mail: ' . $e->getMessage());
-                // Session::flush();
+            if (!empty($request->input('shipping_email')) && $user->email) {
+                try {
+                    $setting = Setting::first();
+                    $data = [
+                        'order'             => $order,
+                        'order_items'       => $order->orderItems,
+                        'user'              => $user,
+                        'shipping_charge'   => $shipping_charge,
+                        'shipping_method'   => ($shipping_method) ? $shipping_method->title : null,
+                    ];
+                    Mail::to([$request->input('shipping_email'), $user->email])->send(new UserOrderMail($user->name, $data, $setting));
+                } catch (\Exception $e) {
+                    Session::flash('error', 'Failed to send Mail: ' . $e->getMessage());
+                }
             }
 
             Session::flash('success', 'Order placed successfully!');
             return redirect()->route('bkash.payment', $order->order_number);
-
-           } catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             Session::flash('error', $e->getMessage());
             return redirect()->back()->withInput();
@@ -325,7 +323,4 @@ class CartController extends Controller
             ], 500);
         }
     }
-
-
-
 }
