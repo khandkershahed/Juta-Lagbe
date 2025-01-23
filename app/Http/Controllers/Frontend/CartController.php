@@ -155,48 +155,16 @@ class CartController extends Controller
     public function checkoutStore(Request $request)
     {
         ini_set('max_execution_time', 300);
-
-        // Validate the request data
         $totalAmount = preg_replace('/[^0-9.]/', '', $request->input('total_amount'));
-        $inv = uniqid();
-        $request['intent'] = 'sale';
-        $request['mode'] = '0011'; //0011 for checkout
-        $request['payerReference'] = $inv;
-        $request['currency'] = 'BDT';
-        $request['amount'] = $totalAmount;
-        $request['merchantInvoiceNumber'] = $inv;
-        $request['callbackURL'] = config("bkash.callbackURL");
-
-        // Prepare payment request data
-        $request_data_json = json_encode($request->all());
-        // Create an instance of the BkashPaymentTokenize class
-        // $bkashPayment = new BkashPaymentTokenize();
-
-        // Now call the cPayment method on the instance
-        // $response = $bkashPayment->cPayment($request_data_json);
-        $response = BkashPaymentTokenize::cPayment($request_data_json);
-        Log::error('bKash API Error', [
-            'response' => $response,
-            'request'  => $request_data_json
-        ]);
-
-        // If bKash URL exists, redirect to payment gateway
-        if (isset($response['bkashURL'])) {
-            return redirect()->away($response['bkashURL']);
-        } else {
-            return redirect()->back()->with('error-alert2', $response['statusMessage']);
-        }
-
-        // Validation of request data
         $validator = Validator::make($request->all(), [
             'name'           => 'nullable|string|max: 255',
             'address'        => 'nullable|string',
-            'email'          => 'required|email',
+            'email'          => 'nullable|email',
             'phone'          => 'required|string|max: 20',
             'thana'          => 'nullable|string',
             'district'       => 'nullable|string',
             'order_note'     => 'nullable|string',
-            'sub_total'      => 'required',
+            'sub_total'      => 'nullable',
             'total_amount'   => 'required|min:0',
         ], [
             'order_note.string' => 'The order note must be a string.',
@@ -224,36 +192,90 @@ class CartController extends Controller
                 ->first();
             $newNumber = $lastCode ? (int) substr($lastCode->order_number, strlen($typePrefix . '-' . $year)) + 1 : 1;
             $code = $typePrefix . '-' . $year . $newNumber;
+            $shipping_method = ShippingMethod::find($request->input('shipping_id'));
+            if ($shipping_method) {
+                $shipping_method_id = $shipping_method->id;
+                $shipping_charge = $shipping_method->price;
+            } else {
+                $shipping_charge = "0";
+                $shipping_method_id = null;
+            }
+            $order = Order::create([
+                'order_number'       => $code,
+                'user_id'            => auth()->id(),
+                'shipping_method_id' => $shipping_method_id,
+                'sub_total'          => $request->input('sub_total'),
+                'quantity'           => Cart::instance('cart')->count(),
+                'shipping_charge'    => $shipping_charge,
+                'total_amount'       => $totalAmount,
+                'payment_status'     => $request->input('payment_status'),
+                'status'             => 'pending',
+                'name'               => $request->input('name'),
+                'email'              => $request->input('email'),
+                'phone'              => $request->input('phone'),
+                'thana'              => $request->input('thana'),
+                'district'           => $request->input('district'),
+                'address'            => $request->input('address'),
+                'order_note'         => $request->input('order_note'),
+                'created_by'         => auth()->id(),
+                'order_created_at'   => Carbon::now(),
+                'created_at'         => Carbon::now(),
+            ]);
 
-            // Store the payment attempt without saving the order
-            $orderData = [
-                'order_number' => $code,
-                'user_id' => auth()->id(),
-                'shipping_method_id' => $request->input('shipping_id'),
-                'sub_total' => $request->input('sub_total'),
-                'total_amount' => $totalAmount,
-                'payment_status' => 'pending',
-                'status' => 'pending',
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone'),
-                'address' => $request->input('address'),
-                'order_note' => $request->input('order_note'),
-                'created_by' => auth()->id(),
-                'created_at' => Carbon::now(),
+            foreach (Cart::instance('cart')->content() as $item) {
+                OrderItem::create([
+                    'order_id'      => $order->id,
+                    'product_id'    => $item->id,
+                    'user_id'       => auth()->id(),
+                    'product_name'  => $item->name,
+                    'product_color' => $item->model->color ?? null,
+                    'product_sku'   => $item->model->sku ?? null,
+                    'price'         => $item->price,
+                    'tax'           => $item->tax ?? 0,
+                    'quantity'      => $item->qty,
+                    'subtotal'      => $item->qty * $item->price,
+                ]);
+
+                // Update product stock
+                $product = Product::find($item->id);
+                $product->update([
+                    'box_stock' => $product->box_stock - $item->qty,
+                ]);
+            }
+
+            // Commit the transaction
+            DB::commit();
+
+            // Clear the cart after successful order
+            Cart::instance('cart')->destroy();
+            $order = Order::with('orderItems')->where('id', $order->id)->first();
+            $user = Auth::user();
+            $data = [
+                'order' =>  $order,
+                'user'  => $user,
             ];
 
-            // Store order temporarily
-            $tempOrder = new Order($orderData);
-            $tempOrder->save();
+            try {
+                $setting = Setting::first();
+                $data = [
+                    'order'             => $order,
+                    'order_items'       => $order->orderItems,
+                    'user'              => $user,
+                    'shipping_charge'   => $shipping_charge,
+                    'shipping_method'   => ($shipping_method) ? $shipping_method->title : null,
+                ];
+                Mail::to([$request->input('shipping_email'), $user->email])->send(new UserOrderMail($user->name, $data, $setting));
+            } catch (\Exception $e) {
+                // Handle PDF save exception
+                // flash()->error('Failed to generate PDF: ' . $e->getMessage());
+                Session::flash('error', 'Failed to send Mail: ' . $e->getMessage());
+                // Session::flush();
+            }
 
-            // Continue with further order processing...
-            // Store items in the order_items table (this will happen later after successful payment)
+            Session::flash('success', 'Order placed successfully!');
+            return redirect()->route('bkash-create-payment', $order->order_number);
 
-            // Do not commit yet, wait for the payment verification
-
-            return redirect()->away($response['bkashURL']); // Redirect to bKash payment gateway
-        } catch (\Exception $e) {
+           } catch (\Exception $e) {
             DB::rollback();
             Session::flash('error', $e->getMessage());
             return redirect()->back()->withInput();
@@ -305,32 +327,5 @@ class CartController extends Controller
     }
 
 
-    public function callBack(Request $request)
-    {
-        //callback request params
-        // paymentID=your_payment_id&status=success&apiVersion=1.2.0-beta
-        //using paymentID find the account number for sending params
-
-        if ($request->status == 'success'){
-            $response = BkashPaymentTokenize::executePayment($request->paymentID);
-            //$response = BkashPaymentTokenize::executePayment($request->paymentID, 1); //last parameter is your account number for multi account its like, 1,2,3,4,cont..
-            if (!$response){ //if executePayment payment not found call queryPayment
-                $response = BkashPaymentTokenize::queryPayment($request->paymentID);
-                //$response = BkashPaymentTokenize::queryPayment($request->paymentID,1); //last parameter is your account number for multi account its like, 1,2,3,4,cont..
-            }
-
-            if (isset($response['statusCode']) && $response['statusCode'] == "0000" && $response['transactionStatus'] == "Completed") {
-                /*
-                 * for refund need to store
-                 * paymentID and trxID
-                 * */
-                return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
-            }
-            return BkashPaymentTokenize::failure($response['statusMessage']);
-        }else if ($request->status == 'cancel'){
-            return BkashPaymentTokenize::cancel('Your payment is canceled');
-        }else{
-            return BkashPaymentTokenize::failure('Your transaction is failed');
-        }
-    }
+    
 }

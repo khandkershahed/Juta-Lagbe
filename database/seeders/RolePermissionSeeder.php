@@ -56,16 +56,16 @@ class RolePermissionSeeder extends Seeder
                     'delete user',
                 ],
             ],
-            [
-                'group_name' => 'Staff',
-                'permissions' => [
-                    'view staff',
-                    'create staff',
-                    'show staff',
-                    'edit staff',
-                    'delete staff',
-                ],
-            ],
+            // [
+            //     'group_name' => 'Staff',
+            //     'permissions' => [
+            //         'view staff',
+            //         'create staff',
+            //         'show staff',
+            //         'edit staff',
+            //         'delete staff',
+            //     ],
+            // ],
             [
                 'group_name' => 'Categories',
                 'permissions' => [
