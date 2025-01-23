@@ -25,7 +25,7 @@ class BkashTokenizePaymentController extends Controller
 
         $request_data_json = json_encode($request->all());
         $response =  BkashPaymentTokenize::cPayment($request_data_json);
-        dd($response);
+        // dd($response);
         //$response =  BkashPaymentTokenize::cPayment($request_data_json,1); //last parameter is your account number for multi account its like, 1,2,3,4,cont..
 
         //store paymentID and your account number for matching in callback request
@@ -33,7 +33,7 @@ class BkashTokenizePaymentController extends Controller
         if (isset($response['bkashURL'])) {
             return redirect()->away($response['bkashURL']);
         } else {
-            Session::flash('error',$response['statusMessage']);
+            Session::flash('error',$response['message']);
             return redirect()->back();
         }
 
