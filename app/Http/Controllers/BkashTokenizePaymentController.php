@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Karim007\LaravelBkashTokenize\Facade\BkashPaymentTokenize;
 use Karim007\LaravelBkashTokenize\Facade\BkashRefundTokenize;
 
@@ -29,9 +30,13 @@ class BkashTokenizePaymentController extends Controller
 
         //store paymentID and your account number for matching in callback request
         // dd($response) //if you are using sandbox and not submit info to bkash use it for 1 response
+        if (isset($response['bkashURL'])) {
+            return redirect()->away($response['bkashURL']);
+        } else {
+            Session::flash('error',$response['statusMessage']);
+            return redirect()->back();
+        }
 
-        if (isset($response['bkashURL'])) return redirect()->away($response['bkashURL']);
-        else return redirect()->back()->with('error-alert2', $response['statusMessage']);
     }
 
     public function callBack(Request $request)
