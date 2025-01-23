@@ -273,7 +273,7 @@ class CartController extends Controller
             }
 
             Session::flash('success', 'Order placed successfully!');
-            return redirect()->route('bkash-create-payment', $order->order_number);
+            return redirect()->route('bkash.payment', $order->order_number);
 
            } catch (\Exception $e) {
             DB::rollback();
@@ -327,5 +327,5 @@ class CartController extends Controller
     }
 
 
-    
+
 }
