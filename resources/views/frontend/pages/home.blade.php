@@ -734,6 +734,78 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-3">
+                                    <div class="card p-0 border-0 video-card-home rounded-4">
+                                        <div class="card-body p-0 video-container-home">
+                                            <iframe class="video-player" width="560" height="315"
+                                                src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                            </iframe>
+                                            <div class="content">
+                                                <div class="video-box-img">
+                                                    <img class="img-fluid"
+                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                        alt="">
+                                                </div>
+                                                <p>boAt Airdopes 71</p>
+                                                <p><span class="site-text">Tk899</span>
+                                                    <del class="text-danger">₹3,990</del>
+                                                    <span class="text-">77% off</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="card p-0 border-0 video-card-home rounded-4">
+                                        <div class="card-body p-0 video-container-home">
+                                            <iframe class="video-player" width="560" height="315"
+                                                src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                            </iframe>
+                                            <div class="content">
+                                                <div class="video-box-img">
+                                                    <img class="img-fluid"
+                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                        alt="">
+                                                </div>
+                                                <p>boAt Airdopes 71</p>
+                                                <p><span class="site-text">Tk899</span>
+                                                    <del class="text-danger">₹3,990</del>
+                                                    <span class="text-">77% off</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="card p-0 border-0 video-card-home rounded-4">
+                                        <div class="card-body p-0 video-container-home">
+                                            <iframe class="video-player" width="560" height="315"
+                                                src="https://www.youtube.com/embed/dJbOGAkVoZo?si=fKA3TT5HX-yqvzG5?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                            </iframe>
+                                            <div class="content">
+                                                <div class="video-box-img">
+                                                    <img class="img-fluid"
+                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
+                                                        alt="">
+                                                </div>
+                                                <p>boAt Airdopes 71</p>
+                                                <p><span class="site-text">Tk899</span>
+                                                    <del class="text-danger">₹3,990</del>
+                                                    <span class="text-">77% off</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

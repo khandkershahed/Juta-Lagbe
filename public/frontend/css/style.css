@@ -2032,7 +2032,9 @@ textarea.form-control {
     flex-direction: column;
     text-align: center;
 }
-
+.video-player{
+    border-radius: 15px;
+}
 .video-container-home .video-box-img {
     margin: auto;
     position: relative;
@@ -9055,6 +9057,9 @@ textarea.form-control {
         #a8eb12
     );
     width: 135px;
+}
+.ps-delivery--info .ps-delivery__more:hover{
+    color: white;
 }
 .section-banner-main img {
     height: 520px;
@@ -18858,6 +18863,7 @@ table.dataTable tbody td:last-child {
     padding: 10px;
     cursor: pointer;
     font-size: 20px;
+    font-family: 'FontAwesome';
 }
 
 .dealCarousel-prev {
@@ -18866,6 +18872,7 @@ table.dataTable tbody td:last-child {
     /* Positioning */
     top: 50%;
     transform: translateY(-50%);
+    font-family: 'FontAwesome';
 }
 
 .dealCarousel-next {
