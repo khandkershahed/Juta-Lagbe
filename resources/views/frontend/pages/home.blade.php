@@ -42,59 +42,32 @@
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             border-radius: 20px;
         }
+
+        .main-banner img {
+            height: 550px;
+            /* Sets a fixed height for the image */
+            width: 100%;
+            /* Ensures the image stretches to fill the container's width */
+            object-fit: cover;
+            /* Scales the image to fit within the container while preserving its aspect ratio */
+            display: block;
+            /* Removes any inline spacing caused by default 'inline' behavior of images */
+            margin: 0 auto;
+            /* Centers the image horizontally (if inside a flex or block container) */
+            border: none;
+            /* Removes any default borders around the image */
+            padding: 0;
+            /* Ensures no extra padding is added around the image */
+            background-color: #fff;
+            /* Optional: Adds a background color for better contrast */
+        }
     </style>
     <section class="ps-section--banner">
         <div class="ps-section__overlay">
             <div class="ps-section__loading"></div>
         </div>
-        <div class="owl-carousel-banner owl-carousel owl-loaded owl-drag" data-owl-auto="false" data-owl-loop="true"
-            data-owl-speed="15000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1"
-            data-owl-duration="1000" data-owl-mousedrag="on">
-            <div class="owl-stage-outer">
-                <div class="owl-stage">
-                    @foreach ($sliders as $slider)
-                        <div class="owl-item">
-                            <div class="ps-banner hero-banner"
-                                style="
-                            background-image: url('{{ asset('storage/' . $slider->bg_image) }}');
-                            background-repeat: no-repeat;
-                            background-size: cover;
-                            background-position: center center;
-                            height: 550px;
-                            width: 100%;
-                        ">
-                                <div class="container container-initial">
-                                    <div class="ps-banner__block">
-                                        <div class="ps-banner__content">
-                                            <h2 class="ps-banner__title text-white">{{ $slider->title }}</h2>
-                                            <div class="ps-banner__desc text-white">{{ $slider->subtitle }}</div>
-                                            <div class="ps-banner__btn-group">
-                                                <div class="ps-banner__btn text-white">{{ $slider->badge }}</div>
-                                            </div>
-                                            @if (!empty($slider->button_link) || !empty($slider->button_name))
-                                                <a class="bg-warning ps-banner__shop" href="{{ $slider->button_link }}">
-                                                    {{ $slider->button_name }}
-                                                </a>
-                                            @endif
-                                            <div class="ps-banner__persen ps-top  fa-bounce"><small>অফ</small>%৫০
-                                            </div>
-                                        </div>
-                                        <div class="ps-banner__thumnail">
-                                            {{-- <img class="ps-banner__round"
-                                                src="{{ asset('storage/' . $slider->bg_image) }}" alt="alt"> --}}
-                                            {{-- <img class="ps-banner__image" src="{{ asset('storage/' . $slider->image) }}"
-                                                alt="alt"> --}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="owl-nav">
-
-            </div>
+        <div class="main-banner">
+            <img src="{{ asset('images/jutalagbe-main-banner.jpg') }}" alt="">
         </div>
     </section>
     <div class="ps-home ps-home--14 bg-white">
