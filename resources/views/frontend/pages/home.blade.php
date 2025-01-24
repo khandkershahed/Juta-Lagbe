@@ -60,7 +60,7 @@
                             background-repeat: no-repeat;
                             background-size: cover;
                             background-position: center center;
-                            height: 720px;
+                            height: 550px;
                             width: 100%;
                         ">
                                 <div class="container container-initial">
@@ -76,7 +76,7 @@
                                                     {{ $slider->button_name }}
                                                 </a>
                                             @endif
-                                            <div class="ps-banner__persen ps-top  fa-bounce"><small>only</small>$25
+                                            <div class="ps-banner__persen ps-top  fa-bounce"><small>অফ</small>%৫০
                                             </div>
                                         </div>
                                         <div class="ps-banner__thumnail">
@@ -254,8 +254,9 @@
                                                     <div class="pb-3">
                                                         @if (!empty($latest_product->unit_discount_price))
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $latest_product->unit_discount_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $latest_product->unit_discount_price }}
                                                                     টাকা</span>
                                                                 <span
                                                                     class="ps-product__del text-danger">{{ $latest_product->unit_price }}
@@ -263,8 +264,9 @@
                                                             </div>
                                                         @else
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $latest_product->unit_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $latest_product->unit_price }}
                                                                     টাকা</span>
                                                             </div>
                                                         @endif
@@ -309,7 +311,7 @@
                     </section>
                 </section>
             @endif
-            <section class="mb-5">
+            {{-- <section class="mb-5">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-4 pl-0">
@@ -369,9 +371,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
-
-
+            </section> --}}
             @if ($categoryone && $categoryoneproducts->count() > 0)
                 <div class="container px-0">
                     <div class="row">
@@ -476,8 +476,9 @@
                                                     <div class="pb-3">
                                                         @if (!empty($categoryoneproduct->unit_discount_price))
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $categoryoneproduct->unit_discount_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $categoryoneproduct->unit_discount_price }}
                                                                     টাকা</span>
                                                                 <span
                                                                     class="ps-product__del text-danger">{{ $categoryoneproduct->unit_price }}
@@ -485,8 +486,9 @@
                                                             </div>
                                                         @else
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $categoryoneproduct->unit_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $categoryoneproduct->unit_price }}
                                                                     টাকা</span>
                                                             </div>
                                                         @endif
@@ -716,8 +718,9 @@
                                                             <div class="pb-3">
                                                                 @if (!empty($categorytwoproduct->unit_discount_price))
                                                                     <div class="ps-product__meta">
-                                                                        <span
-                                                                            class="ps-product__price sale">{{ $categorytwoproduct->unit_discount_price }}
+                                                                        <span class="ps-product__price sale fw-bold"
+                                                                            style="font-weight:600;">দাম
+                                                                            {{ $categorytwoproduct->unit_discount_price }}
                                                                             টাকা</span>
                                                                         <span
                                                                             class="ps-product__del text-danger">{{ $categorytwoproduct->unit_price }}
@@ -725,8 +728,9 @@
                                                                     </div>
                                                                 @else
                                                                     <div class="ps-product__meta">
-                                                                        <span
-                                                                            class="ps-product__price sale">{{ $categorytwoproduct->unit_price }}
+                                                                        <span class="ps-product__price sale fw-bold"
+                                                                            style="font-weight:600;">দাম
+                                                                            {{ $categorytwoproduct->unit_price }}
                                                                             টাকা</span>
                                                                     </div>
                                                                 @endif
@@ -820,90 +824,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="col-4">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
-                                            <video class="video-player" loop>
-                                                <source src="{{ asset('images/video2.mp4') }}" />
-                                            </video>
-                                            <div class="content">
-                                                <div class="video-box-img">
-                                                    <img class="img-fluid"
-                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                        alt="">
-                                                </div>
-                                                <p>boAt Airdopes 71</p>
-                                                <p><span class="site-text">Tk899</span>
-                                                    <del class="text-danger">₹3,990</del>
-                                                    <span class="text-">77% off</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
-                                            <video class="video-player" loop>
-                                                <source src="{{ asset('images/video3.mp4') }}" />
-                                            </video>
-                                            <div class="content">
-                                                <div class="video-box-img">
-                                                    <img class="img-fluid"
-                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                        alt="">
-                                                </div>
-                                                <p>boAt Airdopes 71</p>
-                                                <p><span class="site-text">Tk899</span>
-                                                    <del class="text-danger">₹3,990</del>
-                                                    <span class="text-">77% off</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
-                                            <video class="video-player" loop>
-                                                <source src="{{ asset('images/video4.mp4') }}" />
-                                            </video>
-                                            <div class="content">
-                                                <div class="video-box-img">
-                                                    <img class="img-fluid"
-                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                        alt="">
-                                                </div>
-                                                <p>boAt Airdopes 71</p>
-                                                <p><span class="site-text">Tk899</span>
-                                                    <del class="text-danger">₹3,990</del>
-                                                    <span class="text-">77% off</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
-                                            <video class="video-player" loop>
-                                                <source src="{{ asset('images/video5.mp4') }}" />
-                                            </video>
-                                            <div class="content">
-                                                <div class="video-box-img">
-                                                    <img class="img-fluid"
-                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                        alt="">
-                                                </div>
-                                                <p>boAt Airdopes 71</p>
-                                                <p><span class="site-text">Tk899</span>
-                                                    <del class="text-danger">₹3,990</del>
-                                                    <span class="text-">77% off</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -1013,8 +933,9 @@
                                                     <div class="pb-3">
                                                         @if (!empty($categorythreeproduct->unit_discount_price))
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $categorythreeproduct->unit_discount_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $categorythreeproduct->unit_discount_price }}
                                                                     টাকা</span>
                                                                 <span
                                                                     class="ps-product__del text-danger">{{ $categorythreeproduct->unit_price }}
@@ -1022,8 +943,9 @@
                                                             </div>
                                                         @else
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $categorythreeproduct->unit_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $categorythreeproduct->unit_price }}
                                                                     টাকা</span>
                                                             </div>
                                                         @endif
@@ -1303,40 +1225,40 @@
 
     @include('frontend.layouts.HomeQuickViewModal')
     @push('scripts')
-    <script>
-        $(document).ready(function() {
-            var iframe = $('.video-player')[0];
-            var player;
+        <script>
+            $(document).ready(function() {
+                var iframe = $('.video-player')[0];
+                var player;
 
-            // YouTube API script
-            var tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                // YouTube API script
+                var tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-            // Create YouTube player after API script is loaded
-            window.onYouTubeIframeAPIReady = function() {
-                player = new YT.Player(iframe, {
-                    events: {
-                        'onReady': onPlayerReady
-                    }
-                });
-            };
+                // Create YouTube player after API script is loaded
+                window.onYouTubeIframeAPIReady = function() {
+                    player = new YT.Player(iframe, {
+                        events: {
+                            'onReady': onPlayerReady
+                        }
+                    });
+                };
 
-            // Function to play the video when it's ready
-            function onPlayerReady(event) {
-                // Allow immediate playback when hovering over the video container
-                $('.video-container').on('mouseenter', function() {
-                    player.playVideo();
-                });
+                // Function to play the video when it's ready
+                function onPlayerReady(event) {
+                    // Allow immediate playback when hovering over the video container
+                    $('.video-container').on('mouseenter', function() {
+                        player.playVideo();
+                    });
 
-                // Pause the video when mouse leaves the iframe
-                $('.video-container').on('mouseleave', function() {
-                    player.pauseVideo();
-                });
-            }
-        });
-    </script>
+                    // Pause the video when mouse leaves the iframe
+                    $('.video-container').on('mouseleave', function() {
+                        player.pauseVideo();
+                    });
+                }
+            });
+        </script>
         <script>
             $(document).ready(function() {
                 // Initialize Owl Carousel

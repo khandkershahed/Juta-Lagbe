@@ -131,7 +131,7 @@
 
             .swiper {
                 width: 100%;
-                height: 850px;
+                height: 760px;
             }
 
             .product-details-slide .swiper-slide {
@@ -235,17 +235,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-5 pl-0">
                     <div>
                         <h3 class="title">{{ $product->name }}</h3>
                         <div>
                             @if (!empty($product->stock) && $product->stock > 0)
                                 <div class="mb-0">
-                                    <span class="ps-badge bg-success rounded-0">{{ $product->stock }} In Stock</span>
+                                    <span class="ps-badge bg-success rounded-0">Available</span>
                                 </div>
                             @else
                                 <div class="mb-0">
-                                    <span class="ps-badge ps-badge--outstock rounded-0">Out Of Stock</span>
+                                    <span class="ps-badge ps-badge--outstock rounded-0">Not Available</span>
                                 </div>
                             @endif
                         </div>
@@ -258,27 +258,76 @@
                                     </h4>
                                 </div>
                             @else
-                                <div class="">
-                                    {{ $product->unit_price }} টাকা
+                                <div class="d-flex align-items-center">
+                                    <h3>দাম {{ $product->unit_price }} টাকা</h3> <del class="pl-3 text-danger">{{ $product->unit_price }} টাকা</del>
                                 </div>
                             @endif
                         </div>
-                        <div class="pt-3">
-                            <div class="pl-3">
-                                {!! $product->specification ??
-                                    ' <div>
-                                                                                                        <ul class="pl-2">
-                                                                                                            <li><strong>Brand:</strong> Juta Lagbe</li>
-                                                                                                            <li><strong>Model:</strong> Footwear</li>
-                                                                                                            <li><strong>Weight:</strong> Light Weight</li>
-                                                                                                            <li><strong>Outsole:</strong> PU Leather/Leather</li>
-                                                                                                        </ul>
-                                                                                                    </div>
-                                                                                                ' !!}
+                        {{-- Size Variation --}}
+                        <div class="py-3">
+                            <div class="d-flex">
+                                <div class="radio-wrapper-46 mr-3">
+                                    <input class="inp-radio" id="radio-47" name="radio-group" type="radio" />
+                                    <label class="radio" for="radio-47"><span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <circle cx="6" cy="6" r="4"></circle>
+                                            </svg></span><span>39</span>
+                                    </label>
+                                </div>
+                                <div class="radio-wrapper-46 mr-3">
+                                    <input class="inp-radio" id="radio-48" name="radio-group" type="radio" />
+                                    <label class="radio" for="radio-48"><span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <circle cx="6" cy="6" r="4"></circle>
+                                            </svg>
+                                        </span><span>40</span>
+                                    </label>
+                                </div>
+                                <div class="radio-wrapper-46 mr-3">
+                                    <input class="inp-radio" id="radio-41" name="radio-group" type="radio" />
+                                    <label class="radio" for="radio-41"><span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <circle cx="6" cy="6" r="4"></circle>
+                                            </svg></span><span>41</span>
+                                    </label>
+                                </div>
+                                <div class="radio-wrapper-46 mr-3">
+                                    <input class="inp-radio" id="radio-42" name="radio-group" type="radio" />
+                                    <label class="radio" for="radio-42"><span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <circle cx="6" cy="6" r="4"></circle>
+                                            </svg></span><span>42</span>
+                                    </label>
+                                </div>
+                                <div class="radio-wrapper-46 mr-3">
+                                    <input class="inp-radio" id="radio-43" name="radio-group" type="radio" />
+                                    <label class="radio" for="radio-43"><span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <circle cx="6" cy="6" r="4"></circle>
+                                            </svg></span><span>43</span>
+                                    </label>
+                                </div>
+                                <div class="radio-wrapper-46 mr-3">
+                                    <input class="inp-radio" id="radio-44" name="radio-group" type="radio" />
+                                    <label class="radio" for="radio-44"><span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <circle cx="6" cy="6" r="4"></circle>
+                                            </svg></span><span>44</span>
+                                    </label>
+                                </div>
+                                <div class="radio-wrapper-46 mr-3">
+                                    <input class="inp-radio" id="radio-45" name="radio-group" type="radio" />
+                                    <label class="radio" for="radio-45"><span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <circle cx="6" cy="6" r="4"></circle>
+                                            </svg></span><span>45</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
+                        {{-- Size Variation End--}}
                         <div class="ps-page__content py-2 row align-items-center">
-                            <div class="ps-product--detail col-6">
+                            <div class="ps-product--detail col-5">
                                 <div class="ps-product__feature bg-transparent p-0">
                                     <div class="ps-product__quantity pb-0 rounded-0">
                                         <div class="def-number-input number-input safari_only w-100 rounded-0 py-2">
@@ -294,7 +343,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <a data-product_id="{{ $product->id }}" href="#"
                                     class="btn btn-outline-primary rounded-0 w-100 py-3 add_to_cart_btn_product_single">
                                     <i class="fa-solid fa-shopping-cart fa-fade"></i>
@@ -304,8 +353,8 @@
                         </div>
                         <div class="d-flex align-items-center card-cart-btn mt-4">
                             <!-- Order Modal  -->
-                            <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
-                                data-target="#order-product{{ $product->id }}">
+                            <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3"
+                                data-toggle="modal" data-target="#order-product{{ $product->id }}">
                                 <i class="fa-solid fa-basket-shopping pr-2"></i>
                                 অর্ডার করুন
                             </a>
@@ -1067,6 +1116,5 @@
                 });
             });
         </script>
-        
     @endpush
 </x-frontend-app-layout>

@@ -21132,9 +21132,74 @@ table.dataTable tbody td:last-child {
 }
 .juta-delivery .delivery-icons {
     margin-top: -155px;
+    margin-bottom: -9px;
 }
 .juta-delivery {
     margin-top: 150px;
+}
+.radio-wrapper-46 input[type="radio"] {
+    display: none;
+    visibility: hidden;
+}
+
+.radio-wrapper-46 .radio {
+    margin: auto;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+.radio-wrapper-46 .radio span {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+.radio-wrapper-46 .radio span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%; /* Make it circular */
+    transform: scale(1);
+    vertical-align: middle;
+    border: 1px solid #9098a9;
+    transition: all 0.2s ease;
+}
+.radio-wrapper-46 .radio span:first-child svg {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+    transform: translate3d(0, 0, 0);
+    display: none; /* Hide the checkmark */
+}
+.radio-wrapper-46 .radio span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #506eec;
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+}
+.radio-wrapper-46 .radio span:last-child {
+    padding-left: 8px;
+}
+.radio-wrapper-46 .radio:hover span:first-child {
+    border-color: #506eec;
+}
+
+.radio-wrapper-46 .inp-radio:checked + .radio span:first-child {
+    background: #506eec;
+    border-color: #506eec;
+    animation: wave-46 0.4s ease;
+}
+.radio-wrapper-46 .inp-radio:checked + .radio span:first-child:before {
+    transform: scale(1.2);
+    opacity: 1;
+    transition: all 0.3s ease;
 }
 @media (max-width: 768px) {
     .ps-product--list .ps-product__quantity {
@@ -21666,7 +21731,7 @@ table.dataTable tbody td:last-child {
     height: 1px;
     background-color: var(--site-primary);
 }
-.cat-tabs-triger:hover{
+.cat-tabs-triger:hover {
     background-color: var(--site-primary);
     color: #fff;
 }
