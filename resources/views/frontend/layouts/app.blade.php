@@ -109,7 +109,7 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background-color: #fff;
+            background-color: #d9edfa;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -140,13 +140,8 @@
 <body>
     <!-- Preloader HTML -->
     <div id="preloader" class="flex-column">
-        <div class="wave-text">
-            <span>জু</span>
-            <span>তা</span>
-            <span>-</span>
-            <span>লা</span>
-            <span>গ</span>
-            <span>বে</span>
+        <div>
+            <img width="300px" src="{{ asset('images/preloader.gif') }}" alt="">
         </div>
     </div>
     <div id="main-content" style="display: none;">

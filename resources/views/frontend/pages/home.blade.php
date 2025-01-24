@@ -1,71 +1,8 @@
 <x-frontend-app-layout :title="'Home Page'">
-    <style>
-        .video-container .content {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .video-container .video-box-img {
-            margin: auto;
-            position: relative;
-            top: -34px;
-            background: white;
-            padding: 5px
-        }
-
-        .video-player {
-            width: 100%;
-            /* Ensures full width of its container */
-            max-width: 400px;
-            /* Set a fixed width */
-            height: 300px;
-            /* Set a fixed height */
-            object-fit: cover;
-            /* Makes the video cover the area while maintaining aspect ratio */
-            border-top-left-radius: 22px;
-            /* Rounded corners */
-            border-top-right-radius: 22px;
-            margin: 0 auto;
-            /* Centers the video horizontally */
-            display: block;
-            /* Ensures no inline spacing issues */
-        }
-
-        .video-box-img {
-            width: 80px;
-            border: 1px solid #004d7a
-        }
-
-        .video-card {
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            border-radius: 20px;
-        }
-
-        .main-banner img {
-            height: 550px;
-            /* Sets a fixed height for the image */
-            width: 100%;
-            /* Ensures the image stretches to fill the container's width */
-            object-fit: cover;
-            /* Scales the image to fit within the container while preserving its aspect ratio */
-            display: block;
-            /* Removes any inline spacing caused by default 'inline' behavior of images */
-            margin: 0 auto;
-            /* Centers the image horizontally (if inside a flex or block container) */
-            border: none;
-            /* Removes any default borders around the image */
-            padding: 0;
-            /* Ensures no extra padding is added around the image */
-            background-color: #fff;
-            /* Optional: Adds a background color for better contrast */
-        }
-    </style>
     <section class="ps-section--banner">
-        <div class="ps-section__overlay">
+        {{-- <div class="ps-section__overlay">
             <div class="ps-section__loading"></div>
-        </div>
+        </div> --}}
         <div class="main-banner">
             <img src="{{ asset('images/jutalagbe-main-banner.jpg') }}" alt="">
         </div>
@@ -774,8 +711,8 @@
                         <div class="col-lg-12">
                             <div class="row pb-5">
                                 <div class="col-3">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
+                                    <div class="card p-0 border-0 video-card-home rounded-4">
+                                        <div class="card-body p-0 video-container-home">
                                             <iframe class="video-player" width="560" height="315"
                                                 src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
                                                 title="YouTube video player" frameborder="0"
@@ -1221,12 +1158,12 @@
                 // Function to play the video when it's ready
                 function onPlayerReady(event) {
                     // Allow immediate playback when hovering over the video container
-                    $('.video-container').on('mouseenter', function() {
+                    $('.video-container-home').on('mouseenter', function() {
                         player.playVideo();
                     });
 
                     // Pause the video when mouse leaves the iframe
-                    $('.video-container').on('mouseleave', function() {
+                    $('.video-container-home').on('mouseleave', function() {
                         player.pauseVideo();
                     });
                 }
