@@ -352,12 +352,11 @@
                 e.preventDefault(); // Prevent the default action of the link
 
                 // Find the quantity input
-                var $quantityInput = $(this).closest('.ps-product__feature').find('.quantity');
+                var $quantityInput = $("input[name='quantity']");
                 var qty = $quantityInput.val(); // Get the quantity value
-
-                // Find the selected size
-                var size = $("input[name='size']:checked")
-                    .val(); // Get the selected size from the radio buttons
+                alert(qty);
+                var size = $("input[name='size']:checked").val(); // Get the selected size from the radio buttons
+                alert(size);
 
                 // Check if size is selected and if quantity is valid
                 if (!size) {
