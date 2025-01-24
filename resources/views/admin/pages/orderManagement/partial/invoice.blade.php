@@ -126,7 +126,7 @@
                                                                 Subtotal
                                                             </td>
                                                             <td class="text-end">
-                                                                £ {{ optional($order)->sub_total }}
+                                                                ৳ {{ optional($order)->sub_total }}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -134,7 +134,7 @@
                                                                 VAT (0%)
                                                             </td>
                                                             <td class="text-end">
-                                                                £ 0.00
+                                                                ৳ 0.00
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -143,7 +143,7 @@
                                                                 Grand Total
                                                             </td>
                                                             <td class="text-gray-900 fs-3 fw-bolder text-end">
-                                                                £ {{ optional($order)->total_amount }}
+                                                                ৳ {{ optional($order)->total_amount }}
                                                             </td>
                                                         </tr>
                                                     </tbody>

@@ -246,10 +246,10 @@
                                                         <span>{{ optional($item)->quantity }}</span>
                                                     </td>
                                                     <td class="text-end">
-                                                        <span class="text-info">(£)</span>{{ optional($item)->price }}
+                                                        <span class="text-info">(৳)</span>{{ optional($item)->price }}
                                                     </td>
                                                     <td class="text-end pe-5">
-                                                        <span class="text-info">(£)</span>{{ optional($item)->quantity * optional($item)->price }}
+                                                        <span class="text-info">(৳)</span>{{ optional($item)->quantity * optional($item)->price }}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -258,7 +258,7 @@
                                                     Subtotal
                                                 </td>
                                                 <td class="text-end pe-5">
-                                                    (£){{ $order->sub_total }}
+                                                    (৳){{ $order->sub_total }}
                                                 </td>
                                             </tr>
                                             <tr style="background-color: #eeeeeead;">
@@ -274,7 +274,7 @@
                                                     Shipping Rate
                                                 </td>
                                                 <td class="text-end pe-5">
-                                                    (£){{ $order->shipping_charge }}
+                                                    (৳){{ $order->shipping_charge }}
                                                 </td>
                                             </tr>
                                             <tr style="background-color: #eee;">
@@ -282,7 +282,7 @@
                                                     Grand Total
                                                 </td>
                                                 <td class="text-gray-900 fs-3 fw-bolder text-end pe-5">
-                                                    (£){{ $order->total_amount }}
+                                                    (৳){{ $order->total_amount }}
                                                 </td>
                                             </tr>
                                         </tbody>
