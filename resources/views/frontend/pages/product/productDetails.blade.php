@@ -300,63 +300,17 @@
                         {{-- Size Variation --}}
                         <div class="py-3">
                             <div class="d-flex">
-                                <div class="radio-wrapper-46 mr-3">
-                                    <input class="inp-radio" id="radio-47" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-47"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>39</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-3">
-                                    <input class="inp-radio" id="radio-48" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-48"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg>
-                                        </span><span>40</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-3">
-                                    <input class="inp-radio" id="radio-41" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-41"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>41</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-3">
-                                    <input class="inp-radio" id="radio-42" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-42"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>42</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-3">
-                                    <input class="inp-radio" id="radio-43" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-43"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>43</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-3">
-                                    <input class="inp-radio" id="radio-44" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-44"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>44</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-3">
-                                    <input class="inp-radio" id="radio-45" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-45"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>45</span>
-                                    </label>
-                                </div>
+                                @foreach ($product->size as $size)
+                                    <div class="radio-wrapper-{{ $size }} mr-3">
+                                        <input class="inp-radio" id="radio-{{ $size }}" name="size" type="radio" value="{{ $size }}"/>
+                                        <label class="radio" for="radio-{{ $size }}"><span>
+                                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                    <circle cx="6" cy="6" r="4"></circle>
+                                                </svg></span><span>{{ $size }}</span>
+                                        </label>
+                                    </div>
+                                @endforeach
+
                             </div>
                         </div>
                         {{-- Size Variation End --}}
