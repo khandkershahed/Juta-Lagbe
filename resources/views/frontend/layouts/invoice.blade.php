@@ -4,7 +4,7 @@
             <div class="col-lg-6">
                 <div class="pb-5 text-m-center">
                     <img class="text-right" width="150px"
-                        src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
+                        src="{{ !empty(optional($setting)->site_logo_black) && file_exists(public_path('storage/' . optional($setting)->site_logo_black)) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
                         alt="">
                 </div>
             </div>
