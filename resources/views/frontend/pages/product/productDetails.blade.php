@@ -378,23 +378,12 @@
                             <div class="table-responsive">
                                 <table class="table border bg-white">
                                     <tbody>
-                                        <tr class="">
-                                            <td><small>ঢাকা মেট্রো সিটি ডেলিভারি খরচ :</small></td>
-                                            <td>৬০ টাকা</td>
-                                        </tr>
-                                        <tr class="">
-                                            <td><small>ডেমরা, কামরাঙ্গীরচর ডেলিভারি খরচ :</small></td>
-                                            <td>৮০ টাকা</td>
-                                        </tr>
-                                        <tr class="">
-                                            <td><small>সাভার, গাজীপুর, কেরানীগঞ্জ, নারায়ণগঞ্জ ডেলিভারি খরচ : </small>
-                                            </td>
-                                            <td>১০০ টাকা</td>
-                                        </tr>
-                                        <tr class="">
-                                            <td><small>অন্যান্য জেলা, উপজেলা, বিভাগ ডেলিভারি খরচ : </small></td>
-                                            <td>১৩০ টাকা</td>
-                                        </tr>
+                                        @foreach ($shippingmethods as $shippingmethod)
+                                            <tr class="">
+                                                <td><small>{{ $shippingmethod->title }} :</small></td>
+                                                <td>{{ $shippingmethod->price }} টাকা</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
