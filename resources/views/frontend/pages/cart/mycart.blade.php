@@ -69,7 +69,7 @@
                                                             <i class="fa fa-eye"></i>
                                                         </a>
                                                     </div>
-                                                    <div class="ps-product__item" data-toggle="tooltip"
+                                                    {{-- <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Add To Cart">
                                                         <a class="add_to_cart"
                                                             href="{{ route('cart.store', $deal_product->id) }}"
@@ -77,7 +77,7 @@
                                                             data-product_qty="1">
                                                             <i class="fa fa-shopping-cart"></i>
                                                         </a>
-                                                    </div>
+                                                    </div> --}}
 
                                                 </div>
                                                 @if (!empty($deal_product->unit_discount_price))

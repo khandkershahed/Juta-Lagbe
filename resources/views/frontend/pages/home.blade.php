@@ -83,7 +83,7 @@
                         <div class="ps-section__content">
                             <div class="row m-0">
                                 @foreach ($latest_products as $latest_product)
-                                    <div class="col-6 col-md-4 col-lg-3 dot4 pr-3 pl-0 mb-3">
+                                    <div class="col-6 col-md-4 col-lg-3 dot4 pr-0 pr-lg-3 pl-0 mb-3">
                                         <div class="ps-section__product">
                                             <div class="ps-product ps-product--standard">
                                                 <div class="ps-product__thumbnail">
@@ -133,7 +133,7 @@
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
                                                         </div>
-                                                        <div class="ps-product__item" data-toggle="tooltip"
+                                                        {{-- <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Add To Cart">
                                                             <a class="add_to_cart"
                                                                 href="{{ route('cart.store', $latest_product->id) }}"
@@ -141,7 +141,7 @@
                                                                 data-product_qty="1">
                                                                 <i class="fa fa-shopping-cart"></i>
                                                             </a>
-                                                        </div>
+                                                        </div> --}}
 
                                                     </div>
                                                     @if (!empty($latest_product->unit_discount_price))
@@ -305,7 +305,7 @@
                         <div class="ps-section__content">
                             <div class="row m-0">
                                 @foreach ($categoryoneproducts as $categoryoneproduct)
-                                    <div class="col-6 col-md-4 col-lg-3 dot4 pr-3 pl-0">
+                                    <div class="col-6 col-md-4 col-lg-3 dot4 pr-0 pr-lg-3 pl-0">
                                         <div class="ps-section__product border">
                                             <div class="ps-product ps-product--standard">
                                                 <div class="ps-product__thumbnail">
@@ -355,7 +355,7 @@
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
                                                         </div>
-                                                        <div class="ps-product__item" data-toggle="tooltip"
+                                                        {{-- <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Add To Cart">
                                                             <a class="add_to_cart"
                                                                 href="{{ route('cart.store', $categoryoneproduct->id) }}"
@@ -363,7 +363,7 @@
                                                                 data-product_qty="1">
                                                                 <i class="fa fa-shopping-cart"></i>
                                                             </a>
-                                                        </div>
+                                                        </div> --}}
 
                                                     </div>
                                                     @if (!empty($categoryoneproduct->unit_discount_price))
@@ -597,7 +597,7 @@
                                                                         <i class="fa fa-eye"></i>
                                                                     </a>
                                                                 </div>
-                                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                                {{-- <div class="ps-product__item" data-toggle="tooltip"
                                                                     data-placement="left" title="Add To Cart">
                                                                     <a class="add_to_cart"
                                                                         href="{{ route('cart.store', $categorytwoproduct->id) }}"
@@ -605,7 +605,7 @@
                                                                         data-product_qty="1">
                                                                         <i class="fa fa-shopping-cart"></i>
                                                                     </a>
-                                                                </div>
+                                                                </div> --}}
 
                                                             </div>
                                                             @if (!empty($categorytwoproduct->unit_discount_price))
@@ -709,8 +709,8 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <div class="row pb-5">
-                                <div class="col-3">
+                            <div class="row gx-2 pb-2 pb-lg-5">
+                                <div class="col-6 col-lg-3 col-md-3 mb-3 px-1">
                                     <div class="card p-0 border-0 video-card-home rounded-4">
                                         <div class="card-body p-0 video-container-home">
                                             <iframe class="video-player" width="560" height="315"
@@ -734,7 +734,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-6 col-lg-3 col-md-3 mb-3 px-1">
                                     <div class="card p-0 border-0 video-card-home rounded-4">
                                         <div class="card-body p-0 video-container-home">
                                             <iframe class="video-player" width="560" height="315"
@@ -758,7 +758,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-6 col-lg-3 col-md-3 mb-3 px-1">
                                     <div class="card p-0 border-0 video-card-home rounded-4">
                                         <div class="card-body p-0 video-container-home">
                                             <iframe class="video-player" width="560" height="315"
@@ -782,7 +782,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-6 col-lg-3 col-md-3 mb-3 px-1">
                                     <div class="card p-0 border-0 video-card-home rounded-4">
                                         <div class="card-body p-0 video-container-home">
                                             <iframe class="video-player" width="560" height="315"
@@ -815,7 +815,7 @@
                 <div class="container px-0 mb-5 pb-0 pb-lg-5">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="d-flex justify-content-between align-items-center pb-5">
+                            <div class="d-flex justify-content-between align-items-center pb-2 pb-lg-5">
                                 <div class="">
                                     <h3 class="ps-section__title mb-0" style="font-size: 30px;">
                                         {{ optional($categorythree)->name }}</h3>
@@ -834,7 +834,7 @@
                         <div class="ps-section__content">
                             <div class="row m-0">
                                 @foreach ($categorythreeproducts as $categorythreeproduct)
-                                    <div class="col-6 col-md-4 col-lg-3 dot4 pr-3 pl-0">
+                                    <div class="col-6 col-md-4 col-lg-3 dot4 pr-0 pr-lg-3 pl-0">
                                         <div class="ps-section__product border">
                                             <div class="ps-product ps-product--standard">
                                                 <div class="ps-product__thumbnail">
@@ -884,7 +884,7 @@
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
                                                         </div>
-                                                        <div class="ps-product__item" data-toggle="tooltip"
+                                                        {{-- <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Add To Cart">
                                                             <a class="add_to_cart"
                                                                 href="{{ route('cart.store', $categorythreeproduct->id) }}"
@@ -892,7 +892,7 @@
                                                                 data-product_qty="1">
                                                                 <i class="fa fa-shopping-cart"></i>
                                                             </a>
-                                                        </div>
+                                                        </div> --}}
 
                                                     </div>
                                                     @if (!empty($categorythreeproduct->unit_discount_price))
@@ -1118,7 +1118,7 @@
                                                             <i class="fa fa-eye"></i>
                                                         </a>
                                                     </div>
-                                                    <div class="ps-product__item" data-toggle="tooltip"
+                                                    {{-- <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Add To Cart">
                                                         <a class="add_to_cart"
                                                             href="{{ route('cart.store', $deal_product->id) }}"
@@ -1126,7 +1126,7 @@
                                                             data-product_qty="1">
                                                             <i class="fa fa-shopping-cart"></i>
                                                         </a>
-                                                    </div>
+                                                    </div> --}}
 
                                                 </div>
                                                 @if (!empty($deal_product->unit_discount_price))

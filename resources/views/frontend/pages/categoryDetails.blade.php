@@ -177,7 +177,7 @@
                                                                                 <i class="fa fa-eye"></i>
                                                                             </a>
                                                                         </div>
-                                                                        <div class="ps-product__item"
+                                                                        {{-- <div class="ps-product__item"
                                                                             data-toggle="tooltip" data-placement="left"
                                                                             title="Add To Cart">
                                                                             <a class="add_to_cart"
@@ -186,7 +186,7 @@
                                                                                 data-product_qty="1">
                                                                                 <i class="fa fa-shopping-cart"></i>
                                                                             </a>
-                                                                        </div>
+                                                                        </div> --}}
 
                                                                     </div>
                                                                     @if (!empty($category_product->unit_discount_price))

@@ -515,7 +515,7 @@
                                 title: data.success
                             });
                             button.prop('disabled', true); // Disable the button
-                            button.text('Included'); // Change button text
+                            button.text('✔'); // Change button text
                             wishlistCount.html(data.wishlistCount);
                         } else {
                             Toast.fire({

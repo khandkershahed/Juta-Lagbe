@@ -157,12 +157,12 @@
             {{-- Footer --}}
         </div>
         {{-- Sidebar Cart Common Start --}}
-        <div>
+        {{-- <div>
             <a class="cart-sidebar-btn" href="{{ route('cart') }}">
                 <span class="cart-values cartCount">{{ Cart::instance('cart')->count() }}</span>
                 <i class="fa fa-shopping-cart"></i>
             </a>
-        </div>
+        </div> --}}
         {{-- Sidebar Cart Common End --}}
     </div>
 
@@ -236,7 +236,7 @@
                             title: data.success
                         });
                         button.disabled = true; // Disable the button
-                        button.innerText = 'Included'; // Change button text
+                        button.innerText = '✔'; // Change button text
                         document.querySelector(".cartCount").innerHTML = data.cartCount;
                         cartHeader.innerHTML = data.cartHeader;
                         if (data.subTotal > 4000) {
@@ -623,7 +623,7 @@
                                 title: data.success
                             });
                             button.prop('disabled', true); // Disable the button
-                            // button.text('Included'); // Change button text
+                            // button.text('✔'); // Change button text
                             wishlistCount.html(data.wishlistCount);
                         } else {
                             Toast.fire({

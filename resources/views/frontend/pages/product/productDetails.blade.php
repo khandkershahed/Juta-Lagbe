@@ -268,7 +268,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 pl-0">
-                    <div>
+                    <div class="product-details-juta">
                         <h3 class="title">{{ $product->name }}</h3>
                         <div>
                             @if (!empty($product->stock) && $product->stock > 0)
@@ -299,23 +299,23 @@
 
                         {{-- Size Variation End --}}
                         <div class="ps-page__content py-2 row align-items-center">
-                            <div class="ps-product--detail col-3">
+                            <div class="ps-product--detail col-12 col-lg-3">
                                 <div class="ps-product__feature bg-transparent p-0">
                                     <div class="ps-product__quantity pb-0 rounded-0">
-                                        <div class="def-number-input number-input safari_only w-100 rounded-0 py-2">
+                                        <div class="def-number-input number-input safari_only w-100 rounded-0">
                                             <button class="minus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                    class="icon-minus"></i></button>
+                                                    class="icon-minus text-white"></i></button>
                                             <input class="quantity" min="1" name="quantity" value="1"
                                                 type="number" data-product_id="{{ $product->id }}" />
                                             <button class="plus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                    class="icon-plus"></i></button>
+                                                    class="icon-plus text-white"></i></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-9">
+                            <div class="col-12 col-lg-9">
                                 <div class="d-flex">
                                     @php
                                         $sizes = isset($product->size) ? json_decode($product->size, true) : [];
@@ -419,14 +419,14 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item ml-3 pr-info-tabs" role="presentation">
+                            <li class="nav-item ml-3 mt-3 mt-lg-0 pr-info-tabs" role="presentation">
                                 <a class="nav-link" id="delivery-tab" data-toggle="tab" href="#delivery-process"
                                     role="tab" aria-controls="delivery-process" aria-selected="false">
                                     ডেলিভারি প্রসেস এবং রিটার্ন পলিসি।
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content bg-white p-5" id="productContent">
+                        <div class="tab-content bg-white p-lg-5 p-3" id="productContent">
                             <div class="tab-pane fade show active" id="information-content" role="tabpanel"
                                 aria-labelledby="information-tab">
                                 <div class="ps-document">
@@ -642,7 +642,7 @@
                                                         <i class="fa fa-eye"></i>
                                                     </a>
                                                 </div>
-                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                {{-- <div class="ps-product__item" data-toggle="tooltip"
                                                     data-placement="left" title="Add To Cart">
                                                     <a class="add_to_cart"
                                                         href="{{ route('cart.store', $related_product->id) }}"
@@ -650,7 +650,7 @@
                                                         data-product_qty="1">
                                                         <i class="fa fa-shopping-cart"></i>
                                                     </a>
-                                                </div>
+                                                </div> --}}
 
                                             </div>
                                             @if (!empty($related_product->unit_discount_price))
