@@ -4,9 +4,9 @@
             <div class="col-lg-6">
                 <div class="pb-5 text-m-center">
                     <img class="text-right" width="150px"
-                        src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                        src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
                         alt=""
-                        onerror="this.onerror=null;this.src='https://neezpackages.com/frontend/img/logo.png';">
+                        onerror="this.onerror=null;this.src='{{ asset('images/default_logo-2.png' }}';">
                 </div>
             </div>
             <div class="col-lg-6">
