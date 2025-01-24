@@ -171,7 +171,7 @@
                                     value="{{ old('color', $product->color) }}" id="color" />
                             </div> --}}
                             @php
-                                $sizes = isset($product->class) ? json_decode($product->class, true) : [];
+                                $sizes = isset($product->size) ? json_decode($product->size, true) : [];
                             @endphp
                             <div class="fv-row">
                                 <x-metronic.label for="size" class="col-form-label required fw-bold fs-6">

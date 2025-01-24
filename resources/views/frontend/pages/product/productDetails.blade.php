@@ -233,8 +233,7 @@
                                 {{-- @foreach ($product->video_link as $video) --}}
                                 <div class="swiper-slide">
                                     <div style="position: relative; width: 100%; height: 100%;">
-                                        <iframe width="100%" height="100%"
-                                        {{-- src="Dynamic-URL-Here----> &autoplay=0&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0" --}}
+                                        <iframe width="100%" height="100%" {{-- src="Dynamic-URL-Here----> &autoplay=0&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0" --}}
                                             src="https://www.youtube.com/embed/O5qMVkByyzE?si=NMxjp_Se7cRVJ3wG&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
                                             title="YouTube video player" frameborder="0"
                                             referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -300,9 +299,13 @@
                         {{-- Size Variation --}}
                         <div class="py-3">
                             <div class="d-flex">
-                                @foreach ($product->size as $size)
-                                    <div class="radio-wrapper-{{ $size }} mr-3">
-                                        <input class="inp-radio" id="radio-{{ $size }}" name="size" type="radio" value="{{ $size }}"/>
+                                @php
+                                    $sizes = isset($product->size) ? json_decode($product->size, true) : [];
+                                @endphp
+                                @foreach ($sizes as $size)
+                                    <div class="radio-wrapper-46 mr-3">
+                                        <input class="inp-radio" id="radio-{{ $size }}" name="size"
+                                            type="radio" value="{{ $size }}" />
                                         <label class="radio" for="radio-{{ $size }}"><span>
                                                 <svg width="12px" height="10px" viewbox="0 0 12 10">
                                                     <circle cx="6" cy="6" r="4"></circle>
@@ -310,7 +313,6 @@
                                         </label>
                                     </div>
                                 @endforeach
-
                             </div>
                         </div>
                         {{-- Size Variation End --}}
@@ -341,8 +343,8 @@
                         </div>
                         <div class="d-flex align-items-center card-cart-btn mt-4">
                             <!-- Order Modal  -->
-                            <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3"
-                                data-toggle="modal" data-target="#order-product{{ $product->id }}">
+                            <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
+                                data-target="#order-product{{ $product->id }}">
                                 <i class="fa-solid fa-basket-shopping pr-2"></i>
                                 অর্ডার করুন
                             </a>
