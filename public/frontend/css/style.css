@@ -21377,7 +21377,7 @@ table.dataTable tbody td:last-child {
     pointer-events: none;
     width: 2px;
     height: 2px;
-    background-color: #fff;
+    background-color: #004d7a;
     border-radius: 9999px;
 }
 
@@ -21469,7 +21469,7 @@ table.dataTable tbody td:last-child {
     gap: 6px;
     position: relative;
     width: 100%;
-    color: white;
+    color: #004d7a;
     display: inline-flex;
     align-items: center;
     justify-content: center;

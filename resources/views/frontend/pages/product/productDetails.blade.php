@@ -194,6 +194,17 @@
             box-sizing: border-box;
             height: 32px;
         }
+
+        .overlay-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            cursor: not-allowed;
+        }
     </style>
     <section>
         <div class="container">
@@ -211,6 +222,7 @@
             <div class="row">
                 <div class="col-lg-7">
                     <div class="product-slider-wrapper">
+                        {{-- Slider Thumbnail Start --}}
                         <div thumbsSlider="" class="swiper product-details-slide bg-white">
                             <div class="swiper-wrapper">
                                 @foreach ($product->multiImages as $image)
@@ -218,9 +230,22 @@
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
+                                {{-- @foreach ($product->video_link as $video) --}}
+                                <div class="swiper-slide">
+                                    <div style="position: relative; width: 100%; height: 100%;">
+                                        <iframe width="100%" height="100%"
+                                        {{-- src="Dynamic-URL-Here----> &autoplay=0&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0" --}}
+                                            src="https://www.youtube.com/embed/O5qMVkByyzE?si=NMxjp_Se7cRVJ3wG&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
+                                            title="YouTube video player" frameborder="0"
+                                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                        <div class="overlay-iframe"></div>
+                                    </div>
+                                </div>
+                                {{-- @endforeach --}}
                             </div>
                         </div>
-                        <!-- Swiper -->
+                        {{-- Slider Thumbnail End --}}
+                        <!-- Swiper Main Image Start-->
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
@@ -229,10 +254,18 @@
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
+                                <div class="swiper-slide magnifier-container">
+                                    <iframe width="100%" height="100%" {{-- src="Dynamic-URL-Here----> &autoplay=1&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0" --}}
+                                        src="https://www.youtube.com/embed/O5qMVkByyzE?si=NMxjp_Se7cRVJ3wG&autoplay=1&controls=0&mute=1"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </div>
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
+                        <!-- Swiper Main Image End-->
                     </div>
                 </div>
                 <div class="col-lg-5 pl-0">
@@ -259,7 +292,8 @@
                                 </div>
                             @else
                                 <div class="d-flex align-items-center">
-                                    <h3>দাম {{ $product->unit_price }} টাকা</h3> <del class="pl-3 text-danger">{{ $product->unit_price }} টাকা</del>
+                                    <h3>দাম {{ $product->unit_price }} টাকা</h3> <del
+                                        class="pl-3 text-danger">{{ $product->unit_price }} টাকা</del>
                                 </div>
                             @endif
                         </div>
@@ -325,7 +359,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Size Variation End--}}
+                        {{-- Size Variation End --}}
                         <div class="ps-page__content py-2 row align-items-center">
                             <div class="ps-product--detail col-5">
                                 <div class="ps-product__feature bg-transparent p-0">
@@ -645,7 +679,7 @@
                                                     data-placement="left" title="Wishlist">
                                                     <a class="add_to_wishlist"
                                                         href="{{ route('wishlist.store', $related_product->id) }}"><i
-                                                            class="fa fa-heart-o"></i></a>
+                                                            class="fa-solid fa-heart"></i></a>
                                                 </div>
                                                 <div class="ps-product__item" data-toggle="tooltip"
                                                     data-placement="left" title="Quick view">
@@ -684,8 +718,9 @@
                                             <div class="pb-3">
                                                 @if (!empty($related_product->unit_discount_price))
                                                     <div class="ps-product__meta">
-                                                        <span
-                                                            class="ps-product__price sale">{{ $related_product->unit_discount_price }}
+                                                        <span class="ps-product__price sale fw-bold"
+                                                            style="font-weight:600;">দাম
+                                                            {{ $related_product->unit_discount_price }}
                                                             টাকা</span>
                                                         <span
                                                             class="ps-product__del text-danger">{{ $related_product->unit_price }}
@@ -693,8 +728,9 @@
                                                     </div>
                                                 @else
                                                     <div class="ps-product__meta">
-                                                        <span
-                                                            class="ps-product__price sale">{{ $related_product->unit_price }}
+                                                        <span class="ps-product__price sale fw-bold"
+                                                            style="font-weight:600;">দাম
+                                                            {{ $related_product->unit_price }}
                                                             টাকা</span>
                                                     </div>
                                                 @endif
@@ -724,7 +760,7 @@
                                                 <div class="ps-product__item" data-toggle="tooltip"
                                                     data-placement="left" title="Wishlist"><a class="add_to_wishlist"
                                                         href="{{ route('wishlist.store', $related_product->id) }}"><i
-                                                            class="fa fa-heart-o"></i></a>
+                                                            class="fa-solid fa-heart"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1007,10 +1043,10 @@
                             direction: "vertical",
                             freeMode: false,
                             watchSlidesProgress: true,
-                            loop: true, // Enable looping
+                            loop: true,
                             autoplay: {
-                                delay: 3000, // 3 seconds delay
-                                disableOnInteraction: false, // Keep autoplay after user interaction
+                                delay: 3000,
+                                disableOnInteraction: false,
                             },
                             breakpoints: {
                                 768: {
@@ -1037,7 +1073,7 @@
                             thumbs: {
                                 swiper: galleryTop,
                             },
-                            loop: true, // Enable looping
+                            loop: true,
                             autoplay: {
                                 delay: 3000,
                                 disableOnInteraction: false,
@@ -1050,7 +1086,7 @@
                             slidesPerView: 4,
                             freeMode: false,
                             watchSlidesProgress: true,
-                            loop: true, // Enable looping
+                            loop: true,
                             autoplay: {
                                 delay: 3000,
                                 disableOnInteraction: false,
@@ -1069,7 +1105,7 @@
                             thumbs: {
                                 swiper: galleryTop,
                             },
-                            loop: true, // Enable looping
+                            loop: true,
                             autoplay: {
                                 delay: 3000,
                                 disableOnInteraction: false,
@@ -1083,6 +1119,17 @@
                     });
                     galleryThumbs.on("transitionStart", function() {
                         galleryTop.slideTo(galleryThumbs.activeIndex);
+                    });
+
+                    // Add hover pause functionality
+                    $(".product-details-slide, .mySwiper2").on("mouseenter", function() {
+                        galleryTop.autoplay.stop();
+                        galleryThumbs.autoplay.stop();
+                    });
+
+                    $(".product-details-slide, .mySwiper2").on("mouseleave", function() {
+                        galleryTop.autoplay.start();
+                        galleryThumbs.autoplay.start();
                     });
                 }
 

@@ -107,7 +107,8 @@
         justify-content: center;
         overflow: hidden;
         transition: all 0.25s ease;
-        background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c);
+        /* background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c); */
+        background-color: white;
         /* border-radius: var(--round); */
         border: none;
         outline: none;
@@ -130,17 +131,12 @@
 
     .button-new::after {
         --space: 1px;
-        background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c);
+        /* background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c); */
+        background-color: white;
     }
 
     .button-new:active {
         transform: scale(0.95);
-    }
-
-    /* Ensure parents allow scrolling */
-    body,
-    html {
-        overflow: visible;
     }
 </style>
 <div class="ps-header ps-header--2">

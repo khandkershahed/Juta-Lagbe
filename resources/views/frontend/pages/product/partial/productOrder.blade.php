@@ -42,18 +42,6 @@
                                                 required>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-xl-12 px-0">
-                                        <div class="ps-form__group pt-2">
-                                            <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                for="email">ইমেইল<span
-                                                    class="text-danger">*</span>
-                                            </label>
-                                            <input id="email" class="form-control ps-form__input" type="email"
-                                                name="email" value="{{ old('email',optional(Auth::user())->email) }}"
-                                                autofocus="" autocomplete="email" placeholder="আপনার ইমেইল দিন"
-                                                required>
-                                        </div>
-                                    </div>
                                     <div class="col-12 col-xl-6 pl-0">
                                         <div class="ps-form__group pt-2">
                                             <label class="block font-medium text-sm text-gray-700 ps-form__label"

@@ -214,7 +214,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $latest_product->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Quick view">
@@ -298,7 +298,7 @@
                                                             data-placement="left" title="Wishlist"><a
                                                                 class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $latest_product->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -436,7 +436,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categoryoneproduct->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Quick view">
@@ -520,7 +520,7 @@
                                                             data-placement="left" title="Wishlist"><a
                                                                 class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categoryoneproduct->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -678,7 +678,7 @@
                                                                     data-placement="left" title="Wishlist">
                                                                     <a class="add_to_wishlist"
                                                                         href="{{ route('wishlist.store', $categorytwoproduct->id) }}"><i
-                                                                            class="fa fa-heart-o"></i></a>
+                                                                            class="fa-solid fa-heart"></i></a>
                                                                 </div>
                                                                 <div class="ps-product__item" data-toggle="tooltip"
                                                                     data-placement="left" title="Quick view">
@@ -764,7 +764,7 @@
                                                                     data-placement="left" title="Wishlist"><a
                                                                         class="add_to_wishlist"
                                                                         href="{{ route('wishlist.store', $categorytwoproduct->id) }}"><i
-                                                                            class="fa fa-heart-o"></i></a>
+                                                                            class="fa-solid fa-heart"></i></a>
                                                                 </div>
 
                                                             </div>
@@ -893,7 +893,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categorythreeproduct->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Quick view">
@@ -977,7 +977,7 @@
                                                             data-placement="left" title="Wishlist"><a
                                                                 class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categorythreeproduct->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1127,7 +1127,7 @@
                                                         data-placement="left" title="Wishlist">
                                                         <a class="add_to_wishlist"
                                                             href="{{ route('wishlist.store', $deal_product->id) }}"><i
-                                                                class="fa fa-heart-o"></i></a>
+                                                                class="fa-solid fa-heart"></i></a>
                                                     </div>
                                                     <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Quick view">
@@ -1208,7 +1208,7 @@
                                                         data-placement="left" title="Wishlist"><a
                                                             class="add_to_wishlist"
                                                             href="{{ route('wishlist.store', $deal_product->id) }}"><i
-                                                                class="fa fa-heart-o"></i></a>
+                                                                class="fa-solid fa-heart"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
