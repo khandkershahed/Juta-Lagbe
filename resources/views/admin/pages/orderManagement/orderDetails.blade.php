@@ -201,48 +201,13 @@
                 </div>
                 <div class="d-flex flex-column gap-7 gap-lg-10">
                     <div class="d-flex flex-column gap-7 gap-lg-10">
-                        {{-- <div class="d-flex flex-column flex-xl-row gap-7 gap-lg-10">
-                            <div class="card card-flush py-4 flex-row-fluid position-relative">
-                                <div
-                                    class="position-absolute top-0 end-0 bottom-0 opacity-10 d-flex align-items-center me-5">
-                                    <i class="ki-solid ki-two-credit-cart" style="font-size: 14em">
-                                    </i>
-                                </div>
-                                <div class="card-header">
-                                    <div class="card-title">
-                                        <h2>Billing Address</h2>
-                                    </div>
-                                </div>
-                                <div class="card-body pt-0">
-                                    {{ $order->billing_address }}
-                                </div>
-                            </div>
-                            <div class="card card-flush py-4 flex-row-fluid position-relative">
-                                <div
-                                    class="position-absolute top-0 end-0 bottom-0 opacity-10 d-flex align-items-center me-5">
-                                    <i class="ki-solid ki-delivery" style="font-size: 13em">
-                                    </i>
-                                </div>
-                                <div class="card-header">
-                                    <div class="card-title">
-                                        <h2>Shipping Address</h2>
-                                    </div>
-                                </div>
-                                <div class="card-body pt-0">
-                                    {{ $order->shipping_address }}
-                                </div>
-                            </div>
-                        </div> --}}
+
                         <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
                             <div class="card-header">
                                 <div class="card-title">
                                     <h2>Order #{{ $order->order_number }}</h2>
                                 </div>
-                                {{-- <div class="card-title">
-                                    <a href="javascript:void(0)" class="btn btn-sm fw-bold btn-primary"
-                                        data-bs-toggle="modal" data-bs-target="#printInovice"> <i
-                                            class="fa-solid fa-print"></i> Print Or Download </a>
-                                </div> --}}
+
                             </div>
                             <div class="card-body pt-0">
                                 <div class="table-responsive">
@@ -252,7 +217,7 @@
                                                 <th width="5%" class="ps-5">Sl</th>
                                                 <th width="10" class="">Image</th>
                                                 <th width="45" class="">Product Description</th>
-                                                <th width="10%" class="">SKU</th>
+                                                <th width="10%" class="">Size</th>
                                                 <th width="10%" class="">Qty</th>
                                                 <th width="10%" class="text-end">Unit Price</th>
                                                 <th width="10%" class="text-end pe-5">Total</th>
@@ -275,7 +240,7 @@
                                                     </td>
 
                                                     <td>
-                                                        <span>{{ optional($item->product)->sku_code }}</span>
+                                                        <span>{{ optional($item)->size }}</span>
                                                     </td>
                                                     <td>
                                                         <span>{{ optional($item)->quantity }}</span>
