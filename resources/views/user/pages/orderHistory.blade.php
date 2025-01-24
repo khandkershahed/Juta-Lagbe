@@ -42,8 +42,8 @@
                                                 <th>Amount</th>
                                                 {{-- <th>Track</th> --}}
                                                 <th>Payment Status</th>
-                                                <th>Status</th>
-                                                {{-- <th class="text-center">Action</th> --}}
+                                                {{-- <th>Status</th> --}}
+                                                <th class="text-center">Invoice</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -66,7 +66,7 @@
                                                                 class="badge p-2 rounded-3 fs-7 badge-success">Paid</span>
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if ($order->status == 'pending')
                                                             <span
                                                                 class="badge p-2 rounded-3 fs-7 badge-primary">Pending</span>
@@ -86,19 +86,19 @@
                                                             <span
                                                                 class="badge p-2 rounded-3 fs-7 badge-dangered">Returned</span>
                                                         @endif
-                                                    </td>
-                                                    {{-- <td class="text-center">
-                                                        @if ($order->payment_status == 'unpaid')
+                                                    </td> --}}
+                                                    <td class="text-center">
+                                                        {{-- @if ($order->payment_status == 'unpaid')
                                                             <a class="btn p-2 rounded-3 fs-7 btn-primary"
                                                                 href="{{ route('stripe.payment', $order->order_number) }}">Pay
                                                                 Now</a>
-                                                        @elseif ($order->payment_status == 'paid')
+                                                        @elseif ($order->payment_status == 'paid') --}}
                                                             <a href="javascript:void(0)" data-toggle="modal"
                                                                 data-target="#showInvoice-{{ $order->id }}">
                                                                 <i class="fa-solid fa-print"></i>
                                                             </a>
-                                                        @endif
-                                                    </td> --}}
+                                                        {{-- @endif --}}
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             <!-- Additional rows go here -->
