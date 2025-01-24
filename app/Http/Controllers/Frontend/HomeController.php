@@ -170,7 +170,7 @@ class HomeController extends Controller
     //     ];
     //     return view('frontend.pages.categoryDetails', $data);
     // }
-    public function categoryProducts($slug)
+    public function categoryProducts(Request $request, $slug)
     {
         // Using caching to avoid fetching the same categories on every request
         $categories = Cache::remember('categories', 60, function () {

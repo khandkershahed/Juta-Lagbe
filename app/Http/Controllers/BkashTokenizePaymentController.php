@@ -42,6 +42,11 @@ class BkashTokenizePaymentController extends Controller
             if (isset($response['bkashURL'])) {
                 // return redirect()->route('checkout.success',$order->order_number);
                 return redirect()->away($response['bkashURL']);
+            } else {
+                $order->delete();
+                foreach ($order->orderItems as $key => $orderItem) {
+                    $orderItem->delete();
+                }
             }
         } catch (\Exception $e) {
             $order->delete();
