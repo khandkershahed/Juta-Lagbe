@@ -118,27 +118,27 @@
                                     {!! $categoriesOptions !!}
                                 </x-metronic.select-option>
                             </div>
-                            <div class="fv-row">
+                            {{-- <div class="fv-row">
                                 <x-metronic.label for="color" class="col-form-label required fw-bold fs-6">
                                     {{ __('Add Color') }}
                                 </x-metronic.label>
                                 <!-- Input element for Tagify -->
                                 <input class="form-control d-flex align-items-center" name="color"
                                     value="{{ old('color') }}" id="color" />
-                            </div>
+                            </div> --}}
                             <div class="fv-row">
-                                <x-metronic.label for="product_size" class="col-form-label required fw-bold fs-6">
+                                <x-metronic.label for="size" class="col-form-label required fw-bold fs-6">
                                     {{ __('Size') }}
                                 </x-metronic.label>
-                                <select name="product_size" class="form-select form-select-solid" data-control="select2" data-close-on-select="false" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
+                                <select name="size[]" id="size" class="form-select form-select-solid" data-control="select2" data-close-on-select="false" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
                                     <option>Choose Size</option>
-                                    <option value="39">39</option>
-                                    <option value="40">40</option>
-                                    <option value="41">41</option>
-                                    <option value="42">42</option>
-                                    <option value="43">43</option>
-                                    <option value="44">44</option>
-                                    <option value="45">45</option>
+                                    <option value="39" @selected(old('size') == '39' )>39</option>
+                                    <option value="40" @selected(old('size') == '40' )>40</option>
+                                    <option value="41" @selected(old('size') == '41' )>41</option>
+                                    <option value="42" @selected(old('size') == '42' )>42</option>
+                                    <option value="43" @selected(old('size') == '43' )>43</option>
+                                    <option value="44" @selected(old('size') == '44' )>44</option>
+                                    <option value="45" @selected(old('size') == '45' )>45</option>
                                 </select>
                             </div>
                         </div>

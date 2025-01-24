@@ -233,8 +233,7 @@
                                 {{-- @foreach ($product->video_link as $video) --}}
                                 <div class="swiper-slide">
                                     <div style="position: relative; width: 100%; height: 100%;">
-                                        <iframe width="100%" height="100%"
-                                        {{-- src="Dynamic-URL-Here----> &autoplay=0&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0" --}}
+                                        <iframe width="100%" height="100%" {{-- src="Dynamic-URL-Here----> &autoplay=0&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0" --}}
                                             src="https://www.youtube.com/embed/O5qMVkByyzE?si=NMxjp_Se7cRVJ3wG&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
                                             title="YouTube video player" frameborder="0"
                                             referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -297,96 +296,56 @@
                                 </div>
                             @endif
                         </div>
+
+                        {{-- Size Variation End --}}
                         <div class="ps-page__content py-2 row align-items-center">
-                            <div class="ps-product--detail col-12 col-lg-3">
+                            <div class="ps-product--detail col-3">
                                 <div class="ps-product__feature bg-transparent p-0">
                                     <div class="ps-product__quantity pb-0 rounded-0">
-                                        <div class="def-number-input number-input safari_only w-100 rounded-0">
+                                        <div class="def-number-input number-input safari_only w-100 rounded-0 py-2">
                                             <button class="minus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                    class="icon-minus text-white"></i></button>
+                                                    class="icon-minus"></i></button>
                                             <input class="quantity" min="1" name="quantity" value="1"
                                                 type="number" data-product_id="{{ $product->id }}" />
                                             <button class="plus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                    class="icon-plus text-white"></i></button>
+                                                    class="icon-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-9">
-                                {{-- Size Variation --}}
-                        <div class="py-3">
-                            <div class="d-flex">
-                                <div class="radio-wrapper-46 mr-2">
-                                    <input class="inp-radio" id="radio-47" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-47"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>39</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-2">
-                                    <input class="inp-radio" id="radio-48" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-48"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg>
-                                        </span><span>40</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-2">
-                                    <input class="inp-radio" id="radio-41" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-41"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>41</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-2">
-                                    <input class="inp-radio" id="radio-42" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-42"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>42</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-2">
-                                    <input class="inp-radio" id="radio-43" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-43"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>43</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-2">
-                                    <input class="inp-radio" id="radio-44" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-44"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>44</span>
-                                    </label>
-                                </div>
-                                <div class="radio-wrapper-46 mr-2">
-                                    <input class="inp-radio" id="radio-45" name="radio-group" type="radio" />
-                                    <label class="radio" for="radio-45"><span>
-                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                <circle cx="6" cy="6" r="4"></circle>
-                                            </svg></span><span>45</span>
-                                    </label>
+                            <div class="col-9">
+                                <div class="d-flex">
+                                    @php
+                                        $sizes = isset($product->size) ? json_decode($product->size, true) : [];
+                                    @endphp
+                                    @foreach ($sizes as $size)
+                                        <div class="radio-wrapper-46 mr-3">
+                                            <input class="inp-radio" id="radio-{{ $size }}" name="size"
+                                                type="radio" value="{{ $size }}" />
+                                            <label class="radio" for="radio-{{ $size }}"><span>
+                                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                        <circle cx="6" cy="6" r="4"></circle>
+                                                    </svg></span><span>{{ $size }}</span>
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                        {{-- Size Variation End --}}
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center card-cart-btn mt-0 mt-lg-2">
+                        <div class="d-flex align-items-center card-cart-btn mt-4">
                             <!-- Order Modal  -->
-                            <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3"
-                                data-toggle="modal" data-target="#order-product{{ $product->id }}">
+                            <a href="#"
+                                class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
                                 <i class="fa-solid fa-basket-shopping pr-2"></i>
                                 অর্ডার করুন
                             </a>
+                            {{-- <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
+                                data-target="#order-product{{ $product->id }}">
+                                <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                অর্ডার করুন
+                            </a> --}}
                             <!-- Order Modal End-->
 
                         </div>

@@ -33,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/image/update', [ProfileController::class, 'imageUpdate'])->name('image.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('checkout', [HomeController::class, 'checkout'])->name('checkout');
-    Route::post('checkout/store', [CartController::class, 'checkoutStore'])->name('checkout.store');
 });
 
 Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth:admin'])->prefix(LaravelLocalization::setLocale() . '/admin')->name('admin.')->group(function () {
@@ -41,6 +40,8 @@ Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewP
     Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('checkout/store', [CartController::class, 'checkoutStore'])->name('checkout.store');
 
 require __DIR__ . '/frontend.php';
 require __DIR__ . '/auth.php';

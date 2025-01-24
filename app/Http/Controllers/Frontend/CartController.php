@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Setting;
@@ -15,15 +16,16 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 use Karim007\LaravelBkashTokenize\Facade\BkashRefundTokenize;
 use Karim007\LaravelBkashTokenize\Facade\BkashPaymentTokenize;
-use Symfony\Component\Console\Logger\ConsoleLogger;
 
 class CartController extends Controller
 {
@@ -152,8 +154,17 @@ class CartController extends Controller
 
         return response()->json(['error' => 'Unable to remove item.'], 400);
     }
-    public function checkoutStore(Request $request)
+    public function checkoutStore(LoginRequest $request)
     {
+        $user = User::where('phone',$request->input('phone'))->first();
+        if ($user) {
+            $request->authenticate();
+            $request->session()->regenerate();
+        } else {
+            $request->authenticate();
+            $request->session()->regenerate();
+        }
+
         ini_set('max_execution_time', 300);
         $totalAmount = preg_replace('/[^0-9.]/', '', $request->input('total_amount'));
         $validator = Validator::make($request->all(), [
