@@ -299,7 +299,7 @@
 
                         {{-- Size Variation End --}}
                         <div class="ps-page__content py-2 row align-items-center">
-                            <div class="ps-product--detail col-3">
+                            <div class="ps-product--detail col-12 col-lg-3">
                                 <div class="ps-product__feature bg-transparent p-0">
                                     <div class="ps-product__quantity pb-0 rounded-0">
                                         <div class="def-number-input number-input safari_only w-100 rounded-0">
@@ -315,7 +315,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-9">
+                            <div class="col-12 col-lg-9">
                                 <div class="d-flex">
                                     @php
                                         $sizes = isset($product->size) ? json_decode($product->size, true) : [];
