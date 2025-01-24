@@ -354,9 +354,9 @@
                 // Find the quantity input
                 var $quantityInput = $("input[name='quantity']");
                 var qty = $quantityInput.val(); // Get the quantity value
-                alert(qty);
+                // alert(qty);
                 var size = $("input[name='size']:checked").val(); // Get the selected size from the radio buttons
-                alert(size);
+                // alert(size);
 
                 // Check if size is selected and if quantity is valid
                 if (!size) {
