@@ -296,28 +296,10 @@
                                 </div>
                             @endif
                         </div>
-                        {{-- Size Variation --}}
-                        <div class="py-3">
-                            <div class="d-flex">
-                                @php
-                                    $sizes = isset($product->size) ? json_decode($product->size, true) : [];
-                                @endphp
-                                @foreach ($sizes as $size)
-                                    <div class="radio-wrapper-46 mr-3">
-                                        <input class="inp-radio" id="radio-{{ $size }}" name="size"
-                                            type="radio" value="{{ $size }}" />
-                                        <label class="radio" for="radio-{{ $size }}"><span>
-                                                <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                    <circle cx="6" cy="6" r="4"></circle>
-                                                </svg></span><span>{{ $size }}</span>
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
+                        
                         {{-- Size Variation End --}}
                         <div class="ps-page__content py-2 row align-items-center">
-                            <div class="ps-product--detail col-5">
+                            <div class="ps-product--detail col-3">
                                 <div class="ps-product__feature bg-transparent p-0">
                                     <div class="ps-product__quantity pb-0 rounded-0">
                                         <div class="def-number-input number-input safari_only w-100 rounded-0 py-2">
@@ -333,21 +315,37 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-7">
-                                <a data-product_id="{{ $product->id }}" href="#"
-                                    class="btn btn-outline-primary rounded-0 w-100 py-3 add_to_cart_btn_product_single">
-                                    <i class="fa-solid fa-shopping-cart fa-fade"></i>
-                                    কার্ট এ যোগ করুন।
-                                </a>
+                            <div class="col-9">
+                                <div class="d-flex">
+                                    @php
+                                        $sizes = isset($product->size) ? json_decode($product->size, true) : [];
+                                    @endphp
+                                    @foreach ($sizes as $size)
+                                        <div class="radio-wrapper-46 mr-3">
+                                            <input class="inp-radio" id="radio-{{ $size }}" name="size"
+                                                type="radio" value="{{ $size }}" />
+                                            <label class="radio" for="radio-{{ $size }}"><span>
+                                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                        <circle cx="6" cy="6" r="4"></circle>
+                                                    </svg></span><span>{{ $size }}</span>
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex align-items-center card-cart-btn mt-4">
                             <!-- Order Modal  -->
-                            <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
-                                data-target="#order-product{{ $product->id }}">
+                            <a href="#"
+                                class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
                                 <i class="fa-solid fa-basket-shopping pr-2"></i>
                                 অর্ডার করুন
                             </a>
+                            {{-- <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
+                                data-target="#order-product{{ $product->id }}">
+                                <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                অর্ডার করুন
+                            </a> --}}
                             <!-- Order Modal End-->
 
                         </div>

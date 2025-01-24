@@ -351,6 +351,7 @@
 
                 // Find the quantity input
                 var $quantityInput = $(this).closest('.ps-product__feature').find('.quantity');
+                alert(quantityInput);
                 var product_id = $(this).data('product_id');
                 var cartHeader = $('.miniCart');
                 var qty = $quantityInput.val(); // Get the quantity value
