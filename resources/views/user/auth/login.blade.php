@@ -49,12 +49,12 @@
                                     @csrf
                                     <div class="ps-form--review w-100 w-lg-75">
                                         <div class="ps-form__group">
-                                            <x-input-label class="form-label form__label" for="email"
-                                                :value="__('Email')" />
-                                            <x-text-input id="email"
-                                                class="form-control form-control-solid ps-form__input" type="email"
-                                                name="email" :value="old('email')" required autocomplete="username" />
-                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                            <x-input-label class="form-label form__label" for="phone"
+                                                :value="__('Phone Number')" />
+                                            <x-text-input id="phone"
+                                                class="form-control form-control-solid ps-form__input" type="number"
+                                                name="phone" :value="old('phone')" placeholder="017........" required autocomplete="017....." />
+                                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                         </div>
                                         <div class="ps-form__group">
                                             <x-input-label class="ps-form__label form-label" for="password"

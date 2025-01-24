@@ -296,7 +296,7 @@
                                 </div>
                             @endif
                         </div>
-                        
+
                         {{-- Size Variation End --}}
                         <div class="ps-page__content py-2 row align-items-center">
                             <div class="ps-product--detail col-3">
@@ -336,19 +336,19 @@
                         </div>
                         <div class="d-flex align-items-center card-cart-btn mt-4">
                             <!-- Order Modal  -->
-                            <a href="#"
+                            <a href="#" data-product_id="{{ $product->id }}"
                                 class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
                                 <i class="fa-solid fa-basket-shopping pr-2"></i>
                                 অর্ডার করুন
                             </a>
-                            {{-- <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
-                                data-target="#order-product{{ $product->id }}">
-                                <i class="fa-solid fa-basket-shopping pr-2"></i>
-                                অর্ডার করুন
-                            </a> --}}
-                            <!-- Order Modal End-->
 
                         </div>
+                        {{-- <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
+                            data-target="#order-product{{ $product->id }}">
+                            <i class="fa-solid fa-basket-shopping pr-2"></i>
+                            অর্ডার করুন
+                        </a> --}}
+                        <!-- Order Modal End-->
                         <div class="mt-3">
                             @php
                                 $phoneNumber = '+8801832828385' . $product->phone; // prepend country code dynamically

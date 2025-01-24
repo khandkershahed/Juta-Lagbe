@@ -17,13 +17,19 @@ class BkashTokenizePaymentController extends Controller
     public function createPayment(Request $request, $id)
     {
         $order = Order::where('order_number', $id)->first();
+        if ($order->payment_status == 'completely_paid') {
+            $amount = $order->total_amount;
+        } else {
+            $amount = $order->shipping_charge;
+        }
+
         try {
             $inv = uniqid();
             $request['intent'] = 'sale';
             $request['mode'] = '0011'; //0011 for checkout
             $request['payerReference'] = $inv;
             $request['currency'] = 'BDT';
-            $request['amount'] = $order->total_amount;
+            $request['amount'] = $amount;
             $request['merchantInvoiceNumber'] = $inv;
             $request['callbackURL'] = config("bkash.callbackURL");;
             $request_data_json = json_encode($request->all());
@@ -34,7 +40,8 @@ class BkashTokenizePaymentController extends Controller
             //store paymentID and your account number for matching in callback request
             // dd($response) //if you are using sandbox and not submit info to bkash use it for 1 response
             if (isset($response['bkashURL'])) {
-                return redirect()->away($response['bkashURL']);
+                return redirect()->route('checkout.success',$order->order_number);
+                // return redirect()->away($response['bkashURL']);
             }
         } catch (\Exception $e) {
             $order->delete();
@@ -62,7 +69,7 @@ class BkashTokenizePaymentController extends Controller
             }
 
             if (isset($response['statusCode']) && $response['statusCode'] == "0000" && $response['transactionStatus'] == "Completed") {
-               
+
                 return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
             }
             return BkashPaymentTokenize::failure($response['statusMessage']);

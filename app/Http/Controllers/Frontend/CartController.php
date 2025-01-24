@@ -10,17 +10,19 @@ use App\Models\Setting;
 use App\Models\Wishlist;
 use App\Models\OrderItem;
 use App\Mail\UserOrderMail;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ShippingMethod;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\Auth\LoginRequest;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Console\Logger\ConsoleLogger;
@@ -36,6 +38,7 @@ class CartController extends Controller
             // Find the product or fail
             $product = Product::findOrFail($id);
             $quantity = $request->input('quantity', 1); // Default to 1 if no quantity is provided
+            $size = $request->input('size'); // Default to 1 if no quantity is provided
 
             if (!empty($product->unit_price) || !empty($product->unit_discount_price)) {
                 Cart::instance('cart')->add([
@@ -154,24 +157,45 @@ class CartController extends Controller
 
         return response()->json(['error' => 'Unable to remove item.'], 400);
     }
-    public function checkoutStore(LoginRequest $request)
+    public function checkoutStore(Request $request)
     {
-        $user = User::where('phone',$request->input('phone'))->first();
-        if ($user) {
-            $request->authenticate();
-            $request->session()->regenerate();
+        if (Auth::check()) {
+            $user_id = auth()->id();
         } else {
-            $request->authenticate();
-            $request->session()->regenerate();
+            $user = User::where('phone', $request->input('phone'))->first();
+
+            if ($user) {
+                Auth::login($user);
+                $request->session()->regenerate();
+            } else {
+                $password = Str::random(8); // or you can change 8 to any desired length
+                $hashedPassword = Hash::make($password);
+                $user = User::create([
+                    'phone' => $request->input('phone'),
+                    'name' => $request->input('name'),
+                    'thana' => $request->input('thana'),
+                    'district' => $request->input('district'),
+                    'password' => $hashedPassword,
+                ]);
+
+                // Log the user in after registration
+                Auth::login($user);
+                $request->session()->regenerate();
+            }
+
+            // Get the user ID to track their order
+            $user_id = auth()->id();
         }
+
+
 
         ini_set('max_execution_time', 300);
         $totalAmount = preg_replace('/[^0-9.]/', '', $request->input('total_amount'));
         $validator = Validator::make($request->all(), [
-            'name'           => 'nullable|string|max: 255',
+            'name'           => 'nullable|string|max:255',
             'address'        => 'nullable|string',
             'email'          => 'nullable|email',
-            'phone'          => 'required|string|max: 20',
+            'phone'          => 'required|string|max:20',
             'thana'          => 'nullable|string',
             'district'       => 'nullable|string',
             'order_note'     => 'nullable|string',
@@ -213,7 +237,7 @@ class CartController extends Controller
             }
             $order = Order::create([
                 'order_number'       => $code,
-                'user_id'            => auth()->id(),
+                'user_id'            => $user_id,
                 'shipping_method_id' => $shipping_method_id,
                 'sub_total'          => $request->input('sub_total'),
                 'quantity'           => Cart::instance('cart')->count(),
@@ -228,7 +252,7 @@ class CartController extends Controller
                 'district'           => $request->input('district'),
                 'address'            => $request->input('address'),
                 'order_note'         => $request->input('order_note'),
-                'created_by'         => auth()->id(),
+                'created_by'         => $user_id,
                 'order_created_at'   => Carbon::now(),
                 'created_at'         => Carbon::now(),
             ]);
@@ -237,7 +261,7 @@ class CartController extends Controller
                 OrderItem::create([
                     'order_id'      => $order->id,
                     'product_id'    => $item->id,
-                    'user_id'       => auth()->id(),
+                    'user_id'       => $user_id,
                     'product_name'  => $item->name,
                     'product_color' => $item->model->color ?? null,
                     'product_sku'   => $item->model->sku ?? null,
