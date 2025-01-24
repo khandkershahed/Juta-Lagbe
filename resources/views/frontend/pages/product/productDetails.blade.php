@@ -302,15 +302,15 @@
                             <div class="ps-product--detail col-3">
                                 <div class="ps-product__feature bg-transparent p-0">
                                     <div class="ps-product__quantity pb-0 rounded-0">
-                                        <div class="def-number-input number-input safari_only w-100 rounded-0 py-2">
+                                        <div class="def-number-input number-input safari_only w-100 rounded-0">
                                             <button class="minus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                    class="icon-minus"></i></button>
+                                                    class="icon-minus text-white"></i></button>
                                             <input class="quantity" min="1" name="quantity" value="1"
                                                 type="number" data-product_id="{{ $product->id }}" />
                                             <button class="plus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                    class="icon-plus"></i></button>
+                                                    class="icon-plus text-white"></i></button>
                                         </div>
                                     </div>
                                 </div>
