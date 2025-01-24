@@ -57,20 +57,11 @@
                                                         <span
                                                             class="text-info fw-bold">৳</span>{{ $order->total_amount }}
                                                     </td>
-                                                    {{-- <td>
-                                                        @if (!empty($order->external_order_id))
-                                                            <a href="https://www.royalmail.com/track-your-item#/tracking-results/{{ $order->external_order_id }}"
-                                                                class="btn btn-sm btn-warning" target="_blank">Track</a>
-                                                        @else
-                                                            <span
-                                                                class="badge p-2 rounded-3 fs-7 badge-info">Processing</span>
-                                                        @endif
-                                                    </td> --}}
                                                     <td>
-                                                        @if ($order->payment_status == 'unpaid')
+                                                        @if ($order->payment_status == 'delivery_charge_paid')
                                                             <span
                                                                 class="badge p-2 rounded-3 fs-7 badge-danger">Unpaid</span>
-                                                        @elseif ($order->payment_status == 'paid')
+                                                        @elseif ($order->payment_status == 'completely_paid')
                                                             <span
                                                                 class="badge p-2 rounded-3 fs-7 badge-success">Paid</span>
                                                         @endif
