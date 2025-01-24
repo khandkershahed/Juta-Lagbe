@@ -41,30 +41,24 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
-        // $this->ensureIsNotRateLimited();
 
-        // if (!Auth::guard('admin')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-        //     RateLimiter::hit($this->throttleKey());
-
-        //     throw ValidationException::withMessages([
-        //         'email' => trans('admin.failed'),
-        //     ]);
-        // }
-
-        // RateLimiter::clear($this->throttleKey());
         $this->ensureIsNotRateLimited();
-        $email = $this->string('email');
+        $identifier = $this->string('email');
         $password = $this->string('password');
         $hash_password = Hash::make($password);
         $remember = $this->boolean('remember');
-        if (!Auth::guard('admin')->attempt(['email' => $email, 'password' => $password], $remember)) {
+        if (!Auth::guard('admin')->attempt(['email' => $identifier, 'password' => $password], $remember) &&
+        !Auth::guard('admin')->attempt(['phone' => $identifier, 'password' => $password], $remember)) {
+
             RateLimiter::hit($this->throttleKey());
 
-            if (!Admin::where('email', $email)->exists()) {
-                $errors['email'] = trans('Email ID is not correct');
+            $errors = [];
+            if (!Admin::where('email', $identifier)->exists() && !Admin::where('phone', $identifier)->exists()) {
+                $errors['identifier'] = trans('Email or Phone number is not correct');
             } else if (!Admin::where('password', $hash_password)->exists()) {
                 $errors['password'] = trans('Password is not correct');
             }
+
 
             throw ValidationException::withMessages($errors);
         }
