@@ -148,7 +148,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $related_product->id) }}">
-                                                                <i class="fa fa-heart-o"></i>
+                                                                <i class="fa-solid fa-heart"></i>
                                                             </a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
@@ -213,7 +213,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $related_product->id) }}">
-                                                                <i class="fa fa-heart-o"></i>
+                                                                <i class="fa-solid fa-heart"></i>
                                                             </a>
                                                         </div>
                                                         {{-- <div class="ps-product__item rotate" data-toggle="tooltip"

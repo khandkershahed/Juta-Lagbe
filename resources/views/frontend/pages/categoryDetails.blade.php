@@ -27,7 +27,8 @@
             <div class="row">
                 <div class="col-lg-12 px-0">
                     <div class="category-banner">
-                        <img class="img-fluid" src="{{ asset('storage/' . $category->banner_image) }}" alt="">
+                        {{-- <img class="img-fluid" src="{{ asset('storage/' . $category->banner_image) }}" alt=""> --}}
+                        <img class="img-fluid w-100" src="{{ asset('images/special-banner.jpg') }}" alt="">
                         <!-- Fallback for missing image -->
                     </div>
                 </div>
@@ -166,7 +167,7 @@
                                                                             title="Wishlist">
                                                                             <a class="add_to_wishlist"
                                                                                 href="{{ route('wishlist.store', $category_product->id) }}"><i
-                                                                                    class="fa fa-heart-o"></i></a>
+                                                                                    class="fa-solid fa-heart"></i></a>
                                                                         </div>
                                                                         <div class="ps-product__item"
                                                                             data-toggle="tooltip" data-placement="left"
@@ -225,7 +226,7 @@
                                                                     </div>
                                                                     <div
                                                                         class="d-flex align-items-center card-cart-btn">
-                                                                        <a href="{{ route('buy.now', $category_product->id) }}"
+                                                                        <a href="{{ route('product.details', $category_product->slug) }}"
                                                                             class="btn btn-primary rounded-0 w-100">
                                                                             <i
                                                                                 class="fa-solid fa-basket-shopping pr-2"></i>
@@ -255,7 +256,7 @@
                                                                             data-toggle="tooltip" data-placement="left"
                                                                             title="Wishlist"><a class="add_to_wishlist"
                                                                                 href="{{ route('wishlist.store', $category_product->id) }}"><i
-                                                                                    class="fa fa-heart-o"></i></a>
+                                                                                    class="fa-solid fa-heart"></i></a>
                                                                         </div>
 
                                                                     </div>

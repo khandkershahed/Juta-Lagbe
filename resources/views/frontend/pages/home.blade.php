@@ -1,100 +1,10 @@
 <x-frontend-app-layout :title="'Home Page'">
-    <style>
-        .video-container .content {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .video-container .video-box-img {
-            margin: auto;
-            position: relative;
-            top: -34px;
-            background: white;
-            padding: 5px
-        }
-
-        .video-player {
-            width: 100%;
-            /* Ensures full width of its container */
-            max-width: 400px;
-            /* Set a fixed width */
-            height: 300px;
-            /* Set a fixed height */
-            object-fit: cover;
-            /* Makes the video cover the area while maintaining aspect ratio */
-            border-top-left-radius: 22px;
-            /* Rounded corners */
-            border-top-right-radius: 22px;
-            margin: 0 auto;
-            /* Centers the video horizontally */
-            display: block;
-            /* Ensures no inline spacing issues */
-        }
-
-        .video-box-img {
-            width: 80px;
-            border: 1px solid #004d7a
-        }
-
-        .video-card {
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            border-radius: 20px;
-        }
-    </style>
     <section class="ps-section--banner">
-        <div class="ps-section__overlay">
+        {{-- <div class="ps-section__overlay">
             <div class="ps-section__loading"></div>
-        </div>
-        <div class="owl-carousel-banner owl-carousel owl-loaded owl-drag" data-owl-auto="false" data-owl-loop="true"
-            data-owl-speed="15000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1"
-            data-owl-duration="1000" data-owl-mousedrag="on">
-            <div class="owl-stage-outer">
-                <div class="owl-stage">
-                    @foreach ($sliders as $slider)
-                        <div class="owl-item">
-                            <div class="ps-banner hero-banner"
-                                style="
-                            background-image: url('{{ asset('storage/' . $slider->bg_image) }}');
-                            background-repeat: no-repeat;
-                            background-size: cover;
-                            background-position: center center;
-                            height: 720px;
-                            width: 100%;
-                        ">
-                                <div class="container container-initial">
-                                    <div class="ps-banner__block">
-                                        <div class="ps-banner__content">
-                                            <h2 class="ps-banner__title text-white">{{ $slider->title }}</h2>
-                                            <div class="ps-banner__desc text-white">{{ $slider->subtitle }}</div>
-                                            <div class="ps-banner__btn-group">
-                                                <div class="ps-banner__btn text-white">{{ $slider->badge }}</div>
-                                            </div>
-                                            @if (!empty($slider->button_link) || !empty($slider->button_name))
-                                                <a class="bg-warning ps-banner__shop" href="{{ $slider->button_link }}">
-                                                    {{ $slider->button_name }}
-                                                </a>
-                                            @endif
-                                            <div class="ps-banner__persen ps-top  fa-bounce"><small>only</small>$25
-                                            </div>
-                                        </div>
-                                        <div class="ps-banner__thumnail">
-                                            {{-- <img class="ps-banner__round"
-                                                src="{{ asset('storage/' . $slider->bg_image) }}" alt="alt"> --}}
-                                            {{-- <img class="ps-banner__image" src="{{ asset('storage/' . $slider->image) }}"
-                                                alt="alt"> --}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="owl-nav">
-
-            </div>
+        </div> --}}
+        <div class="main-banner">
+            <img src="{{ asset('images/jutalagbe-main-banner.jpg') }}" alt="">
         </div>
     </section>
     <div class="ps-home ps-home--14 bg-white">
@@ -214,7 +124,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $latest_product->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Quick view">
@@ -254,8 +164,9 @@
                                                     <div class="pb-3">
                                                         @if (!empty($latest_product->unit_discount_price))
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $latest_product->unit_discount_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $latest_product->unit_discount_price }}
                                                                     টাকা</span>
                                                                 <span
                                                                     class="ps-product__del text-danger">{{ $latest_product->unit_price }}
@@ -263,8 +174,9 @@
                                                             </div>
                                                         @else
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $latest_product->unit_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $latest_product->unit_price }}
                                                                     টাকা</span>
                                                             </div>
                                                         @endif
@@ -296,7 +208,7 @@
                                                             data-placement="left" title="Wishlist"><a
                                                                 class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $latest_product->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -309,7 +221,7 @@
                     </section>
                 </section>
             @endif
-            <section class="mb-5">
+            {{-- <section class="mb-5">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-4 pl-0">
@@ -369,9 +281,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
-
-
+            </section> --}}
             @if ($categoryone && $categoryoneproducts->count() > 0)
                 <div class="container px-0">
                     <div class="row">
@@ -436,7 +346,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categoryoneproduct->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Quick view">
@@ -476,8 +386,9 @@
                                                     <div class="pb-3">
                                                         @if (!empty($categoryoneproduct->unit_discount_price))
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $categoryoneproduct->unit_discount_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $categoryoneproduct->unit_discount_price }}
                                                                     টাকা</span>
                                                                 <span
                                                                     class="ps-product__del text-danger">{{ $categoryoneproduct->unit_price }}
@@ -485,8 +396,9 @@
                                                             </div>
                                                         @else
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $categoryoneproduct->unit_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $categoryoneproduct->unit_price }}
                                                                     টাকা</span>
                                                             </div>
                                                         @endif
@@ -518,7 +430,7 @@
                                                             data-placement="left" title="Wishlist"><a
                                                                 class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categoryoneproduct->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -676,7 +588,7 @@
                                                                     data-placement="left" title="Wishlist">
                                                                     <a class="add_to_wishlist"
                                                                         href="{{ route('wishlist.store', $categorytwoproduct->id) }}"><i
-                                                                            class="fa fa-heart-o"></i></a>
+                                                                            class="fa-solid fa-heart"></i></a>
                                                                 </div>
                                                                 <div class="ps-product__item" data-toggle="tooltip"
                                                                     data-placement="left" title="Quick view">
@@ -716,8 +628,9 @@
                                                             <div class="pb-3">
                                                                 @if (!empty($categorytwoproduct->unit_discount_price))
                                                                     <div class="ps-product__meta">
-                                                                        <span
-                                                                            class="ps-product__price sale">{{ $categorytwoproduct->unit_discount_price }}
+                                                                        <span class="ps-product__price sale fw-bold"
+                                                                            style="font-weight:600;">দাম
+                                                                            {{ $categorytwoproduct->unit_discount_price }}
                                                                             টাকা</span>
                                                                         <span
                                                                             class="ps-product__del text-danger">{{ $categorytwoproduct->unit_price }}
@@ -725,8 +638,9 @@
                                                                     </div>
                                                                 @else
                                                                     <div class="ps-product__meta">
-                                                                        <span
-                                                                            class="ps-product__price sale">{{ $categorytwoproduct->unit_price }}
+                                                                        <span class="ps-product__price sale fw-bold"
+                                                                            style="font-weight:600;">দাম
+                                                                            {{ $categorytwoproduct->unit_price }}
                                                                             টাকা</span>
                                                                     </div>
                                                                 @endif
@@ -760,7 +674,7 @@
                                                                     data-placement="left" title="Wishlist"><a
                                                                         class="add_to_wishlist"
                                                                         href="{{ route('wishlist.store', $categorytwoproduct->id) }}"><i
-                                                                            class="fa fa-heart-o"></i></a>
+                                                                            class="fa-solid fa-heart"></i></a>
                                                                 </div>
 
                                                             </div>
@@ -797,8 +711,8 @@
                         <div class="col-lg-12">
                             <div class="row pb-5">
                                 <div class="col-3">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
+                                    <div class="card p-0 border-0 video-card-home rounded-4">
+                                        <div class="card-body p-0 video-container-home">
                                             <iframe class="video-player" width="560" height="315"
                                                 src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
                                                 title="YouTube video player" frameborder="0"
@@ -820,12 +734,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="col-4">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
-                                            <video class="video-player" loop>
-                                                <source src="{{ asset('images/video2.mp4') }}" />
-                                            </video>
+                                <div class="col-3">
+                                    <div class="card p-0 border-0 video-card-home rounded-4">
+                                        <div class="card-body p-0 video-container-home">
+                                            <iframe class="video-player" width="560" height="315"
+                                                src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                            </iframe>
                                             <div class="content">
                                                 <div class="video-box-img">
                                                     <img class="img-fluid"
@@ -841,12 +758,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
-                                            <video class="video-player" loop>
-                                                <source src="{{ asset('images/video3.mp4') }}" />
-                                            </video>
+                                <div class="col-3">
+                                    <div class="card p-0 border-0 video-card-home rounded-4">
+                                        <div class="card-body p-0 video-container-home">
+                                            <iframe class="video-player" width="560" height="315"
+                                                src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                            </iframe>
                                             <div class="content">
                                                 <div class="video-box-img">
                                                     <img class="img-fluid"
@@ -862,12 +782,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
-                                            <video class="video-player" loop>
-                                                <source src="{{ asset('images/video4.mp4') }}" />
-                                            </video>
+                                <div class="col-3">
+                                    <div class="card p-0 border-0 video-card-home rounded-4">
+                                        <div class="card-body p-0 video-container-home">
+                                            <iframe class="video-player" width="560" height="315"
+                                                src="https://www.youtube.com/embed/dJbOGAkVoZo?si=fKA3TT5HX-yqvzG5?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                            </iframe>
                                             <div class="content">
                                                 <div class="video-box-img">
                                                     <img class="img-fluid"
@@ -883,27 +806,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <div class="card p-0 border-0 video-card rounded-4">
-                                        <div class="card-body p-0 video-container">
-                                            <video class="video-player" loop>
-                                                <source src="{{ asset('images/video5.mp4') }}" />
-                                            </video>
-                                            <div class="content">
-                                                <div class="video-box-img">
-                                                    <img class="img-fluid"
-                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                        alt="">
-                                                </div>
-                                                <p>boAt Airdopes 71</p>
-                                                <p><span class="site-text">Tk899</span>
-                                                    <del class="text-danger">₹3,990</del>
-                                                    <span class="text-">77% off</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -973,7 +875,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categorythreeproduct->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Quick view">
@@ -1013,8 +915,9 @@
                                                     <div class="pb-3">
                                                         @if (!empty($categorythreeproduct->unit_discount_price))
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $categorythreeproduct->unit_discount_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $categorythreeproduct->unit_discount_price }}
                                                                     টাকা</span>
                                                                 <span
                                                                     class="ps-product__del text-danger">{{ $categorythreeproduct->unit_price }}
@@ -1022,8 +925,9 @@
                                                             </div>
                                                         @else
                                                             <div class="ps-product__meta">
-                                                                <span
-                                                                    class="ps-product__price sale">{{ $categorythreeproduct->unit_price }}
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $categorythreeproduct->unit_price }}
                                                                     টাকা</span>
                                                             </div>
                                                         @endif
@@ -1055,7 +959,7 @@
                                                             data-placement="left" title="Wishlist"><a
                                                                 class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $categorythreeproduct->id) }}"><i
-                                                                    class="fa fa-heart-o"></i></a>
+                                                                    class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1205,7 +1109,7 @@
                                                         data-placement="left" title="Wishlist">
                                                         <a class="add_to_wishlist"
                                                             href="{{ route('wishlist.store', $deal_product->id) }}"><i
-                                                                class="fa fa-heart-o"></i></a>
+                                                                class="fa-solid fa-heart"></i></a>
                                                     </div>
                                                     <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Quick view">
@@ -1286,7 +1190,7 @@
                                                         data-placement="left" title="Wishlist"><a
                                                             class="add_to_wishlist"
                                                             href="{{ route('wishlist.store', $deal_product->id) }}"><i
-                                                                class="fa fa-heart-o"></i></a>
+                                                                class="fa-solid fa-heart"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1303,40 +1207,40 @@
 
     @include('frontend.layouts.HomeQuickViewModal')
     @push('scripts')
-    <script>
-        $(document).ready(function() {
-            var iframe = $('.video-player')[0];
-            var player;
+        <script>
+            $(document).ready(function() {
+                var iframe = $('.video-player')[0];
+                var player;
 
-            // YouTube API script
-            var tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                // YouTube API script
+                var tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-            // Create YouTube player after API script is loaded
-            window.onYouTubeIframeAPIReady = function() {
-                player = new YT.Player(iframe, {
-                    events: {
-                        'onReady': onPlayerReady
-                    }
-                });
-            };
+                // Create YouTube player after API script is loaded
+                window.onYouTubeIframeAPIReady = function() {
+                    player = new YT.Player(iframe, {
+                        events: {
+                            'onReady': onPlayerReady
+                        }
+                    });
+                };
 
-            // Function to play the video when it's ready
-            function onPlayerReady(event) {
-                // Allow immediate playback when hovering over the video container
-                $('.video-container').on('mouseenter', function() {
-                    player.playVideo();
-                });
+                // Function to play the video when it's ready
+                function onPlayerReady(event) {
+                    // Allow immediate playback when hovering over the video container
+                    $('.video-container-home').on('mouseenter', function() {
+                        player.playVideo();
+                    });
 
-                // Pause the video when mouse leaves the iframe
-                $('.video-container').on('mouseleave', function() {
-                    player.pauseVideo();
-                });
-            }
-        });
-    </script>
+                    // Pause the video when mouse leaves the iframe
+                    $('.video-container-home').on('mouseleave', function() {
+                        player.pauseVideo();
+                    });
+                }
+            });
+        </script>
         <script>
             $(document).ready(function() {
                 // Initialize Owl Carousel

@@ -1,32 +1,29 @@
 <div class="modal fade rounded-0" id="order-product{{ $product->id }}" data-backdrop="static" data-keyboard="false"
     tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered ps-quickview">
+    <div class="modal-dialog modal-md modal-dialog-centered ps-quickview">
         <div class="modal-content">
             <div class="modal-header rounded-0" style="background-color: var(--site-primary);">
-                <h5 class="modal-title text-white">{{ $product->name }}</h5>
+                <h5 class="modal-title text-white">
+                    <span class="text-danger">*</span> অর্ডার করতে,অনুগ্রহ করে আপনার সম্পূর্ণ নাম, <br>
+                        মোবাইল নম্বর, সম্পূর্ণ ঠিকানা লিখুন এবং  অর্ডার কনফার্ম
+                            করুন
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body pt-0">
                 <div class="wrap-modal-slider container-fluid ps-quickview__body p-2">
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <p style="font-size: large;text-align: center">
-                                <span class="text-danger">*</span> অর্ডার করতে,অনুগ্রহ করে আপনার সম্পূর্ণ নাম,
-                                মোবাইল নম্বর, সম্পূর্ণ ঠিকানা লিখুন এবং <span class="text-danger">অর্ডার কনফার্ম
-                                    করুন</span> ক্লিক করুন
-                            </p>
-                        </div>
-                        <div class="col-lg-12">
                             <form action="{{ route('checkout.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="ps-form--review row">
-                                    <div class="col-12 col-xl-12">
+                                    <div class="col-12 col-xl-6 pl-0">
                                         <div class="ps-form__group pt-2">
                                             <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                for="name">আপনার সম্পূর্ণ নাম<span class="text-danger">*</span>
+                                                for="name">নাম<span class="text-danger">*</span>
                                             </label>
                                             <input id="name" class="form-control ps-form__input" type="text"
                                                 name="name" value="{{ old('name', optional(Auth::user())->name) }}" autofocus=""
@@ -36,7 +33,7 @@
                                     <div class="col-12 col-xl-6 pr-0">
                                         <div class="ps-form__group pt-2">
                                             <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                for="phone">আপনার মোবাইল নম্বার... 01...<span
+                                                for="phone">মোবাইল নম্বার<span
                                                     class="text-danger">*</span>
                                             </label>
                                             <input id="phone" class="form-control ps-form__input" type="text"
@@ -45,170 +42,24 @@
                                                 required>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-xl-6">
-                                        <div class="ps-form__group pt-2">
-                                            <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                for="first_name">ডেলিভারি লোকেশন সিলেক্ট করুন।
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <select name="shipping_id" class="form-select ps-form__input" required
-                                                id="shipping_id" data-placeholder="Select Shipping Location">
-                                                <option value="">Select Shipping Location</option>
-                                                @foreach ($shippingmethods as $shippingmethod)
-                                                    <option value="{{ $shippingmethod->id }}" @selected(old('shipping_id') == $shippingmethod->id)
-                                                        data-shipping_price="{{ $shippingmethod->price }}">
-                                                        {{ $shippingmethod->title }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-xl-6">
+                                    <div class="col-12 col-xl-6 pl-0">
                                         <div class="ps-form__group pt-2">
                                             <label class="block font-medium text-sm text-gray-700 ps-form__label"
                                                 for="thana">
-                                                থানা সিলেক্ট করুন।
+                                                থানা
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select name="thana" class="form-select ps-form__input" required
-                                                id="thana">
-                                                <option value="" disabled selected>থানা সিলেক্ট করুন</option>
-                                                <!-- Dhaka District -->
-                                                <optgroup label="ঢাকা (Dhaka)">
-                                                    <option value="Dhanmondi" @selected(old('thana' == 'Dhanmondi')) data-name="Dhanmondi">ধানমন্ডি
-                                                        (Dhanmondi)</option>
-                                                    <option value="Gulshan" @selected(old('thana' == 'Gulshan')) data-name="Gulshan">গুলশান (Gulshan)
-                                                    </option>
-                                                    <option value="Mirpur" @selected(old('thana' == 'Mirpur')) data-name="Mirpur">মিরপুর (Mirpur)
-                                                    </option>
-                                                    <option value="Uttara" @selected(old('thana' == 'Uttara')) data-name="Uttara">উত্তরা (Uttara)
-                                                    </option>
-                                                    <option value="Mohammadpur" @selected(old('thana' == 'Mohammadpur')) data-name="Mohammadpur">
-                                                        মোহাম্মদপুর (Mohammadpur)</option>
-                                                    <option value="Savar" @selected(old('thana' == 'Savar')) data-name="Savar">সাভার (Savar)
-                                                    </option>
-                                                    <option value="Keraniganj" @selected(old('thana' == 'Keraniganj')) data-name="Keraniganj">কেরানীগঞ্জ
-                                                        (Keraniganj)</option>
-                                                    <option value="Tejgaon" @selected(old('thana' == 'Tejgaon')) data-name="Tejgaon">তেজগাঁও (Tejgaon)
-                                                    </option>
-                                                </optgroup>
-
-                                                <!-- Chattogram District -->
-                                                <optgroup label="চট্টগ্রাম (Chattogram)">
-                                                    <option value="Kotwali" @selected(old('thana' == 'Kotwali')) data-name="Kotwali">কোতোয়ালী
-                                                        (Kotwali)</option>
-                                                    <option value="Panchlaish" @selected(old('thana' == 'Panchlaish')) data-name="Panchlaish">পাঁচলাইশ
-                                                        (Panchlaish)</option>
-                                                    <option value="Chandgaon" @selected(old('thana' == 'Chandgaon')) data-name="Chandgaon">চান্দগাঁও
-                                                        (Chandgaon)</option>
-                                                    <option value="Hathazari" @selected(old('thana' == 'Hathazari')) data-name="Hathazari">হাটহাজারী
-                                                        (Hathazari)</option>
-                                                    <option value="Patenga" @selected(old('thana' == 'Patenga')) data-name="Patenga">পতেঙ্গা (Patenga)
-                                                    </option>
-                                                    <option value="Rangunia" @selected(old('thana' == 'Rangunia')) data-name="Rangunia">রাঙ্গুনিয়া
-                                                        (Rangunia)</option>
-                                                </optgroup>
-
-                                                <!-- Khulna District -->
-                                                <optgroup label="খুলনা (Khulna)">
-                                                    <option value="KhulnaSadar" @selected(old('thana' == 'KhulnaSadar')) data-name="Khulna Sadar">খুলনা সদর
-                                                        (Khulna Sadar)</option>
-                                                    <option value="Daulatpur" @selected(old('thana' == 'Daulatpur')) data-name="Daulatpur">দৌলতপুর
-                                                        (Daulatpur)</option>
-                                                    <option value="Rupsha" @selected(old('thana' == 'Rupsha')) data-name="Rupsha">রূপসা (Rupsha)
-                                                    </option>
-                                                    <option value="Terokhada" @selected(old('thana' == 'Terokhada')) data-name="Terokhada">তেরোখাদা
-                                                        (Terokhada)</option>
-                                                </optgroup>
-
-                                                <!-- Rajshahi District -->
-                                                <optgroup label="রাজশাহী (Rajshahi)">
-                                                    <option value="Boalia" @selected(old('thana' == 'Boalia')) data-name="Boalia">বোয়ালিয়া (Boalia)
-                                                    </option>
-                                                    <option value="Rajpara" @selected(old('thana' == 'Rajpara')) data-name="Rajpara">রাজপাড়া (Rajpara)
-                                                    </option>
-                                                    <option value="Motihar" @selected(old('thana' == 'Motihar')) data-name="Motihar">মতিহার (Motihar)
-                                                    </option>
-                                                    <option value="ShahMakhdum" @selected(old('thana' == 'ShahMakhdum')) data-name="Shah Makhdum">শাহ মখদুম
-                                                        (Shah Makhdum)</option>
-                                                </optgroup>
-
-                                                <!-- Sylhet District -->
-                                                <optgroup label="সিলেট (Sylhet)">
-                                                    <option value="SylhetSadar" @selected(old('thana' == 'SylhetSadar')) data-name="Sylhet Sadar">সিলেট সদর
-                                                        (Sylhet Sadar)</option>
-                                                    <option value="Beanibazar" @selected(old('thana' == 'Beanibazar')) data-name="Beanibazar">বিয়ানীবাজার
-                                                        (Beanibazar)</option>
-                                                    <option value="Golapganj" @selected(old('thana' == 'Golapganj')) data-name="Golapganj">গোলাপগঞ্জ
-                                                        (Golapganj)</option>
-                                                    <option value="Jaintiapur" @selected(old('thana' == 'Jaintiapur')) data-name="Jaintiapur">জৈন্তাপুর
-                                                        (Jaintiapur)</option>
-                                                </optgroup>
-
-                                                <!-- Barisal District -->
-                                                <optgroup label="বরিশাল (Barisal)">
-                                                    <option value="BarishalSadar" @selected(old('thana' == 'BarishalSadar')) data-name="Barisal Sadar">বরিশাল
-                                                        সদর (Barisal Sadar)</option>
-                                                    <option value="Banaripara" @selected(old('thana' == 'Banaripara')) data-name="Banaripara">বানারীপাড়া
-                                                        (Banaripara)</option>
-                                                    <option value="Muladi" @selected(old('thana' == 'Muladi')) data-name="Muladi">মুলাদী (Muladi)
-                                                    </option>
-                                                    <option value="Mehendiganj" @selected(old('thana' == 'Mehendiganj')) data-name="Mehendiganj">
-                                                        মেহেন্দিগঞ্জ (Mehendiganj)</option>
-                                                </optgroup>
-
-                                                <!-- Mymensingh District -->
-                                                <optgroup label="ময়মনসিংহ (Mymensingh)">
-                                                    <option value="MymensinghSadar" @selected(old('thana' == 'MymensinghSadar')) data-name="Mymensingh Sadar">
-                                                        ময়মনসিংহ সদর (Mymensingh Sadar)</option>
-                                                    <option value="Muktagachha" @selected(old('thana' == 'Muktagachha')) data-name="Muktagachha">মুক্তাগাছা
-                                                        (Muktagachha)</option>
-                                                    <option value="Phulpur" @selected(old('thana' == 'Phulpur')) data-name="Phulpur">ফুলপুর (Phulpur)
-                                                    </option>
-                                                    <option value="Trishal" @selected(old('thana' == 'Trishal')) data-name="Trishal">ত্রিশাল (Trishal)
-                                                    </option>
-                                                </optgroup>
-
-                                                <!-- Rangpur District -->
-                                                <optgroup label="রংপুর (Rangpur)">
-                                                    <option value="RangpurSadar" @selected(old('thana' == 'RangpurSadar')) data-name="Rangpur Sadar">রংপুর
-                                                        সদর (Rangpur Sadar)</option>
-                                                    <option value="Pirganj" @selected(old('thana' == 'Pirganj')) data-name="Pirganj">পীরগঞ্জ (Pirganj)
-                                                    </option>
-                                                    <option value="Mithapukur" @selected(old('thana' == 'Mithapukur')) data-name="Mithapukur">মিঠাপুকুর
-                                                        (Mithapukur)</option>
-                                                    <option value="Gangachara" @selected(old('thana' == 'Gangachara')) data-name="Gangachara">গঙ্গাচড়া
-                                                        (Gangachara)</option>
-                                                </optgroup>
-
-                                                <!-- Comilla District -->
-                                                <optgroup label="কুমিল্লা (Comilla)">
-                                                    <option value="ComillaSadar" @selected(old('thana' == 'ComillaSadar')) data-name="Comilla Sadar">
-                                                        কুমিল্লা সদর (Comilla Sadar)</option>
-                                                    <option value="Debidwar" @selected(old('thana' == 'Debidwar')) data-name="Debidwar">দেবিদ্বার
-                                                        (Debidwar)</option>
-                                                    <option value="Daudkandi" @selected(old('thana' == 'Daudkandi')) data-name="Daudkandi">দাউদকান্দি
-                                                        (Daudkandi)</option>
-                                                    <option value="Homna" @selected(old('thana' == 'Homna')) data-name="Homna">হোমনা (Homna)
-                                                    </option>
-                                                </optgroup>
-
-                                                <!-- Madaripur District -->
-                                                <optgroup label="মাদারীপুর (Madaripur)">
-                                                    <option value="MadaripurSadar" @selected(old('thana' == 'MadaripurSadar')) data-name="Madaripur Sadar">
-                                                        মাদারীপুর সদর (Madaripur Sadar)</option>
-                                                    <option value="Kalkini" @selected(old('thana' == 'Kalkini')) data-name="Kalkini">কালকিনি (Kalkini)
-                                                    </option>
-                                                    <option value="Ranishankail" @selected(old('thana' == 'Ranishankail')) data-name="Ranishankail">
-                                                        রাণীশংকাইল (Ranishankail)</option>
-                                                </optgroup>
-                                            </select>
+                                            <input class="form-control ps-form__input" type="text"
+                                                name="thana" value="{{ old('thana',optional(Auth::user())->thana) }}"
+                                                autofocus="" autocomplete="thana" placeholder="আপনার থানা"
+                                                required>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-xl-6">
+                                    <div class="col-12 col-xl-6 pr-0">
                                         <div class="ps-form__group pt-2">
                                             <label class="block font-medium text-sm text-gray-700 ps-form__label"
                                                 for="district">
-                                                জেলা সিলেক্ট করুন।
+                                                জেলা
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <select name="district" class="form-select ps-form__input" required
@@ -287,10 +138,10 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-xl-12">
+                                    <div class="col-12 col-xl-12 px-0">
                                         <div class="ps-form__group pt-2">
                                             <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                for="address">আপনার সম্পূর্ণ ঠিকানা লিখুন
+                                                for="address">সম্পূর্ণ ঠিকানা
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <input id="address" class="form-control ps-form__input" type="text"
@@ -298,7 +149,36 @@
                                                 placeholder="আপনার সম্পূর্ণ ঠিকানা লিখুন" required>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-xl-12">
+                                    <div class="col-12 col-xl-12 px-0">
+                                        <div class="ps-form__group pt-4">
+                                            <label class="block font-medium text-sm text-gray-700 ps-form__label" for="shipping_id">
+                                                ডেলিভারি লোকেশন <span class="text-danger">*</span>
+                                            </label>
+                                            @foreach ($shippingmethods as $shippingmethod)
+                                                <div class="checkout-checkbox">
+                                                    <input
+                                                        class="inp-cbx"
+                                                        id="shipping_{{ $shippingmethod->id }}"
+                                                        type="radio"
+                                                        name="shipping_id"
+                                                        value="{{ $shippingmethod->id }}"
+                                                        @checked(old('shipping_id') == $shippingmethod->id)
+                                                        data-shipping_price="{{ $shippingmethod->price }}"
+                                                        required
+                                                    />
+                                                    <label class="cbx" for="shipping_{{ $shippingmethod->id }}">
+                                                        <span>
+                                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                                            </svg>
+                                                        </span>
+                                                        <span>{{ $shippingmethod->title }}</span>
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-12 px-0">
                                         <div class="ps-form__group pt-2">
                                             <label class="block font-medium text-sm text-gray-700 ps-form__label"
                                                 for="payment_status">পেমেন্ট অপশন
@@ -325,48 +205,49 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 card p-0 mt-2">
+                                        <div class="row align-items-center card-body p-2">
+                                            <div class="col-lg-3">
+                                                @php
+                                                    $thumbnailPath = 'storage/' . $product->thumbnail;
+                                                    $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                        ? asset($thumbnailPath)
+                                                        : asset('frontend/img/no-product.jpg');
+                                                @endphp
+                                                <div class="">
+                                                    <img src="{{ $thumbnailSrc }}" class="img-fluid"
+                                                        alt="{{ $product->name }}" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9 px-0">
+                                                <p class="mb-0"><strong>নামঃ
+                                                    </strong>{{ $product->name }}</p>
+                                                <p class="mb-0"><strong>দামঃ </strong><span
+                                                        class="text-success">{{ $product->unit_price }}
+                                                        টাকা</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 px-0">
                                         <div class="card p-0 mt-3 rounded-0">
                                             <div class="card-body p-0 rounded-0">
-                                                <div class="row align-items-center">
-                                                    <div class="col-lg-3">
-                                                        @php
-                                                            $thumbnailPath = 'storage/' . $product->thumbnail;
-                                                            $thumbnailSrc = file_exists(public_path($thumbnailPath))
-                                                                ? asset($thumbnailPath)
-                                                                : asset('frontend/img/no-product.jpg');
-                                                        @endphp
-                                                        <div class="">
-                                                            <img src="{{ $thumbnailSrc }}" class="img-fluid"
-                                                                alt="{{ $product->name }}" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-9 px-0">
-                                                        <p class="mb-0"><strong>নামঃ
-                                                            </strong>{{ $product->name }}</p>
-                                                        <p class="mb-0"><strong>দামঃ </strong><span
-                                                                class="text-success">{{ $product->unit_price }}
-                                                                টাকা</span></p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="px-3 py-2" style="background-color: var(--site-primary)">
+                                                <div class="">
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0 text-white">সাব টোটাল</p>
-                                                        <p class="mb-0 text-white">{{ $product->unit_price }} টাকা</p>
+                                                        <p class="mb-0 pl-2 pr-2">সাব টোটাল</p>
+                                                        <p class="mb-0 pl-2 pr-2">{{ $product->unit_price }} টাকা</p>
                                                     </div>
                                                     <div
                                                         class="d-flex justify-content-between align-items-center pt-1">
-                                                        <p class="mb-0 text-white">ডেলিভারি চার্জ</p>
-                                                        <p class="mb-0 text-white"><span
+                                                        <p class="mb-0 pl-2 pr-2">ডেলিভারি চার্জ</p>
+                                                        <p class="mb-0 pl-2 pr-2"><span
                                                                 id="shipping-price">0</span> টাকা</p>
                                                     </div>
-                                                    <hr class="mb-1 bg-white">
+                                                    <hr class="my-0 bg-white">
                                                     <div
-                                                        class="d-flex justify-content-between align-items-center pt-2">
-                                                        <p class="mb-0 text-white">সর্বমোট মূল্য</p>
-                                                        <p class="mb-0 text-white fw-bold"><strong><span
-                                                                    id="total-price">{{ $product->unit_price }}</span>
+                                                        class="d-flex justify-content-between align-items-center bg-light py-2">
+                                                        <p class="mb-0 pl-2 pr-2" style="font-weight: 600;">সর্বমোট মূল্য</p>
+                                                        <p class="mb-0 pl-2 pr-2"><strong><span
+                                                                    id="total-price" style="font-weight: 600;">{{ $product->unit_price }}</span>
                                                                 টাকা</strong></p>
                                                     </div>
                                                 </div>

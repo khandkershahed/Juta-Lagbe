@@ -221,7 +221,7 @@ a {
 }
 
 a:hover {
-    color: gold;
+    color: #a38d1a;
 }
 
 a,
@@ -264,121 +264,6 @@ iframe {
 ul {
     padding-left: 0;
 }
-
-/* Preloader End */
-
-.custom-text,
-.wave-text span {
-    font-family: "CustomBengaliFont", sans-serif;
-}
-
-/* Gradient background */
-.wave-text {
-    display: flex;
-    font-size: 5ch;
-    font-weight: bold;
-    color: var(--site-primary);
-    /* background: linear-gradient(
-        90deg,
-        #f68e39 0%,
-        #ea6867 29%,
-        #cb4b98 64%,
-        #9256c6 100%
-    ); */
-
-    background-clip: text;
-    -webkit-background-clip: text;
-    position: relative;
-}
-
-/* Outline effect */
-.wave-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: white;
-    -webkit-text-stroke: 1px black;
-    z-index: -1;
-}
-
-/* Wave animation */
-.wave-text span {
-    display: inline-block;
-    animation: wave 1.5s ease-in-out infinite;
-    font-size: 2ch;
-    font-weight: bold;
-    color: transparent;
-    background-image: linear-gradient(
-        to right top,
-        #051937,
-        #004d7a,
-        #008793,
-        #00bf72,
-        #a8eb12
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-}
-
-/* Keyframes for the wave effect */
-@keyframes wave {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-/* Add a delay to each letter for the wave effect */
-.wave-text span:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.wave-text span:nth-child(2) {
-    animation-delay: 0.1s;
-}
-
-.wave-text span:nth-child(3) {
-    animation-delay: 0.2s;
-}
-
-.wave-text span:nth-child(4) {
-    animation-delay: 0.3s;
-}
-
-.wave-text span:nth-child(5) {
-    animation-delay: 0.4s;
-}
-
-.wave-text span:nth-child(6) {
-    animation-delay: 0.5s;
-}
-
-.wave-text span:nth-child(7) {
-    animation-delay: 0.6s;
-}
-
-.wave-text span:nth-child(8) {
-    animation-delay: 0.7s;
-}
-
-.wave-text span:nth-child(9) {
-    animation-delay: 0.8s;
-}
-
-.wave-text span:nth-child(10) {
-    animation-delay: 0.9s;
-}
-
-.wave-text span:nth-child(11) {
-    animation-delay: 1s;
-}
-
-/* Preloader Style End */
 .ps-document ul,
 .ps-document ol {
     margin-bottom: 10px;
@@ -2141,6 +2026,40 @@ textarea.form-control {
     margin-right: 15px;
 }
 
+.video-container-home .content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+.video-player{
+    border-radius: 15px;
+}
+.video-container-home .video-box-img {
+    margin: auto;
+    position: relative;
+    top: -34px;
+    background: white;
+    padding: 5px;
+    width: 80px;
+    border: 1px solid #004d7a;
+}
+
+.video-card-home {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 20px;
+}
+
+.main-banner img {
+    height: 550px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border: none;
+    padding: 0;
+    background-color: #fff;
+}
 .ps-post .ps-blog__banner {
     margin-bottom: 50px;
 }
@@ -9138,6 +9057,9 @@ textarea.form-control {
         #a8eb12
     );
     width: 135px;
+}
+.ps-delivery--info .ps-delivery__more:hover{
+    color: white;
 }
 .section-banner-main img {
     height: 520px;
@@ -18941,6 +18863,7 @@ table.dataTable tbody td:last-child {
     padding: 10px;
     cursor: pointer;
     font-size: 20px;
+    font-family: 'FontAwesome';
 }
 
 .dealCarousel-prev {
@@ -18949,6 +18872,7 @@ table.dataTable tbody td:last-child {
     /* Positioning */
     top: 50%;
     transform: translateY(-50%);
+    font-family: 'FontAwesome';
 }
 
 .dealCarousel-next {
@@ -21132,9 +21056,74 @@ table.dataTable tbody td:last-child {
 }
 .juta-delivery .delivery-icons {
     margin-top: -155px;
+    margin-bottom: -9px;
 }
 .juta-delivery {
     margin-top: 150px;
+}
+.radio-wrapper-46 input[type="radio"] {
+    display: none;
+    visibility: hidden;
+}
+
+.radio-wrapper-46 .radio {
+    margin: auto;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+.radio-wrapper-46 .radio span {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+.radio-wrapper-46 .radio span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%; /* Make it circular */
+    transform: scale(1);
+    vertical-align: middle;
+    border: 1px solid #9098a9;
+    transition: all 0.2s ease;
+}
+.radio-wrapper-46 .radio span:first-child svg {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+    transform: translate3d(0, 0, 0);
+    display: none; /* Hide the checkmark */
+}
+.radio-wrapper-46 .radio span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #506eec;
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+}
+.radio-wrapper-46 .radio span:last-child {
+    padding-left: 8px;
+}
+.radio-wrapper-46 .radio:hover span:first-child {
+    border-color: #506eec;
+}
+
+.radio-wrapper-46 .inp-radio:checked + .radio span:first-child {
+    background: #506eec;
+    border-color: #506eec;
+    animation: wave-46 0.4s ease;
+}
+.radio-wrapper-46 .inp-radio:checked + .radio span:first-child:before {
+    transform: scale(1.2);
+    opacity: 1;
+    transition: all 0.3s ease;
 }
 @media (max-width: 768px) {
     .ps-product--list .ps-product__quantity {
@@ -21312,7 +21301,7 @@ table.dataTable tbody td:last-child {
     pointer-events: none;
     width: 2px;
     height: 2px;
-    background-color: #fff;
+    background-color: #004d7a;
     border-radius: 9999px;
 }
 
@@ -21404,7 +21393,7 @@ table.dataTable tbody td:last-child {
     gap: 6px;
     position: relative;
     width: 100%;
-    color: white;
+    color: #004d7a;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -21666,7 +21655,7 @@ table.dataTable tbody td:last-child {
     height: 1px;
     background-color: var(--site-primary);
 }
-.cat-tabs-triger:hover{
+.cat-tabs-triger:hover {
     background-color: var(--site-primary);
     color: #fff;
 }

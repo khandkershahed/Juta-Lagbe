@@ -66,7 +66,7 @@
                                     <div class="d-flex align-items-center flex-column mt-3 w-100">
                                         <div class="d-flex justify-content-between w-100 mt-auto mb-2">
                                             <span
-                                                class="fw-bolder fs-6 text-gray-900">{{ number_format($ordersCurrentMonth - $ordersLastMonth) }}
+                                                class="fw-bolder fs-6 text-gray-900 pt-3 pb-3">{{ number_format($ordersCurrentMonth - $ordersLastMonth) }}
                                                 to Goal</span>
                                             <span
                                                 class="fw-bold fs-6 text-gray-500">{{ number_format($ordersChange, 2) }}%</span>

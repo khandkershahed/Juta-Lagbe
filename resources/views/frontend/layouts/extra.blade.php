@@ -13,7 +13,7 @@
         </div>
         <div class="ps-nav__item">
             <a href="{{ route('user.wishlist') }}">
-                {{-- <i class="fa fa-heart-o"></i> --}}
+                {{-- <i class="fa-solid fa-heart"></i> --}}
                 <img src="{{ asset('images/icon-heart.svg') }}" style="width: 20px" alt="">
                 @php
                     $wishlistCount = 0; // Default value in case user is not authenticated

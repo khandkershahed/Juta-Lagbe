@@ -6,7 +6,7 @@
                     <div class="ps-product ps-product--wishlist">
                         <div class="ps-product__remove">
                             <a href="{{ route('cart.destroy', $item->rowId) }}" class="remove-from-cart delete">
-                                <i class="icon-cross"></i>
+                                <i class="icon-cross" style="color: red;"></i>
                             </a>
                         </div>
                         <div class="">
@@ -86,11 +86,11 @@
                                 <i class="fa-solid fa-trash"></i>
                             </div>
                         </th>
-                        <th width="15%" class="ps-product__thumbnail">Image</th>
-                        <th width="35%" class="ps-product__name">Product name</th>
-                        <th width="20%" class="ps-product__meta">Unit price</th>
-                        <th width="10%" class="ps-product__quantity">Quantity</th>
-                        <th width="10%" class="ps-product__subtotal">Subtotal</th>
+                        <th width="15%" class="ps-product__thumbnail">ছবি</th>
+                        <th width="35%" class="ps-product__name">প্রডাক্টের নাম</th>
+                        <th width="20%" class="ps-product__meta">প্রডাক্টের দাম</th>
+                        <th width="10%" class="ps-product__quantity">কোয়ান্টিটি</th>
+                        <th width="10%" class="ps-product__subtotal">সর্বমোট</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -138,11 +138,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="ps-shopping__footer justify-content-center">
-            <div class="ps-shopping__button d-flex justify-content-center align-items-center">
-                <a href="{{ route('cart.clear') }}" class="ps-btn ps-btn--primary delete">Clear All</a>
-                <button class="ps-btn ps-btn--primary d-none d-lg-inline-block" type="button" id="update-cart">Update cart</button>
-                <button class="ps-btn ps-btn--primary d-lg-none" type="button" id="update-mobile-cart">Update cart</button>
+        <div class="ps-shopping__footer justify-content-start pt-3">
+            <div class="ps-shopping__button d-flex justify-content-start align-items-start">
+                {{-- <a href="{{ route('cart.clear') }}" class="ps-btn ps-btn--primary delete">Clear All</a> --}}
+                <button class="ps-btn ps-btn--primary d-none d-lg-inline-block" type="button" id="update-cart">কার্ট আপডেট করুন</button>
+                <button class="ps-btn ps-btn--primary d-lg-none" type="button" id="update-mobile-cart">কার্ট আপডেট করুন</button>
 
             </div>
         </div>
@@ -162,9 +162,9 @@
                 <div class="ps-shopping__label">Total</div>
                 <div class="ps-shopping__price">৳ {{ Cart::subtotal() }}</div>
             </div>
-            <div class="d-flex align-items-center justify-content-between mt-3">
-                <a class="btn btn-primary mr-2" href="{{ route('allproducts') }}">Continue</a>
-                <a class="btn btn-outline-primary" href="{{ route('checkout') }}">Place Order</a>
+            <div class="mt-3">
+                <a class="btn btn-primary w-100 fa-bounce" href="{{ route('checkout') }}">অর্ডার করুন</a>
+                <a class="btn btn-outline-primary mt-3 w-100" href="{{ route('allproducts') }}">আরও প্রোডাক্ট দেখুন</a>
             </div>
         </div>
         {{-- Pricing Side End --}}

@@ -76,26 +76,96 @@
             enctype="multipart/form-data">
             @csrf
             <div class="row">
+
+                <div class="gap-7 gap-lg-10 mb-7  col-3">
+                    {{-- Status Card Start --}}
+                    <div class="card card-flush py-4 mb-6">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h2>Status</h2>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="fv-row">
+                                <x-metronic.select-option id="kt_ecommerce_add_product_status_select"
+                                    class="form-select mb-2" data-control="select2" data-hide-search="true"
+                                    name="status" data-placeholder="Select an option">
+                                    <option></option>
+                                    <option value="published" selected>Published</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="inactive">Inactive</option>
+                                </x-metronic.select-option>
+                            </div>
+                            <div class="fv-row">
+                                <x-metronic.label for="brand_id" class="col-form-label required fw-bold fs-6">
+                                    {{ __('Select Brand') }}</x-metronic.label>
+                                <x-metronic.select-option id="brand_id" class="form-select mb-2" name="brand_id"
+                                    data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                    <option></option>
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}">{{ $brand->name }}
+                                        </option>
+                                    @endforeach
+                                </x-metronic.select-option>
+                            </div>
+                            <div class="fv-row">
+                                <x-metronic.label for="category_id" class="col-form-label required fw-bold fs-6">
+                                    {{ __('Select Category') }}</x-metronic.label>
+                                <x-metronic.select-option id="category_id" class="form-control select mb-2"
+                                    name="category_id[]" multiple multiselect-search="true"
+                                    multiselect-select-all="true" data-control="select2"
+                                    data-placeholder="Select an option" data-allow-clear="true">
+                                    {!! $categoriesOptions !!}
+                                </x-metronic.select-option>
+                            </div>
+                            <div class="fv-row">
+                                <x-metronic.label for="color" class="col-form-label required fw-bold fs-6">
+                                    {{ __('Add Color') }}
+                                </x-metronic.label>
+                                <!-- Input element for Tagify -->
+                                <input class="form-control d-flex align-items-center" name="color"
+                                    value="{{ old('color') }}" id="color" />
+                            </div>
+                            <div class="fv-row">
+                                <x-metronic.label for="product_size" class="col-form-label required fw-bold fs-6">
+                                    {{ __('Size') }}
+                                </x-metronic.label>
+                                <select name="product_size" class="form-select form-select-solid" data-control="select2" data-close-on-select="false" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
+                                    <option>Choose Size</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <option value="41">41</option>
+                                    <option value="42">42</option>
+                                    <option value="43">43</option>
+                                    <option value="44">44</option>
+                                    <option value="45">45</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Status Card End --}}
+                </div>
                 <div class="gap-7 gap-lg-10 col-9">
-                    <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
+                    <ul
+                        class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2 bg-white">
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
+                            <a class="nav-link text-active-primary pb-4 rounded-0 active" data-bs-toggle="tab"
                                 href="#kt_ecommerce_add_product_general">General</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                            <a class="nav-link text-active-primary pb-4 rounded-0" data-bs-toggle="tab"
                                 href="#kt_ecommerce_add_product_media">Media</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                            <a class="nav-link text-active-primary pb-4 rounded-0" data-bs-toggle="tab"
                                 href="#kt_ecommerce_add_product_advanced">Inventory</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                            <a class="nav-link text-active-primary pb-4 rounded-0" data-bs-toggle="tab"
                                 href="#kt_ecommerce_add_product_price">Pricing</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                            <a class="nav-link text-active-primary pb-4 rounded-0" data-bs-toggle="tab"
                                 href="#kt_ecommerce_add_product_meta">Meta Options</a>
                         </li>
                     </ul>
@@ -103,7 +173,7 @@
                         <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
                             <div class="d-flex flex-column gap-7 gap-lg-10">
                                 {{-- General Info --}}
-                                <div class="card card-flush py-4 mt-3">
+                                <div class="card card-flush py-4 mt-4 rounded-0">
                                     <div class="card-header">
                                         <div class="card-title">
                                             <h2>General</h2>
@@ -111,7 +181,7 @@
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="mb-5 fv-row">
-                                            <x-metronic.label class="form-label">Product Name</x-metronic.label>
+                                            <x-metronic.label class="form-label">Product Name <span class="text-danger">*</span></x-metronic.label>
                                             <x-metronic.input type="text" name="name" class="form-control mb-2"
                                                 placeholder="Product name recommended" :value="old('name')">
                                             </x-metronic.input>
@@ -124,13 +194,13 @@
                                             <input class="form-control" name="tags" id="product_Tags"
                                                 value="old('tags')" />
                                         </div>
-                                        <div class="mb-5 fv-row">
+                                        {{-- <div class="mb-5 fv-row">
                                             <x-metronic.label class="form-label">Short Description</x-metronic.label>
                                             <x-metronic.textarea id="short_description" name="short_description"
                                                 placeholder="Add Product Short Description" class="form-control mb-2"
                                                 cols="30"
                                                 rows="3">{!! old('short_description') !!}</x-metronic.textarea>
-                                        </div>
+                                        </div> --}}
                                         <div class="mb-5 fv-row">
                                             <x-metronic.label class="form-label">Product Overview</x-metronic.label>
                                             <textarea name="overview" class="ckeditor">{!! old('overview') !!}</textarea>
@@ -145,11 +215,11 @@
                                                 Add product description here.
                                             </div>
                                         </div>
-                                        <div class="mb-5 fv-row">
+                                        {{-- <div class="mb-5 fv-row">
                                             <x-metronic.label class="form-label">Product
                                                 Specification</x-metronic.label>
                                             <textarea name="specification" class="ckeditor">{!! old('specification') !!}</textarea>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +227,7 @@
                         <div class="tab-pane fade" id="kt_ecommerce_add_product_media" role="tab-panel">
                             <div class="d-flex flex-column gap-7 gap-lg-10">
                                 {{-- Inventory --}}
-                                <div class="card card-flush py-4">
+                                <div class="card card-flush py-4 mt-4 rounded-0">
                                     <div class="card-header">
                                         <div class="card-title">
                                             <h2>Media</h2>
@@ -165,44 +235,54 @@
                                     </div>
                                     <div class="card-body py-4 mt-3">
                                         <div class="row">
-                                            <div class="col-4">
-                                                <x-metronic.label for="" class="form-label">Set the product
-                                                    thumbnail image. Only *.png, *.jpg and *.jpeg image
-                                                    files are accepted</x-metronic.label>
-                                                <div class="image-input image-input-empty" data-kt-image-input="true"
-                                                    style="width: auto;
+                                            <div class="col-lg-12">
+                                                <p class="text-danger">Set the product thumbnail image. Only *.png,
+                                                    *.jpg and *.jpeg image files are accepted</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="fv-row pt-5">
+                                                    <x-metronic.label for="" class="form-label">Single
+                                                        Image</x-metronic.label>
+                                                    <br>
+                                                    <div class="image-input image-input-empty"
+                                                        data-kt-image-input="true"
+                                                        style="width: auto;
                                                     background-size: contain;
                                                     border: 1px solid #009ae5;">
-                                                    <div class="image-input-wrapper w-100px h-70px"></div>
+                                                        <div class="image-input-wrapper w-100px h-70px"></div>
 
-                                                    <label
-                                                        class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                        data-kt-image-input-action="change" data-bs-toggle="tooltip"
-                                                        data-bs-dismiss="click" title="Change avatar">
-                                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                                        <label
+                                                            class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                            data-kt-image-input-action="change"
+                                                            data-bs-toggle="tooltip" data-bs-dismiss="click"
+                                                            title="Change avatar">
+                                                            <i class="bi bi-pencil-fill fs-7"></i>
 
-                                                        <input type="file" name="thumbnail"
-                                                            accept=".png, .jpg, .jpeg" />
-                                                        <input type="hidden" name="avatar_remove" />
-                                                    </label>
+                                                            <input type="file" name="thumbnail"
+                                                                accept=".png, .jpg, .jpeg" />
+                                                            <input type="hidden" name="avatar_remove" />
+                                                        </label>
 
-                                                    <span
-                                                        class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-                                                        data-bs-dismiss="click" title="Cancel avatar">
-                                                        <i class="bi bi-x fs-2"></i>
-                                                    </span>
+                                                        <span
+                                                            class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                            data-kt-image-input-action="cancel"
+                                                            data-bs-toggle="tooltip" data-bs-dismiss="click"
+                                                            title="Cancel avatar">
+                                                            <i class="bi bi-x fs-2"></i>
+                                                        </span>
 
-                                                    <span
-                                                        class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                        data-kt-image-input-action="remove" data-bs-toggle="tooltip"
-                                                        data-bs-dismiss="click" title="Remove avatar">
-                                                        <i class="bi bi-x fs-2"></i>
-                                                    </span>
+                                                        <span
+                                                            class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                            data-kt-image-input-action="remove"
+                                                            data-bs-toggle="tooltip" data-bs-dismiss="click"
+                                                            title="Remove avatar">
+                                                            <i class="bi bi-x fs-2"></i>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             {{-- Product Mutli Image --}}
-                                            <div class="col-8">
+                                            <div class="col-10">
                                                 <div class="fv-row pt-5">
                                                     <x-metronic.label for="" class="form-label">Add the
                                                         product multi image</x-metronic.label>
@@ -243,7 +323,7 @@
                         <div class="tab-pane fade" id="kt_ecommerce_add_product_advanced" role="tab-panel">
                             <div class="d-flex flex-column gap-7 gap-lg-10">
                                 {{-- Inventory --}}
-                                <div class="card card-flush py-4 mt-3">
+                                <div class="card card-flush py-4 mt-4 rounded-0">
                                     <div class="card-header">
                                         <div class="card-title">
                                             <h2>Inventory</h2>
@@ -251,7 +331,7 @@
                                     </div>
                                     <div class="card-body pt-0 row">
                                         <div class="mb-10 fv-row col-6">
-                                            <x-metronic.label class="form-label">SKU Code</x-metronic.label>
+                                            <x-metronic.label class="form-label">Product Code</x-metronic.label>
                                             <x-metronic.input type="text" name="sku_code"
                                                 class="form-control mb-2" placeholder="SKU Number"
                                                 :value="old('sku_code')"></x-metronic.file-input>
@@ -280,7 +360,7 @@
                         <div class="tab-pane fade" id="kt_ecommerce_add_product_price" role="tab-panel">
                             <div class="d-flex flex-column gap-7 gap-lg-10">
                                 {{-- Pricing --}}
-                                <div class="card card-flush py-4 mt-3">
+                                <div class="card card-flush py-4 mt-4 rounded-0">
                                     <div class="card-header">
                                         <div class="card-title">
                                             <h2>Box Pricing</h2>
@@ -310,10 +390,10 @@
                                                 <div class="text-muted fs-7">How much box discount price.</div>
                                         </div> --}}
                                         <div class="mb-5 fv-row col-4">
-                                            <x-metronic.label class="form-label">Price</x-metronic.label>
+                                            <x-metronic.label class="form-label">Price <span class="text-danger">*</span></x-metronic.label>
                                             <x-metronic.input type="number" name="unit_price" id="unit_price"
                                                 class="form-control mb-2" placeholder="how much the unit price"
-                                                :value="old('unit_price')" readonly></x-metronic.file-input>
+                                                :value="old('unit_price')" readonly required></x-metronic.file-input>
                                                 <div class="text-muted fs-7">How much unit price.</div>
                                         </div>
                                         <div class="mb-5 fv-row col-4">
@@ -332,14 +412,14 @@
                                                 </x-metronic.file-input>
                                                 <div class="text-muted fs-7">How much stock. Eg: 50</div>
                                         </div>
-                                        <div class="mb-5 fv-row col-4">
+                                        <div class="mb-5 fv-row col-6">
                                             <x-metronic.label class="form-label">Vat</x-metronic.label>
                                             <x-metronic.input type="number" name="vat" id="vat"
                                                 class="form-control mb-2" placeholder="how much the vat"
                                                 :value="old('vat')"></x-metronic.file-input>
                                                 <div class="text-muted fs-7">How much vat. Eg: 5%</div>
                                         </div>
-                                        <div class="mb-5 fv-row col-4">
+                                        <div class="mb-5 fv-row col-6">
                                             <x-metronic.label class="form-label">Tax</x-metronic.label>
                                             <x-metronic.input type="number" name="tax" id="tax"
                                                 class="form-control mb-2" placeholder="how much the tax "
@@ -362,7 +442,7 @@
                         <div class="tab-pane fade" id="kt_ecommerce_add_product_meta" role="tab-panel">
                             <div class="d-flex flex-column gap-7 gap-lg-10">
                                 {{-- Meta Options --}}
-                                <div class="card card-flush py-4 mt-3">
+                                <div class="card card-flush py-4 mt-4 rounded-0">
                                     <div class="card-header">
                                         <div class="card-title">
                                             <h2>Meta Options</h2>
@@ -424,70 +504,6 @@
                             </span>
                         </button>
                     </div>
-                </div>
-                <div class="gap-7 gap-lg-10 mb-7  col-3">
-                    {{-- Status Card Start --}}
-                    <div class="card card-flush py-4 mb-6">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h2>Status</h2>
-                            </div>
-                        </div>
-                        <div class="card-body pt-0">
-                            <x-metronic.select-option id="kt_ecommerce_add_product_status_select"
-                                class="form-select mb-2" data-control="select2" data-hide-search="true"
-                                name="status" data-placeholder="Select an option">
-                                <option></option>
-                                <option value="published" selected>Published</option>
-                                <option value="draft">Draft</option>
-                                <option value="inactive">Inactive</option>
-                            </x-metronic.select-option>
-                            <div class="text-muted fs-7">Set the product status.</div>
-                        </div>
-                    </div>
-                    {{-- Status Card End --}}
-                    {{-- Category Card Start --}}
-                    <div class="card card-flush py-4">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h2>Category</h2>
-                            </div>
-                        </div>
-                        <div class="card-body pt-0">
-                            <div class="fv-row">
-                                <x-metronic.label for="brand_id" class="col-form-label required fw-bold fs-6">
-                                    {{ __('Select Brand') }}</x-metronic.label>
-                                <x-metronic.select-option id="brand_id" class="form-select mb-2" name="brand_id"
-                                    data-control="select2" data-placeholder="Select an option"
-                                    data-allow-clear="true">
-                                    <option></option>
-                                    @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}">{{ $brand->name }}
-                                        </option>
-                                    @endforeach
-                                </x-metronic.select-option>
-                            </div>
-                            <div class="fv-row">
-                                <x-metronic.label for="category_id" class="col-form-label required fw-bold fs-6">
-                                    {{ __('Select Category') }}</x-metronic.label>
-                                <x-metronic.select-option id="category_id" class="form-control select mb-2"
-                                    name="category_id[]" multiple multiselect-search="true"
-                                    multiselect-select-all="true" data-control="select2"
-                                    data-placeholder="Select an option" data-allow-clear="true">
-                                    {!! $categoriesOptions !!}
-                                </x-metronic.select-option>
-                            </div>
-                            <div class="fv-row">
-                                <x-metronic.label for="color" class="col-form-label required fw-bold fs-6">
-                                    {{ __('Add Color') }}
-                                </x-metronic.label>
-                                <!-- Input element for Tagify -->
-                                <input class="form-control d-flex align-items-center" name="color"
-                                    value="{{ old('color') }}" id="color" />
-                            </div>
-                        </div>
-                    </div>
-                    {{-- Category Card End --}}
                 </div>
             </div>
         </form>
