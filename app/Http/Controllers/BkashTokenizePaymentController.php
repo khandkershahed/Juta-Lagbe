@@ -40,8 +40,8 @@ class BkashTokenizePaymentController extends Controller
             //store paymentID and your account number for matching in callback request
             // dd($response) //if you are using sandbox and not submit info to bkash use it for 1 response
             if (isset($response['bkashURL'])) {
-                return redirect()->route('checkout.success',$order->order_number);
-                // return redirect()->away($response['bkashURL']);
+                // return redirect()->route('checkout.success',$order->order_number);
+                return redirect()->away($response['bkashURL']);
             }
         } catch (\Exception $e) {
             $order->delete();
