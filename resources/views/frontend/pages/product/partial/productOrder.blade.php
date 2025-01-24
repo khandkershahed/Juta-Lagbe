@@ -48,7 +48,7 @@
                                                 for="email">ইমেইল<span
                                                     class="text-danger">*</span>
                                             </label>
-                                            <input id="email" class="form-control ps-form__input" type="text"
+                                            <input id="email" class="form-control ps-form__input" type="email"
                                                 name="email" value="{{ old('email',optional(Auth::user())->email) }}"
                                                 autofocus="" autocomplete="email" placeholder="আপনার ইমেইল দিন"
                                                 required>
