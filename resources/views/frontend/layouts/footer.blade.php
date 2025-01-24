@@ -48,11 +48,15 @@
     .ps-social__link:hover {
         color: #ff0;
     }
+
     .border-bottom-black {
-    border-bottom: 2px solid white; /* Adjust thickness as needed */
-    display: inline-block; /* Ensures the border is only as wide as the text */
-    padding-bottom: 5px; /* Adds spacing between the text and the border */
-}
+        border-bottom: 2px solid white;
+        /* Adjust thickness as needed */
+        display: inline-block;
+        /* Ensures the border is only as wide as the text */
+        padding-bottom: 5px;
+        /* Adds spacing between the text and the border */
+    }
 </style>
 <footer class="ps-footer ps-footer--13 ps-footer--14">
     <div class="ps-footer--top">
@@ -124,7 +128,9 @@
                         <p class="ps-footer__work pt-2">
                             Saturday to Friday: 11 AM - 09PM
                         </p>
-                        <p class="ps-footer__work pt-2"><a href="mailto:{{ optional($setting)->contact_email }}">{{ optional($setting)->contact_email }}</a></p>
+                        <p class="ps-footer__work pt-2"><a
+                                href="mailto:{{ optional($setting)->contact_email }}">{{ optional($setting)->contact_email }}</a>
+                        </p>
                         <p class="ps-footer__work pt-2"><i class="fa-solid fa-store"></i>
                             {{ optional($setting)->address_line_one }} {{ optional($setting)->address_line_two }}
                         </p>
@@ -162,16 +168,19 @@
             <div class="ps-footer--bottom">
                 <div class="row align-items-center">
                     <div class="col-12 col-md-6">
-                        <a href="{{ optional($setting)->copyright_url }}" target="_blank">
-                            <small class="site-text">{{ optional($setting)->copyright_title }} & Developed with ❤️ by
-                                <strong>
-                                    <a href="https://www.digiXsolve.com" class=""
-                                        style="color: #252525; text-decoration: none;">digiXsolve</a>
-                                </strong></small>
-                        </a>
+                        <div class="footer-copywrite">
+                            <a href="{{ optional($setting)->copyright_url }}" target="_blank">
+                                <small class="site-text">{{ optional($setting)->copyright_title }} & Developed with ❤️
+                                    by
+                                    <strong>
+                                        <a href="https://www.digiXsolve.com" class=""
+                                            style="color: #252525; text-decoration: none;">digiXsolve</a>
+                                    </strong></small>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-12 col-md-6 d-flex justify-content-end align-items-center">
-                        <div class="pl-3">
+                    <div class="col-12 col-md-6">
+                        <div class="pl-3 d-flex justify-content-end align-items-center footer-social">
                             <ul class="ps-social my-0">
                                 @if (optional($setting)->facebook_url)
                                     <li class="my-0">

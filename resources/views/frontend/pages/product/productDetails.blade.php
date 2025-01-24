@@ -269,7 +269,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 pl-0">
-                    <div>
+                    <div class="product-details-juta">
                         <h3 class="title">{{ $product->name }}</h3>
                         <div>
                             @if (!empty($product->stock) && $product->stock > 0)
@@ -297,10 +297,28 @@
                                 </div>
                             @endif
                         </div>
-                        {{-- Size Variation --}}
+                        <div class="ps-page__content py-2 row align-items-center">
+                            <div class="ps-product--detail col-12 col-lg-3">
+                                <div class="ps-product__feature bg-transparent p-0">
+                                    <div class="ps-product__quantity pb-0 rounded-0">
+                                        <div class="def-number-input number-input safari_only w-100 rounded-0">
+                                            <button class="minus"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
+                                                    class="icon-minus text-white"></i></button>
+                                            <input class="quantity" min="1" name="quantity" value="1"
+                                                type="number" data-product_id="{{ $product->id }}" />
+                                            <button class="plus"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
+                                                    class="icon-plus text-white"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-9">
+                                {{-- Size Variation --}}
                         <div class="py-3">
                             <div class="d-flex">
-                                <div class="radio-wrapper-46 mr-3">
+                                <div class="radio-wrapper-46 mr-2">
                                     <input class="inp-radio" id="radio-47" name="radio-group" type="radio" />
                                     <label class="radio" for="radio-47"><span>
                                             <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -308,7 +326,7 @@
                                             </svg></span><span>39</span>
                                     </label>
                                 </div>
-                                <div class="radio-wrapper-46 mr-3">
+                                <div class="radio-wrapper-46 mr-2">
                                     <input class="inp-radio" id="radio-48" name="radio-group" type="radio" />
                                     <label class="radio" for="radio-48"><span>
                                             <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -317,7 +335,7 @@
                                         </span><span>40</span>
                                     </label>
                                 </div>
-                                <div class="radio-wrapper-46 mr-3">
+                                <div class="radio-wrapper-46 mr-2">
                                     <input class="inp-radio" id="radio-41" name="radio-group" type="radio" />
                                     <label class="radio" for="radio-41"><span>
                                             <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -325,7 +343,7 @@
                                             </svg></span><span>41</span>
                                     </label>
                                 </div>
-                                <div class="radio-wrapper-46 mr-3">
+                                <div class="radio-wrapper-46 mr-2">
                                     <input class="inp-radio" id="radio-42" name="radio-group" type="radio" />
                                     <label class="radio" for="radio-42"><span>
                                             <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -333,7 +351,7 @@
                                             </svg></span><span>42</span>
                                     </label>
                                 </div>
-                                <div class="radio-wrapper-46 mr-3">
+                                <div class="radio-wrapper-46 mr-2">
                                     <input class="inp-radio" id="radio-43" name="radio-group" type="radio" />
                                     <label class="radio" for="radio-43"><span>
                                             <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -341,7 +359,7 @@
                                             </svg></span><span>43</span>
                                     </label>
                                 </div>
-                                <div class="radio-wrapper-46 mr-3">
+                                <div class="radio-wrapper-46 mr-2">
                                     <input class="inp-radio" id="radio-44" name="radio-group" type="radio" />
                                     <label class="radio" for="radio-44"><span>
                                             <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -349,7 +367,7 @@
                                             </svg></span><span>44</span>
                                     </label>
                                 </div>
-                                <div class="radio-wrapper-46 mr-3">
+                                <div class="radio-wrapper-46 mr-2">
                                     <input class="inp-radio" id="radio-45" name="radio-group" type="radio" />
                                     <label class="radio" for="radio-45"><span>
                                             <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -360,32 +378,9 @@
                             </div>
                         </div>
                         {{-- Size Variation End --}}
-                        <div class="ps-page__content py-2 row align-items-center">
-                            <div class="ps-product--detail col-5">
-                                <div class="ps-product__feature bg-transparent p-0">
-                                    <div class="ps-product__quantity pb-0 rounded-0">
-                                        <div class="def-number-input number-input safari_only w-100 rounded-0 py-2">
-                                            <button class="minus"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                    class="icon-minus"></i></button>
-                                            <input class="quantity" min="1" name="quantity" value="1"
-                                                type="number" data-product_id="{{ $product->id }}" />
-                                            <button class="plus"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                    class="icon-plus"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-7">
-                                <a data-product_id="{{ $product->id }}" href="#"
-                                    class="btn btn-outline-primary rounded-0 w-100 py-3 add_to_cart_btn_product_single">
-                                    <i class="fa-solid fa-shopping-cart fa-fade"></i>
-                                    কার্ট এ যোগ করুন।
-                                </a>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center card-cart-btn mt-4">
+                        <div class="d-flex align-items-center card-cart-btn mt-0 mt-lg-2">
                             <!-- Order Modal  -->
                             <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3"
                                 data-toggle="modal" data-target="#order-product{{ $product->id }}">
@@ -465,14 +460,14 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item ml-3 pr-info-tabs" role="presentation">
+                            <li class="nav-item ml-3 mt-3 mt-lg-0 pr-info-tabs" role="presentation">
                                 <a class="nav-link" id="delivery-tab" data-toggle="tab" href="#delivery-process"
                                     role="tab" aria-controls="delivery-process" aria-selected="false">
                                     ডেলিভারি প্রসেস এবং রিটার্ন পলিসি।
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content bg-white p-5" id="productContent">
+                        <div class="tab-content bg-white p-lg-5 p-3" id="productContent">
                             <div class="tab-pane fade show active" id="information-content" role="tabpanel"
                                 aria-labelledby="information-tab">
                                 <div class="ps-document">
@@ -688,7 +683,7 @@
                                                         <i class="fa fa-eye"></i>
                                                     </a>
                                                 </div>
-                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                {{-- <div class="ps-product__item" data-toggle="tooltip"
                                                     data-placement="left" title="Add To Cart">
                                                     <a class="add_to_cart"
                                                         href="{{ route('cart.store', $related_product->id) }}"
@@ -696,7 +691,7 @@
                                                         data-product_qty="1">
                                                         <i class="fa fa-shopping-cart"></i>
                                                     </a>
-                                                </div>
+                                                </div> --}}
 
                                             </div>
                                             @if (!empty($related_product->unit_discount_price))
