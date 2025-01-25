@@ -708,7 +708,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
+                        {{-- <div class="col-lg-12">
                             <div class="row gx-2 pb-2 pb-lg-5">
                                 <div class="col-6 col-lg-3 col-md-3 mb-3 px-1">
                                     <div class="card p-0 border-0 video-card-home rounded-4">
@@ -807,7 +807,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </section>
@@ -1207,7 +1207,7 @@
 
     @include('frontend.layouts.HomeQuickViewModal')
     @push('scripts')
-        <script>
+        {{-- <script>
             $(document).ready(function() {
                 var iframe = $('.video-player')[0];
                 var player;
@@ -1240,7 +1240,7 @@
                     });
                 }
             });
-        </script>
+        </script> --}}
         <script>
             $(document).ready(function() {
                 // Initialize Owl Carousel

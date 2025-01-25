@@ -523,127 +523,65 @@
                 <section class="ps-section--also" data-background="img/related-bg.jpg">
                     <div class="container px-0">
                         <h3 class="ps-section__title">গ্রাহক আরও কিনেছেন</h3>
-                        <div class="owl-carousel">
-                            @foreach ($related_products as $related_product)
-                                <div class="ps-section__product border">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail">
-                                            <a class="ps-product__image"
-                                                href="{{ route('product.details', $related_product->slug) }}">
-                                                <figure>
-                                                    @if (!empty($related_product->thumbnail))
-                                                        @php
-                                                            $thumbnailPath = 'storage/' . $related_product->thumbnail;
-                                                            $thumbnailSrc = file_exists(public_path($thumbnailPath))
-                                                                ? asset($thumbnailPath)
-                                                                : asset('frontend/img/no-product.jpg');
-                                                        @endphp
-                                                        <img src="{{ $thumbnailSrc }}"
-                                                            alt="{{ $related_product->meta_title }}" width="210"
-                                                            height="210" />
-                                                    @else
-                                                        @foreach ($related_product->multiImages->slice(0, 2) as $image)
+                        <div class="row">
+                        @foreach ($related_products->take(4) as $related_product)
+                                <div class="col-md-3 col-sm-6 mb-4">
+                                    <div class="ps-section__product border">
+                                        <div class="ps-product ps-product--standard">
+                                            <div class="ps-product__thumbnail">
+                                                <a class="ps-product__image" href="{{ route('product.details', $related_product->slug) }}">
+                                                    <figure>
+                                                        @if (!empty($related_product->thumbnail))
                                                             @php
-                                                                $imagePath = 'storage/' . $image->photo;
-                                                                $imageSrc = file_exists(public_path($imagePath))
-                                                                    ? asset($imagePath)
+                                                                $thumbnailPath = 'storage/' . $related_product->thumbnail;
+                                                                $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                                    ? asset($thumbnailPath)
                                                                     : asset('frontend/img/no-product.jpg');
                                                             @endphp
-                                                            <img src="{{ $imageSrc }}"
-                                                                alt="{{ $related_product->meta_title }}"
-                                                                width="210" height="210" />
-                                                        @endforeach
-                                                    @endif
-                                                </figure>
-                                            </a>
-                                            {{-- Review End --}}
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip"
-                                                    data-placement="left" title="Wishlist">
-                                                    <a class="add_to_wishlist"
-                                                        href="{{ route('wishlist.store', $related_product->id) }}"><i
-                                                            class="fa-solid fa-heart"></i></a>
-                                                </div>
-                                                <div class="ps-product__item" data-toggle="tooltip"
-                                                    data-placement="left" title="Quick view">
-                                                    <a href="#" data-toggle="modal"
-                                                        data-target="#popupQuickview{{ $related_product->id }}">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
-                                                </div>
-                                                {{-- <div class="ps-product__item" data-toggle="tooltip"
-                                                    data-placement="left" title="Add To Cart">
-                                                    <a class="add_to_cart"
-                                                        href="{{ route('cart.store', $related_product->id) }}"
-                                                        data-product_id="{{ $related_product->id }}"
-                                                        data-product_qty="1">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                    </a>
-                                                </div> --}}
-
-                                            </div>
-                                            @if (!empty($related_product->unit_discount_price))
-                                                <div class="ps-product__badge">
-                                                    <div class="ps-badge ps-badge--sale">
-                                                        -
-                                                        {{ !empty($related_product->unit_discount_price) && $related_product->unit_discount_price > 0 ? number_format((($related_product->unit_price - $related_product->unit_discount_price) / $related_product->unit_price) * 100, 1) : 0 }}
-                                                        % অফ
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title">
-                                                <a href="{{ route('product.details', $related_product->slug) }}">
-                                                    {{ implode(' ', array_slice(explode(' ', $related_product->name), 0, 5)) }}
+                                                            <img src="{{ $thumbnailSrc }}" alt="{{ $related_product->meta_title }}" width="210" height="210" />
+                                                        @else
+                                                            @foreach ($related_product->multiImages->slice(0, 2) as $image)
+                                                                @php
+                                                                    $imagePath = 'storage/' . $image->photo;
+                                                                    $imageSrc = file_exists(public_path($imagePath))
+                                                                        ? asset($imagePath)
+                                                                        : asset('frontend/img/no-product.jpg');
+                                                                @endphp
+                                                                <img src="{{ $imageSrc }}" alt="{{ $related_product->meta_title }}" width="210" height="210" />
+                                                            @endforeach
+                                                        @endif
+                                                    </figure>
                                                 </a>
-                                            </h5>
-                                            <div class="pb-3">
                                                 @if (!empty($related_product->unit_discount_price))
-                                                    <div class="ps-product__meta">
-                                                        <span class="ps-product__price sale fw-bold"
-                                                            style="font-weight:600;">দাম
-                                                            {{ $related_product->unit_discount_price }}
-                                                            টাকা</span>
-                                                        <span
-                                                            class="ps-product__del text-danger">{{ $related_product->unit_price }}
-                                                            টাকা</span>
-                                                    </div>
-                                                @else
-                                                    <div class="ps-product__meta">
-                                                        <span class="ps-product__price sale fw-bold"
-                                                            style="font-weight:600;">দাম
-                                                            {{ $related_product->unit_price }}
-                                                            টাকা</span>
+                                                    <div class="ps-product__badge">
+                                                        <div class="ps-badge ps-badge--sale">
+                                                            -{{ number_format((($related_product->unit_price - $related_product->unit_discount_price) / $related_product->unit_price) * 100, 1) }}% অফ
+                                                        </div>
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div class="d-flex align-items-center card-cart-btn">
-                                                <a href="{{ route('buy.now', $related_product->id) }}"
-                                                    class="btn btn-primary rounded-0 w-100">
-                                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
-                                                    অর্ডার করুন
-                                                </a>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                                class="icon-minus"></i>
-                                                        </button>
-                                                        <input class="quantity" min="0" name="quantity"
-                                                            value="1" type="number" />
-                                                        <button class="plus"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                                class="icon-plus"></i>
-                                                        </button>
-                                                    </div>
+                                            <div class="ps-product__content">
+                                                <h5 class="ps-product__title">
+                                                    <a href="{{ route('product.details', $related_product->slug) }}">
+                                                        {{ implode(' ', array_slice(explode(' ', $related_product->name), 0, 5)) }}
+                                                    </a>
+                                                </h5>
+                                                <div class="pb-3">
+                                                    @if (!empty($related_product->unit_discount_price))
+                                                        <div class="ps-product__meta">
+                                                            <span class="ps-product__price sale fw-bold" style="font-weight:600;">দাম {{ $related_product->unit_discount_price }} টাকা</span>
+                                                            <span class="ps-product__del text-danger">{{ $related_product->unit_price }} টাকা</span>
+                                                        </div>
+                                                    @else
+                                                        <div class="ps-product__meta">
+                                                            <span class="ps-product__price sale fw-bold" style="font-weight:600;">দাম {{ $related_product->unit_price }} টাকা</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                <div class="ps-product__item" data-toggle="tooltip"
-                                                    data-placement="left" title="Wishlist"><a class="add_to_wishlist"
-                                                        href="{{ route('wishlist.store', $related_product->id) }}"><i
-                                                            class="fa-solid fa-heart"></i></a>
+                                                <div class="d-flex align-items-center card-cart-btn">
+                                                    <a href="{{ route('buy.now', $related_product->id) }}" class="btn btn-primary rounded-0 w-100">
+                                                        <i class="fa-solid fa-basket-shopping pr-2"></i> অর্ডার করুন
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -651,6 +589,7 @@
                                 </div>
                             @endforeach
                         </div>
+
                     </div>
                 </section>
             </div>

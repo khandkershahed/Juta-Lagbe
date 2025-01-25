@@ -65,7 +65,7 @@
                 <div class="col-12 col-sm-3 p-0">
                     <p class="text-center">
                         <span class="ps-footer__link site-text">
-                            <i class="icon-wallet site-text"></i>East To Order Place
+                            <i class="icon-wallet site-text"></i>Easy To Order Place
                         </span>
                     </p>
                 </div>

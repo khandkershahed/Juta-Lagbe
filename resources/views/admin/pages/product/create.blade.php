@@ -192,21 +192,7 @@
                                         <div class="mb-5 fv-row">
                                             <x-metronic.label class="form-label">Tags</x-metronic.label>
                                             <input class="form-control" name="tags" id="product_Tags"
-                                                value="old('tags')" />
-                                        </div>
-                                        {{-- <div class="mb-5 fv-row">
-                                            <x-metronic.label class="form-label">Short Description</x-metronic.label>
-                                            <x-metronic.textarea id="short_description" name="short_description"
-                                                placeholder="Add Product Short Description" class="form-control mb-2"
-                                                cols="30"
-                                                rows="3">{!! old('short_description') !!}</x-metronic.textarea>
-                                        </div> --}}
-                                        <div class="mb-5 fv-row">
-                                            <x-metronic.label class="form-label">Product Overview</x-metronic.label>
-                                            <textarea name="overview" class="ckeditor">{!! old('overview') !!}</textarea>
-                                            <div class="text-muted fs-7">
-                                                Add product overview here.
-                                            </div>
+                                                value="" />
                                         </div>
                                         <div class="mb-5 fv-row">
                                             <x-metronic.label class="form-label">Product Description</x-metronic.label>
@@ -215,11 +201,6 @@
                                                 Add product description here.
                                             </div>
                                         </div>
-                                        {{-- <div class="mb-5 fv-row">
-                                            <x-metronic.label class="form-label">Product
-                                                Specification</x-metronic.label>
-                                            <textarea name="specification" class="ckeditor">{!! old('specification') !!}</textarea>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
