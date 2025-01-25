@@ -59,6 +59,9 @@ class ShopController extends Controller
         if ($request->has('price_min') && $request->has('price_max')) {
             $query->whereBetween('unit_price', [$request->price_min, $request->price_max]);
         }
+        if ($request->has('price_min') && $request->has('price_max')) {
+            $query->whereBetween('unit_price', [$request->price_min, $request->price_max]);
+        }
 
         // Sort products
         if ($request->has('sort_by')) {
