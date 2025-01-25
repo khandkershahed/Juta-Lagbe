@@ -131,7 +131,7 @@
 
             .swiper {
                 width: 100%;
-                height: 670px;
+                height: 700px;
             }
 
             .product-details-slide .swiper-slide {
@@ -165,6 +165,9 @@
             .product-details-slide {
                 height: 250px;
             }
+            .product-details-juta .title{
+            height: 100%;
+        }
         }
 
         .form-select option {
@@ -205,6 +208,9 @@
             z-index: 1;
             cursor: not-allowed;
         }
+        .product-details-juta .title{
+            height: 60px;
+        }
     </style>
     <section>
         <div class="container">
@@ -225,46 +231,55 @@
                         {{-- Slider Thumbnail Start --}}
                         <div thumbsSlider="" class="swiper product-details-slide bg-white">
                             <div class="swiper-wrapper">
+                                {{-- Loop through images --}}
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
-                                {{-- @foreach ($product->video_link as $video) --}}
-                                <div class="swiper-slide">
-                                    <div style="position: relative; width: 100%; height: 100%;">
-                                        <iframe width="100%" height="100%" {{-- src="Dynamic-URL-Here----> &autoplay=0&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0" --}}
-                                            src="https://www.youtube.com/embed/O5qMVkByyzE?si=NMxjp_Se7cRVJ3wG&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
-                                            title="YouTube video player" frameborder="0"
-                                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                                        <div class="overlay-iframe"></div>
+
+                                {{-- Add Video at the End --}}
+                                @if (!empty($product->video_link))
+                                    <div class="swiper-slide">
+                                        <div style="position: relative; width: 100%; height: 100%;">
+                                            <iframe width="100%" height="100%"
+                                                src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
+                                                title="YouTube video player" frameborder="0"
+                                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                            <div class="overlay-iframe"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                {{-- @endforeach --}}
+                                @endif
                             </div>
                         </div>
                         {{-- Slider Thumbnail End --}}
-                        <!-- Swiper Main Image Start-->
+
+                        <!-- Swiper Main Image Start -->
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
+                                {{-- Loop through images --}}
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide magnifier-container">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
-                                <div class="swiper-slide magnifier-container">
-                                    <iframe width="100%" height="100%" {{-- src="Dynamic-URL-Here----> &autoplay=1&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0" --}}
-                                        src="https://www.youtube.com/embed/O5qMVkByyzE?si=NMxjp_Se7cRVJ3wG&autoplay=1&controls=0&mute=1"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                </div>
+
+                                {{-- Add Video at the End --}}
+                                @if (!empty($product->video_link))
+                                    <div class="swiper-slide">
+                                        <iframe width="100%" height="100%"
+                                            src="{{ $product->video_link }}&autoplay=1&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    </div>
+                                @endif
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
-                        <!-- Swiper Main Image End-->
+                        <!-- Swiper Main Image End -->
                     </div>
                 </div>
                 <div class="col-lg-5 pl-0">
@@ -339,7 +354,7 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <p class="no-sizes-text">No sizes available.</p>
+                                        <p class="no-sizes-text mb-0">No sizes available.</p>
                                     @endif
                                 </div>
                             </div>
