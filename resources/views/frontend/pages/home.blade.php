@@ -7,7 +7,7 @@
             <img src="{{ asset('images/jutalagbe-main-banner.jpg') }}" alt="">
         </div>
     </section>
-    <div class="ps-home ps-home--14 bg-white">
+<div class="ps-home ps-home--14 bg-white">
         @if (!empty(optional($special_offer)->slug) || !empty(optional($special_offer)->header_slogan))
             <div class="ps-noti h-marqee">
                 <section>

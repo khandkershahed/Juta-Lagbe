@@ -117,8 +117,31 @@
                 transform: scale(0.9);
             }
         }
+
+        .ps-categogy .ps-categogy__wrapper {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 0 20px;
+            display: flex;
+            margin-top: 0px !important;
+        }
+
+        .btn-check:checked+.btn {
+            /* Optional: Customize the style for the active button */
+            background-color: var(--site-primary);
+            /* Change background color when active */
+            color: white;
+        }
+
+        .btn-check {
+            display: none;
+            /* Hides the default radio button */
+        }
     </style>
     <div class="ps-categogy">
+        <div>
+            <img class="img-fluid w-100" src="{{ asset('images/special-banner.jpg') }}" alt="">
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-3">
@@ -127,20 +150,13 @@
                             <li class="ps-breadcrumb__item"><a href="/">Home</a></li>
                             <li class="ps-breadcrumb__item">Shop</li>
                         </ul>
-                        <h1 class="ps-categogy__name">Shop <sup>(<span class="productCount">{{ $products->count() }}</span>)</sup></h1>
-                    </div>
-                </div>
-                <div class="col-12 col-md-9 d-flex align-items-center">
-                    <div>
-                        <img class="img-fluid shop-top-banner" src="{{ asset('frontend/img/shop-banner-bg.jpg') }}"
-                            alt="">
                     </div>
                 </div>
             </div>
             <div class="ps-categogy__content">
                 <div class="row row-reverse">
                     <div class="col-md-9 col-12 order-12 order-lg-1">
-                        <div class="ps-categogy__wrapper d-flex justify-content-center px-1">
+                        <div class="ps-categogy__wrapper d-flex justify-content-center px-1 mt-0">
                             <div class="ps-categogy__sort w-100 text-left py-0">
                                 <form>
                                     <select id="sort-by" class="form-select">
@@ -184,9 +200,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 col-12 order-1 order-lg-12">
-                        <div class="ps-widget ps-widget--product">
+                        <div class="ps-widget ps-widget--product px-0">
                             <div class="ps-widget__block p-0">
-                                <h4 class="ps-widget__title">Categories</h4>
                                 <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="ps-widget__content ps-widget__category pt-3 shop-filter">
@@ -254,10 +269,14 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="ps-widget__block ps-widget__block-shop bg-white p-lg-3 p-0 ">
-                                <h4 class="ps-widget__title">By price</h4><a class="ps-block-control" href="#"><i
-                                        class="fa fa-angle-down"></i></a>
-                                <div class="ps-widget__content priceing-filter">
+                            <div class="ps-widget__block ps-widget__block-shop bg-white">
+                                <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <div>By Price</div>
+                                        <div class="title-line"></div>
+                                    </div>
+                                </h4>
+                                <div class="ps-widget__content priceing-filter px-lg-4 px-0">
                                     <div class="ps-widget__price">
                                         <div id="slide-price" class="noUi-target noUi-ltr noUi-horizontal"></div>
                                     </div>
@@ -271,9 +290,13 @@
                                     {{-- <button id="price-filter" class="ps-widget__filter">Filter</button> --}}
                                 </div>
                             </div>
-                            <div class="ps-widget__block ps-widget__block-shop bg-white p-3">
-                                <h4 class="ps-widget__title">Brands</h4><a class="ps-block-control" href="#"><i
-                                        class="fa fa-angle-down"></i></a>
+                            <div class="ps-widget__block ps-widget__block-shop bg-white pt-2">
+                                <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <div>By Brands</div>
+                                        <div class="title-line"></div>
+                                    </div>
+                                </h4>
                                 <div class="ps-widget__content">
                                     @foreach ($brands as $brand)
                                         <div class="ps-widget__item p-0">
@@ -333,6 +356,48 @@
                                     </div>
                                 </div>
                             @endif
+                            <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
+                                <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <div>By Size</div>
+                                        <div class="title-line"></div>
+                                    </div>
+                                </h4>
+                                <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
+                                <div class="ps-widget__content priceing-filter px-4 py-4">
+                                    <!-- Bootstrap Button Radios -->
+                                    <div class="btn-group" role="group" aria-label="Size filter">
+                                        <input type="radio" class="btn-check" name="size" id="size-40"
+                                            value="40" autocomplete="off">
+                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                            for="size-40">40</label>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="Size filter">
+                                        <input type="radio" class="btn-check" name="size" id="size-41"
+                                            value="41" autocomplete="off">
+                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                            for="size-41">41</label>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="Size filter">
+                                        <input type="radio" class="btn-check" name="size" id="size-42"
+                                            value="42" autocomplete="off">
+                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                            for="size-42">42</label>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="Size filter">
+                                        <input type="radio" class="btn-check" name="size" id="size-43"
+                                            value="43" autocomplete="off">
+                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                            for="size-43">43</label>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="Size filter">
+                                        <input type="radio" class="btn-check" name="size" id="size-44"
+                                            value="44" autocomplete="off">
+                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                            for="size-44">44</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
