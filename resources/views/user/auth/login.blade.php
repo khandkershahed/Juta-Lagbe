@@ -9,7 +9,6 @@
             z-index: 2;
             position: relative;
             width: 100%;
-            color: white;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -121,7 +120,7 @@
                 </div>
                 <div class="col-12 col-md-6 column-equal-height px-0">
                     <div>
-                        <img class="img-fluid login-imge" src="{{ asset('images/login-side-banner.png') }}"
+                        <img class="img-fluid login-imge" src="{{ asset('images/login-banner.jpg') }}"
                             alt="">
                     </div>
                 </div>

@@ -4479,9 +4479,9 @@ textarea.form-control {
     align-items: center;
     justify-content: center;
     font-size: 13px;
-    padding-top: 10px;
+    padding-top: 18px;
     cursor: pointer;
-    padding-bottom: 10px;
+    padding-bottom: 18px;
     color: white;
     background-color: var(--site-primary);
 }
@@ -9083,7 +9083,6 @@ textarea.form-control {
         margin-bottom: 10px;
     }
     .add_to_cart_btn_product_single{
-        display: none;
         padding-top: 5px;
         padding-bottom: 5px;
     }
@@ -20008,7 +20007,10 @@ table.dataTable tbody td:last-child {
     margin-right: 5px;
     width: 100%;
 }
-
+.size-box{
+    background: white;
+    padding: 15px;
+}
 .main-counter h1 {
     text-align: center;
     font-size: 122px;
@@ -21511,7 +21513,7 @@ table.dataTable tbody td:last-child {
 }
 
 .login-imge {
-    height: 650px;
+    height: 100%;
     width: 100%;
     object-fit: cover;
 }
