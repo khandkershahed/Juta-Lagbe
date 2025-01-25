@@ -9113,11 +9113,14 @@ textarea.form-control {
     border: 0;
     background-image: linear-gradient(
         to right,
-        #051937,
+        /* #051937,
         #004d7a,
         #008793,
         #00bf72,
-        #a8eb12
+        #a8eb12 */
+            #020024,
+        #090979,
+        #009dbd
     );
     width: 135px;
 }
@@ -9419,9 +9422,9 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
-   .extra-menus-mobile{
-    color: black !important;
-   }
+    .extra-menus-mobile {
+        color: black !important;
+    }
 }
 @media (min-width: 768px) {
     .ps-section--category-horizontal .ps-category__item {
@@ -19293,25 +19296,11 @@ table.dataTable tbody td:last-child {
 }
 /* Marquee styles */
 .ps-banner__persen {
-    background-image: linear-gradient(
-        to right,
-        #051937,
-        #004d7a,
-        #008793,
-        #00bf72,
-        #a8eb12
-    );
+    background-image: linear-gradient(to right, #020024, #090979, #009dbd);
     color: white;
 }
 .marquee {
-    background-image: linear-gradient(
-        to right,
-        #051937,
-        #004d7a,
-        #008793,
-        #00bf72,
-        #a8eb12
-    );
+    background-image: linear-gradient(to right, #020024, #090979, #009dbd);
     --gap: 1rem;
     position: relative;
     display: flex;
