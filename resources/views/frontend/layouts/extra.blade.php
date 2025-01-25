@@ -1,8 +1,8 @@
-<style>
+{{-- <style>
     .ps-footer--block .ps-block__list li a{
         color: black
     }
-</style>
+</style> --}}
 <div class="ps-navigation--footer">
     <div>
         <a href="{{ route('home') }}">
@@ -81,9 +81,9 @@
                             <i class="point"></i>
                         </div>
 
-                        <span class="inner"><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2.5">
+                        <span class="inner"><svg class="icon" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2.5">
                                 <polyline
                                     points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
                                 </polyline>
@@ -119,11 +119,15 @@
                         <div class="ps-footer--block">
                             <h5 class="ps-block__title">Account</h5>
                             <ul class="ps-block__list">
-                                <li><a href="{{ route('register') }}">Register</a></li>
-                                <li><a href="{{ route('user.account.details') }}">My Account</a></li>
-                                <li><a href="{{ route('user.order.history') }}">My Orders</a></li>
-                                <li><a href="{{ route('user.quick.order') }}">Quick Order</a></li>
-                                <li><a href="{{ route('user.wishlist') }}">Shopping List</a></li>
+                                <li><a class="extra-menus-mobile" href="{{ route('register') }}">Register</a></li>
+                                <li><a class="extra-menus-mobile" href="{{ route('user.account.details') }}">My
+                                        Account</a></li>
+                                <li><a class="extra-menus-mobile" href="{{ route('user.order.history') }}">My
+                                        Orders</a></li>
+                                <li><a class="extra-menus-mobile" href="{{ route('user.quick.order') }}">Quick
+                                        Order</a></li>
+                                <li><a class="extra-menus-mobile" href="{{ route('user.wishlist') }}">Shopping List</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -131,11 +135,17 @@
                         <div class="ps-footer--block">
                             <h5 class="ps-block__title">Policy</h5>
                             <ul class="ps-block__list">
-                                <li><a href="{{ route(name: 'login') }}">Login</a></li>
-                                <li><a href="{{ asset('return-policy') }}">Returns</a></li>
-                                <li><a href="{{ asset('privacy/policy') }}">Privacy & Policy</a></li>
-                                <li><a href="{{ asset('terms-condition') }}">Terms & Conditions</a></li>
-                                <li class="d-flex align-items-center justify-content-center"><a href="{{ asset('faq') }}">Faq</a>/ <a href="{{ asset('contact') }}">Contact</a></li>
+                                <li><a class="extra-menus-mobile" href="{{ route(name: 'login') }}">Login</a></li>
+                                <li><a class="extra-menus-mobile" href="{{ asset('return-policy') }}">Returns</a></li>
+                                <li><a class="extra-menus-mobile" href="{{ asset('privacy/policy') }}">Privacy &
+                                        Policy</a></li>
+                                <li><a class="extra-menus-mobile" href="{{ asset('terms-condition') }}">Terms &
+                                        Conditions</a></li>
+                                <li class="d-flex justify-content-center">
+                                    <a class="extra-menus-mobile" href="{{ asset('faq') }}">Faq</a>
+                                    /
+                                    <a class="extra-menus-mobile" href="{{ asset('contact') }}">Contact</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
