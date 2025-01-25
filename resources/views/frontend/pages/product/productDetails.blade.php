@@ -165,9 +165,10 @@
             .product-details-slide {
                 height: 250px;
             }
-            .product-details-juta .title{
-            height: 100%;
-        }
+
+            .product-details-juta .title {
+                height: 100%;
+            }
         }
 
         .form-select option {
@@ -208,7 +209,8 @@
             z-index: 1;
             cursor: not-allowed;
         }
-        .product-details-juta .title{
+
+        .product-details-juta .title {
             height: 60px;
         }
     </style>
@@ -361,11 +363,19 @@
                         </div>
                         <div class="d-flex align-items-center card-cart-btn mt-2">
                             <!-- Order Modal  -->
-                            <a href="#" data-product_id="{{ $product->id }}"
-                                class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
-                                <i class="fa-solid fa-basket-shopping pr-2"></i>
-                                অর্ডার করুন
-                            </a>
+                            @if (count($sizes) > 0)
+                                <a href="#" data-product_id="{{ $product->id }}"
+                                    class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
+                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                    অর্ডার করুন
+                                </a>
+                            @else
+                                <button href="#" class="btn btn-secondary rounded-0 w-100 py-3" disabled>
+                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                    অর্ডার করুন
+                                </button>
+                            @endif
+
 
                         </div>
                         {{-- <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
