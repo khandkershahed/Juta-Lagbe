@@ -14,7 +14,7 @@
 
                                         <div class="text-sm-end">
                                             <a href="#" class="d-block mw-150px ms-sm-auto">
-                                                <img alt="Logo" src="{{ !empty($site->site_logo_white) && file_exists(public_path('storage/settings/' . $site->site_logo_white)) ? asset('storage/settings/' . $site->site_logo_white) : asset('frontend/img/logo.png') }}"
+                                                <img alt="Logo" src="{{ asset('images/default_logo.png') }}"
                                                     class="w-100">
                                             </a>
 
@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="card-footer p-4 text-center border-0" style="background-color: #e1ecff;">
-                                © {{optional($setting)->website_name}}, LTD 2024.
+                                © {{ optional($setting)->website_name }}, LTD 2024.
                             </div>
                         </div>
                     </div>
