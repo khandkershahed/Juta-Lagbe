@@ -366,38 +366,18 @@
                                 <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
                                 <div class="ps-widget__content priceing-filter px-4 py-4">
                                     <!-- Bootstrap Button Radios -->
-                                    <div class="btn-group" role="group" aria-label="Size filter">
-                                        <input type="radio" class="btn-check" name="size" id="size-40"
-                                            value="40" autocomplete="off">
-                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
-                                            for="size-40">40</label>
-                                    </div>
-                                    <div class="btn-group" role="group" aria-label="Size filter">
-                                        <input type="radio" class="btn-check" name="size" id="size-41"
-                                            value="41" autocomplete="off">
-                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
-                                            for="size-41">41</label>
-                                    </div>
-                                    <div class="btn-group" role="group" aria-label="Size filter">
-                                        <input type="radio" class="btn-check" name="size" id="size-42"
-                                            value="42" autocomplete="off">
-                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
-                                            for="size-42">42</label>
-                                    </div>
-                                    <div class="btn-group" role="group" aria-label="Size filter">
-                                        <input type="radio" class="btn-check" name="size" id="size-43"
-                                            value="43" autocomplete="off">
-                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
-                                            for="size-43">43</label>
-                                    </div>
-                                    <div class="btn-group" role="group" aria-label="Size filter">
-                                        <input type="radio" class="btn-check" name="size" id="size-44"
-                                            value="44" autocomplete="off">
-                                        <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
-                                            for="size-44">44</label>
-                                    </div>
+                                    @foreach ($sizes as $size)
+                                        <div class="btn-group" role="group" aria-label="Size filter">
+                                            <input type="radio" class="btn-check" name="size"
+                                                id="size-{{ $size }}" value="{{ $size }}"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                                for="size-{{ $size }}">{{ $size }}</label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -422,6 +402,7 @@
                                                 @if ($product->multiImages->isNotEmpty())
                                                     @foreach ($product->multiImages->slice(0, 5) as $image)
                                                         @php
+
                                                             $imagePath = 'storage/' . $image->photo;
                                                             $imageSrc = file_exists(public_path($imagePath))
                                                                 ? asset($imagePath)
@@ -696,87 +677,7 @@
             }
         </script>
         <script>
-            // $(document).ready(function() {
-            //     // Initialize noUiSlider
-            //     var priceSlider = document.getElementById('slide-price');
-            //     noUiSlider.create(priceSlider, {
-            //         start: [1, 10000], // Default values
-            //         connect: true,
-            //         range: {
-            //             'min': [0],
-            //             'max': [10000]
-            //         },
-            //         step: 1,
-            //         format: {
-            //             to: function(value) {
-            //                 return '৳' + value.toFixed(2);
-            //             },
-            //             from: function(value) {
-            //                 return Number(value.replace('৳', ''));
-            //             }
-            //         }
-            //     });
 
-            //     // Update hidden inputs and displayed values, and trigger filtering
-            //     priceSlider.noUiSlider.on('update', function(values, handle) {
-            //         $('#slide-price-min').text(values[0]);
-            //         $('#slide-price-max').text(values[1]);
-            //         $('#price-min').val(values[0].replace('৳', ''));
-            //         $('#price-max').val(values[1].replace('৳', ''));
-
-            //         // Trigger filtering when slider values change
-            //         filterProducts();
-            //     });
-
-            //     function filterProducts() {
-            //         let categories = [];
-            //         let subcategories = [];
-            //         let brands = [];
-            //         let priceMin = $('#price-min').val();
-            //         let priceMax = $('#price-max').val();
-            //         let sortBy = $('#sort-by').val();
-            //         let showPage = $('#show-per-page').val();
-
-            //         $('.category-filter:checked').each(function() {
-            //             categories.push($(this).data('id'));
-            //         });
-
-            //         $('.subcategory-filter:checked').each(function() {
-            //             subcategories.push($(this).data('id'));
-            //         });
-
-            //         $('.brand-filter:checked').each(function() {
-            //             brands.push($(this).data('id'));
-            //         });
-
-            //         $.ajax({
-            //             url: '{{ route('products.filter') }}',
-            //             method: 'GET',
-            //             data: {
-            //                 categories: categories,
-            //                 subcategories: subcategories,
-            //                 brands: brands,
-            //                 price_min: priceMin,
-            //                 price_max: priceMax,
-            //                 sort_by: sortBy,
-            //                 showPage: showPage,
-            //             },
-            //             success: function(response) {
-            //                 $('#productContainer').html(response);
-            //             }
-            //         });
-            //     }
-
-            //     // Trigger filtering on change
-            //     $('.category-filter, .subcategory-filter, .brand-filter, #sort-by, #price-filter, #show-per-page').on(
-            //         'change',
-            //         function() {
-            //             filterProducts();
-            //         });
-
-            //     // Initial filtering
-            //     filterProducts();
-            // });
             $(document).ready(function() {
                 var priceSlider = document.getElementById('slide-price');
                 noUiSlider.create(priceSlider, {
@@ -813,6 +714,7 @@
                     let categories = [];
                     let subcategories = [];
                     let brands = [];
+                    let sizes = []; // Collect selected sizes
                     let priceMin = $('#price-min').val();
                     let priceMax = $('#price-max').val();
                     let sortBy = $('#sort-by').val();
@@ -829,7 +731,9 @@
                     $('.brand-filter:checked').each(function() {
                         brands.push($(this).data('id'));
                     });
-
+                    $('input[name="size"]:checked').each(function() {
+                        sizes.push($(this).val());
+                    });
                     // Send AJAX request
                     $.ajax({
                         url: '{{ route('products.filter') }}',
@@ -838,6 +742,7 @@
                             categories: categories,
                             subcategories: subcategories,
                             brands: brands,
+                            sizes: sizes,
                             price_min: priceMin,
                             price_max: priceMax,
                             sort_by: sortBy,
@@ -861,7 +766,7 @@
                 }
 
                 // Filter form change event
-                $('.category-filter, .subcategory-filter, .brand-filter, #sort-by, #price-filter, #show-per-page').on(
+                $('.category-filter, .subcategory-filter, .brand-filter, #sort-by, #price-filter, #show-per-page, input[name="size"]').on(
                     'change',
                     function() {
                         fetchProducts();
