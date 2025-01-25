@@ -92,8 +92,9 @@
                         <th>Customer</th>
                         <th>Created At</th>
                         <th>Total Price</th>
-                        <th>QTY</th>
-                        {{-- <th>Payment Status</th> --}} SL->Order Number->Customer Name->Created At-> Total Price->Paid->Due->QTY->Status->Action
+                        <th>Paid</th>
+                        <th>Due</th>
+                        {{-- <th>Payment Status</th> --}}
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -103,14 +104,31 @@
                         <tr class="text-center">
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <a href="javascript:void(0)">
+                                <a href="{{ route('admin.orderDetails', $order->id) }}">
                                     {{ $order->order_number }}
                                 </a>
                             </td>
-                            <td>{{ $order->user->first_name }} {{ $order->user->last_name }}</td>
-                            <td>{{ $order->created_at->format('Y-m-d') }}</td>
-                            <td><span class="text-info fw-bold">৳</span>{{ $order->total_amount }}</td>
-                            <td>{{ $order->quantity }}</td>
+                            <td>{{ optional($order->user)->name }}</td>
+                            <td>{{ $order->created_at->format('d M , Y') }}</td>
+                            <td>
+                                <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                + {{ $order->shipping_charge }}
+                            </td>
+                            <td>
+                                @if ($order->payment_status == 'delivery_charge_paid')
+                                    <span class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
+                                @elseif ($order->payment_status == 'completely_paid')
+                                    <span
+                                        class="text-info fw-bold">৳</span>{{ $order->total_amount + $order->shipping_charge }}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($order->payment_status == 'delivery_charge_paid')
+                                    <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                @elseif ($order->payment_status == 'completely_paid')
+                                    <span class="text-info fw-bold">৳</span>0
+                                @endif
+                            </td>
                             {{-- <td>
                                     @if ($order->payment_status == 'unpaid')
                                         <span class="badge py-3 px-4 fs-7 badge-danger">Unpaid</span>
