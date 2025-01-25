@@ -89,24 +89,24 @@
                 My Account Details
             </a>
         </li>
-        <li class="nav-item" role="presentation">
+        {{-- <li class="nav-item" role="presentation">
             <a href="{{ route('user.quick.order') }}"
                 class="nav-link {{ Route::is('user.quick.order') ? 'active' : '' }}">
                 Quick Order
             </a>
-        </li>
+        </li> --}}
         {{-- <li class="nav-item" role="presentation">
             <a href="{{ route('user.order.tracking') }}"
                 class="nav-link {{ Route::is('user.order.tracking') ? 'active' : '' }}">
                 Track Order
             </a>
         </li> --}}
-        <li class="nav-item" role="presentation">
+        {{-- <li class="nav-item" role="presentation">
             <a href="{{ route('user.stock.history') }}"
                 class="nav-link {{ Route::is('user.stock.history') ? 'active' : '' }}">
                 Stock Availability
             </a>
-        </li>
+        </li> --}}
         {{-- <li class="nav-item" role="presentation">
             <a href="{{ route('user.product.data') }}" class="nav-link {{ Route::is('user.product.data') ? 'active' : '' }} ">
                 Product Data Download
