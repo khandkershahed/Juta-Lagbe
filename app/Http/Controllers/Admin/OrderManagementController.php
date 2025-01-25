@@ -17,23 +17,8 @@ class OrderManagementController extends Controller
         // Get the current month and year for comparison
         $currentMonth = now()->month;
         $currentYear = now()->year;
-
-        // Fetch orders with related order items and group them by user
         $data = [
-            'orders' => Order::with('orderItems')
-                // Fetch orders from the current year
-                ->whereYear('created_at', $currentYear)
-                // Filter orders for the current month and previous months
-                ->where(function ($query) use ($currentMonth) {
-                    // Fetch orders from the current month first, then the others
-                    $query->whereMonth('created_at', $currentMonth)
-                        ->orWhereMonth('created_at', '!=', $currentMonth);
-                })
-                // Sort orders: Current month first, then past orders, both descending by creation date
-                ->orderByRaw('MONTH(created_at) DESC, created_at DESC')
-                // Group orders by user
-                ->get()
-                ->groupBy('user_id'), // Group by user_id
+            'orders' => Order::with('orderItems')->latest()->get(), // Group by user_id
             'pendingOrdersCount' => Order::where('status', 'pending')->count(),
             'deliveredOrdersCount' => Order::where('status', 'delivered')->count(),
         ];
