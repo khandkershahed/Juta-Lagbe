@@ -1,3 +1,8 @@
+<style>
+    .ps-footer--block .ps-block__list li a{
+        color: black
+    }
+</style>
 <div class="ps-navigation--footer">
     <div>
         <a href="{{ route('home') }}">
@@ -25,19 +30,19 @@
                 <span class="badge wishlistCount">{{ $wishlistCount }}</span>
             </a>
         </div>
-        <div class="ps-nav__item">
+        <div class="ps-nav__item pr-4">
             <a href="{{ route('cart') }}">
                 <img src="{{ asset('images/icon-cart.svg') }}" style="width: 20px" alt="">
                 <span class="badge cartCount">{{ Cart::instance('cart')->count() }}</span>
             </a>
         </div>
-        <div class="ps-nav__item">
+        <div class="ps-nav__item pr-2">
             <a href="#" id="open-menu">
                 {{-- <i class="icon-menu"></i> --}}
-                <i class="fa-solid fa-bars pt-2 text-white"></i>
+                <i class="fa-solid fa-bars site-text bg-light p-2" style="border-radius: 5px"></i>
             </a>
             <a href="#" id="close-menu">
-                <i class="fa-solid fa-xmark text-white"></i>
+                <i class="fa-solid fa-xmark site-text bg-light p-2" style="border-radius: 5px"></i>
             </a>
         </div>
     </div>
@@ -101,7 +106,7 @@
                         </div>
 
                     </div>
-                    <p class="ps-footer__work">
+                    <p class="ps-footer__work site-text">
                         Monday – Friday: 9:00-20:00<br>Saturday: 11:00 – 15:00 <br>
                         <a
                             href="mailto:{{ optional($setting)->contact_email }}">{{ optional($setting)->contact_email }}</a>
@@ -114,6 +119,7 @@
                         <div class="ps-footer--block">
                             <h5 class="ps-block__title">Account</h5>
                             <ul class="ps-block__list">
+                                <li><a href="{{ route('register') }}">Register</a></li>
                                 <li><a href="{{ route('user.account.details') }}">My Account</a></li>
                                 <li><a href="{{ route('user.order.history') }}">My Orders</a></li>
                                 <li><a href="{{ route('user.quick.order') }}">Quick Order</a></li>
@@ -125,34 +131,12 @@
                         <div class="ps-footer--block">
                             <h5 class="ps-block__title">Policy</h5>
                             <ul class="ps-block__list">
+                                <li><a href="{{ route(name: 'login') }}">Login</a></li>
                                 <li><a href="{{ asset('return-policy') }}">Returns</a></li>
                                 <li><a href="{{ asset('privacy/policy') }}">Privacy & Policy</a></li>
                                 <li><a href="{{ asset('terms-condition') }}">Terms & Conditions</a></li>
-                                <li><a href="{{ asset('faq') }}">Faq</a></li>
+                                <li class="d-flex align-items-center justify-content-center"><a href="{{ asset('faq') }}">Faq</a>/ <a href="{{ asset('contact') }}">Contact</a></li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="ps-footer--block">
-                            <h5 class="ps-block__title text-center mb-0">Visitor Count</h5>
-                            <div class="visitor-box">
-                                <div class="main-counter">
-                                    <h1 class="mb-0">{{ $getOnlineVisitorCount + 10 }}</h1>
-                                    <div class="sub-counter">
-                                        <p>ONLINE NOW</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    {{-- <div class="today-count">
-                                        <small class="mb-0 text-white">Today</small>
-                                        <small class="mb-0 text-white fw-bold">70</small>
-                                    </div> --}}
-                                    <div class="total-count">
-                                        <small class="mb-0 text-white">Total</small>
-                                        <small class="mb-0 text-white fw-bold">{{ getTotalVisitorCount() + 1000 }}</small>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

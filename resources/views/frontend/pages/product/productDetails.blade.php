@@ -285,19 +285,19 @@
                             @if (!empty($product->unit_discount_price))
                                 <div class="d-flex justify-content-start align-items-center">
                                     <h3 class="mb-0">দামঃ</h3>
-                                    <h3 class="text-success pl-2 mb-0"> {{ $product->unit_discount_price }} টাকা</h3>
+                                    <h3 class="text-success pl-2 mb-0">{{ $product->unit_discount_price }} টাকা</h3>
                                     <h4 class="ps-product__del text-danger pl-4 mb-0">{{ $product->unit_price }} টাকা
                                     </h4>
                                 </div>
                             @else
                                 <div class="d-flex align-items-center">
-                                    <h3>দাম {{ $product->unit_price }} টাকা</h3> <del
-                                        class="pl-3 text-danger">{{ $product->unit_price }} টাকা</del>
+                                    <h3>দামঃ {{ $product->unit_price }} টাকা</h3>
                                 </div>
                             @endif
                         </div>
                         <div>
-                          <p class="mb-0 pt-2">প্রোডাক্ট কোডঃ   <span class="text-danger">{{ $product->sku_code }}</span></p>
+                            <p class="mb-0 pt-2">প্রোডাক্ট কোডঃ <span
+                                    class="text-danger">{{ $product->sku_code }}</span></p>
                         </div>
                         {{-- Size Variation End --}}
                         <div class="ps-page__content py-2 row align-items-center pt-4">
@@ -322,17 +322,25 @@
                                     @php
                                         $sizes = isset($product->size) ? json_decode($product->size, true) : [];
                                     @endphp
-                                    @foreach ($sizes as $size)
-                                        <div class="radio-wrapper-46 mr-3">
-                                            <input class="inp-radio" id="radio-{{ $size }}" name="size"
-                                                type="radio" value="{{ $size }}" />
-                                            <label class="radio" for="radio-{{ $size }}"><span>
-                                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                        <circle cx="6" cy="6" r="4"></circle>
-                                                    </svg></span><span>{{ $size }}</span>
-                                            </label>
-                                        </div>
-                                    @endforeach
+
+                                    @if (!empty($sizes))
+                                        @foreach ($sizes as $size)
+                                            <div class="radio-wrapper-46 mr-3">
+                                                <input class="inp-radio" id="radio-{{ $size }}" name="size"
+                                                    type="radio" value="{{ $size }}" />
+                                                <label class="radio" for="radio-{{ $size }}">
+                                                    <span>
+                                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                            <circle cx="6" cy="6" r="4"></circle>
+                                                        </svg>
+                                                    </span>
+                                                    <span>{{ $size }}</span>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p class="no-sizes-text">No sizes available.</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -3982,7 +3982,7 @@ textarea.form-control {
     }
 
     .register-bg {
-        margin-top: 135px;
+        margin-top: 105px;
     }
 
     .login-content {
@@ -4490,7 +4490,7 @@ textarea.form-control {
     color: #5000668c;
     font-weight: 600;
 }
-.cart-img{
+.cart-img {
     border-radius: 10px;
     width: 65px;
     margin-right: 15px;
@@ -9046,7 +9046,7 @@ textarea.form-control {
         border: none;
         padding: 0;
         background-color: #fff;
-        margin-top: 110px;
+        margin-top: 105px;
     }
     .ps-section--banner .hero-banner {
         width: 100% !important;
@@ -9079,16 +9079,15 @@ textarea.form-control {
         margin-top: -30px;
         padding-left: 16px;
     }
-    .ps-product--detail .ps-product__feature .ps-product__quantity .number-input{
+    .ps-product--detail
+        .ps-product__feature
+        .ps-product__quantity
+        .number-input {
         margin-bottom: 10px;
     }
-    .add_to_cart_btn_product_single{
+    .add_to_cart_btn_product_single {
         padding-top: 5px;
         padding-bottom: 5px;
-    }
-    .ps-product__image img {
-        width: 100%;
-        height: 100% !important;
     }
 }
 @media (min-width: 768px) {
@@ -18875,9 +18874,9 @@ table.dataTable tbody td:last-child {
 }
 
 .dataTables_wrapper .dataTables_filter input {
-    min-height: calc(1.5em + 1.1rem + 5px) !important;
-    padding: 0.55rem 0.75rem !important;
-    font-size: 16px !important;
+    min-height: calc(1.5em + 1.1rem + 1px) !important;
+    padding: 0rem !important;
+    font-size: 14px !important;
     border-radius: 0.425rem !important;
     background-color: #f3f3f3 !important;
     border-color: #d3d3d3 !important;
@@ -19045,7 +19044,7 @@ table.dataTable tbody td:last-child {
         margin-bottom: 10px !important;
     }
     .juta-delivery {
-        margin-top: 55px !important;
+        margin-top: 20px !important;
     }
     .ctg-btns {
         width: 100%;
@@ -19240,7 +19239,7 @@ table.dataTable tbody td:last-child {
     .ps-widget .ps-widget__block .ps-block-control {
         position: absolute;
         width: 30px;
-        height: 30px;
+        height: 60px;
         display: inline-block;
         right: 10px;
         top: 8px;
@@ -19955,7 +19954,7 @@ table.dataTable tbody td:last-child {
 .site-text {
     color: var(--site-primary) !important;
 }
-.middle-line{
+.middle-line {
     width: 3px;
     height: 100%;
     background-color: var(--site-primary);
@@ -20007,7 +20006,7 @@ table.dataTable tbody td:last-child {
     margin-right: 5px;
     width: 100%;
 }
-.size-box{
+.size-box {
     background: white;
     padding: 15px;
 }
@@ -20994,9 +20993,12 @@ table.dataTable tbody td:last-child {
     }
     .ps-product__image img {
         width: 100%;
-        height: 160px;
+        height: 190px;
         object-fit: cover;
         display: block;
+    }
+    .ps-product__meta {
+        height: 50px;
     }
     .section-banner-main,
     .banner-first-row {

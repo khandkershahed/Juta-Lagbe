@@ -22,11 +22,7 @@
                 <img class="img-fluid" src="{{ asset('storage/' . Auth::user()->profile_image) }}"
                     alt="{{ Auth::user()->name }}">
             @else
-                <div class="symbol-label" style="background-color: #d3d3d3;">
-                    <span class="text-gray-800 text-hover-primary mb-1">
-                        {{ strtoupper(substr(Auth::user()->first_name, 0, 1)) }}{{ strtoupper(substr(Auth::user()->last_name, 0, 1)) }}
-                    </span>
-                </div>
+                <img class="img-fluid" src="{{ asset('images/default-profile.jpeg') }}" alt="Default Profile">
             @endif
 
             <div class="edit-btn" data-toggle="modal" data-target="#editProfileImage">
@@ -41,10 +37,11 @@
             </div>
         </div>
         <div class="user-name">
-            <h5>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h5>
-            <h6 class="mb-0">{{ Auth::user()->email }}</h6>
+            <h5>{{ Auth::user()->name }}</h5>
+            <h6 class="mb-0">{{ Auth::user()->phone }}</h6>
         </div>
     </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="editProfileImage" tabindex="-1" role="dialog" aria-labelledby="editProfileImageLabel"
@@ -131,7 +128,7 @@
         <a href="javascript:void(0)"
             onclick="event.preventDefault(); document.getElementById('user-logout-form').submit();"
             class="btn btn-outline-primary btn-logins w-100">
-            <i class="fa-solid fa-arrow-right-from-bracket pr-2"></i>  {{ __('Log Out') }}
+            <i class="fa-solid fa-arrow-right-from-bracket pr-2"></i> {{ __('Log Out') }}
         </a>
         <!-- Hidden logout form -->
         <form id="user-logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">

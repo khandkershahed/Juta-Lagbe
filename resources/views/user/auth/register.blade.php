@@ -16,7 +16,12 @@
         .input-group-append {
             margin-left: -1px;
             position: relative;
-            top: 10px;
+            top: 0px;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 9px;
         }
     </style>
     <div class=" register-bg">
@@ -58,18 +63,18 @@
                                     </div>
 
                                     <!-- Email -->
-                                    <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    {{-- <div class="ps-form__group col-12 col-xl-4 mt-3">
                                         <label class="ps-form__label" for="email">ইমেইল<span
                                                 class="text-danger">*</span></label>
                                         <input id="email" class="form-control ps-form__input" type="email"
                                             name="email" placeholder="আপনার ইমেইল" value="{{ old('email') }}"
                                             autocomplete="email" />
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Confirm Email -->
                                     <!-- Phone -->
-                                    <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
                                         <x-input-label class="ps-form__label" for="phone" :value="__('ফোন নাম্বার')" />
                                         <div class="input-group">
                                             <input id="phone" class="form-control ps-form__input" type="tel"
@@ -80,7 +85,7 @@
                                     </div>
                                     <!-- Password -->
 
-                                    <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
                                         <x-input-label class="ps-form__label" for="password" :value="__('Password')" />
                                         <div class="input-group">
                                             <input id="password" class="form-control ps-form__input" type="password"
