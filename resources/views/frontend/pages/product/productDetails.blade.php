@@ -131,7 +131,7 @@
 
             .swiper {
                 width: 100%;
-                height: 760px;
+                height: 670px;
             }
 
             .product-details-slide .swiper-slide {
@@ -284,8 +284,8 @@
                         <div class="w-100 pt-3">
                             @if (!empty($product->unit_discount_price))
                                 <div class="d-flex justify-content-start align-items-center">
-                                    <h4 class="mb-0">দামঃ</h4>
-                                    <h4 class="text-success pl-2 mb-0"> {{ $product->unit_discount_price }} টাকা</h4>
+                                    <h3 class="mb-0">দামঃ</h3>
+                                    <h3 class="text-success pl-2 mb-0"> {{ $product->unit_discount_price }} টাকা</h3>
                                     <h4 class="ps-product__del text-danger pl-4 mb-0">{{ $product->unit_price }} টাকা
                                     </h4>
                                 </div>
@@ -296,9 +296,11 @@
                                 </div>
                             @endif
                         </div>
-
+                        <div>
+                          <p class="mb-0 pt-2">প্রোডাক্ট কোডঃ   <span class="text-danger">{{ $product->sku_code }}</span></p>
+                        </div>
                         {{-- Size Variation End --}}
-                        <div class="ps-page__content py-2 row align-items-center">
+                        <div class="ps-page__content py-2 row align-items-center pt-4">
                             <div class="ps-product--detail col-12 col-lg-3">
                                 <div class="ps-product__feature bg-transparent p-0">
                                     <div class="ps-product__quantity pb-0 rounded-0">
@@ -316,7 +318,7 @@
                                 </div>
                             </div>
                             <div class="col-12 col-lg-9">
-                                <div class="d-flex">
+                                <div class="d-flex size-box">
                                     @php
                                         $sizes = isset($product->size) ? json_decode($product->size, true) : [];
                                     @endphp
@@ -334,7 +336,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center card-cart-btn mt-4">
+                        <div class="d-flex align-items-center card-cart-btn mt-2">
                             <!-- Order Modal  -->
                             <a href="#" data-product_id="{{ $product->id }}"
                                 class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
@@ -509,25 +511,29 @@
                         </div>
                     </div>
                 </div>
-                <section class="ps-section--also" data-background="img/related-bg.jpg">
+                <section class="ps-section--also mb-0 mb-lg-3" data-background="img/related-bg.jpg">
                     <div class="container px-0">
                         <h3 class="ps-section__title">গ্রাহক আরও কিনেছেন</h3>
-                        <div class="row">
-                        @foreach ($related_products->take(4) as $related_product)
-                                <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="row g-0">
+                            @foreach ($related_products->take(4) as $related_product)
+                                <div class="col-md-3 col-sm-6 mb-4 pr-3 pr-lg-0">
                                     <div class="ps-section__product border">
                                         <div class="ps-product ps-product--standard">
                                             <div class="ps-product__thumbnail">
-                                                <a class="ps-product__image" href="{{ route('product.details', $related_product->slug) }}">
+                                                <a class="ps-product__image"
+                                                    href="{{ route('product.details', $related_product->slug) }}">
                                                     <figure>
                                                         @if (!empty($related_product->thumbnail))
                                                             @php
-                                                                $thumbnailPath = 'storage/' . $related_product->thumbnail;
+                                                                $thumbnailPath =
+                                                                    'storage/' . $related_product->thumbnail;
                                                                 $thumbnailSrc = file_exists(public_path($thumbnailPath))
                                                                     ? asset($thumbnailPath)
                                                                     : asset('frontend/img/no-product.jpg');
                                                             @endphp
-                                                            <img src="{{ $thumbnailSrc }}" alt="{{ $related_product->meta_title }}" width="210" height="210" />
+                                                            <img src="{{ $thumbnailSrc }}"
+                                                                alt="{{ $related_product->meta_title }}"
+                                                                width="210" height="210" />
                                                         @else
                                                             @foreach ($related_product->multiImages->slice(0, 2) as $image)
                                                                 @php
@@ -536,7 +542,9 @@
                                                                         ? asset($imagePath)
                                                                         : asset('frontend/img/no-product.jpg');
                                                                 @endphp
-                                                                <img src="{{ $imageSrc }}" alt="{{ $related_product->meta_title }}" width="210" height="210" />
+                                                                <img src="{{ $imageSrc }}"
+                                                                    alt="{{ $related_product->meta_title }}"
+                                                                    width="210" height="210" />
                                                             @endforeach
                                                         @endif
                                                     </figure>
@@ -544,7 +552,8 @@
                                                 @if (!empty($related_product->unit_discount_price))
                                                     <div class="ps-product__badge">
                                                         <div class="ps-badge ps-badge--sale">
-                                                            -{{ number_format((($related_product->unit_price - $related_product->unit_discount_price) / $related_product->unit_price) * 100, 1) }}% অফ
+                                                            -{{ number_format((($related_product->unit_price - $related_product->unit_discount_price) / $related_product->unit_price) * 100, 1) }}%
+                                                            অফ
                                                         </div>
                                                     </div>
                                                 @endif
@@ -558,17 +567,24 @@
                                                 <div class="pb-3">
                                                     @if (!empty($related_product->unit_discount_price))
                                                         <div class="ps-product__meta">
-                                                            <span class="ps-product__price sale fw-bold" style="font-weight:600;">দাম {{ $related_product->unit_discount_price }} টাকা</span>
-                                                            <span class="ps-product__del text-danger">{{ $related_product->unit_price }} টাকা</span>
+                                                            <span class="ps-product__price sale fw-bold"
+                                                                style="font-weight:600;">দাম
+                                                                {{ $related_product->unit_discount_price }} টাকা</span>
+                                                            <span
+                                                                class="ps-product__del text-danger">{{ $related_product->unit_price }}
+                                                                টাকা</span>
                                                         </div>
                                                     @else
                                                         <div class="ps-product__meta">
-                                                            <span class="ps-product__price sale fw-bold" style="font-weight:600;">দাম {{ $related_product->unit_price }} টাকা</span>
+                                                            <span class="ps-product__price sale fw-bold"
+                                                                style="font-weight:600;">দাম
+                                                                {{ $related_product->unit_price }} টাকা</span>
                                                         </div>
                                                     @endif
                                                 </div>
                                                 <div class="d-flex align-items-center card-cart-btn">
-                                                    <a href="{{ route('buy.now', $related_product->id) }}" class="btn btn-primary rounded-0 w-100">
+                                                    <a href="{{ route('buy.now', $related_product->id) }}"
+                                                        class="btn btn-primary rounded-0 w-100">
                                                         <i class="fa-solid fa-basket-shopping pr-2"></i> অর্ডার করুন
                                                     </a>
                                                 </div>

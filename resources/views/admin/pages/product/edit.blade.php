@@ -232,8 +232,8 @@
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="row">
-                                            <div class="col-lg-4">
-                                                <label class="form-label">Thumbnail Image</label>
+                                            <div class="col-lg-2">
+                                                <label class="form-label">Single Image</label> <br>
                                                 <div class="image-input image-input-empty" data-kt-image-input="true"
                                                     style="background-image: url({{ asset('storage/' . $product->thumbnail) }}); width: auto; background-size: contain;
                                                     background-position: center;
@@ -269,7 +269,7 @@
                                                 </div>
                                                 <div class="invalid-feedback"> Please Enter Thumbnail Image. </div>
                                             </div>
-                                            <div class="col-lg-8">
+                                            <div class="col-lg-10">
                                                 <label class="form-label">Multi Image</label>
                                                 <div class="dropzone-field">
                                                     <label for="files" class="custom-file-upload">
