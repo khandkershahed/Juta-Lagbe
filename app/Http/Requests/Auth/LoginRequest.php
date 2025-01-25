@@ -51,7 +51,6 @@ class LoginRequest extends FormRequest
         // }
         $phone = $this->input('phone'); // Assuming the input field is named 'phone'
 
-        // Authenticate using the phone and password
         $credentials = [
             'phone' => $phone,
             'password' => $this->input('password'),
@@ -61,7 +60,6 @@ class LoginRequest extends FormRequest
         if (!Auth::attempt($credentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
-            // Throw a validation exception with a custom error message
             throw ValidationException::withMessages([
                 'phone' => trans('auth.failed'),
             ]);
