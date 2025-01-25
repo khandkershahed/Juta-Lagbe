@@ -34,7 +34,7 @@
                                                 class="text-danger">*</span></x-input-label>
                                         <input id="name" class="form-control ps-form__input" type="text"
                                             name="name" value="{{ old('name') }}" autofocus required
-                                            autocomplete="name" placeholder="Enter Your First Name" />
+                                            autocomplete="name" placeholder="আপনার নাম" />
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 
@@ -43,7 +43,7 @@
                                         <label class="ps-form__label" for="email">ইমেইল<span
                                                 class="text-danger">*</span></label>
                                         <input id="email" class="form-control ps-form__input" type="email"
-                                            name="email" placeholder="Enter Your Email" value="{{ old('email') }}"
+                                            name="email" placeholder="আপনার ইমেইল" value="{{ old('email') }}"
                                             autocomplete="email" />
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
@@ -54,7 +54,7 @@
                                         <x-input-label class="ps-form__label" for="phone" :value="__('ফোন নাম্বার')" />
                                         <div class="input-group">
                                             <input id="phone" class="form-control ps-form__input" type="tel"
-                                                name="phone" placeholder="Enter Your Phone Number"
+                                                name="phone" placeholder="আপনার ফোন নাম্বার"
                                                 value="{{ old('phone') }}" autocomplete="tel" />
                                         </div>
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
