@@ -49,25 +49,16 @@
                                                                 <h4>Account Information</h4>
                                                                 <hr>
                                                             </div>
-                                                            <div class="col-12 col-md-4">
+                                                            <div class="col-12 col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="ps-checkout__label">First name
+                                                                    <label class="ps-checkout__label">আপনার নাম
                                                                         <span class="text-danger">*</span> </label>
-                                                                    <input class="form-control" name="first_name"
-                                                                        value="{{ old('first_name', Auth::user()->first_name) }}"
+                                                                    <input class="form-control" name="name"
+                                                                        value="{{ old('name', Auth::user()->name) }}"
                                                                         type="text" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group">
-                                                                    <label class="ps-checkout__label">Last name
-                                                                        <span class="text-danger">*</span> </label>
-                                                                    <input class="form-control" name="last_name"
-                                                                        value="{{ old('last_name', Auth::user()->last_name) }}"
-                                                                        type="text" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-md-4">
+                                                            <div class="col-12 col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="ps-checkout__label">Phone <span
                                                                             class="text-danger">*</span> </label>
@@ -78,7 +69,7 @@
                                                             </div>
                                                             <!-- Billing Information Section -->
                                                             <div class="col-12 mt-4">
-                                                                <h4>Shipping Information</h4>
+                                                                <h4>Information</h4>
                                                                 <hr>
                                                             </div>
                                                             <div class="col-12 col-md-6">

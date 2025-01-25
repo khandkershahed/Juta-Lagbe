@@ -283,6 +283,12 @@
                                                         HOME
                                                     </a>
                                                 </li>
+                                                <li class="menu-item menus-items-head">
+                                                    <a class="fromCenter {{ Route::currentRouteName() === 'allproducts' ? 'active-menu' : '' }} mb-0"
+                                                        href="{{ route('allproducts') }}">
+                                                        SHOP
+                                                    </a>
+                                                </li>
                                                 @foreach ($categories as $index => $category)
                                                     <li class="menu-item menus-items-head"
                                                         data-index="{{ $index }}">
