@@ -219,67 +219,6 @@
                     </section>
                 </section>
             @endif
-            {{-- <section class="mb-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 pl-0">
-                            <div class="row banner-first-row">
-                                <div class="col-lg-12 mb-4">
-                                    <div class="image-container">
-                                        <a href="">
-                                            <img class="img-fluid"
-                                                src="{{ asset('images/home-banner-side-one.png') }}" alt="">
-                                            <span class="overlay-text">Your Text Here</span>
-                                            <!-- Text that appears on hover -->
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="image-container">
-                                        <a href="">
-                                            <img class="img-fluid"
-                                                src="{{ asset('images/home-banner-side-two.png') }}" alt="">
-                                            <span class="overlay-text">Your Text Here</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 px-2">
-                            <div class="image-container">
-                                <a href="" class="section-banner-main">
-                                    <img class="img-fluid" src="{{ asset('images/home-banner-side-center.png') }}"
-                                        alt="">
-                                    <span class="overlay-text">Your Text Here</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 pr-3 pr-lg-0">
-                            <div class="row">
-                                <div class="col-lg-12 mb-4">
-                                    <div class="image-container">
-                                        <a href="">
-                                            <img class="img-fluid"
-                                                src="{{ asset('images/home-banner-side-three.png') }}"
-                                                alt="">
-                                            <span class="overlay-text">Your Text Here</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="image-container">
-                                        <a href="">
-                                            <img class="img-fluid"
-                                                src="{{ asset('images/home-banner-side-four.png') }}" alt="">
-                                            <span class="overlay-text">Your Text Here</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> --}}
             @if ($categoryone && $categoryoneproducts->count() > 0)
                 <div class="container px-0">
                     <div class="row">
@@ -293,7 +232,7 @@
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
                                 <div class="ps-delivery ps-delivery--info p-0">
-                                    <a class="ps-delivery__more" href="shop">আরো দেখুন <i
+                                    <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন <i
                                             class="fa-solid fa-"></i></a>
                                 </div>
                             </div>
@@ -480,7 +419,7 @@
                                         <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                     </div>
                                     <div class="ps-delivery ps-delivery--info p-0">
-                                        <a class="ps-delivery__more" href="shop">আরো দেখুন <i
+                                        <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন <i
                                                 class="fa-solid fa-"></i></a>
                                     </div>
                                 </div>
@@ -689,58 +628,80 @@
                 </section>
             @endif
             {{-- Video Section Start --}}
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="d-flex justify-content-between align-items-center py-2 py-lg-5">
-                            <div class="">
-                                <h3 class="ps-section__title mb-0" style="font-size: 30px;">
-                                    Live
-                                </h3>
-                            </div>
-                            <div style="width: 900px" class="px-3">
-                                <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
-                            </div>
-                            <div class="ps-delivery ps-delivery--info p-0">
-                                <a class="ps-delivery__more" href="shop">আরো দেখুন
-                                    <i class="fa-solid fa-"></i>
-                                </a>
+            @if ($categoryfour && $categoryFourProducts->count() > 0)
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="d-flex justify-content-between align-items-center py-2 py-lg-5">
+                                <div class="">
+                                    <h3 class="ps-section__title mb-0" style="font-size: 30px;">
+                                        {{ optional($categoryfour)->name }}
+                                    </h3>
+                                </div>
+                                <div style="width: 900px" class="px-3">
+                                    <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
+                                </div>
+                                <div class="ps-delivery ps-delivery--info p-0">
+                                    <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন
+                                        <i class="fa-solid fa-"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <!-- First Column -->
-                    <div class="col-lg-3">
-                        <a href="#">
-                            <div class="card p-0 video-box-pr">
-                                <div class="card-header p-0">
-                                    <div class="player" data-plyr-provider="youtube"
-                                        data-plyr-embed-id="bTqVqk7FSmY">
-                                    </div>
-                                </div>
-                                <div class="card-body ">
-                                    <div class="video-category-info">
-                                        <div>
-                                            <img class="img-fluid shadow-sm border"
-                                                src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/Artboard1_0684daf7-e7d9-4224-9724-07271a45c73a_200x200.png?v=1698315950"
-                                                alt="">
+                    <div class="row">
+                        <!-- First Column -->
+                        @foreach ($categoryFourProducts as $categoryFourProduct)
+                            <div class="col-lg-3">
+                                <a href="{{ route('product.details', $categoryFourProduct->slug) }}">
+                                    <div class="card p-0 video-box-pr">
+                                        <div class="card-header p-0">
+                                            <div class="player" data-plyr-provider="youtube"
+                                                data-plyr-embed-id="{{ $categoryFourProduct->video_link }}">
+                                            </div>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="video-category-info">
+                                                <div>
+                                                    @php
+                                                        $thumbnailPath = 'storage/' . $categoryFourProduct->thumbnail;
+                                                        $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                            ? asset($thumbnailPath)
+                                                            : asset('frontend/img/no-product.jpg');
+                                                    @endphp
+                                                    <img src="{{ $thumbnailSrc }}" class="img-fluid shadow-sm border"
+                                                        alt="{{ $categoryFourProduct->meta_title }}" />
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <h6 class="video-pr-title">{{ $categoryFourProduct->name }}</h6>
+                                                <p>
+                                                    @if (!empty($categorytwoproduct->unit_discount_price))
+                                                        <span
+                                                            class="text-success fw-bold fs-2 video-price">{{ $categorytwoproduct->unit_discount_price }}
+                                                            টাকা</span>
+                                                        <del class="video-discount">{{ $categorytwoproduct->unit_price }}
+                                                            টাকা</del>
+                                                        <span class="video-off">
+                                                            {{ !empty($categorytwoproduct->unit_discount_price) && $categorytwoproduct->unit_discount_price > 0 ? number_format((($categorytwoproduct->unit_price - $categorytwoproduct->unit_discount_price) / $categorytwoproduct->unit_price) * 100, 1) : 0 }}
+                                                            Off
+                                                        </span>
+                                                    @else
+                                                        <span
+                                                            class="text-success fw-bold fs-2 video-price">{{ $categorytwoproduct->unit_price }}
+                                                            টাকা</span>
+                                                    @endif
+
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="text-center">
-                                        <h6 class="video-pr-title">boAt Airdopes 71</h6>
-                                        <p>
-                                            <span class="text-success fw-bold fs-2 video-price">₹999</span>
-                                            <del class="video-discount">₹3,990</del>
-                                            <span class="video-off">75% Off</span>
-                                        </p>
-                                    </div>
-                                </div>
+                                </a>
                             </div>
-                        </a>
+                        @endforeach
                     </div>
                 </div>
-            </div>
+            @endif
             {{-- Video Section End --}}
             @if ($categorythree && $categorythreeproducts->count() > 0)
                 <div class="container px-0 mb-5 pb-0 pb-lg-5">
@@ -755,7 +716,7 @@
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
                                 <div class="ps-delivery ps-delivery--info p-0">
-                                    <a class="ps-delivery__more" href="shop">আরো দেখুন <i
+                                    <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন <i
                                             class="fa-solid fa-"></i></a>
                                 </div>
                             </div>

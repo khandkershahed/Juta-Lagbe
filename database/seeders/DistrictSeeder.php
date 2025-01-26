@@ -60,7 +60,7 @@ class DistrictSeeder extends Seeder
             ['id' => '44', 'division_id' => '6', 'name' => 'Tangail', 'bn_name' => 'টাঙ্গাইল', 'lat' => NULL, 'lon' => NULL, 'url' => 'www.tangail.gov.bd'],
             ['id' => '45', 'division_id' => '6', 'name' => 'Kishoreganj', 'bn_name' => 'কিশোরগঞ্জ', 'lat' => '24.444937', 'lon' => '90.776575', 'url' => 'www.kishoreganj.gov.bd'],
             ['id' => '46', 'division_id' => '6', 'name' => 'Manikganj', 'bn_name' => 'মানিকগঞ্জ', 'lat' => NULL, 'lon' => NULL, 'url' => 'www.manikganj.gov.bd'],
-            ['id' => '47', 'division_id' => '6', 'name' => 'Dhaka', 'bn_name' => 'ঢাকা', 'lat' => '23.7115253', 'lon' => '90.4111451', 'url' => 'www.dhaka.gov.bd'],
+            ['id' => '47', 'division_id' => '6', 'name' => 'Dhaka Metro Outside', 'bn_name' => 'ঢাকা সিটির বাইরে', 'lat' => '23.7115253', 'lon' => '90.4111451', 'url' => 'www.dhaka.gov.bd'],
             ['id' => '48', 'division_id' => '6', 'name' => 'Munshiganj', 'bn_name' => 'মুন্সিগঞ্জ', 'lat' => NULL, 'lon' => NULL, 'url' => 'www.munshiganj.gov.bd'],
             ['id' => '49', 'division_id' => '6', 'name' => 'Rajbari', 'bn_name' => 'রাজবাড়ী', 'lat' => '23.7574305', 'lon' => '89.6444665', 'url' => 'www.rajbari.gov.bd'],
             ['id' => '50', 'division_id' => '6', 'name' => 'Madaripur', 'bn_name' => 'মাদারীপুর', 'lat' => '23.164102', 'lon' => '90.1896805', 'url' => 'www.madaripur.gov.bd'],

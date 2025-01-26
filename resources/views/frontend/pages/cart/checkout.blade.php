@@ -59,7 +59,8 @@
                                                         <option value="" disabled selected>বিভাগ</option>
                                                         @foreach ($bd_divisions as $division)
                                                             <option value="{{ $division->bn_name }}"
-                                                                @selected(old('division') == $division->bn_name)>{{ $division->bn_name }} - {{ $division->name }}
+                                                                @selected(old('division') == $division->bn_name)>{{ $division->bn_name }} -
+                                                                {{ $division->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -199,10 +200,18 @@
                                                     </div>
                                                     <div class="">
                                                         <a
-                                                            href="{{ route('product.details', $cartItem->model->slug) }}">{{ $cartItem->model->name }}</a><span
-                                                            class="pl-3 pr-1">
-                                                            <i class="fa-solid fa-close"></i></span><span
-                                                            class="text-end">{{ convertToBangla($cartItem->qty) }}</span>
+                                                            href="{{ route('product.details', $cartItem->model->slug) }}">{{ $cartItem->model->name }}
+                                                        </a>
+                                                        <span class="pl-3 pr-1">
+                                                            <i class="fa-solid fa-close"></i>
+                                                        </span>
+                                                        <span class="text-end">
+                                                            {{ convertToBangla($cartItem->qty) }}
+                                                        </span>
+                                                        <br>
+                                                        <span>
+                                                            <strong>Size :  {{ $cartItem->options->size }}</strong>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class="ps-product__price">
