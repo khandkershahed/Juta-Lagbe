@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "310d515421361541c8fc26beb08f4718",
+    "content-hash": "177273c9e66fecb7ac5ef2e889378d4b",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2310,6 +2310,54 @@
             "time": "2024-01-28T23:22:08+00:00"
         },
         {
+            "name": "lemonpatwari/bangladeshgeocode",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lemonpatwari/laravel-bangladesh-geocode.git",
+                "reference": "504479a8c2c935afdffb2bb26773a04bf3dd334d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lemonpatwari/laravel-bangladesh-geocode/zipball/504479a8c2c935afdffb2bb26773a04bf3dd334d",
+                "reference": "504479a8c2c935afdffb2bb26773a04bf3dd334d",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "lemonpatwari\\bangladeshgeocode\\BangladeshGeocodeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "lemonpatwari\\bangladeshgeocode\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lemon Patwari",
+                    "email": "lemonpatwari@gmail.com"
+                }
+            ],
+            "description": "Bangladesh Geocode",
+            "keywords": [
+                "bangladesh-geocode",
+                "lemonpatwari"
+            ],
+            "support": {
+                "issues": "https://github.com/lemonpatwari/laravel-bangladesh-geocode/issues",
+                "source": "https://github.com/lemonpatwari/laravel-bangladesh-geocode/tree/v2.0.4"
+            },
+            "time": "2021-09-07T18:08:14+00:00"
+        },
+        {
             "name": "masterminds/html5",
             "version": "2.9.0",
             "source": {
@@ -3996,57 +4044,6 @@
                 "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.6.0"
             },
             "time": "2024-07-01T07:33:21+00:00"
-        },
-        {
-            "name": "sandofvega/bdgeocode",
-            "version": "v1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sandofvega/laravel-bangladesh-geocode.git",
-                "reference": "7fa0c14f8f027892114c1b6a7eaaf0f9b6106c7c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sandofvega/laravel-bangladesh-geocode/zipball/7fa0c14f8f027892114c1b6a7eaaf0f9b6106c7c",
-                "reference": "7fa0c14f8f027892114c1b6a7eaaf0f9b6106c7c",
-                "shasum": ""
-            },
-            "type": "laravel",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Sandofvega\\Bdgeocode\\BdgeocodeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Sandofvega\\Bdgeocode\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sand Of Vega",
-                    "email": "yasin@sandofvega.com",
-                    "homepage": "https://sandofvega.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Division, District, Upazila and Union level fully mapped Database.",
-            "keywords": [
-                "bangladesh",
-                "geocode",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/sandofvega/laravel-bangladesh-geocode/issues",
-                "source": "https://github.com/sandofvega/laravel-bangladesh-geocode/tree/master"
-            },
-            "time": "2018-09-10T09:01:38+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -10500,12 +10497,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

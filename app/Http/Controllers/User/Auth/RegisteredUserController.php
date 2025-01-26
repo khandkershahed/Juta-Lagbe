@@ -18,8 +18,8 @@ use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Sandofvega\Bdgeocode\Models\District;
-use Sandofvega\Bdgeocode\Models\Division;
+use lemonpatwari\bangladeshgeocode\Models\District;
+use lemonpatwari\bangladeshgeocode\Models\Division;
 
 class RegisteredUserController extends Controller
 {

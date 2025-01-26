@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\ShippingMethod;
 use App\Http\Controllers\Controller;
-use Sandofvega\Bdgeocode\Models\Thana;
+use lemonpatwari\bangladeshgeocode\Models\Thana;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 

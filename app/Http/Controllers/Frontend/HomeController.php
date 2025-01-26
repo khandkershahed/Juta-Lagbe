@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Sandofvega\Bdgeocode\Models\District;
-use Sandofvega\Bdgeocode\Models\Division;
+use lemonpatwari\bangladeshgeocode\Models\District;
+use lemonpatwari\bangladeshgeocode\Models\Division;
 
 class HomeController extends Controller
 {
