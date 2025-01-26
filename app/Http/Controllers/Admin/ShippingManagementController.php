@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use lemonpatwari\bangladeshgeocode\Models\Thana;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use lemonpatwari\bangladeshgeocode\Models\District;
 
 class ShippingManagementController extends Controller
 {
@@ -29,7 +30,7 @@ class ShippingManagementController extends Controller
     {
         // Return the view for creating a new shipping method
         $data = [
-            'thanas' => Thana::all(),
+            'thanas' => District::all(),
         ];
         return view('admin.pages.shippingManagement.create',$data);
     }
@@ -78,7 +79,7 @@ class ShippingManagementController extends Controller
     {
         $data = [
             'method' => ShippingMethod::findOrFail($id),
-            'thanas' => Thana::all(),
+            'thanas' => District::all(),
         ];
         return view('admin.pages.shippingManagement.edit',$data);
     }

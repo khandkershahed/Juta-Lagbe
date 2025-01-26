@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use lemonpatwari\bangladeshgeocode\Models\Thana;
 use lemonpatwari\bangladeshgeocode\Models\District;
 use lemonpatwari\bangladeshgeocode\Models\Division;
 
@@ -277,9 +278,11 @@ class HomeController extends Controller
     }
     public function getShippingCahrgeByThana($thanaName)
     {
-        $charge = ShippingMethod::whereJsonContains('thana', $thanaName)->first();
 
-        if ($charge) {
+        $thana = Thana::where('bn_name', $thanaName)->first();
+        $charge = ShippingMethod::whereJsonContains('thana', optional($thana->district)->bn_name)->first();
+
+        if ($thana) {
             $price = $charge->price;
             return response()->json(['price' => $price,'id' => $charge->id]);
         }

@@ -40,7 +40,7 @@
                             <option>Choose thana</option>
                             @foreach ($thanas as $thana)
                                 <option value="{{ $thana->bn_name }}" @selected(is_array($selected_thanas) && in_array($thana->bn_name, $selected_thanas))>
-                                    {{ $thana->bn_name }}</option>
+                                    {{ $thana->bn_name }} - {{ $thana->name }}</option>
                             @endforeach
                         </select>
                     </div>

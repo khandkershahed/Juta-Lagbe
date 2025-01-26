@@ -59,7 +59,7 @@
                                                         <option value="" disabled selected>বিভাগ</option>
                                                         @foreach ($bd_divisions as $division)
                                                             <option value="{{ $division->bn_name }}"
-                                                                @selected(old('division') == $division->bn_name)>{{ $division->bn_name }}
+                                                                @selected(old('division') == $division->bn_name)>{{ $division->bn_name }} - {{ $division->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -263,6 +263,23 @@
     </div>
     @push('scripts')
         <script>
+            $(document).ready(function() {
+                $('#division').select2({
+                    placeholder: "বিভাগ",
+                    allowClear: true
+                });
+
+                $('#district').select2({
+                    placeholder: "জেলা",
+                    allowClear: true
+                });
+
+                $('#thana').select2({
+                    placeholder: "থানা",
+                    allowClear: true
+                });
+            });
+
             function convertToBangla(number) {
                 const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
                 const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
@@ -303,37 +320,37 @@
             });
         </script>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                function convertToBangla(number) {
-                    const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-                    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+            // document.addEventListener('DOMContentLoaded', function() {
+            //     function convertToBangla(number) {
+            //         const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            //         const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
 
-                    return number.replace(/[0-9]/g, function(digit) {
-                        return banglaDigits[englishDigits.indexOf(digit)];
-                    });
-                }
-                const subtotal = parseFloat('{{ $subTotal }}');
-                const totalInput = document.getElementById('total-input');
-                const totalPriceSpan = document.getElementById('total-price');
-                const shippingCharge = document.getElementById('shippingCharge');
+            //         return number.replace(/[0-9]/g, function(digit) {
+            //             return banglaDigits[englishDigits.indexOf(digit)];
+            //         });
+            //     }
+            //     const subtotal = parseFloat('{{ $subTotal }}');
+            //     const totalInput = document.getElementById('total-input');
+            //     const totalPriceSpan = document.getElementById('total-price');
+            //     const shippingCharge = document.getElementById('shippingCharge');
 
-                document.querySelectorAll('input[name="shipping_id"]').forEach(function(radio) {
-                    radio.addEventListener('change', function() {
-                        const shippingPrice = parseFloat(this.getAttribute('data-shipping_price')) || 0;
-                        const total = subtotal + shippingPrice;
-                        shippingCharge.textContent = convertToBangla(shippingPrice.toFixed(2));
+            //     document.querySelectorAll('input[name="shipping_id"]').forEach(function(radio) {
+            //         radio.addEventListener('change', function() {
+            //             const shippingPrice = parseFloat(this.getAttribute('data-shipping_price')) || 0;
+            //             const total = subtotal + shippingPrice;
+            //             shippingCharge.textContent = convertToBangla(shippingPrice.toFixed(2));
 
-                        totalInput.value = total.toFixed(2); // Update hidden field value
-                        totalPriceSpan.textContent = convertToBangla(total.toFixed(
-                            2)); // Update the visible total price
-                    });
-                });
-                const defaultShippingRadio = document.querySelector('input[name="shipping_id"]:checked');
-                if (defaultShippingRadio) {
-                    defaultShippingRadio.dispatchEvent(new Event('change'));
-                }
+            //             totalInput.value = total.toFixed(2); // Update hidden field value
+            //             totalPriceSpan.textContent = convertToBangla(total.toFixed(
+            //                 2)); // Update the visible total price
+            //         });
+            //     });
+            //     const defaultShippingRadio = document.querySelector('input[name="shipping_id"]:checked');
+            //     if (defaultShippingRadio) {
+            //         defaultShippingRadio.dispatchEvent(new Event('change'));
+            //     }
 
-            });
+            // });
         </script>
     @endpush
 </x-frontend-app-layout>
