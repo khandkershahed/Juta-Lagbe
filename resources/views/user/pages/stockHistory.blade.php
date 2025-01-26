@@ -3,7 +3,7 @@
         .nav-tabs .nav-item.show .nav-link,
         .nav-tabs .nav-link.active {
             color: #ffffff;
-            background-color: #029f9a;
+            background-color: #004d7a;
             border-color: #dee2e6 #dee2e6 #fff;
         }
     </style>

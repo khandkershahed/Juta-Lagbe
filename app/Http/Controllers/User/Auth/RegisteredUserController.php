@@ -47,7 +47,7 @@ class RegisteredUserController extends Controller
         $validator = Validator::make($request->all(), [
             'title'                 => 'nullable|in:Mr,Mrs,Ms',
             'name'                  => 'nullable|string|max:100',
-            'email'                 => ['required', 'string', 'email', 'max:255'],
+            // 'email'                 => ['required', 'string', 'email', 'max:255'],
             'password'              => ['required', 'string'],
             // 'password'              => ['required', 'string', 'confirmed'],
             'phone'                 => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11|unique:users,phone',

@@ -1,8 +1,5 @@
 <x-frontend-app-layout :title="'Home Page'">
     <section class="ps-section--banner">
-        {{-- <div class="ps-section__overlay">
-            <div class="ps-section__loading"></div>
-        </div> --}}
         <div class="main-banner">
             <img src="{{ asset('images/jutalagbe-main-banner.jpg') }}" alt="">
         </div>
@@ -295,7 +292,7 @@
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
                                 <div class="ps-delivery ps-delivery--info p-0">
-                                    <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i
+                                    <a class="ps-delivery__more" href="shop">আরো দেখুন <i
                                             class="fa-solid fa-"></i></a>
                                 </div>
                             </div>
@@ -444,7 +441,7 @@
                 </div>
             @endif
             <div class="container-fluid"
-                style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+                style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
                 <div class="container juta-delivery">
                     <div class="row align-items-center">
                         <div class="col-lg-8">
@@ -482,7 +479,7 @@
                                         <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                     </div>
                                     <div class="ps-delivery ps-delivery--info p-0">
-                                        <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i
+                                        <a class="ps-delivery__more" href="shop">আরো দেখুন <i
                                                 class="fa-solid fa-"></i></a>
                                     </div>
                                 </div>
@@ -690,127 +687,6 @@
                     </div>
                 </section>
             @endif
-            <section>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="d-flex justify-content-between align-items-center py-4 pt-0 py-lg-5">
-                                <div class="">
-                                    <h3 class="ps-section__title mb-0" style="font-size: 30px;">
-                                        {{ optional($categoryone)->name }}</h3>
-                                </div>
-                                <div style="width: 900px" class="px-3">
-                                    <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
-                                </div>
-                                <div class="ps-delivery ps-delivery--info p-0">
-                                    <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i
-                                            class="fa-solid fa-"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="col-lg-12">
-                            <div class="row gx-2 pb-2 pb-lg-5">
-                                <div class="col-6 col-lg-3 col-md-3 mb-3 px-1">
-                                    <div class="card p-0 border-0 video-card-home rounded-4">
-                                        <div class="card-body p-0 video-container-home">
-                                            <iframe class="video-player" width="560" height="315"
-                                                src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
-                                                title="YouTube video player" frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                                            </iframe>
-                                            <div class="content">
-                                                <div class="video-box-img">
-                                                    <img class="img-fluid"
-                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                        alt="">
-                                                </div>
-                                                <p>boAt Airdopes 71</p>
-                                                <p><span class="site-text">Tk899</span>
-                                                    <del class="text-danger">₹3,990</del>
-                                                    <span class="text-">77% off</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-lg-3 col-md-3 mb-3 px-1">
-                                    <div class="card p-0 border-0 video-card-home rounded-4">
-                                        <div class="card-body p-0 video-container-home">
-                                            <iframe class="video-player" width="560" height="315"
-                                                src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
-                                                title="YouTube video player" frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                                            </iframe>
-                                            <div class="content">
-                                                <div class="video-box-img">
-                                                    <img class="img-fluid"
-                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                        alt="">
-                                                </div>
-                                                <p>boAt Airdopes 71</p>
-                                                <p><span class="site-text">Tk899</span>
-                                                    <del class="text-danger">₹3,990</del>
-                                                    <span class="text-">77% off</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-lg-3 col-md-3 mb-3 px-1">
-                                    <div class="card p-0 border-0 video-card-home rounded-4">
-                                        <div class="card-body p-0 video-container-home">
-                                            <iframe class="video-player" width="560" height="315"
-                                                src="https://www.youtube.com/embed/QrxHb9_fQI0?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
-                                                title="YouTube video player" frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                                            </iframe>
-                                            <div class="content">
-                                                <div class="video-box-img">
-                                                    <img class="img-fluid"
-                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                        alt="">
-                                                </div>
-                                                <p>boAt Airdopes 71</p>
-                                                <p><span class="site-text">Tk899</span>
-                                                    <del class="text-danger">₹3,990</del>
-                                                    <span class="text-">77% off</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-lg-3 col-md-3 mb-3 px-1">
-                                    <div class="card p-0 border-0 video-card-home rounded-4">
-                                        <div class="card-body p-0 video-container-home">
-                                            <iframe class="video-player" width="560" height="315"
-                                                src="https://www.youtube.com/embed/dJbOGAkVoZo?si=fKA3TT5HX-yqvzG5?enablejsapi=1&autohide=1&showinfo=0&controls=0&modestbranding=1&rel=0&fs=0"
-                                                title="YouTube video player" frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                                            </iframe>
-                                            <div class="content">
-                                                <div class="video-box-img">
-                                                    <img class="img-fluid"
-                                                        src="https://www.boat-lifestyle.com/cdn/shop/files/Artboard1_29f1ddec-efbb-495f-ba68-90084a1180e4_600x.png?v=1698315950"
-                                                        alt="">
-                                                </div>
-                                                <p>boAt Airdopes 71</p>
-                                                <p><span class="site-text">Tk899</span>
-                                                    <del class="text-danger">₹3,990</del>
-                                                    <span class="text-">77% off</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-                    </div>
-                </div>
-            </section>
             @if ($categorythree && $categorythreeproducts->count() > 0)
                 <div class="container px-0 mb-5 pb-0 pb-lg-5">
                     <div class="row">
@@ -824,7 +700,7 @@
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
                                 <div class="ps-delivery ps-delivery--info p-0">
-                                    <a class="ps-delivery__more" href="http://127.0.0.1:8000/shop">আরো দেখুন <i
+                                    <a class="ps-delivery__more" href="shop">আরো দেখুন <i
                                             class="fa-solid fa-"></i></a>
                                 </div>
                             </div>
@@ -1207,40 +1083,6 @@
 
     @include('frontend.layouts.HomeQuickViewModal')
     @push('scripts')
-        {{-- <script>
-            $(document).ready(function() {
-                var iframe = $('.video-player')[0];
-                var player;
-
-                // YouTube API script
-                var tag = document.createElement('script');
-                tag.src = "https://www.youtube.com/iframe_api";
-                var firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-                // Create YouTube player after API script is loaded
-                window.onYouTubeIframeAPIReady = function() {
-                    player = new YT.Player(iframe, {
-                        events: {
-                            'onReady': onPlayerReady
-                        }
-                    });
-                };
-
-                // Function to play the video when it's ready
-                function onPlayerReady(event) {
-                    // Allow immediate playback when hovering over the video container
-                    $('.video-container-home').on('mouseenter', function() {
-                        player.playVideo();
-                    });
-
-                    // Pause the video when mouse leaves the iframe
-                    $('.video-container-home').on('mouseleave', function() {
-                        player.pauseVideo();
-                    });
-                }
-            });
-        </script> --}}
         <script>
             $(document).ready(function() {
                 // Initialize Owl Carousel

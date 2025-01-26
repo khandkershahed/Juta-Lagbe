@@ -162,15 +162,28 @@ class HomeController extends Controller
         ];
         return view('frontend.pages.product.productDetails', $data);
     }
-    // public function categoryProducts($slug)
+
+    // public function categoryProducts(Request $request, $slug)
     // {
-    //     $category = Category::where('slug', $slug)->firstOrFail();
+    //     // Using caching to avoid fetching the same categories on every request
+    //     $categories = Cache::remember('categories', 60, function () {
+    //         return Category::orderBy('name', 'ASC')->active()->get(['id', 'name', 'slug']);
+    //     });
+
+    //     // Use eager loading to prevent N+1 problem
+    //     $category = Category::with(['catProducts.multiImages', 'catProducts.reviews'])
+    //         ->where('slug', $slug)
+    //         ->firstOrFail();
+
+    //     // Pass the data to the view
     //     $data = [
-    //         'category'                => $category,
-    //         'categories'              => Category::orderBy('name', 'ASC')->active()->get(),
+    //         'category'   => $category,
+    //         'categories' => $categories,
     //     ];
+
     //     return view('frontend.pages.categoryDetails', $data);
     // }
+
     public function categoryProducts(Request $request, $slug)
     {
         // Using caching to avoid fetching the same categories on every request
@@ -178,19 +191,48 @@ class HomeController extends Controller
             return Category::orderBy('name', 'ASC')->active()->get(['id', 'name', 'slug']);
         });
 
-        // Use eager loading to prevent N+1 problem
+        // Get the current category
         $category = Category::with(['catProducts.multiImages', 'catProducts.reviews'])
             ->where('slug', $slug)
             ->firstOrFail();
 
+        // Start the query to fetch products for this category
+        $query = Product::whereJsonContains('category_id', $category->id);
+
+        // Apply Price filter if present
+        if ($request->has('price_min') && $request->has('price_max')) {
+            $priceMin = $request->input('price_min');
+            $priceMax = $request->input('price_max');
+            $query->whereBetween('unit_price', [$priceMin, $priceMax]);
+        }
+
+        // Apply Size filter if present
+        if ($request->has('size')) {
+            $size = $request->input('size'); // Single size selected
+            $query->whereJsonContains('size', $size); // Filter by size
+        }
+
+        // Get the filtered products
+        $products = $query->active()->paginate(12); // Adjust pagination as needed
+        // dd($products);
+
         // Pass the data to the view
         $data = [
-            'category'   => $category,
-            'categories' => $categories,
+            'category'       => $category,
+            'categories'     => $categories,
+            'products'       => $products,
+            'price_min'      => $request->input('price_min', 10),
+            'price_max'      => $request->input('price_max', 10000),
+            'selected_size'  => $request->input('size', null),
+            'sizes'          => ['38', '39', '40', '41', '42', '43', '44'], // You can fetch dynamic sizes here
         ];
 
         return view('frontend.pages.categoryDetails', $data);
     }
+
+
+
+
 
     public function compareList()
     {

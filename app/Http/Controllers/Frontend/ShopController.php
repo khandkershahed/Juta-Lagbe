@@ -21,6 +21,7 @@ class ShopController extends Controller
             'brands'       => Brand::orderBy('name', 'ASC')->active()->get(),
             'products'     => Product::with('reviews')->latest('id')->active()->paginate(10),
             'deal'         => DealBanner::active()->inRandomOrder()->first(),
+            'sizes'        => ['38', '39', '40', '41', '42', '43', '44'],
             // 'productCount' => Product::active()->count(),
         ];
         return view('frontend.pages.product.allProducts', $data);
@@ -59,7 +60,17 @@ class ShopController extends Controller
         if ($request->has('price_min') && $request->has('price_max')) {
             $query->whereBetween('unit_price', [$request->price_min, $request->price_max]);
         }
-
+        if ($request->has('price_min') && $request->has('price_max')) {
+            $query->whereBetween('unit_price', [$request->price_min, $request->price_max]);
+        }
+        if ($request->has('sizes') && !empty($request->sizes)) {
+            $sizes = $request->sizes;
+            $query->where(function ($query) use ($sizes) {
+                foreach ($sizes as $size) {
+                    $query->orWhereJsonContains('size', $size);
+                }
+            });
+        }
         // Sort products
         if ($request->has('sort_by')) {
             switch ($request->sort_by) {

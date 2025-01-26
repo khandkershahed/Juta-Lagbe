@@ -121,6 +121,34 @@
         .swal2-actions {
             margin-bottom: 1.25rem;
         }
+
+        /* Back to Top Button Styles */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            font-size: 18px;
+            display: none;
+            /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.1);
+            /* Slight zoom on hover */
+        }
     </style>
 </head>
 
@@ -141,14 +169,8 @@
             @include('frontend.layouts.footer')
             {{-- Footer --}}
         </div>
-        {{-- Sidebar Cart Common Start --}}
-        {{-- <div>
-            <a class="cart-sidebar-btn" href="{{ route('cart') }}">
-                <span class="cart-values cartCount">{{ Cart::instance('cart')->count() }}</span>
-                <i class="fa fa-shopping-cart"></i>
-            </a>
-        </div> --}}
-        {{-- Sidebar Cart Common End --}}
+        <!-- Back to Top Button -->
+        <button id="backToTop" class="back-to-top">↑</button>
     </div>
 
     <!-- Scroll to Top Button -->
@@ -177,7 +199,26 @@
     <script src="{{ asset('frontend/js/sidebar.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     @stack('scripts')
+    <script>
+        const backToTopButton = document.getElementById("backToTop");
 
+        // Show the button when the user scrolls down
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 200) {
+                backToTopButton.style.display = "flex"; // Show the button
+            } else {
+                backToTopButton.style.display = "none"; // Hide the button
+            }
+        });
+
+        // Scroll back to the top when the button is clicked
+        backToTopButton.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth" // Smooth scroll
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#district').change(function() {
@@ -371,7 +412,8 @@
                 var $quantityInput = $("input[name='quantity']");
                 var qty = $quantityInput.val(); // Get the quantity value
                 // alert(qty);
-                var size = $("input[name='size']:checked").val(); // Get the selected size from the radio buttons
+                var size = $("input[name='size']:checked")
+                    .val(); // Get the selected size from the radio buttons
                 // alert(size);
 
                 // Check if size is selected and if quantity is valid
@@ -456,99 +498,6 @@
                 });
             });
         });
-    </script>
-    <script>
-        // $(document).ready(function() {
-        //     $('.add_to_cart').click(function(e) {
-        //         e.preventDefault(); // Prevent the default action of the link
-        //         var button = $(this);
-        //         var product_id = button.data('product_id');
-        //         var qty = button.data('product_qty'); // Get the quantity value
-        //         var cartUrl = $(this).attr('href');
-        //         var cartHeader = $('.miniCart');
-
-        //         // Check if quantity is valid
-        //         if (qty <= 0) {
-        //             Swal.fire({
-        //                 icon: 'warning',
-        //                 title: 'Invalid Quantity',
-        //                 timer: 1000,
-        //                 text: 'Please select a valid quantity.'
-        //             });
-        //             return;
-        //         }
-
-        //         $.ajax({
-        //             type: "POST",
-        //             data: {
-        //                 _token: "{{ csrf_token() }}", // Include CSRF token for security
-        //                 quantity: qty
-        //             },
-        //             url: cartUrl,
-        //             dataType: 'json',
-        //             success: function(data) {
-        //                 const Toast = Swal.mixin({
-        //                     showConfirmButton: false,
-        //                     timer: 1000
-        //                 });
-
-        //                 if (data.success) {
-        //                     Toast.fire({
-        //                         icon: 'success',
-        //                         title: data.success
-        //                     });
-        //                     button.prop('disabled', true); // Disable the button
-        //                     button.text('Included'); // Change button text
-        //                     $(".cartCount").html(data.cartCount);
-        //                     if (data.subTotal > 4000) {
-        //                         Toast.fire({
-        //                             title: 'Congratulations!',
-        //                             text: "Your shipping is now free. Happy Shopping!",
-        //                             icon: 'success',
-        //                             showCancelButton: true,
-        //                             // confirmButtonText: 'Yes, delete it!',
-        //                             cancelButtonText: 'Close',
-        //                             buttonsStyling: false,
-        //                             customClass: {
-        //                                 // confirmButton: 'btn btn-danger',
-        //                                 cancelButton: 'btn btn-success'
-        //                             }
-        //                         })
-        //                     }
-        //                     cartHeader.html(data.cartHeader);
-        //                 } else if (data.error) {
-        //                     Toast.fire({
-        //                         icon: 'error',
-        //                         title: data.error
-        //                     });
-        //                 }
-        //             },
-        //             error: function(xhr) {
-        //                 let errorMessage = 'An unexpected error occurred.';
-
-        //                 // Check if the response is JSON and contains an error message
-        //                 if (xhr.responseJSON && xhr.responseJSON.error) {
-        //                     errorMessage = xhr.responseJSON.error;
-        //                 } else if (xhr.responseText) {
-        //                     try {
-        //                         let response = JSON.parse(xhr.responseText);
-        //                         if (response.error) {
-        //                             errorMessage = response.error;
-        //                         }
-        //                     } catch (e) {
-        //                         console.error('Error parsing response text:', e);
-        //                     }
-        //                 }
-
-        //                 Swal.fire({
-        //                     icon: 'error',
-        //                     title: 'Oops...',
-        //                     text: errorMessage
-        //                 });
-        //             }
-        //         });
-        //     });
-        // });
     </script>
     <script>
         $(document).ready(function() {

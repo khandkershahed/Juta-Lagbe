@@ -59041,12 +59041,13 @@ body {
 
 /* Custom Style  */
 thead {
-    background-color: #dceaf0;
+    background-color: #252525;
+    color: white !important;
     font-weight: bold;
 }
 th {
     font-weight: 600 !important;
-    color: #6c757d !important;
+    color: white !important;
 }
 /* Custom Style  End */
 

@@ -156,15 +156,22 @@
                         @auth
                             <div class="ps-login--modal">
                                 <!-- If the user is authenticated, show these options -->
-                                <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
-                                <a class="dropdown-item" href="#"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    {{ __('Log Out') }}
-                                </a>
-                                <!-- Hidden logout form -->
-                                <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-                                    @csrf
-                                </form>
+                                <div>
+                                    <p>Welcome! Choose an option:</p>
+                                    <div class="d-flex align-items-center">
+                                        <a class="btn btn-primary rounded-0 mr-2"
+                                            href="{{ route('dashboard') }}">Dashboard</a>
+                                        <a class="btn btn-primary rounded-0" href="#"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('Log Out') }}
+                                        </a>
+                                        <!-- Hidden logout form -->
+                                        <form id="logout-form" method="POST" action="{{ route('logout') }}"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         @else
                             <div class="ps-login--modal">
@@ -199,23 +206,6 @@
                                             </form>
                                         </div>
                                     </div>
-                                    {{-- <div>
-                                        <p>Manage Your Dashboard?</p>
-                                        <a class="btn btn-primary w-100" href="{{ route('dashboard') }}">
-                                            Dashboard
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <p>Want to Log Out?</p>
-                                        <a class="btn btn-primary w-100" href="#"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Log Out
-                                        </a>
-                                        <form id="logout-form" method="POST" action="{{ route('logout') }}"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div> --}}
                                 @endauth
                             </div>
                         @endauth
@@ -314,7 +304,7 @@
                                         <div class="points_wrapper">
                                             <i class="point"></i>
                                             <i class="point"></i>
-                                        <i class="point"></i>
+                                            <i class="point"></i>
                                             <i class="point"></i>
                                             <i class="point"></i>
                                             <i class="point"></i>
@@ -324,9 +314,10 @@
                                             <i class="point"></i>
                                         </div>
 
-                                        <span class="inner"><svg class="icon" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
+                                        <span class="inner"><svg class="icon" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2.5">
                                                 <polyline
                                                     points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
                                                 </polyline>

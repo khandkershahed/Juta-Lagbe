@@ -25,8 +25,8 @@
                             @include('user.layouts.sidebar')
                         </div>
                         <div class="col-lg-8 col-xl-9">
-                            <div class="row">
-                                <h3 class="ps-shopping__title mb-0">Quick Order<sup>(0)</sup></h3>
+                            <div class="row bg-white">
+                                <h3 class="ps-shopping__title pl-3 pt-2 mb-2">Quick Order<sup>(0)</sup></h3>
                                 <div class="col-12 col-md-12 col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table table-striped order-history-table">

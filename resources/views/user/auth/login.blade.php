@@ -20,9 +20,9 @@
             word-break: break-word;
         }
     </style>
-    <div class="ps-account my-lg-5 py-lg-5 my-0 py-0">
+    <div class="ps-account py-5">
         <div class="container">
-            <div class="row row-equal-height login-content my-lg-5 my-0 py-5 py-lg-0 align-items-center gx-5 bg-white">
+            <div class="row row-equal-height login-content align-items-center gx-5 bg-white">
                 <div class="col-12 col-md-6 bg-white column-equal-height">
                     <div class="row">
                         <div class="col-lg-12 pl-5">
@@ -93,16 +93,6 @@
                                                 Log in
                                             </button>
                                         </div>
-                                        {{-- <div class="login-divider text-center pt-3">
-                                            <p class="mb-0 pb-0 divider-text">Or Login With</p>
-                                            <p class="devider mb-0 pb-0"></p>
-                                        </div> --}}
-
-                                        {{-- <div class="mt-5">
-                                            <button class="btn btn-outline-primary w-100 p-3 display-4 rounded-3">
-                                              <i class="fa fa-google-plus"></i>  Sign Up With Google
-                                            </button>
-                                        </div> --}}
                                         @if (Route::has('password.request'))
                                             <p class="text-center"><span class="ps-5 text-center">
                                                     Don't Have Account

@@ -131,7 +131,7 @@
 
             .swiper {
                 width: 100%;
-                height: 670px;
+                height: 700px;
             }
 
             .product-details-slide .swiper-slide {
@@ -164,6 +164,10 @@
 
             .product-details-slide {
                 height: 250px;
+            }
+
+            .product-details-juta .title {
+                height: 100%;
             }
         }
 
@@ -205,6 +209,10 @@
             z-index: 1;
             cursor: not-allowed;
         }
+
+        .product-details-juta .title {
+            height: 60px;
+        }
     </style>
     <section>
         <div class="container">
@@ -225,46 +233,55 @@
                         {{-- Slider Thumbnail Start --}}
                         <div thumbsSlider="" class="swiper product-details-slide bg-white">
                             <div class="swiper-wrapper">
+                                {{-- Loop through images --}}
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
-                                {{-- @foreach ($product->video_link as $video) --}}
-                                <div class="swiper-slide">
-                                    <div style="position: relative; width: 100%; height: 100%;">
-                                        <iframe width="100%" height="100%" {{-- src="Dynamic-URL-Here----> &autoplay=0&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0" --}}
-                                            src="https://www.youtube.com/embed/O5qMVkByyzE?si=NMxjp_Se7cRVJ3wG&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
-                                            title="YouTube video player" frameborder="0"
-                                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                                        <div class="overlay-iframe"></div>
+
+                                {{-- Add Video at the End --}}
+                                @if (!empty($product->video_link))
+                                    <div class="swiper-slide">
+                                        <div style="position: relative; width: 100%; height: 100%;">
+                                            <iframe width="100%" height="100%"
+                                                src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
+                                                title="YouTube video player" frameborder="0"
+                                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                            <div class="overlay-iframe"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                {{-- @endforeach --}}
+                                @endif
                             </div>
                         </div>
                         {{-- Slider Thumbnail End --}}
-                        <!-- Swiper Main Image Start-->
+
+                        <!-- Swiper Main Image Start -->
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
+                                {{-- Loop through images --}}
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide magnifier-container">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
-                                <div class="swiper-slide magnifier-container">
-                                    <iframe width="100%" height="100%" {{-- src="Dynamic-URL-Here----> &autoplay=1&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0" --}}
-                                        src="https://www.youtube.com/embed/O5qMVkByyzE?si=NMxjp_Se7cRVJ3wG&autoplay=1&controls=0&mute=1"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                </div>
+
+                                {{-- Add Video at the End --}}
+                                @if (!empty($product->video_link))
+                                    <div class="swiper-slide">
+                                        <iframe width="100%" height="100%"
+                                            src="{{ $product->video_link }}&autoplay=1&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    </div>
+                                @endif
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
-                        <!-- Swiper Main Image End-->
+                        <!-- Swiper Main Image End -->
                     </div>
                 </div>
                 <div class="col-lg-5 pl-0">
@@ -285,19 +302,19 @@
                             @if (!empty($product->unit_discount_price))
                                 <div class="d-flex justify-content-start align-items-center">
                                     <h3 class="mb-0">দামঃ</h3>
-                                    <h3 class="text-success pl-2 mb-0"> {{ $product->unit_discount_price }} টাকা</h3>
+                                    <h3 class="text-success pl-2 mb-0">{{ $product->unit_discount_price }} টাকা</h3>
                                     <h4 class="ps-product__del text-danger pl-4 mb-0">{{ $product->unit_price }} টাকা
                                     </h4>
                                 </div>
                             @else
                                 <div class="d-flex align-items-center">
-                                    <h3>দাম {{ $product->unit_price }} টাকা</h3> <del
-                                        class="pl-3 text-danger">{{ $product->unit_price }} টাকা</del>
+                                    <h3>দামঃ {{ $product->unit_price }} টাকা</h3>
                                 </div>
                             @endif
                         </div>
                         <div>
-                          <p class="mb-0 pt-2">প্রোডাক্ট কোডঃ   <span class="text-danger">{{ $product->sku_code }}</span></p>
+                            <p class="mb-0 pt-2">প্রোডাক্ট কোডঃ <span
+                                    class="text-danger">{{ $product->sku_code }}</span></p>
                         </div>
                         {{-- Size Variation End --}}
                         <div class="ps-page__content py-2 row align-items-center pt-4">
@@ -322,27 +339,43 @@
                                     @php
                                         $sizes = isset($product->size) ? json_decode($product->size, true) : [];
                                     @endphp
-                                    @foreach ($sizes as $size)
-                                        <div class="radio-wrapper-46 mr-3">
-                                            <input class="inp-radio" id="radio-{{ $size }}" name="size"
-                                                type="radio" value="{{ $size }}" />
-                                            <label class="radio" for="radio-{{ $size }}"><span>
-                                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                        <circle cx="6" cy="6" r="4"></circle>
-                                                    </svg></span><span>{{ $size }}</span>
-                                            </label>
-                                        </div>
-                                    @endforeach
+
+                                    @if (!empty($sizes))
+                                        @foreach ($sizes as $size)
+                                            <div class="radio-wrapper-46 mr-3">
+                                                <input class="inp-radio" id="radio-{{ $size }}" name="size"
+                                                    type="radio" value="{{ $size }}" />
+                                                <label class="radio" for="radio-{{ $size }}">
+                                                    <span>
+                                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                            <circle cx="6" cy="6" r="4"></circle>
+                                                        </svg>
+                                                    </span>
+                                                    <span>{{ $size }}</span>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p class="no-sizes-text mb-0">No sizes available.</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex align-items-center card-cart-btn mt-2">
                             <!-- Order Modal  -->
-                            <a href="#" data-product_id="{{ $product->id }}"
-                                class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
-                                <i class="fa-solid fa-basket-shopping pr-2"></i>
-                                অর্ডার করুন
-                            </a>
+                            @if (count($sizes) > 0)
+                                <a href="#" data-product_id="{{ $product->id }}"
+                                    class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
+                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                    অর্ডার করুন
+                                </a>
+                            @else
+                                <button href="#" class="btn btn-secondary rounded-0 w-100 py-3" disabled>
+                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                    অর্ডার করুন
+                                </button>
+                            @endif
+
 
                         </div>
                         {{-- <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
@@ -602,7 +635,7 @@
     </div>
     </div>
     <div class="container-fluid"
-        style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+        style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
         <div class="container juta-delivery">
             <div class="row align-items-center">
                 <div class="col-lg-8">

@@ -1,4 +1,16 @@
 <x-frontend-app-layout :title="'Your Wishlist'">
+    <style>
+        .user-dashboard .tab-wrap {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: start;
+            -ms-flex-align: start;
+            align-items: flex-start;
+            margin-top: 50px;
+            margin-bottom: 65px;
+        }
+    </style>
     <div class="breadcrumb-wrap">
         <div class="banner b-top bg-size bread-img">
             <img class="bg-img bg-top" src="img/banner-p.jpg" alt="banner" style="display: none;">
@@ -22,8 +34,8 @@
                         <!-- Sidebar here -->
                         @include('user.layouts.sidebar')
                     </div>
-                    <div class="col-lg-8 col-xl-9">
-                        <h3 class="ps-wishlist__title">My wishlist</h3>
+                    <div class="col-lg-8 col-xl-9 bg-white">
+                        <h3 class="ps-wishlist__title pt-3">My wishlist</h3>
                         <div class="ps-wishlist__content">
                             <ul class="ps-wishlist__list">
                                 @foreach ($wishlists as $wishlist)

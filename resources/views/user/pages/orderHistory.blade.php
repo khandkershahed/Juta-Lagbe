@@ -24,7 +24,7 @@
                         @include('user.layouts.sidebar')
                     </div>
                     <div class="col-lg-8 col-xl-9">
-                        <div class="row">
+                        <div class="row bg-white py-3">
                             <div class="col-lg-12">
                                 <div class="mb-4">
                                     <h4>Order History & Track Order</h4>
@@ -41,8 +41,6 @@
                                                 <th>মোট টাকা (কুরিয়ার চার্জ সহ)</th>
                                                 <th>পরিশোধ</th>
                                                 <th>বকেয়া</th>
-                                                {{-- <th>Payment Status</th> --}}
-                                                {{-- <th>Status</th> --}}
                                                 <th class="text-center">ইনভয়েস</th>
                                             </tr>
                                         </thead>
@@ -52,7 +50,6 @@
                                                 <tr class="text-start">
                                                     <td>{{ $order->order_number }}</td>
                                                     <td>{{ $order->created_at->format('d M, Y') }}</td>
-                                                    {{-- <td>{{ $order->quantity }}</td> --}}
                                                     <td>
                                                         <span
                                                             class="text-info fw-bold">৳</span>{{ $order->total_amount }}
@@ -62,8 +59,6 @@
                                                         @if ($order->payment_status == 'delivery_charge_paid')
                                                             <span
                                                                 class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
-                                                            {{-- <span
-                                                                class="badge p-2 rounded-3 fs-7 badge-danger">Unpaid</span> --}}
                                                         @elseif ($order->payment_status == 'completely_paid')
                                                             <span
                                                                 class="text-info fw-bold">৳</span>{{ $order->total_amount + $order->shipping_charge }}
@@ -74,42 +69,14 @@
                                                             <span
                                                                 class="text-info fw-bold">৳</span>{{ $order->total_amount }}
                                                         @elseif ($order->payment_status == 'completely_paid')
-                                                        <span
-                                                        class="text-info fw-bold">৳</span>0
+                                                            <span class="text-info fw-bold">৳</span>0
                                                         @endif
                                                     </td>
-                                                    {{-- <td>
-                                                        @if ($order->status == 'pending')
-                                                            <span
-                                                                class="badge p-2 rounded-3 fs-7 badge-primary">Pending</span>
-                                                        @elseif ($order->status == 'processing')
-                                                            <span
-                                                                class="badge p-2 rounded-3 fs-7 badge-warning">Processing</span>
-                                                        @elseif ($order->status == 'shipped')
-                                                            <span
-                                                                class="badge p-2 rounded-3 fs-7 badge-success">Shipped</span>
-                                                        @elseif ($order->status == 'delivered')
-                                                            <span
-                                                                class="badge p-2 rounded-3 fs-7 badge-success">Delivered</span>
-                                                        @elseif ($order->status == 'cancelled')
-                                                            <span
-                                                                class="badge p-2 rounded-3 fs-7 badge-dangered">Cancelled</span>
-                                                        @elseif ($order->status == 'returned')
-                                                            <span
-                                                                class="badge p-2 rounded-3 fs-7 badge-dangered">Returned</span>
-                                                        @endif
-                                                    </td> --}}
                                                     <td class="text-center">
-                                                        {{-- @if ($order->payment_status == 'unpaid')
-                                                            <a class="btn p-2 rounded-3 fs-7 btn-primary"
-                                                                href="{{ route('stripe.payment', $order->order_number) }}">Pay
-                                                                Now</a>
-                                                        @elseif ($order->payment_status == 'paid') --}}
                                                         <a href="javascript:void(0)" data-toggle="modal"
                                                             data-target="#showInvoice-{{ $order->id }}">
                                                             <i class="fa-solid fa-print"></i>
                                                         </a>
-                                                        {{-- @endif --}}
                                                     </td>
                                                 </tr>
                                             @endforeach

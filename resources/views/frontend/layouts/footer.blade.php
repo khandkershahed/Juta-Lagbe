@@ -154,7 +154,7 @@
                             <li><a href="{{ asset('return-policy') }}">Returns</a></li>
                             <li><a href="{{ asset('privacy/policy') }}">Privacy & Policy</a></li>
                             <li><a href="{{ asset('terms-condition') }}">Terms & Conditions</a></li>
-                            <li><a href="{{ asset('faq') }}">FAQ</a></li>
+                            <li class="d-flex"><a href="{{ asset('faq') }}">FAQ</a>/ <a href="{{ asset('contact') }}">Contact</a></li>
                         </ul>
                     </div>
                 </div>

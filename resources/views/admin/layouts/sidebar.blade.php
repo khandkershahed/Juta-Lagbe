@@ -187,32 +187,29 @@
                                 ],
                             ],
                         ],
-                        [
-                            'title' => 'Blogs',
-                            'icon' => 'fa-brands fa-blogger-b text-success fs-3',
-                            'routes' => [
-                                'admin.blog-category.index',
-                                'admin.blog-tags.index',
-                                'admin.blog-post.index',
-                                'admin.blog-post.create',
-                                'admin.blog-post.edit',
-                                // 'admin.categories.index',
-                                // 'admin.categories.create',
-                                // 'admin.categories.edit',
-                            ],
-                            'subMenu' => [
-                                [
-                                    'title' => 'Blog Category',
-                                    'routes' => ['admin.blog-category.index'],
-                                    'route' => 'admin.blog-category.index',
-                                ],
-                                [
-                                    'title' => 'Blog Post',
-                                    'routes' => ['admin.blog-post.index'],
-                                    'route' => 'admin.blog-post.index',
-                                ],
-                            ],
-                        ],
+                        // [
+                        //     'title' => 'Blogs',
+                        //     'icon' => 'fa-brands fa-blogger-b text-success fs-3',
+                        //     'routes' => [
+                        //         'admin.blog-category.index',
+                        //         'admin.blog-tags.index',
+                        //         'admin.blog-post.index',
+                        //         'admin.blog-post.create',
+                        //         'admin.blog-post.edit',
+                        //     ],
+                        //     'subMenu' => [
+                        //         [
+                        //             'title' => 'Blog Category',
+                        //             'routes' => ['admin.blog-category.index'],
+                        //             'route' => 'admin.blog-category.index',
+                        //         ],
+                        //         [
+                        //             'title' => 'Blog Post',
+                        //             'routes' => ['admin.blog-post.index'],
+                        //             'route' => 'admin.blog-post.index',
+                        //         ],
+                        //     ],
+                        // ],
                         [
                             'title' => 'Users',
                             'icon' => 'fa-solid fa-users text-primary fs-3',

@@ -16,17 +16,41 @@
         .input-group-append {
             margin-left: -1px;
             position: relative;
-            top: 10px;
+            top: 0px;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 9px;
         }
     </style>
     <div class=" register-bg">
         <div class="container">
-            <div class="row align-items-center gx-0 py-5 mb-4">
+            <div class="row align-items-center gx-0 bg-white my-lg-5">
                 <div class="col-lg-6 px-0">
-                    <div class="my-5">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12 pl-5">
+                                <div class="p-3">
+                                    <div class="d-flex justify-content-center align-items-center mb-4">
+                                        <a href="{{ route('home') }}" class="">
+                                            <img class="img-fluid" width="200px"
+                                                src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                                                alt="">
+                                        </a>
+                                    </div>
+                                    <div class="text-lg-start text-center">
+                                        <h2 class="ps-form__title mb-0">Welcome</h2>
+                                        <p>Register To Get Unlimited Access & Data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
                         <form method="POST" action="{{ route('register') }}" id="customerForm">
                             @csrf
-                            <div class="bg-light p-5">
+                            <div class="p-5">
                                 <div class="ps-form--review row mb-3">
                                     <!-- First Name -->
                                     <div class="ps-form__group col-12 col-xl-12">
@@ -39,18 +63,18 @@
                                     </div>
 
                                     <!-- Email -->
-                                    <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    {{-- <div class="ps-form__group col-12 col-xl-4 mt-3">
                                         <label class="ps-form__label" for="email">ইমেইল<span
                                                 class="text-danger">*</span></label>
                                         <input id="email" class="form-control ps-form__input" type="email"
                                             name="email" placeholder="আপনার ইমেইল" value="{{ old('email') }}"
                                             autocomplete="email" />
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Confirm Email -->
                                     <!-- Phone -->
-                                    <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
                                         <x-input-label class="ps-form__label" for="phone" :value="__('ফোন নাম্বার')" />
                                         <div class="input-group">
                                             <input id="phone" class="form-control ps-form__input" type="tel"
@@ -61,7 +85,7 @@
                                     </div>
                                     <!-- Password -->
 
-                                    <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
                                         <x-input-label class="ps-form__label" for="password" :value="__('Password')" />
                                         <div class="input-group">
                                             <input id="password" class="form-control ps-form__input" type="password"
@@ -111,9 +135,10 @@
                                         <label class="ps-form__label" for="House/Block/Road">ঠিকানা<span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input id="address_one" class="form-control ps-form__input" type="text"
-                                                value="{{ old('address_one') }}" placeholder="Enter Your Full Address"
-                                                name="address_one" autocomplete="address_one" required />
+                                            <input id="address_one" class="form-control ps-form__input"
+                                                type="text" value="{{ old('address_one') }}"
+                                                placeholder="Enter Your Full Address" name="address_one"
+                                                autocomplete="address_one" required />
                                         </div>
                                         <x-input-error :messages="$errors->get('address_one')" class="mt-2" />
                                     </div>
@@ -150,7 +175,7 @@
                 </div>
                 <div class="col-lg-6 px-0">
                     <div>
-                        <img class="img-fluid" src="{{ asset('images/login-side-banner.png') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('images/login-banner.jpg') }}" alt="">
                     </div>
                 </div>
             </div>

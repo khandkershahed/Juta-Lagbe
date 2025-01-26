@@ -101,9 +101,8 @@
 
     <div class="card card-flash">
         <div class="card-header mt-6">
-            <div class="card-title"></div>
+            <div class="card-title"><h1>Special Offer Product</h1></div>
             <div class="card-toolbar">
-
                 <a href="{{ route('admin.special-offer.create') }}" class="btn btn-light-primary">
                     <span class="svg-icon svg-icon-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -118,11 +117,10 @@
                     </span>
                     Add Offer
                 </a>
-
             </div>
         </div>
 
-        <div class="card-body pt-0">
+        <div class="card-body pt-10">
             <div class="table-responsive">
                 <table class="table table-striped gy-5 gs-7 rounded">
                     <thead class="bg-dark text-light">

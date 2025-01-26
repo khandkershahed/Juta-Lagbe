@@ -275,7 +275,7 @@
                                     @endif
                                     <!-- Delivery Info -->
                                     <div class="container-fluid"
-                                        style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+                                        style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
                                         <div class="container juta-delivery">
                                             <div class="row align-items-center">
                                                 <div class="col-lg-8">
