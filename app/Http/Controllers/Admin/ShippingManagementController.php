@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\ShippingMethod;
 use App\Http\Controllers\Controller;
+use Sandofvega\Bdgeocode\Models\Thana;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,7 +28,10 @@ class ShippingManagementController extends Controller
     public function create()
     {
         // Return the view for creating a new shipping method
-        return view('admin.pages.shippingManagement.create');
+        $data = [
+            'thanas' => Thana::all(),
+        ];
+        return view('admin.pages.shippingManagement.create',$data);
     }
 
     /**
@@ -41,6 +45,7 @@ class ShippingManagementController extends Controller
             'location' => 'nullable|string|max:250',
             'duration' => 'nullable|string|max:250',
             'description' => 'nullable|string',
+            'thana' => 'nullable',
             'carrier' => 'nullable|string|max:250',
             'min_weight' => 'nullable|numeric|min:0',
             'max_weight' => 'nullable|numeric|min:0|gte:min_weight',
@@ -59,7 +64,7 @@ class ShippingManagementController extends Controller
         // Create a new shipping method
         ShippingMethod::create($request->only([
             'title', 'location', 'duration', 'description', 'carrier',
-            'min_weight', 'max_weight', 'price', 'status'
+            'min_weight', 'max_weight', 'price', 'thana' ,'status'
         ]));
 
         // Redirect with success message
@@ -71,8 +76,11 @@ class ShippingManagementController extends Controller
      */
     public function edit($id)
     {
-        $shippingMethod = ShippingMethod::findOrFail($id);
-        return view('admin.pages.shippingManagement.edit', compact('shippingMethod'));
+        $data = [
+            'method' => ShippingMethod::findOrFail($id),
+            'thanas' => Thana::all(),
+        ];
+        return view('admin.pages.shippingManagement.edit',$data);
     }
 
     /**
@@ -107,7 +115,7 @@ class ShippingManagementController extends Controller
         // Update the shipping method
         $shippingMethod->update($request->only([
             'title', 'location', 'duration', 'description', 'carrier',
-            'min_weight', 'max_weight', 'price', 'status'
+            'min_weight', 'max_weight', 'thana' , 'price', 'status'
         ]));
 
         // Redirect with success message
