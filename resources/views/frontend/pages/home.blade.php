@@ -1143,7 +1143,7 @@
             document.addEventListener('DOMContentLoaded', () => {
                 // Initialize Plyr for all elements with the "player" class
                 const players = Plyr.setup('.player', {
-                    muted: true, // Mute videos for autoplay compliance
+                    muted: false, // Mute videos for autoplay compliance
                     controls: [], // Remove all controls
                     youtube: {
                         rel: 0, // Disable related videos
@@ -1163,7 +1163,7 @@
 
                     // Ensure autoplay and muted work as intended
                     players.forEach(player => {
-                        player.muted = true; // Enforce muted autoplay
+                        player.muted = false; // Enforce muted autoplay
                     });
                     // Pause the video when hover ends
                     container.addEventListener('mouseleave', () => {

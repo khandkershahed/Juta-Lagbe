@@ -782,18 +782,23 @@
                                             </div>
                                             <div class="ps-product__feature">
                                                 @if (!empty($related_product->unit_discount_price))
-                                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
-                                                        <span
-                                                            class="ps-product__price sale">৳{{ $related_product->unit_discount_price }}</span>
-                                                        <span
-                                                            class="ps-product__del">৳{{ $related_product->unit_price }}</span>
-                                                    </div>
-                                                @else
-                                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
-                                                        <span
-                                                            class="ps-product__price sale">৳{{ $related_product->unit_price }}</span>
-                                                    </div>
-                                                @endif
+                                                            <div class="ps-product__meta">
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $related_product->unit_discount_price }}
+                                                                    টাকা</span>
+                                                                <span
+                                                                    class="ps-product__del text-danger">{{ $related_product->unit_price }}
+                                                                    টাকা</span>
+                                                            </div>
+                                                        @else
+                                                            <div class="ps-product__meta">
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $related_product->unit_price }}
+                                                                    টাকা</span>
+                                                            </div>
+                                                        @endif
 
                                                 <div class="ps-product__quantity">
                                                     <h6>Quantity</h6>
