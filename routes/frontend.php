@@ -24,6 +24,7 @@ Route::get('product/details/{slug}', [HomeController::class, 'productDetails'])-
 Route::post('contact/store', [ContactController::class, 'store'])->name('contact.add');
 Route::post('email-subscription/store', [NewsletterController::class, 'store'])->name('subscription.add');
 Route::get('/get-thanas-by-district/{districtName}', [HomeController::class, 'getThanasByDistrict']);
+Route::get('/get-districts-by-division/{divisionName}', [HomeController::class, 'getDistrictsByDivision']);
 
 // Cart routes
 Route::get('mycart', [HomeController::class, 'cart'])->name('cart');

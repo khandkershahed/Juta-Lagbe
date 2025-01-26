@@ -12,19 +12,20 @@ use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\DealBanner;
 use App\Models\PageBanner;
+use App\Models\Testimonial;
 use App\Models\BlogCategory;
+use App\Models\SpecialOffer;
 use Illuminate\Http\Request;
 use App\Models\PrivacyPolicy;
 use App\Models\ShippingMethod;
 use App\Models\TermsAndCondition;
 use App\Http\Controllers\Controller;
-use App\Models\SpecialOffer;
-use App\Models\Testimonial;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Sandofvega\Bdgeocode\Models\District;
+use Sandofvega\Bdgeocode\Models\Division;
 
 class HomeController extends Controller
 {
@@ -260,12 +261,27 @@ class HomeController extends Controller
         ];
         return view('frontend.pages.cart.mycart', $data);
     }
+    public function getDistrictsByDivision($divisionName)
+    {
+        // Find the division
+        $division = Division::where('bn_name', $divisionName)->first();
+
+        if ($division) {
+            // Get the districts related to the division
+            $districts = $division->districts; // Assuming the relationship is defined like $division->districts
+
+            return response()->json($districts);
+        }
+
+        return response()->json([]);
+    }
+
     public function getThanasByDistrict($districtName)
     {
         $district = District::where('bn_name', $districtName)->first();
 
         if ($district) {
-            $thanas = $district->thanas; 
+            $thanas = $district->thanas;
 
             return response()->json($thanas);
         }
@@ -282,16 +298,24 @@ class HomeController extends Controller
         $subTotal = (float)$cleanSubtotal;
 
         if ($subTotal > $minimumOrderAmount) {
-            $data = [
-                'shippingmethods' => ShippingMethod::active()->get(),
-                'cartItems'       => Cart::instance('cart')->content(),
-                'total'           => Cart::instance('cart')->total(),
-                'cartCount'       => Cart::instance('cart')->count(),
-                'user'            => Auth::user(),
-                'subTotal'        => $subTotal,
-                'districts'       => District::all(),
-            ];
-            return view('frontend.pages.cart.checkout', $data);
+            // $data = [
+            $shippingmethods = ShippingMethod::active()->get();
+            $cartItems       = Cart::instance('cart')->content();
+            $total           = Cart::instance('cart')->total();
+            $cartCount       = Cart::instance('cart')->count();
+            $user            = Auth::user();
+            $subTotal        = $subTotal;
+            $bd_divisions   = Division::all();
+            // ];
+            return view('frontend.pages.cart.checkout', compact(
+                'shippingmethods',
+                'cartItems',
+                'total',
+                'cartCount',
+                'user',
+                'subTotal',
+                'bd_divisions'
+            ));
         } else {
             // Redirect back with error message
             Session::flash('error', "'The added product price must be greater than'. $minimumOrderAmount . 'to proceed to check out.'");

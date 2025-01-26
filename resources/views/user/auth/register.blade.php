@@ -101,17 +101,14 @@
                                     <!-- Title -->
                                     <div class="col-12 col-xl-6 mb-3">
                                         <div class="ps-form__group pt-2">
-                                            <label class="block font-medium text-sm site-text ps-form__label"
-                                                for="district">
-                                                জেলা
+                                            <label class="block font-medium text-sm site-text ps-form__label" for="division">
+                                                বিভাগ
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select name="district" id="district"
-                                                class="form-control select ps-form__input" required>
-                                                <option value="" disabled selected>জেলা</option>
-                                                @foreach ($districts as $district)
-                                                    <option value="{{ $district->bn_name }}"
-                                                        @selected(old('district') == $district->bn_name)>{{ $district->bn_name }}</option>
+                                            <select name="division" id="division" class="form-control select ps-form__input" required>
+                                                <option value="" disabled selected>বিভাগ</option>
+                                                @foreach ($bd_divisions as $division)
+                                                    <option value="{{ $division->bn_name }}" @selected(old('division') == $division->bn_name)>{{ $division->bn_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -119,13 +116,23 @@
 
                                     <div class="col-12 col-xl-6 mb-3">
                                         <div class="ps-form__group pt-2">
-                                            <label class="block font-medium text-sm site-text ps-form__label"
-                                                for="thana">
+                                            <label class="block font-medium text-sm site-text ps-form__label" for="district">
+                                                জেলা
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="district" id="district" class="form-control select ps-form__input" required>
+                                                <option value="" disabled selected>জেলা</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-xl-6 mb-3">
+                                        <div class="ps-form__group pt-2">
+                                            <label class="block font-medium text-sm site-text ps-form__label" for="thana">
                                                 থানা
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select name="thana" id="thana" class="form-control ps-form__input"
-                                                required>
+                                            <select name="thana" id="thana" class="form-control ps-form__input" required>
                                                 <option value="" disabled selected>থানা</option>
                                             </select>
                                         </div>

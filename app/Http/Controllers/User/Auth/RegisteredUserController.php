@@ -19,6 +19,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Sandofvega\Bdgeocode\Models\District;
+use Sandofvega\Bdgeocode\Models\Division;
 
 class RegisteredUserController extends Controller
 {
@@ -27,10 +28,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $data = [
-            'districts' => District::all(),
-        ];
-        return view('user.auth.register',$data);
+        // $data = [
+        //     'bd_divisions '  => Division::all(),
+        // ];
+        $bd_divisions  = Division::all();
+        return view('user.auth.register',compact('bd_divisions'));
     }
 
     /**

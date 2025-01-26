@@ -221,19 +221,53 @@
     </script>
     <script>
         $(document).ready(function() {
+            // When the division is changed
+            $('#division').change(function() {
+                var divisionName = $(this).val(); // Get the selected division
+
+                if (divisionName) {
+                    $.ajax({
+                        url: '{{ url('get-districts-by-division') }}/' +
+                        divisionName, // Call the controller method
+                        type: 'GET',
+                        success: function(data) {
+                            $('#district').empty(); // Clear current district options
+                            $('#district').append(
+                                '<option value="" disabled selected>জেলা</option>'
+                                ); // Add default option
+
+                            // Loop through the received districts and append them to the district dropdown
+                            $.each(data, function(index, district) {
+                                $('#district').append('<option value="' + district
+                                    .bn_name + '">' + district.bn_name + '</option>'
+                                    );
+                            });
+                        }
+                    });
+                } else {
+                    $('#district').empty();
+                    $('#district').append('<option value="" disabled selected>জেলা</option>');
+                }
+
+                // Clear the thana dropdown when division changes
+                $('#thana').empty();
+                $('#thana').append('<option value="" disabled selected>থানা</option>');
+            });
+
+            // When the district is changed
             $('#district').change(function() {
-                var districtName = $(this).val(); // Get the selected district name
+                var districtName = $(this).val(); // Get the selected district
 
                 if (districtName) {
                     $.ajax({
                         url: '{{ url('get-thanas-by-district') }}/' +
-                            districtName, // Call the controller method
+                        districtName, // Call the controller method
                         type: 'GET',
                         success: function(data) {
                             $('#thana').empty(); // Clear current thana options
                             $('#thana').append(
                                 '<option value="" disabled selected>থানা</option>'
-                            ); // Add default option
+                                ); // Add default option
 
                             // Loop through the received thanas and append them to the thana dropdown
                             $.each(data, function(index, thana) {
