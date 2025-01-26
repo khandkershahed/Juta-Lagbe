@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('min_weight', 8, 2)->nullable(); // For weights with decimals
             $table->decimal('max_weight', 8, 2)->nullable();
             $table->double('price')->nullable();
+            $table->json('thana')->nullable();
             $table->string('status', 50)->nullable();
             $table->timestamps();
         });

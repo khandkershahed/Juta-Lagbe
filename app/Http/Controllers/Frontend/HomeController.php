@@ -275,6 +275,17 @@ class HomeController extends Controller
 
         return response()->json([]);
     }
+    public function getShippingCahrgeByThana($thanaName)
+    {
+        $charge = ShippingMethod::whereJsonContains('thana', $thanaName)->first();
+
+        if ($charge) {
+            $price = $charge->price;
+            return response()->json(['price' => $price,'id' => $charge->id]);
+        }
+
+        return response()->json([]);
+    }
 
     public function getThanasByDistrict($districtName)
     {
