@@ -34,13 +34,6 @@
             transition: transform 0.3s ease;
         }
 
-        .product-slider-wrapper {
-            /* width: 600px;
-            height: 800px; */
-            width: 100%;
-            height: 100%;
-        }
-
         .swiper {
             width: 100%;
             height: 100%;
@@ -86,18 +79,18 @@
         }
 
         .mySwiper .swiper-slide,
-        .product-details-slide .swiper-slide {
+        .mySwiperDesktop .swiper-slide {
             width: 25%;
             height: 100%;
             opacity: 0.4;
         }
 
         .mySwiper .swiper-slide-thumb-active,
-        .product-details-slide .swiper-slide-thumb-active {
+        .mySwiperDesktop .swiper-slide-thumb-active {
             opacity: 1;
         }
 
-        .product-details-slide {
+        .mySwiperDesktop {
             margin-bottom: 10px;
         }
 
@@ -120,7 +113,7 @@
                 display: none;
             }
 
-            .product-slider-wrapper {
+            .kovi-product-slider-wrapper {
                 display: flex;
                 flex-direction: row;
             }
@@ -134,16 +127,39 @@
                 height: 700px;
             }
 
-            .product-details-slide .swiper-slide {
+            .mySwiperDesktop .swiper-slide {
                 width: 100%;
             }
 
-            .product-details-slide {
+            .mySwiperDesktop {
                 width: calc(22% - 20px);
             }
 
             .mySwiper2 {
                 width: 78%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .kovi-product-slider-wrapper {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .mySwiperDesktop {
+                display: none;
+            }
+
+            .kovi-product-slider-wrapper {
+                width: 100%;
+                height: 70%;
+            }
+
+            .mySwiperDesktop {
+                height: 250px;
+            }
+            .releted-order{
+                font-size: 14px !important;
             }
         }
 
@@ -229,17 +245,14 @@
         <div class="container product-details">
             <div class="row">
                 <div class="col-lg-7">
-                    <div class="product-slider-wrapper">
-                        {{-- Slider Thumbnail Start --}}
-                        <div thumbsSlider="" class="swiper product-details-slide bg-white">
-                            <div class="swiper-wrapper">
-                                {{-- Loop through images --}}
+                    <div class="kovi-product-slider-wrapper">
+                        <div thumbsSlider="" class="swiper mySwiperDesktop">
+                            <div class="swiper-wrapper bg-white">
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
-
                                 {{-- Add Video at the End --}}
                                 @if (!empty($product->video_link))
                                     <div class="swiper-slide">
@@ -254,9 +267,7 @@
                                 @endif
                             </div>
                         </div>
-                        {{-- Slider Thumbnail End --}}
-
-                        <!-- Swiper Main Image Start -->
+                        <!-- Swiper -->
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
@@ -281,8 +292,29 @@
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
-                        <!-- Swiper Main Image End -->
+                        <div thumbsSlider="" class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                @foreach ($product->multiImages as $image)
+                                    <div class="swiper-slide">
+                                        <img src="{{ asset('storage/' . $image->photo) }}" />
+                                    </div>
+                                @endforeach
+                                {{-- Add Video at the End --}}
+                                @if (!empty($product->video_link))
+                                    <div class="swiper-slide">
+                                        <div style="position: relative; width: 100%; height: 100%;">
+                                            <iframe width="100%" height="100%"
+                                                src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
+                                                title="YouTube video player" frameborder="0"
+                                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                            <div class="overlay-iframe"></div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
+
                 </div>
                 <div class="col-lg-5 pl-0">
                     <div class="product-details-juta">
@@ -342,7 +374,7 @@
 
                                     @if (!empty($sizes))
                                         @foreach ($sizes as $size)
-                                            <div class="radio-wrapper-46 mr-3">
+                                            <div class="radio-wrapper-46 mr-1 mr-lg-3">
                                                 <input class="inp-radio" id="radio-{{ $size }}" name="size"
                                                     type="radio" value="{{ $size }}" />
                                                 <label class="radio" for="radio-{{ $size }}">
@@ -450,7 +482,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content bg-white p-lg-5 p-3" id="productContent">
+                        <div class="tab-content bg-white p-5" id="productContent">
                             <div class="tab-pane fade show active" id="information-content" role="tabpanel"
                                 aria-labelledby="information-tab">
                                 <div class="ps-document">
@@ -617,7 +649,7 @@
                                                 </div>
                                                 <div class="d-flex align-items-center card-cart-btn">
                                                     <a href="{{ route('buy.now', $related_product->id) }}"
-                                                        class="btn btn-primary rounded-0 w-100">
+                                                        class="btn btn-primary rounded-0 w-100 py-2 releted-order py-lg-2">
                                                         <i class="fa-solid fa-basket-shopping pr-2"></i> অর্ডার করুন
                                                     </a>
                                                 </div>
@@ -633,9 +665,7 @@
             </div>
         </div>
     </div>
-    </div>
-    <div class="container-fluid"
-        style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
+    <div class="container-fluid" style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
         <div class="container juta-delivery">
             <div class="row align-items-center">
                 <div class="col-lg-8">
@@ -897,6 +927,120 @@
 
                     if ($(window).width() > 768) {
                         // Initialize Swiper for desktop
+                        galleryTop = new Swiper(".mySwiperDesktop", {
+                            spaceBetween: 10,
+                            slidesPerView: 4,
+                            direction: "vertical",
+                            freeMode: false,
+                            watchSlidesProgress: true,
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true, // Pause autoplay on hover
+                            },
+                            breakpoints: {
+                                768: {
+                                    slidesPerView: 4,
+                                },
+                                530: {
+                                    slidesPerView: 3,
+                                },
+                                300: {
+                                    slidesPerView: 2,
+                                },
+                            },
+                        });
+
+                        galleryThumbs = new Swiper(".mySwiper2", {
+                            spaceBetween: 10,
+                            navigation: {
+                                nextEl: ".swiper-button-next",
+                                prevEl: ".swiper-button-prev",
+                            },
+                            a11y: {
+                                prevSlideMessage: "Previous slide",
+                                nextSlideMessage: "Next slide",
+                            },
+                            thumbs: {
+                                swiper: galleryTop,
+                            },
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true, // Pause autoplay on hover
+                            },
+                        });
+                    } else {
+                        // Initialize Swiper for mobile
+                        galleryTop = new Swiper(".mySwiper", {
+                            spaceBetween: 10,
+                            slidesPerView: 4,
+                            freeMode: false,
+                            watchSlidesProgress: true,
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true, // Pause autoplay on hover
+                            },
+                        });
+
+                        galleryThumbs = new Swiper(".mySwiper2", {
+                            spaceBetween: 10,
+                            navigation: {
+                                nextEl: ".swiper-button-next",
+                                prevEl: ".swiper-button-prev",
+                            },
+                            a11y: {
+                                prevSlideMessage: "Previous slide",
+                                nextSlideMessage: "Next slide",
+                            },
+                            thumbs: {
+                                swiper: galleryTop,
+                            },
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true, // Pause autoplay on hover
+                            },
+                        });
+                    }
+
+                    // Sync the slide change between galleryTop and galleryThumbs
+                    galleryTop.on("slideChangeTransitionStart", function() {
+                        galleryThumbs.slideTo(galleryTop.activeIndex);
+                    });
+                    galleryThumbs.on("transitionStart", function() {
+                        galleryTop.slideTo(galleryThumbs.activeIndex);
+                    });
+                }
+
+                initSwiper();
+
+                // Reinitialize Swiper on window resize
+                $(window).resize(function() {
+                    initSwiper();
+                });
+            });
+        </script>
+        {{-- <script>
+            $(function() {
+                var galleryTop, galleryThumbs;
+
+                function initSwiper() {
+                    // Destroy existing Swiper instances if they exist
+                    if (galleryTop) {
+                        galleryTop.destroy(true, true);
+                    }
+                    if (galleryThumbs) {
+                        galleryThumbs.destroy(true, true);
+                    }
+
+                    if ($(window).width() > 768) {
+                        // Initialize Swiper for desktop
                         galleryTop = new Swiper(".product-details-slide", {
                             spaceBetween: 10,
                             slidesPerView: 4,
@@ -1000,7 +1144,7 @@
                     initSwiper();
                 });
             });
-        </script>
+        </script> --}}
 
         <script>
             $(document).ready(function() {

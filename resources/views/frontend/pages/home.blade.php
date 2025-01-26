@@ -1,4 +1,5 @@
 <x-frontend-app-layout :title="'Home Page'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
     <section class="ps-section--banner">
         <div class="main-banner">
             <img src="{{ asset('images/jutalagbe-main-banner.jpg') }}" alt="">
@@ -687,11 +688,65 @@
                     </div>
                 </section>
             @endif
+            {{-- Video Section Start --}}
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-between align-items-center py-2 py-lg-5">
+                            <div class="">
+                                <h3 class="ps-section__title mb-0" style="font-size: 30px;">
+                                    Live
+                                </h3>
+                            </div>
+                            <div style="width: 900px" class="px-3">
+                                <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
+                            </div>
+                            <div class="ps-delivery ps-delivery--info p-0">
+                                <a class="ps-delivery__more" href="shop">আরো দেখুন
+                                    <i class="fa-solid fa-"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- First Column -->
+                    <div class="col-lg-3">
+                        <a href="#">
+                            <div class="card p-0 video-box-pr">
+                                <div class="card-header p-0">
+                                    <div class="player" data-plyr-provider="youtube"
+                                        data-plyr-embed-id="bTqVqk7FSmY">
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="video-category-info">
+                                        <div>
+                                            <img class="img-fluid shadow-sm border"
+                                                src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/Artboard1_0684daf7-e7d9-4224-9724-07271a45c73a_200x200.png?v=1698315950"
+                                                alt="">
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <h6 class="video-pr-title">boAt Airdopes 71</h6>
+                                        <p>
+                                            <span class="text-success fw-bold fs-2 video-price">₹999</span>
+                                            <del class="video-discount">₹3,990</del>
+                                            <span class="video-off">75% Off</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {{-- Video Section End --}}
             @if ($categorythree && $categorythreeproducts->count() > 0)
                 <div class="container px-0 mb-5 pb-0 pb-lg-5">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="d-flex justify-content-between align-items-center pb-2 pb-lg-5">
+                            <div class="d-flex justify-content-between align-items-center py-2 py-lg-5">
                                 <div class="">
                                     <h3 class="ps-section__title mb-0" style="font-size: 30px;">
                                         {{ optional($categorythree)->name }}</h3>
@@ -1083,6 +1138,57 @@
 
     @include('frontend.layouts.HomeQuickViewModal')
     @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Initialize Plyr for all elements with the "player" class
+                const players = Plyr.setup('.player', {
+                    muted: true, // Mute videos for autoplay compliance
+                    controls: [], // Remove all controls
+                    youtube: {
+                        rel: 0, // Disable related videos
+                        showinfo: 0, // Hide video information
+                        modestbranding: 1, // Reduce YouTube branding
+                    },
+                });
+
+                // Add hover event listeners for each player
+                players.forEach(player => {
+                    const container = player.elements.container;
+
+                    // Play the video on hover
+                    container.addEventListener('mouseenter', () => {
+                        player.play();
+                    });
+
+                    // Ensure autoplay and muted work as intended
+                    players.forEach(player => {
+                        player.muted = true; // Enforce muted autoplay
+                    });
+                    // Pause the video when hover ends
+                    container.addEventListener('mouseleave', () => {
+                        player.pause();
+                    });
+                });
+            });
+            // document.addEventListener('DOMContentLoaded', () => {
+            //     const players = Plyr.setup('.player', {
+            //         autoplay: true, // Enable autoplay
+            //         muted: true, // Mute videos for autoplay compliance
+            //         controls: [], // Remove all controls
+            //         youtube: {
+            //             rel: 0, // Disable related videos
+            //             showinfo: 0, // Hide video information
+            //             modestbranding: 1, // Reduce YouTube branding
+            //         },
+            //     });
+
+            //     // Ensure autoplay and muted work as intended
+            //     players.forEach(player => {
+            //         player.muted = true; // Enforce muted autoplay
+            //     });
+            // });
+        </script>
         <script>
             $(document).ready(function() {
                 // Initialize Owl Carousel
