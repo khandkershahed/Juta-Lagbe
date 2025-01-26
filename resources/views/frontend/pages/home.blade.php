@@ -684,7 +684,7 @@
                                                             টাকা</del>
                                                         <span class="video-off">
                                                             {{ !empty($categorytwoproduct->unit_discount_price) && $categorytwoproduct->unit_discount_price > 0 ? number_format((($categorytwoproduct->unit_price - $categorytwoproduct->unit_discount_price) / $categorytwoproduct->unit_price) * 100, 1) : 0 }}
-                                                            Off
+                                                            % Off
                                                         </span>
                                                     @else
                                                         <span
