@@ -49,28 +49,182 @@
 
                                             <div class="col-12 col-xl-6 mb-3">
                                                 <div class="ps-form__group pt-2">
-                                                    <label class="block font-medium text-sm site-text ps-form__label" for="district">
+                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                                        for="district">
                                                         জেলা
                                                         <span class="text-danger">*</span>
                                                     </label>
-                                                    <select name="district" id="district" class="form-control select ps-form__input" required>
-                                                        <option value="" disabled selected>জেলা</option>
-                                                        @foreach ($districts as $district)
-                                                            <option value="{{ $district->bn_name }}" @selected(old('district') == $district->bn_name)>{{ $district->bn_name }}</option>
-                                                        @endforeach
+                                                    <select name="district" class="form-control select ps-form__input"
+                                                        required id="district">
+                                                        <option value="" disabled selected>জেলা
+                                                        </option>
+                                                        <option value="Dhaka" @selected(old('district' == 'Dhaka'))>ঢাকা
+                                                        </option>
+                                                        <option value="Faridpur" @selected(old('district' == 'Faridpur'))>ফরিদপুর
+                                                        </option>
+                                                        <option value="Gazipur" @selected(old('district' == 'Gazipur'))>গাজীপুর
+                                                        </option>
+                                                        <option value="Gopalganj" @selected(old('district' == 'Gopalganj'))>গোপালগঞ্জ
+                                                        </option>
+                                                        <option value="Kishoreganj" @selected(old('district' == 'Kishoreganj'))>
+                                                            কিশোরগঞ্জ
+                                                        </option>
+                                                        <option value="Madaripur" @selected(old('district' == 'Madaripur'))>মাদারীপুর
+                                                        </option>
+                                                        <option value="Manikganj" @selected(old('district' == 'Manikganj'))>মানিকগঞ্জ
+                                                        </option>
+                                                        <option value="Munshiganj" @selected(old('district' == 'Munshiganj'))>
+                                                            মুন্সিগঞ্জ
+                                                        </option>
+                                                        <option value="Narayanganj" @selected(old('district' == 'Narayanganj'))>
+                                                            নারায়ণগঞ্জ
+                                                        </option>
+                                                        <option value="Narsingdi" @selected(old('district' == 'Narsingdi'))>নরসিংদী
+                                                        </option>
+                                                        <option value="Rajbari" @selected(old('district' == 'Rajbari'))>রাজবাড়ী
+                                                        </option>
+                                                        <option value="Shariatpur" @selected(old('district' == 'Shariatpur'))>
+                                                            শরীয়তপুর
+                                                        </option>
+                                                        <option value="Tangail" @selected(old('district' == 'Tangail'))>টাঙ্গাইল
+                                                        </option>
+                                                        <option value="Barguna" @selected(old('district' == 'Barguna'))>বরগুনা
+                                                        </option>
+                                                        <option value="Barisal" @selected(old('district' == 'Barisal'))>বরিশাল
+                                                        </option>
+                                                        <option value="Bhola" @selected(old('district' == 'Bhola'))>ভোলা
+                                                        </option>
+                                                        <option value="Jhalokati" @selected(old('district' == 'Jhalokati'))>ঝালকাঠি
+                                                        </option>
+                                                        <option value="Patuakhali" @selected(old('district' == 'Patuakhali'))>
+                                                            পটুয়াখালী
+                                                        </option>
+                                                        <option value="Pirojpur" @selected(old('district' == 'Pirojpur'))>পিরোজপুর
+                                                        </option>
+                                                        <option value="Bandarban" @selected(old('district' == 'Bandarban'))>
+                                                            বান্দরবান
+                                                        </option>
+                                                        <option value="Brahmanbaria" @selected(old('district' == 'Brahmanbaria'))>
+                                                            ব্রাহ্মণবাড়িয়া
+                                                        </option>
+                                                        <option value="Chandpur" @selected(old('district' == 'Chandpur'))>চাঁদপুর
+                                                        </option>
+                                                        <option value="Chittagong" @selected(old('district' == 'Chittagong'))>
+                                                            চট্টগ্রাম
+                                                        </option>
+                                                        <option value="Comilla" @selected(old('district' == 'Comilla'))>কুমিল্লা
+                                                        </option>
+                                                        <option value="Cox" @selected(old('district' == 'Cox')) s Bazar">
+                                                            কক্সবাজার
+                                                        </option>
+                                                        <option value="Feni" @selected(old('district' == 'Feni'))>ফেনী
+                                                        </option>
+                                                        <option value="Khagrachari" @selected(old('district' == 'Khagrachari'))>
+                                                            খাগড়াছড়ি
+                                                        </option>
+                                                        <option value="Lakshmipur" @selected(old('district' == 'Lakshmipur'))>
+                                                            লক্ষ্মীপুর
+                                                        </option>
+                                                        <option value="Noakhali" @selected(old('district' == 'Noakhali'))>নোয়াখালী
+                                                        </option>
+                                                        <option value="Rangamati" @selected(old('district' == 'Rangamati'))>
+                                                            রাঙ্গামাটি
+                                                        </option>
+                                                        <option value="Habiganj" @selected(old('district' == 'Habiganj'))>হবিগঞ্জ
+                                                        </option>
+                                                        <option value="Moulvibazar" @selected(old('district' == 'Moulvibazar'))>
+                                                            মৌলভীবাজার
+                                                        </option>
+                                                        <option value="Sylhet" @selected(old('district' == 'Sylhet'))>সিলেট
+                                                        </option>
+                                                        <option value="Jamalpur" @selected(old('district' == 'Jamalpur'))>জামালপুর
+                                                        </option>
+                                                        <option value="Mymensingh" @selected(old('district' == 'Mymensingh'))>
+                                                            ময়মনসিংহ
+                                                        </option>
+                                                        <option value="Netrokona" @selected(old('district' == 'Netrokona'))>
+                                                            নেত্রকোণা
+                                                        </option>
+                                                        <option value="Sherpur" @selected(old('district' == 'Sherpur'))>শেরপুর
+                                                        </option>
+                                                        <option value="Bogra" @selected(old('district' == 'Bogra'))>বগুড়া
+                                                        </option>
+                                                        <option value="Joypurhat" @selected(old('district' == 'Joypurhat'))>
+                                                            জয়পুরহাট
+                                                        </option>
+                                                        <option value="Naogaon" @selected(old('district' == 'Naogaon'))>নওগাঁ
+                                                        </option>
+                                                        <option value="Natore" @selected(old('district' == 'Natore'))>নাটোর
+                                                        </option>
+                                                        <option value="Chapainawabganj" @selected(old('district' == 'Chapainawabganj'))>
+                                                            চাঁপাইনবাবগঞ্জ</option>
+                                                        <option value="Pabna" @selected(old('district' == 'Pabna'))>পাবনা
+                                                        </option>
+                                                        <option value="Rajshahi" @selected(old('district' == 'Rajshahi'))>রাজশাহী
+                                                        </option>
+                                                        <option value="Sirajganj" @selected(old('district' == 'Sirajganj'))>
+                                                            সিরাজগঞ্জ
+                                                        </option>
+                                                        <option value="Dinajpur" @selected(old('district' == 'Dinajpur'))>দিনাজপুর
+                                                        </option>
+                                                        <option value="Gaibandha" @selected(old('district' == 'Gaibandha'))>
+                                                            গাইবান্ধা
+                                                        </option>
+                                                        <option value="Kurigram" @selected(old('district' == 'Kurigram'))>
+                                                            কুড়িগ্রাম
+                                                        </option>
+                                                        <option value="Lalmonirhat" @selected(old('district' == 'Lalmonirhat'))>
+                                                            লালমনিরহাট
+                                                        </option>
+                                                        <option value="Nilphamari" @selected(old('district' == 'Nilphamari'))>
+                                                            নীলফামারী
+                                                        </option>
+                                                        <option value="Panchagarh" @selected(old('district' == 'Panchagarh'))>
+                                                            পঞ্চগড়
+                                                        </option>
+                                                        <option value="Rangpur" @selected(old('district' == 'Rangpur'))>রংপুর
+                                                        </option>
+                                                        <option value="Thakurgaon" @selected(old('district' == 'Thakurgaon'))>
+                                                            ঠাকুরগাঁও
+                                                        </option>
+                                                        <option value="Bagerhat" @selected(old('district' == 'Bagerhat'))>বাগেরহাট
+                                                        </option>
+                                                        <option value="Chuadanga" @selected(old('district' == 'Chuadanga'))>
+                                                            চুয়াডাঙ্গা
+                                                        </option>
+                                                        <option value="Jessore" @selected(old('district' == 'Jessore'))>যশোর
+                                                        </option>
+                                                        <option value="Jhenaidah" @selected(old('district' == 'Jhenaidah'))>ঝিনাইদহ
+                                                        </option>
+                                                        <option value="Khulna" @selected(old('district' == 'Khulna'))>খুলনা
+                                                        </option>
+                                                        <option value="Kushtia" @selected(old('district' == 'Kushtia'))>কুষ্টিয়া
+                                                        </option>
+                                                        <option value="Magura" @selected(old('district' == 'Magura'))>মাগুরা
+                                                        </option>
+                                                        <option value="Meherpur" @selected(old('district' == 'Meherpur'))>মেহেরপুর
+                                                        </option>
+                                                        <option value="Narail" @selected(old('district' == 'Narail'))>নড়াইল
+                                                        </option>
+                                                        <option value="Satkhira" @selected(old('district' == 'Satkhira'))>
+                                                            সাতক্ষীরা
+                                                        </option>
+
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div class="col-12 col-xl-6 mb-3">
                                                 <div class="ps-form__group pt-2">
-                                                    <label class="block font-medium text-sm site-text ps-form__label" for="thana">
+                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                                        for="thana">
                                                         থানা
                                                         <span class="text-danger">*</span>
                                                     </label>
-                                                    <select name="thana" id="thana" class="form-control ps-form__input" required>
-                                                        <option value="" disabled selected>থানা</option>
-                                                    </select>
+                                                    <input class="form-control ps-form__input" type="text"
+                                                        name="thana"
+                                                        value="{{ old('thana', optional(Auth::user())->thana) }}"
+                                                        autofocus="" autocomplete="thana" placeholder="আপনার থানা"
+                                                        required>
                                                 </div>
                                             </div>
 
@@ -178,9 +332,8 @@
                                                     </div>
                                                     <div class="">
                                                         <a
-                                                            href="{{ route('product.details', $cartItem->model->slug) }}">{{ $cartItem->model->name }}</a><span
-                                                            class="pl-3 pr-1">
-                                                            <i class="fa-solid fa-close"></i></span><span
+                                                            href="{{ route('product.details', $cartItem->model->slug) }}">{{ $cartItem->model->name }}</a><span class="pl-3 pr-1">
+                                                                <i class="fa-solid fa-close"></i></span><span
                                                             class="text-end">{{ convertToBangla($cartItem->qty) }}</span>
                                                     </div>
                                                 </div>
@@ -239,7 +392,6 @@
         </div>
     </div>
     @push('scripts')
-
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 function convertToBangla(number) {

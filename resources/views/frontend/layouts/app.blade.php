@@ -86,7 +86,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
-    
+
     <style>
         /* Preloader styles */
         #preloader {
@@ -177,6 +177,37 @@
     <script src="{{ asset('frontend/js/sidebar.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     @stack('scripts')
+
+    <script>
+        $(document).ready(function() {
+            $('#district').change(function() {
+                var districtName = $(this).val(); // Get the selected district name
+
+                if (districtName) {
+                    $.ajax({
+                        url: '{{ url('get-thanas-by-district') }}/' +
+                            districtName, // Call the controller method
+                        type: 'GET',
+                        success: function(data) {
+                            $('#thana').empty(); // Clear current thana options
+                            $('#thana').append(
+                                '<option value="" disabled selected>থানা</option>'
+                            ); // Add default option
+
+                            // Loop through the received thanas and append them to the thana dropdown
+                            $.each(data, function(index, thana) {
+                                $('#thana').append('<option value="' + thana.bn_name +
+                                    '">' + thana.bn_name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#thana').empty();
+                    $('#thana').append('<option value="" disabled selected>থানা</option>');
+                }
+            });
+        });
+    </script>
 
     <script>
         function addToCart(e, csrfToken, cartUrl) {

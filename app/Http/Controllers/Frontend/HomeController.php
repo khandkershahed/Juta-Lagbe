@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Sandofvega\Bdgeocode\Models\District;
 
 class HomeController extends Controller
 {
@@ -217,6 +218,18 @@ class HomeController extends Controller
         ];
         return view('frontend.pages.cart.mycart', $data);
     }
+    public function getThanasByDistrict($districtName)
+    {
+        $district = District::where('bn_name', $districtName)->first();
+
+        if ($district) {
+            $thanas = $district->thanas; 
+
+            return response()->json($thanas);
+        }
+
+        return response()->json([]);
+    }
     public function checkout()
     {
         $setting = Setting::first();
@@ -234,6 +247,7 @@ class HomeController extends Controller
                 'cartCount'       => Cart::instance('cart')->count(),
                 'user'            => Auth::user(),
                 'subTotal'        => $subTotal,
+                'districts'       => District::all(),
             ];
             return view('frontend.pages.cart.checkout', $data);
         } else {

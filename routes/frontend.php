@@ -23,11 +23,12 @@ Route::get('product/details/{slug}', [HomeController::class, 'productDetails'])-
 
 Route::post('contact/store', [ContactController::class, 'store'])->name('contact.add');
 Route::post('email-subscription/store', [NewsletterController::class, 'store'])->name('subscription.add');
+Route::get('/get-thanas-by-district/{districtName}', [HomeController::class, 'getThanasByDistrict']);
 
 // Cart routes
 Route::get('mycart', [HomeController::class, 'cart'])->name('cart');
 Route::get('buy-now/{id}', [HomeController::class, 'buyNow'])->name('buy.now');
-  
+
 Route::get('compare-list', [HomeController::class, 'compareList'])->name('compare.list');
 Route::get('{slug}/products', [HomeController::class, 'specialproducts'])->name('special.products');
 Route::get('checkout/success/{id}', [HomeController::class, 'checkoutSuccess'])->name('checkout.success');

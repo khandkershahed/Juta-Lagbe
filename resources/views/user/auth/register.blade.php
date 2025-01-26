@@ -75,153 +75,36 @@
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
                                     <!-- Title -->
-                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
-                                        <div class="ps-checkout__group">
-                                            <label class="ps-form__label">জেলা</label>
-                                            <select name="district" class="form-select ps-form__input" required
-                                                id="district">
-                                                <option value="" disabled selected>জেলা সিলেক্ট করুন</option>
-                                                <option value="Dhaka"
-                                                    data-name="Dhaka">ঢাকা</option>
-                                                <option value="Faridpur"
-                                                    data-name="Faridpur">ফরিদপুর</option>
-                                                <option value="Gazipur"
-                                                    data-name="Gazipur">গাজীপুর</option>
-                                                <option value="Gopalganj"
-                                                    data-name="Gopalganj">গোপালগঞ্জ</option>
-                                                <option value="Kishoreganj"
-                                                    data-name="Kishoreganj">কিশোরগঞ্জ</option>
-                                                <option value="Madaripur"
-                                                    data-name="Madaripur">মাদারীপুর</option>
-                                                <option value="Manikganj"
-                                                    data-name="Manikganj">মানিকগঞ্জ</option>
-                                                <option value="Munshiganj"
-                                                    data-name="Munshiganj">মুন্সিগঞ্জ</option>
-                                                <option value="Narayanganj"
-                                                    data-name="Narayanganj">নারায়ণগঞ্জ</option>
-                                                <option value="Narsingdi"
-                                                    data-name="Narsingdi">নরসিংদী</option>
-                                                <option value="Rajbari"
-                                                    data-name="Rajbari">রাজবাড়ী</option>
-                                                <option value="Shariatpur"
-                                                    data-name="Shariatpur">শরীয়তপুর</option>
-                                                <option value="Tangail"
-                                                    data-name="Tangail">টাঙ্গাইল</option>
-                                                <option value="Barguna"
-                                                    data-name="Barguna">বরগুনা</option>
-                                                <option value="Barisal"
-                                                    data-name="Barisal">বরিশাল</option>
-                                                <option value="Bhola"
-                                                    data-name="Bhola">ভোলা</option>
-                                                <option value="Jhalokati"
-                                                    data-name="Jhalokati">ঝালকাঠি</option>
-                                                <option value="Patuakhali"
-                                                    data-name="Patuakhali">পটুয়াখালী</option>
-                                                <option value="Pirojpur"
-                                                    data-name="Pirojpur">পিরোজপুর</option>
-                                                <option value="Bandarban"
-                                                    data-name="Bandarban">বান্দরবান</option>
-                                                <option value="Brahmanbaria"
-                                                    data-name="Brahmanbaria">ব্রাহ্মণবাড়িয়া</option>
-                                                <option value="Chandpur"
-                                                    data-name="Chandpur">চাঁদপুর</option>
-                                                <option value="Chittagong"
-                                                    data-name="Chittagong">চট্টগ্রাম</option>
-                                                <option value="Comilla"
-                                                    data-name="Comilla">কুমিল্লা</option>
-                                                <option value="Cox"
-                                                    data-name="Cox's Bazar">কক্সবাজার</option>
-                                                <option value="Feni"
-                                                    data-name="Feni">ফেনী</option>
-                                                <option value="Khagrachari"
-                                                    data-name="Khagrachari">খাগড়াছড়ি</option>
-                                                <option value="Lakshmipur"
-                                                    data-name="Lakshmipur">লক্ষ্মীপুর</option>
-                                                <option value="Noakhali"
-                                                    data-name="Noakhali">নোয়াখালী</option>
-                                                <option value="Rangamati"
-                                                    data-name="Rangamati">রাঙ্গামাটি</option>
-                                                <option value="Habiganj"
-                                                    data-name="Habiganj">হবিগঞ্জ</option>
-                                                <option value="Moulvibazar"
-                                                    data-name="Moulvibazar">মৌলভীবাজার</option>
-                                                <option value="Sylhet"
-                                                    data-name="Sylhet">সিলেট</option>
-                                                <option value="Jamalpur"
-                                                    data-name="Jamalpur">জামালপুর</option>
-                                                <option value="Mymensingh"
-                                                    data-name="Mymensingh">ময়মনসিংহ</option>
-                                                <option value="Netrokona"
-                                                    data-name="Netrokona">নেত্রকোণা</option>
-                                                <option value="Sherpur"
-                                                    data-name="Sherpur">শেরপুর</option>
-                                                <option value="Bogra"
-                                                    data-name="Bogra">বগুড়া</option>
-                                                <option value="Joypurhat"
-                                                    data-name="Joypurhat">জয়পুরহাট</option>
-                                                <option value="Naogaon"
-                                                    data-name="Naogaon">নওগাঁ</option>
-                                                <option value="Natore"
-                                                    data-name="Natore">নাটোর</option>
-                                                <option value="Chapainawabganj"
-                                                    data-name="Chapainawabganj">চাঁপাইনবাবগঞ্জ</option>
-                                                <option value="Pabna"
-                                                    data-name="Pabna">পাবনা</option>
-                                                <option value="Rajshahi"
-                                                    data-name="Rajshahi">রাজশাহী</option>
-                                                <option value="Sirajganj"
-                                                    data-name="Sirajganj">সিরাজগঞ্জ</option>
-                                                <option value="Dinajpur"
-                                                    data-name="Dinajpur">দিনাজপুর</option>
-                                                <option value="Gaibandha"
-                                                    data-name="Gaibandha">গাইবান্ধা</option>
-                                                <option value="Kurigram"
-                                                    data-name="Kurigram">কুড়িগ্রাম</option>
-                                                <option value="Lalmonirhat"
-                                                    data-name="Lalmonirhat">লালমনিরহাট</option>
-                                                <option value="Nilphamari"
-                                                    data-name="Nilphamari">নীলফামারী</option>
-                                                <option value="Panchagarh"
-                                                    data-name="Panchagarh">পঞ্চগড়</option>
-                                                <option value="Rangpur"
-                                                    data-name="Rangpur">রংপুর</option>
-                                                <option value="Thakurgaon"
-                                                    data-name="Thakurgaon">ঠাকুরগাঁও</option>
-                                                <option value="Bagerhat"
-                                                    data-name="Bagerhat">বাগেরহাট</option>
-                                                <option value="Chuadanga"
-                                                    data-name="Chuadanga">চুয়াডাঙ্গা</option>
-                                                <option value="Jessore"
-                                                    data-name="Jessore">যশোর</option>
-                                                <option value="Jhenaidah"
-                                                    data-name="Jhenaidah">ঝিনাইদহ</option>
-                                                <option value="Khulna"
-                                                    data-name="Khulna">খুলনা</option>
-                                                <option value="Kushtia"
-                                                    data-name="Kushtia">কুষ্টিয়া</option>
-                                                <option value="Magura"
-                                                    data-name="Magura">মাগুরা</option>
-                                                <option value="Meherpur"
-                                                    data-name="Meherpur">মেহেরপুর</option>
-                                                <option value="Narail"
-                                                    data-name="Narail">নড়াইল</option>
-                                                <option value="Satkhira"
-                                                    data-name="Satkhira">সাতক্ষীরা</option>
-
+                                    <div class="col-12 col-xl-6 mb-3">
+                                        <div class="ps-form__group pt-2">
+                                            <label class="block font-medium text-sm site-text ps-form__label"
+                                                for="district">
+                                                জেলা
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="district" id="district"
+                                                class="form-control select ps-form__input" required>
+                                                <option value="" disabled selected>জেলা</option>
+                                                @foreach ($districts as $district)
+                                                    <option value="{{ $district->bn_name }}"
+                                                        @selected(old('district') == $district->bn_name)>{{ $district->bn_name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
-                                        <x-input-error :messages="$errors->get('district')" class="mt-2" />
                                     </div>
 
-                                    <!-- City/Country -->
-                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
-                                        <label class="ps-form__label" for="City">থানা</label>
-                                        <div class="input-group">
-                                            <input id="address_two" class="form-control ps-form__input" type="text"
-                                                name="address_two" placeholder="Enter Your City Name"
-                                                value="{{ old('address_two') }}" autocomplete="address_two" />
+                                    <div class="col-12 col-xl-6 mb-3">
+                                        <div class="ps-form__group pt-2">
+                                            <label class="block font-medium text-sm site-text ps-form__label"
+                                                for="thana">
+                                                থানা
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="thana" id="thana" class="form-control ps-form__input"
+                                                required>
+                                                <option value="" disabled selected>থানা</option>
+                                            </select>
                                         </div>
-                                        <x-input-error :messages="$errors->get('address_two')" class="mt-2" />
                                     </div>
                                     <!-- House/Block/Road -->
                                     <div class="ps-form__group col-12 col-xl-12 mt-3">
@@ -235,7 +118,8 @@
                                         <x-input-error :messages="$errors->get('address_one')" class="mt-2" />
                                     </div>
                                     <div class="col-12 col-xl-12">
-                                        <p class="pt-4 ps-form__label ">শর্তাবলী ও নিয়মাবলী<span class="text-danger">*</span></p>
+                                        <p class="pt-4 ps-form__label ">শর্তাবলী ও নিয়মাবলী<span
+                                                class="text-danger">*</span></p>
                                     </div>
                                     <div class="col-12 col-xl-12">
                                         <div class="form-check ml-0">
@@ -251,7 +135,8 @@
                                     <h6 class="">
                                         <span style="font-size: 16px">{{ __('Already have an accounts?') }}</span>
                                         <a href="{{ route('login') }}"
-                                            class="btn btn-sm btn-link text-gray fw-bold fs-6 site_text_color_links">Log In Now</a>
+                                            class="btn btn-sm btn-link text-gray fw-bold fs-6 site_text_color_links">Log
+                                            In Now</a>
                                     </h6>
                                 </div>
                                 <div class="ps-form__submit pt-4">

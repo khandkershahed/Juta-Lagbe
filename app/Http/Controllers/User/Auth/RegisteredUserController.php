@@ -18,6 +18,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Sandofvega\Bdgeocode\Models\District;
 
 class RegisteredUserController extends Controller
 {
@@ -26,7 +27,10 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('user.auth.register');
+        $data = [
+            'districts' => District::all(),
+        ];
+        return view('user.auth.register',$data);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Sandofvega\Bdgeocode\Seeds\BdgeocodeSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,12 +20,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call([
-            AdminSeeder::class, // 1st
-            RolePermissionSeeder::class, // 2nd
-            CategorySeeder::class, // 3rd
-            ActivityLogSeeder::class, // 4th
-            EmailSettingSeeder::class, // 5th
-        ]);
+        // $this->call([
+        //     AdminSeeder::class, // 1st
+        //     RolePermissionSeeder::class, // 2nd
+
+        // ]);
+        $this->call(BdgeocodeSeeder::class);
     }
 }

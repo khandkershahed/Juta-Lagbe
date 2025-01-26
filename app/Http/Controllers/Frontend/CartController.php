@@ -133,7 +133,7 @@ class CartController extends Controller
         }
     }
 
-
+ 
     public function removeFromCart(Request $request)
     {
         $rowId = $request->input('rowId');
