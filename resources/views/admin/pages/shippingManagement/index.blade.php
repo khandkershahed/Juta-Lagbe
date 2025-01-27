@@ -4,10 +4,13 @@
             <h3 class="card-title text-white">Manage Your Shipping</h3>
             <div>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-white btn btn-sm" data-bs-toggle="modal"
+                <a href="{{ route('admin.shipping-management.create') }}" class="btn btn-white btn btn-sm">
+                    <i class="fa-solid fa-plus"></i> Create
+                </a>
+                {{-- <button type="button" class="btn btn-white btn btn-sm" data-bs-toggle="modal"
                     data-bs-target="#shipping_methodsAdd">
                     <i class="fa-solid fa-plus"></i> Create
-                </button>
+                </button> --}}
             </div>
         </div>
         <div class="card-body table-responsive">
@@ -36,13 +39,13 @@
                             <td>{{ $method->max_weight }}</td>
                             <td>৳{{ $method->price }}</td>
                             <td><span class="badge {{ $method->status == 'active' ? 'bg-success' : 'bg-danger' }}">
-                                {{ $method->status == 'active' ? 'Active' : 'InActive' }}</span></td>
+                                    {{ $method->status == 'active' ? 'Active' : 'InActive' }}</span></td>
                             <td class="text-start">
-                                <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                    data-bs-toggle="modal" data-bs-target="#shipping_methodsEdit_{{ $method->id }}">
+                                <a href="{{ route('admin.shipping-management.edit', $method->id) }}"
+                                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <i class="fa-solid fa-pen"></i>
                                 </a>
-                                <a href="{{ route('admin.shipping-management.destroy',$method->id) }}"
+                                <a href="{{ route('admin.shipping-management.destroy', $method->id) }}"
                                     class="btn btn-icon btn-bg-light-danger btn-active-color-danger btn-sm me-1 delete"
                                     data-kt-docs-table-filter="delete_row">
                                     <i class="fa-solid fa-trash-can-arrow-up"></i>
@@ -64,215 +67,20 @@
                     <h5 class="modal-title" id="shipping_methodsAddLabel">Shipping Create</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('admin.shipping-management.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="card">
-                            <div class="card-body pt-0 row">
-                                <div class="mb-5 fv-row col-12">
-                                    <x-metronic.label class="form-label">Title</x-metronic.label>
-                                    <x-metronic.input type="text" name="title" class="form-control mb-2"
-                                        placeholder="Enter title" :value="old('title')">
-                                    </x-metronic.input>
-                                    <div class="text-muted fs-7">
-                                        A unique title for the shipping method.
-                                    </div>
-                                </div>
-                                <div class="mb-5 fv-row col-6">
-                                    <x-metronic.label class="form-label">Location</x-metronic.label>
-                                    <x-metronic.input type="text" name="location" class="form-control mb-2"
-                                        placeholder="Enter location" :value="old('location')">
-                                    </x-metronic.input>
-                                    <div class="text-muted">
-                                        Location shipping method.
-                                    </div>
-                                </div>
-                                <div class="mb-5 fv-row w-50 col-6">
-                                    <x-metronic.label class="form-label">Duration</x-metronic.label>
-                                    <x-metronic.input type="text" name="duration" class="form-control mb-2"
-                                        placeholder="Enter duration" :value="old('duration')">
-                                    </x-metronic.input>
-                                    <div class="text-muted fs-7">
-                                        Estimated delivery time.
-                                    </div>
-                                </div>
-                                <div class="mb-5 fv-row">
-                                    <x-metronic.label class="form-label">Description</x-metronic.label>
-                                    <textarea name="description" class="ckeditor form-control mb-2" placeholder="Add detailed description">{!! old('description') !!}</textarea>
-                                    <div class="text-muted fs-7">
-                                        Detailed description of the shipping method.
-                                    </div>
-                                </div>
-                                <div class="mb-5 fv-row col-4">
-                                    <x-metronic.label class="form-label">Carrier</x-metronic.label>
-                                    <x-metronic.input type="text" name="carrier" class="form-control mb-2"
-                                        placeholder="Enter carrier name" :value="old('carrier')">
-                                    </x-metronic.input>
-                                    <div class="text-muted fs-7">
-                                        The carrier or service provider for the shipping method.
-                                    </div>
-                                </div>
-                                <div class="mb-5 fv-row col-4">
-                                    <x-metronic.label class="form-label">Min Weight</x-metronic.label>
-                                    <x-metronic.input type="number" name="min_weight" class="form-control mb-2"
-                                        placeholder="Enter minimum weight" :value="old('min_weight')">
-                                    </x-metronic.input>
-                                    <div class="text-muted fs-7">
-                                        Minimum weight for the shipping method.
-                                    </div>
-                                </div>
-                                <div class="mb-5 fv-row col-4">
-                                    <x-metronic.label class="form-label">Max Weight</x-metronic.label>
-                                    <x-metronic.input type="number" name="max_weight" class="form-control mb-2"
-                                        placeholder="Enter maximum weight" :value="old('max_weight')">
-                                    </x-metronic.input>
-                                    <div class="text-muted fs-7">
-                                        Maximum weight for the shipping method.
-                                    </div>
-                                </div>
-                                <div class="mb-5 fv-row col-6">
-                                    <x-metronic.label class="form-label">Price</x-metronic.label>
-                                    <x-metronic.input type="number" name="price" class="form-control mb-2"
-                                        placeholder="Enter price" :value="old('price')">
-                                    </x-metronic.input>
-                                    <div class="text-muted fs-7">
-                                        Cost associated with the shipping method.
-                                    </div>
-                                </div>
-                                <div class="mb-5 fv-row col-6">
-                                    <x-metronic.label class="form-label">Status</x-metronic.label>
-                                    <select class="form-select" name="status" data-control="select2"
-                                        data-hide-search="true" data-allow-clear="true"
-                                        data-placeholder="Select status">
-                                        <option value="active" {{ old('status') === 'active' ? 'selected' : '' }}>
-                                            Active
-                                        </option>
-                                        <option value="inactive" {{ old('status') === 'inactive' ? 'selected' : '' }}>
-                                            Inactive</option>
-                                    </select>
-                                    <div class="text-muted fs-7">
-                                        Status of the shipping method (Active/Inactive).
-                                    </div>
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
     @foreach ($shipping_methods as $method)
-        <div class="modal fade" id="shipping_methodsEdit_{{ $method->id }}" tabindex="-1" aria-labelledby="shipping_methodsEditLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="shipping_methodsEdit_{{ $method->id }}" tabindex="-1"
+            aria-labelledby="shipping_methodsEditLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="shipping_methodsEditLabel">Shipping Edit</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('admin.shipping-management.update',$method->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body">
-                            <div class="card">
-                                <div class="card-body pt-0 row">
-                                    <div class="mb-5 fv-row col-12">
-                                        <x-metronic.label class="form-label">Title</x-metronic.label>
-                                        <x-metronic.input type="text" name="title" class="form-control mb-2"
-                                            placeholder="Enter title" :value="old('title',$method->title)">
-                                        </x-metronic.input>
-                                        <div class="text-muted fs-7">
-                                            A unique title for the shipping method.
-                                        </div>
-                                    </div>
-                                    <div class="mb-5 fv-row col-6">
-                                        <x-metronic.label class="form-label">Location</x-metronic.label>
-                                        <x-metronic.input type="text" name="location" class="form-control mb-2"
-                                            placeholder="Enter location" :value="old('location',$method->location)">
-                                        </x-metronic.input>
-                                        <div class="text-muted">
-                                            Location shipping method.
-                                        </div>
-                                    </div>
-                                    <div class="mb-5 fv-row w-50 col-6">
-                                        <x-metronic.label class="form-label">Duration</x-metronic.label>
-                                        <x-metronic.input type="text" name="duration" class="form-control mb-2"
-                                            placeholder="Enter duration" :value="old('duration',$method->duration)">
-                                        </x-metronic.input>
-                                        <div class="text-muted fs-7">
-                                            Estimated delivery time.
-                                        </div>
-                                    </div>
-                                    <div class="mb-5 fv-row">
-                                        <x-metronic.label class="form-label">Description</x-metronic.label>
-                                        <textarea name="description" class="ckeditor form-control mb-2" placeholder="Add detailed description">{!! old('description',$method->description) !!}</textarea>
-                                        <div class="text-muted fs-7">
-                                            Detailed description of the shipping method.
-                                        </div>
-                                    </div>
-                                    <div class="mb-5 fv-row col-4">
-                                        <x-metronic.label class="form-label">Carrier</x-metronic.label>
-                                        <x-metronic.input type="text" name="carrier" class="form-control mb-2"
-                                            placeholder="Enter carrier name" :value="old('carrier',$method->carrier)">
-                                        </x-metronic.input>
-                                        <div class="text-muted fs-7">
-                                            The carrier or service provider for the shipping method.
-                                        </div>
-                                    </div>
-                                    <div class="mb-5 fv-row col-4">
-                                        <x-metronic.label class="form-label">Min Weight</x-metronic.label>
-                                        <x-metronic.input type="number" name="min_weight" class="form-control mb-2"
-                                            placeholder="Enter minimum weight" :value="old('min_weight',$method->min_weight)">
-                                        </x-metronic.input>
-                                        <div class="text-muted fs-7">
-                                            Minimum weight for the shipping method.
-                                        </div>
-                                    </div>
-                                    <div class="mb-5 fv-row col-4">
-                                        <x-metronic.label class="form-label">Max Weight</x-metronic.label>
-                                        <x-metronic.input type="number" name="max_weight" class="form-control mb-2"
-                                            placeholder="Enter maximum weight" :value="old('max_weight',$method->max_weight)">
-                                        </x-metronic.input>
-                                        <div class="text-muted fs-7">
-                                            Maximum weight for the shipping method.
-                                        </div>
-                                    </div>
-                                    <div class="mb-5 fv-row col-6">
-                                        <x-metronic.label class="form-label">Price</x-metronic.label>
-                                        <x-metronic.input type="number" name="price" class="form-control mb-2"
-                                            placeholder="Enter price" :value="old('price',$method->price)">
-                                        </x-metronic.input>
-                                        <div class="text-muted fs-7">
-                                            Cost associated with the shipping method.
-                                        </div>
-                                    </div>
-                                    <div class="mb-5 fv-row col-6">
-                                        <x-metronic.label class="form-label">Status</x-metronic.label>
-                                        <select class="form-select" name="status" data-control="select2"
-                                            data-hide-search="true" data-allow-clear="true"
-                                            data-placeholder="Select status">
-                                            <option value="active" {{ old('status',$method->status) === 'active' ? 'selected' : '' }}>
-                                                Active
-                                            </option>
-                                            <option value="inactive" {{ old('status',$method->status) === 'inactive' ? 'selected' : '' }}>
-                                                Inactive</option>
-                                        </select>
-                                        <div class="text-muted fs-7">
-                                            Status of the shipping method (Active/Inactive).
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

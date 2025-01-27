@@ -239,7 +239,7 @@
                             // Loop through the received districts and append them to the district dropdown
                             $.each(data, function(index, district) {
                                 $('#district').append('<option value="' + district
-                                    .bn_name + '">' + district.bn_name + '</option>'
+                                    .bn_name + '">' + district.bn_name +'-'+ district.name + '</option>'
                                     );
                             });
                         }
@@ -272,7 +272,7 @@
                             // Loop through the received thanas and append them to the thana dropdown
                             $.each(data, function(index, thana) {
                                 $('#thana').append('<option value="' + thana.bn_name +
-                                    '">' + thana.bn_name + '</option>');
+                                    '">' + thana.bn_name +'-'+ thana.name + '</option>');
                             });
                         }
                     });

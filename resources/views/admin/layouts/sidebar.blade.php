@@ -104,6 +104,8 @@
                                 'admin.categories.edit',
                                 'admin.stock-management.index',
                                 'admin.shipping-management.index',
+                                'admin.shipping-management.create',
+                                'admin.shipping-management.edit',
                                 'admin.product.index',
                                 'admin.product.create',
                                 'admin.product.edit',
@@ -141,7 +143,11 @@
                                 ],
                                 [
                                     'title' => 'Shipping',
-                                    'routes' => ['admin.shipping-management.index'],
+                                    'routes' => [
+                                        'admin.shipping-management.index',
+                                        'admin.shipping-management.create',
+                                        'admin.shipping-management.edit',
+                                    ],
                                     'route' => 'admin.shipping-management.index',
                                 ],
                                 [

@@ -59,7 +59,8 @@
                                                         <option value="" disabled selected>বিভাগ</option>
                                                         @foreach ($bd_divisions as $division)
                                                             <option value="{{ $division->bn_name }}"
-                                                                @selected(old('division') == $division->bn_name)>{{ $division->bn_name }}
+                                                                @selected(old('division') == $division->bn_name)>{{ $division->bn_name }} -
+                                                                {{ $division->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -106,7 +107,7 @@
                                                         placeholder="সম্পূর্ণ ঠিকানা" required>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-12 mb-3">
+                                            {{-- <div class="col-12 col-xl-12 mb-3">
                                                 <div class="ps-form__group pt-4">
                                                     <label class="block font-medium text-sm site-text ps-form__label"
                                                         for="shipping_id">
@@ -137,7 +138,8 @@
                                                         </div>
                                                     @endforeach
                                                 </div>
-                                            </div>
+                                            </div> --}}
+
                                             <div class="col-12 col-xl-12 mb-3">
                                                 <div class="ps-form__group pt-4">
                                                     <label class="block font-medium text-sm site-text ps-form__label"
@@ -198,10 +200,18 @@
                                                     </div>
                                                     <div class="">
                                                         <a
-                                                            href="{{ route('product.details', $cartItem->model->slug) }}">{{ $cartItem->model->name }}</a><span
-                                                            class="pl-3 pr-1">
-                                                            <i class="fa-solid fa-close"></i></span><span
-                                                            class="text-end">{{ convertToBangla($cartItem->qty) }}</span>
+                                                            href="{{ route('product.details', $cartItem->model->slug) }}">{{ $cartItem->model->name }}
+                                                        </a>
+                                                        <span class="pl-3 pr-1">
+                                                            <i class="fa-solid fa-close"></i>
+                                                        </span>
+                                                        <span class="text-end">
+                                                            {{ convertToBangla($cartItem->qty) }}
+                                                        </span>
+                                                        <br>
+                                                        <span>
+                                                            <strong>Size :  {{ $cartItem->options->size }}</strong>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class="ps-product__price">
@@ -226,6 +236,8 @@
                                         <div class="ps-checkout__row">
                                             <div class="ps-title">সর্বমোট মূল্য</div>
                                             <div class="ps-product__price" id="total-price-container">
+                                                <input type="hidden" name="shipping_id" id="shippingID"
+                                                    value="">
                                                 <input type="hidden" name="total_amount" id="total-input"
                                                     value="{{ number_format($subTotal, 2) }}">
                                                 ৳<span id="total-price"
@@ -260,37 +272,94 @@
     </div>
     @push('scripts')
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                function convertToBangla(number) {
-                    const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-                    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
-
-                    return number.replace(/[0-9]/g, function(digit) {
-                        return banglaDigits[englishDigits.indexOf(digit)];
-                    });
-                }
-                const subtotal = parseFloat('{{ $subTotal }}');
-                const totalInput = document.getElementById('total-input');
-                const totalPriceSpan = document.getElementById('total-price');
-                const shippingCharge = document.getElementById('shippingCharge');
-
-                document.querySelectorAll('input[name="shipping_id"]').forEach(function(radio) {
-                    radio.addEventListener('change', function() {
-                        const shippingPrice = parseFloat(this.getAttribute('data-shipping_price')) || 0;
-                        const total = subtotal + shippingPrice;
-                        shippingCharge.textContent = convertToBangla(shippingPrice.toFixed(2));
-
-                        totalInput.value = total.toFixed(2); // Update hidden field value
-                        totalPriceSpan.textContent = convertToBangla(total.toFixed(
-                            2)); // Update the visible total price
-                    });
+            $(document).ready(function() {
+                $('#division').select2({
+                    placeholder: "বিভাগ",
+                    allowClear: true
                 });
-                const defaultShippingRadio = document.querySelector('input[name="shipping_id"]:checked');
-                if (defaultShippingRadio) {
-                    defaultShippingRadio.dispatchEvent(new Event('change'));
-                }
 
+                $('#district').select2({
+                    placeholder: "জেলা",
+                    allowClear: true
+                });
+
+                $('#thana').select2({
+                    placeholder: "থানা",
+                    allowClear: true
+                });
             });
+
+            function convertToBangla(number) {
+                const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+                const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+
+                return number.replace(/[0-9]/g, function(digit) {
+                    return banglaDigits[englishDigits.indexOf(digit)];
+                });
+            }
+            $(document).ready(function() {
+                $('#thana').change(function() {
+                    var thanaName = $(this).val(); // Get the selected division
+                    var subtotal = parseFloat('{{ $subTotal }}');
+                    var totalInput = document.getElementById('total-input');
+                    var shippingID = document.getElementById('shippingID');
+                    var totalPriceSpan = document.getElementById('total-price');
+                    var shippingCharge = document.getElementById('shippingCharge');
+                    if (thanaName) {
+                        $.ajax({
+                            url: '{{ url('get-charge-by-thana') }}/' +
+                                thanaName, // Call the controller method
+                            type: 'GET',
+                            success: function(data) {
+                                // $('#district').empty(); // Clear current district options
+                                var shippingPrice = parseFloat(data.price) || 0;
+                                const total = subtotal + shippingPrice;
+                                shippingCharge.textContent = convertToBangla(shippingPrice.toFixed(
+                                    2));
+                                // alert(data.id);
+                                totalInput.value = total.toFixed(2); // Update hidden field value
+                                shippingID.value = data.id; // Update hidden field value
+                                totalPriceSpan.textContent = convertToBangla(total.toFixed(
+                                    2)); // Update the visible total price
+                            }
+                        });
+                    }
+
+                });
+            });
+        </script>
+        <script>
+            // document.addEventListener('DOMContentLoaded', function() {
+            //     function convertToBangla(number) {
+            //         const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            //         const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+
+            //         return number.replace(/[0-9]/g, function(digit) {
+            //             return banglaDigits[englishDigits.indexOf(digit)];
+            //         });
+            //     }
+            //     const subtotal = parseFloat('{{ $subTotal }}');
+            //     const totalInput = document.getElementById('total-input');
+            //     const totalPriceSpan = document.getElementById('total-price');
+            //     const shippingCharge = document.getElementById('shippingCharge');
+
+            //     document.querySelectorAll('input[name="shipping_id"]').forEach(function(radio) {
+            //         radio.addEventListener('change', function() {
+            //             const shippingPrice = parseFloat(this.getAttribute('data-shipping_price')) || 0;
+            //             const total = subtotal + shippingPrice;
+            //             shippingCharge.textContent = convertToBangla(shippingPrice.toFixed(2));
+
+            //             totalInput.value = total.toFixed(2); // Update hidden field value
+            //             totalPriceSpan.textContent = convertToBangla(total.toFixed(
+            //                 2)); // Update the visible total price
+            //         });
+            //     });
+            //     const defaultShippingRadio = document.querySelector('input[name="shipping_id"]:checked');
+            //     if (defaultShippingRadio) {
+            //         defaultShippingRadio.dispatchEvent(new Event('change'));
+            //     }
+
+            // });
         </script>
     @endpush
 </x-frontend-app-layout>

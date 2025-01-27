@@ -127,15 +127,20 @@
                                         <div class="ps-product__feature">
                                             @if (!empty($latest_product->unit_discount_price))
                                                 <div class="ps-product__meta">
+                                                    <span class="ps-product__price sale fw-bold"
+                                                        style="font-weight:600;">দাম
+                                                        {{ $latest_product->unit_discount_price }}
+                                                        টাকা</span>
                                                     <span
-                                                        class="ps-product__price sale">৳{{ $latest_product->unit_discount_price }}</span>
-                                                    <span
-                                                        class="ps-product__del">৳{{ $latest_product->unit_price }}</span>
+                                                        class="ps-product__del text-danger">{{ $latest_product->unit_price }}
+                                                        টাকা</span>
                                                 </div>
                                             @else
                                                 <div class="ps-product__meta">
-                                                    <span
-                                                        class="ps-product__price sale">৳{{ $latest_product->unit_price }}</span>
+                                                    <span class="ps-product__price sale fw-bold"
+                                                        style="font-weight:600;">দাম
+                                                        {{ $latest_product->unit_price }}
+                                                        টাকা</span>
                                                 </div>
                                             @endif
 
@@ -154,14 +159,11 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-center card-cart-btn">
-                                                <a href="{{ route('buy.now', $latest_product->id) }}"
-                                                    class="btn btn-primary mr-1 mr-lg-3 ">
-                                                    Buy Now
-                                                </a>
-                                                <a href="{{ route('cart.store', $latest_product->id) }}"
-                                                    class="btn btn-outline-primary add_to_cart buy-now-btn"
-                                                    data-product_id="{{ $latest_product->id }}" data-product_qty="1">
-                                                    Add To Cart
+                                                <a href="{{ route('product.details', $latest_product->slug) }}"
+                                                    class="btn btn-primary rounded-0 w-100">
+                                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                    অর্ডার
+                                                    করুন
                                                 </a>
                                             </div>
                                         </div>
@@ -220,7 +222,8 @@
                                                         : asset('frontend/img/no-product.jpg');
                                                 @endphp
                                                 <div class="slide">
-                                                    <img src="{{ $thumbnailSrc }}" alt="{{ $deal_product->name }}" />
+                                                    <img src="{{ $thumbnailSrc }}"
+                                                        alt="{{ $deal_product->name }}" />
                                                 </div>
                                             @endif
                                         </div>
@@ -275,17 +278,23 @@
                                             <p>{!! $deal_product->short_description !!}</p>
                                         </div>
                                         @if (!empty($deal_product->unit_discount_price))
-                                            <div class="ps-product__meta">
-                                                <span
-                                                    class="ps-product__price sale">৳{{ $deal_product->unit_discount_price }}</span>
-                                                <span class="ps-product__del">৳{{ $deal_product->unit_price }}</span>
-                                            </div>
-                                        @else
-                                            <div class="ps-product__meta">
-                                                <span
-                                                    class="ps-product__price sale">৳{{ $deal_product->unit_price }}</span>
-                                            </div>
-                                        @endif
+                                                            <div class="ps-product__meta">
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $deal_product->unit_discount_price }}
+                                                                    টাকা</span>
+                                                                <span
+                                                                    class="ps-product__del text-danger">{{ $deal_product->unit_price }}
+                                                                    টাকা</span>
+                                                            </div>
+                                                        @else
+                                                            <div class="ps-product__meta">
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $deal_product->unit_price }}
+                                                                    টাকা</span>
+                                                            </div>
+                                                        @endif
 
                                         {{-- <div class="ps-product__quantity">
                                                 <h6>Quantity</h6>

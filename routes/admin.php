@@ -107,23 +107,24 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
             'blog-category'       => BlogCategoryController::class, //done
             'blog-tags'           => BlogTagController::class, //done
             'catalogue'           => CatalogueController::class, //done
-            'shipping-management' => ShippingManagementController::class, //done
+             //done
         ],
         ['except' => ['show', 'create', 'edit']]
     );
     Route::resources(
         [
-            'faq'             => FaqController::class,
-            'role'            => RoleController::class,
-            'permission'      => PermissionController::class,
-            'email-settings'  => EmailSettingController::class,
-            'terms-condition' => TermsAndConditionController::class,
-            'privacy-policy'  => PrivacyPolicyController::class,
-            'deal-banner'     => DealBannerController::class,
-            'blog-post'       => BlogPostController::class,
-            'testimonial'     => TestimonialController::class,
-            'product-review'  => ProductReviewController::class,
-            'special-offer'   => SpecialOfferController::class,
+            'faq'                 => FaqController::class,
+            'role'                => RoleController::class,
+            'permission'          => PermissionController::class,
+            'email-settings'      => EmailSettingController::class,
+            'terms-condition'     => TermsAndConditionController::class,
+            'privacy-policy'      => PrivacyPolicyController::class,
+            'deal-banner'         => DealBannerController::class,
+            'blog-post'           => BlogPostController::class,
+            'testimonial'         => TestimonialController::class,
+            'product-review'      => ProductReviewController::class,
+            'special-offer'       => SpecialOfferController::class,
+            'shipping-management' => ShippingManagementController::class,
         ],
         ['except' => ['show']]
     );

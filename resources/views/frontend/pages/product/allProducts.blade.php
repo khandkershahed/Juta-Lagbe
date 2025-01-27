@@ -477,14 +477,20 @@
                                             </div>
                                             @if (!empty($product->unit_discount_price))
                                                 <div class="ps-product__meta">
+                                                    <span class="ps-product__price sale fw-bold"
+                                                        style="font-weight:600;">দাম
+                                                        {{ $product->unit_discount_price }}
+                                                        টাকা</span>
                                                     <span
-                                                        class="ps-product__price sale">৳{{ $product->unit_discount_price }}</span>
-                                                    <span class="ps-product__del">৳{{ $product->unit_price }}</span>
+                                                        class="ps-product__del text-danger">{{ $product->unit_price }}
+                                                        টাকা</span>
                                                 </div>
                                             @else
                                                 <div class="ps-product__meta">
-                                                    <span
-                                                        class="ps-product__price sale">৳{{ $product->unit_price }}</span>
+                                                    <span class="ps-product__price sale fw-bold"
+                                                        style="font-weight:600;">দাম
+                                                        {{ $product->unit_price }}
+                                                        টাকা</span>
                                                 </div>
                                             @endif
 
@@ -677,7 +683,6 @@
             }
         </script>
         <script>
-
             $(document).ready(function() {
                 var priceSlider = document.getElementById('slide-price');
                 noUiSlider.create(priceSlider, {
@@ -766,11 +771,12 @@
                 }
 
                 // Filter form change event
-                $('.category-filter, .subcategory-filter, .brand-filter, #sort-by, #price-filter, #show-per-page, input[name="size"]').on(
-                    'change',
-                    function() {
-                        fetchProducts();
-                    });
+                $('.category-filter, .subcategory-filter, .brand-filter, #sort-by, #price-filter, #show-per-page, input[name="size"]')
+                    .on(
+                        'change',
+                        function() {
+                            fetchProducts();
+                        });
                 // $('#filterForm input, #filterForm select').on('change', function() {
                 //     fetchProducts();
                 // });
