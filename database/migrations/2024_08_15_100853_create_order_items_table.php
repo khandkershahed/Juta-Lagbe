@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('SET NULL');
             $table->string('product_name')->nullable();
             $table->string('product_color')->nullable();
+            $table->string('size')->nullable();
             $table->string('product_sku')->nullable();
             $table->double('price')->nullable();
             $table->double('tax')->nullable();

@@ -18,6 +18,8 @@ use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use lemonpatwari\bangladeshgeocode\Models\District;
+use lemonpatwari\bangladeshgeocode\Models\Division;
 
 class RegisteredUserController extends Controller
 {
@@ -26,7 +28,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('user.auth.register');
+        // $data = [
+        //     'bd_divisions '  => Division::all(),
+        // ];
+        $bd_divisions  = Division::all();
+        return view('user.auth.register',compact('bd_divisions'));
     }
 
     /**
@@ -41,37 +47,23 @@ class RegisteredUserController extends Controller
         $status = $userVerification === '1' ? 'inactive' : 'active';
         // Define validation rules
         $validator = Validator::make($request->all(), [
-            'title'                         => 'nullable|in:Mr,Mrs,Ms',
-            'first_name'                    => 'nullable|string|max:100',
-            'last_name'                     => 'nullable|string|max:100',
-            'email'                         => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password'                      => ['required', 'string', 'confirmed'],
-            // 'password'                      => ['required', 'string', 'min:8', 'confirmed'],
-            'phone'                         => 'nullable|max:20|min:9',
-            'address_one'                   => 'nullable|string|max:255',
-            'address_two'                   => 'nullable|string|max:255',
-            'zipcode'                       => 'nullable|string|max:200',
-            'state'                         => 'nullable|string|max:200',
-            'company_name'                  => 'nullable|string|max:255',
-            'company_registration_number'   => 'nullable|string|max:255',
-            'company_vat_number'            => 'nullable|string|max:255',
-            'selling_platforms'             => 'nullable|string',
-            'customer_type'                 => 'nullable|string',
-            'referral_source'               => 'nullable|string|max:255',
-            'buying_group_membership'       => 'nullable|string|max:255',
-            'website_address'               => 'nullable|url',
-            'buying_group_name'             => 'nullable|string|max:255',
-            'current_suppliers'             => 'nullable|string',
-            'annual_spend'                  => 'nullable|string',
-            'newsletter_preference'         => 'nullable',
-            'terms_condition'               => 'required',
+            'title'                 => 'nullable|in:Mr,Mrs,Ms',
+            'name'                  => 'nullable|string|max:100',
+            // 'email'                 => ['required', 'string', 'email', 'max:255'],
+            'password'              => ['required', 'string'],
+            // 'password'              => ['required', 'string', 'confirmed'],
+            'phone'                 => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11|unique:users,phone',
+            'address'               => 'nullable|string|max:255',
+            'thana'                 => 'nullable|string|max:200',
+            'district'              => 'nullable|string|max:200',
+            'newsletter_preference' => 'nullable',
+            'terms_condition'       => 'nullable',
         ]);
 
         // Validate request
         if ($validator->fails()) {
             foreach ($validator->messages()->all() as $message) {
                 Session::flash('error', $message);
-                // flash()->error($message);
             }
             return redirect()->back()->withInput();
         }
@@ -80,45 +72,29 @@ class RegisteredUserController extends Controller
         try {
             // Create a new customer record
             $user = User::create([
-                'title'                         => $request->title,
-                'first_name'                    => $request->first_name,
-                'last_name'                     => $request->last_name,
-                'email'                         => $request->email,
-                'password'                      => Hash::make($request->password),
-                'phone'                         => $request->phone,
-                'address_one'                   => $request->address_one,
-                'address_two'                   => $request->address_two,
-                'zipcode'                       => $request->zipcode,
-                'state'                         => $request->state,
-                'company_name'                  => $request->company_name,
-                'company_registration_number'   => $request->company_registration_number,
-                'company_vat_number'            => $request->company_vat_number,
-                'selling_platforms'             => $request->selling_platforms,
-                'customer_type'                 => $request->customer_type,
-                'referral_source'               => $request->referral_source,
-                'buying_group_membership'       => $request->buying_group_membership,
-                'website_address'               => $request->website_address,
-                'buying_group_name'             => $request->buying_group_name,
-                'current_suppliers'             => $request->current_suppliers,
-                'annual_spend'                  => $request->annual_spend,
-                'newsletter_preference'         => $request->newsletter_preference,
-                'terms_condition'               => $request->terms_condition,
-                'status'                        => $status,
+                'title'                 => $request->title,
+                'name'                  => $request->name,
+                'email'                 => $request->email,
+                'password'              => Hash::make($request->password),
+                'phone'                 => $request->phone,
+                'address'               => $request->address,
+                'thana'                 => $request->thana,
+                'district'              => $request->district,
+                'newsletter_preference' => $request->newsletter_preference,
+                'terms_condition'       => $request->terms_condition,
+                'status'                => $status,
             ]);
 
             $setting = Setting::first();
             event(new Registered($user));
-            Mail::to($user->email)->send(new UserRegistrationMail($user->name, $setting));
+            // Mail::to($user->email)->send(new UserRegistrationMail($user->name, $setting));
             Auth::login($user);
             Session::flash('success', "You have registered Successfully");
-            // Redirect to home
             return redirect(RouteServiceProvider::HOME);
         } catch (\Illuminate\Database\QueryException $e) {
-            // Handle database errors
             Session::flash('error', $e->getMessage());
             return redirect()->back()->withInput();
         } catch (\Exception $e) {
-            // Handle general errors
             Session::flash('error', $e->getMessage());
             return redirect()->back()->withInput();
         }

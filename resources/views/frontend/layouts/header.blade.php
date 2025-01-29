@@ -107,7 +107,8 @@
         justify-content: center;
         overflow: hidden;
         transition: all 0.25s ease;
-        background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c);
+        /* background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c); */
+        background-color: white;
         /* border-radius: var(--round); */
         border: none;
         outline: none;
@@ -130,17 +131,12 @@
 
     .button-new::after {
         --space: 1px;
-        background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c);
+        /* background-image: linear-gradient(to right top, #ff0000, #f30405, #e7080a, #dc0c0d, #d00f10, #c40f11, #b81011, #ac1011, #9d0f10, #8f0e0f, #800d0e, #720c0c); */
+        background-color: white;
     }
 
     .button-new:active {
         transform: scale(0.95);
-    }
-
-    /* Ensure parents allow scrolling */
-    body,
-    html {
-        overflow: visible;
     }
 </style>
 <div class="ps-header ps-header--2">
@@ -160,15 +156,22 @@
                         @auth
                             <div class="ps-login--modal">
                                 <!-- If the user is authenticated, show these options -->
-                                <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
-                                <a class="dropdown-item" href="#"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    {{ __('Log Out') }}
-                                </a>
-                                <!-- Hidden logout form -->
-                                <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-                                    @csrf
-                                </form>
+                                <div>
+                                    <p>Welcome! Choose an option:</p>
+                                    <div class="d-flex align-items-center">
+                                        <a class="btn btn-primary rounded-0 mr-2"
+                                            href="{{ route('dashboard') }}">Dashboard</a>
+                                        <a class="btn btn-primary rounded-0" href="#"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('Log Out') }}
+                                        </a>
+                                        <!-- Hidden logout form -->
+                                        <form id="logout-form" method="POST" action="{{ route('logout') }}"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         @else
                             <div class="ps-login--modal">
@@ -203,23 +206,6 @@
                                             </form>
                                         </div>
                                     </div>
-                                    {{-- <div>
-                                        <p>Manage Your Dashboard?</p>
-                                        <a class="btn btn-primary w-100" href="{{ route('dashboard') }}">
-                                            Dashboard
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <p>Want to Log Out?</p>
-                                        <a class="btn btn-primary w-100" href="#"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Log Out
-                                        </a>
-                                        <form id="logout-form" method="POST" action="{{ route('logout') }}"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div> --}}
                                 @endauth
                             </div>
                         @endauth
@@ -287,6 +273,12 @@
                                                         HOME
                                                     </a>
                                                 </li>
+                                                <li class="menu-item menus-items-head">
+                                                    <a class="fromCenter {{ Route::currentRouteName() === 'allproducts' ? 'active-menu' : '' }} mb-0"
+                                                        href="{{ route('allproducts') }}">
+                                                        SHOP
+                                                    </a>
+                                                </li>
                                                 @foreach ($categories as $index => $category)
                                                     <li class="menu-item menus-items-head"
                                                         data-index="{{ $index }}">
@@ -312,7 +304,7 @@
                                         <div class="points_wrapper">
                                             <i class="point"></i>
                                             <i class="point"></i>
-                                        <i class="point"></i>
+                                            <i class="point"></i>
                                             <i class="point"></i>
                                             <i class="point"></i>
                                             <i class="point"></i>
@@ -322,9 +314,10 @@
                                             <i class="point"></i>
                                         </div>
 
-                                        <span class="inner"><svg class="icon" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
+                                        <span class="inner"><svg class="icon" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2.5">
                                                 <polyline
                                                     points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
                                                 </polyline>

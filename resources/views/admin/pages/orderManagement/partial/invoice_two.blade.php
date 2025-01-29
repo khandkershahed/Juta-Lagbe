@@ -2,18 +2,20 @@
     aria-labelledby="printInovice{{ optional($order)->id }}Label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-body">
-                <div class="row" id="invoiceContent{{ optional($order)->id }}">
-                    <div class="card card-print">
-                        <div class="card-body">
+            <div class="modal-header border-0 d-flex justify-content-center">
+                <h1 class="mb-0">#{{ optional($order)->order_number }} অর্ডার ইনভয়েস</h1>
+            </div>
+            <div class="modal-body pt-0">
+                <div class="row mx-4 mt-4" id="invoiceContent{{ optional($order)->id }}">
+                    <div class="card card-print shadow-sm px-0">
+                        <div class="card-body px-0">
                             <div class="mx-auto w-100">
-                                <div class="d-flex justify-content-between flex-column flex-sm-row mb-19">
+                                <div class="d-flex justify-content-between flex-column flex-sm-row mb-19 px-10">
                                     <h4 class="fw-bolder text-gray-800 fs-2qx pe-5 pb-7">INVOICE</h4>
 
                                     <div class="text-sm-end">
                                         <a href="#" class="d-block mw-150px ms-sm-auto">
-                                            <img alt="Logo"
-                                                src="{{ !empty($site->site_logo_white) && file_exists(public_path('storage/settings/' . $site->site_logo_white)) ? asset('storage/settings/' . $site->site_logo_white) : asset('frontend/img/logo.png') }}"
+                                            <img alt="Logo" src="{{ asset('images/default_logo.png') }}"
                                                 class="w-100">
                                         </a>
 
@@ -31,8 +33,8 @@
 
                                 <div class="d-flex flex-column gap-7 gap-md-10">
                                     <div class="fw-bold fs-2">
-                                        Dear {{ optional($order->user)->first_name }} <span
-                                            class="fs-6">({{ optional($order->user)->email }} )</span>,<br>
+                                        Dear, <span class="text-info">{{ optional($order->user)->name }}</span> <br>
+                                        <span class="fs-6">({{ optional($order->user)->email }} )</span>,<br>
                                         <span class="text-muted fs-5">Here are your order details. Thank you for
                                             your purchase.</span>
                                     </div>
@@ -41,18 +43,18 @@
 
                                     <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bold">
                                         <div class="flex-root d-flex flex-column">
-                                            <span class="text-muted">Order ID</span>
+                                            <span class="text-muted">অর্ডার আইডি</span>
                                             <span class="fs-5">#{{ optional($order)->order_number }}</span>
                                         </div>
 
                                         <div class="flex-root d-flex flex-column">
-                                            <span class="text-muted">Date</span>
+                                            <span class="text-muted">অর্ডার ডেট</span>
                                             <span
                                                 class="fs-5">{{ optional($order)->created_at->format('d M, Y') }}</span>
                                         </div>
 
                                         <div class="flex-root d-flex flex-column">
-                                            <span class="text-muted">Invoice ID</span>
+                                            <span class="text-muted">ইনভয়েস আইডি</span>
                                             <span class="fs-5">#{{ optional($order)->order_number }}</span>
                                         </div>
 
@@ -67,21 +69,24 @@
 
                                         <div class="flex-root d-flex flex-column">
                                             <span class="text-muted">Shipping Address</span>
+                                            {{-- <span class="fs-6">
+                                                {{ optional($order)->thana }}, {{ optional($order)->district }},
+                                            </span> --}}
                                             <span class="fs-6">
-                                                {{ optional($order)->shipping_address }}
+                                                {{ optional($order)->thana }}, {{ optional($order)->address }},
                                             </span>
                                         </div>
                                     </div>
 
                                     <div class="d-flex justify-content-between flex-column">
-                                        <div class="table-responsive border-bottom mb-9">
+                                        <div class="table-responsive border-bottom">
                                             <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
-                                                <thead>
+                                                <thead style="background-color: #252525">
                                                     <tr class="border-bottom fs-6 fw-bold text-muted">
-                                                        <th class="min-w-175px pb-2 ps-5">Products</th>
-                                                        <th class="min-w-70px text-end pb-2">SKU</th>
-                                                        <th class="min-w-80px text-end pb-2">QTY</th>
-                                                        <th class="min-w-100px text-end pb-2 pe-5">Total</th>
+                                                        <th class="">প্রোডাক্ট</th>
+                                                        <th class="text-end ">কোড</th>
+                                                        <th class="text-end ">কোয়ান্টিটি</th>
+                                                        <th class="text-end pl-5">টোটাল</th>
                                                     </tr>
                                                 </thead>
 
@@ -90,11 +95,20 @@
                                                         <tr>
                                                             <td>
                                                                 <div class="d-flex align-items-center">
-                                                                    <a href="{{ route('product.details', optional($item->product)->slug) }}"
-                                                                        class="symbol symbol-50px">
-                                                                        <span class="symbol-label"
-                                                                            style="background-image:url({{ asset('storage/' . optional($item->product)->thumbnail) }});"></span>
-                                                                    </a>
+                                                                    <div>
+                                                                        @php
+                                                                            $thumbnailPath =
+                                                                                'storage/' .
+                                                                                optional($item->product)->thumbnail;
+                                                                            $thumbnailSrc = file_exists(
+                                                                                public_path($thumbnailPath),
+                                                                            )
+                                                                                ? asset($thumbnailPath)
+                                                                                : asset('frontend/img/no-product.jpg');
+                                                                        @endphp
+                                                                        <img class="cart-img" src="{{ $thumbnailSrc }}"
+                                                                            alt="{{ optional($item->product)->name }}">
+                                                                    </div>
 
                                                                     <div class="ms-5 text-start">
                                                                         <div class="fw-bold text-start">
@@ -117,15 +131,16 @@
                                                     @endforeach
                                                     <tr>
                                                         <td colspan="3" class="text-end">
-                                                            Subtotal
+                                                            প্রোডাক্টের দাম
                                                         </td>
                                                         <td class="text-end">
-                                                            ৳ {{ optional($order)->sub_total }}
+                                                            {{-- {{ $order->total_amount + $order->shipping_charge }} --}}
+                                                            ৳ {{ optional($order)->total_amount }} .00
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3" class="text-end">
-                                                            VAT (0%)
+                                                            ভ্যাট (0%)
                                                         </td>
                                                         <td class="text-end">
                                                             ৳ 0.00
@@ -133,10 +148,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3" class="fs-3 text-gray-900 fw-bold text-end">
-                                                            Grand Total
+                                                            সর্ব মোট
                                                         </td>
                                                         <td class="text-gray-900 fs-3 fw-bolder text-end">
-                                                            ৳ {{ optional($order)->total_amount }}
+                                                            ৳ {{ optional($order)->total_amount }}.00
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -146,21 +161,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer p-4 text-center border-0" style="background-color: #e1ecff;">
+                        <div class="card-footer p-4 text-center border-0 text-white" style="background-color: #252525;">
                             © {{ optional($setting)->website_name }}, LTD 2024.
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <div class="">
-                    {{-- <a href="{{ asset('storage/'.$order->invoice) }}" class="btn btn-info print p-3">
-                                <i class="fa-solid fa-print"></i> Print Invoice
-                            </a> --}}
-                    <button class="btn btn-info ml-3 p-3" onclick="downloadInvoice()">
-                        <i class="fa-solid fa-file-download"></i> Download Invoice
-                    </button>
-                    <button class="btn btn-danger ml-3 p-3" data-bs-dismiss="modal" aria-label="close"> Close
+                <div class="pt-10 d-flex justify-content-center align-items-center">
+                    <button class="btn btn-dark ml-3 p-3 rounded-pill" onclick="downloadInvoice()">
+                        <i class="fa-solid fa-file-download"></i> ইনভয়েস ডাউনলোড করুন
                     </button>
                 </div>
             </div>

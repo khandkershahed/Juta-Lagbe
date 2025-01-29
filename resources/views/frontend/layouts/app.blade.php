@@ -65,6 +65,9 @@
 
 
     <link rel="stylesheet" href="{{ asset('frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('frontend/fonts/Linearicons/Font/demo-files/demo.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/bootstrap4/css/bootstrap.min.css') }}">
@@ -83,21 +86,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/66fa6576e5982d6c7bb68965/1i911om0h';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
 
     <style>
         /* Preloader styles */
@@ -108,7 +96,7 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background-color: #fff;
+            background-color: #d9edfa;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -133,19 +121,42 @@
         .swal2-actions {
             margin-bottom: 1.25rem;
         }
+
+        /* Back to Top Button Styles */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            font-size: 18px;
+            display: none;
+            /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.1);
+            /* Slight zoom on hover */
+        }
     </style>
 </head>
 
 <body>
     <!-- Preloader HTML -->
     <div id="preloader" class="flex-column">
-        <div class="wave-text">
-            <span>জু</span>
-            <span>তা</span>
-            <span>-</span>
-            <span>লা</span>
-            <span>গ</span>
-            <span>বে</span>
+        <div>
+            <img width="300px" src="{{ asset('images/preloader.gif') }}" alt="">
         </div>
     </div>
     <div id="main-content" style="display: none;">
@@ -158,14 +169,8 @@
             @include('frontend.layouts.footer')
             {{-- Footer --}}
         </div>
-        {{-- Sidebar Cart Common Start --}}
-        <div>
-            <a class="cart-sidebar-btn" href="{{ route('cart') }}">
-                <span class="cart-values cartCount">{{ Cart::instance('cart')->count() }}</span>
-                <i class="fa fa-shopping-cart"></i>
-            </a>
-        </div>
-        {{-- Sidebar Cart Common End --}}
+        <!-- Back to Top Button -->
+        <button id="backToTop" class="back-to-top">↑</button>
     </div>
 
     <!-- Scroll to Top Button -->
@@ -189,10 +194,95 @@
     <script src="https://kit.fontawesome.com/69b7156a94.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('frontend/js/sidebar.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     @stack('scripts')
+    <script>
+        const backToTopButton = document.getElementById("backToTop");
+
+        // Show the button when the user scrolls down
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 200) {
+                backToTopButton.style.display = "flex"; // Show the button
+            } else {
+                backToTopButton.style.display = "none"; // Hide the button
+            }
+        });
+
+        // Scroll back to the top when the button is clicked
+        backToTopButton.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth" // Smooth scroll
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // When the division is changed
+            $('#division').change(function() {
+                var divisionName = $(this).val(); // Get the selected division
+
+                if (divisionName) {
+                    $.ajax({
+                        url: '{{ url('get-districts-by-division') }}/' +
+                        divisionName, // Call the controller method
+                        type: 'GET',
+                        success: function(data) {
+                            $('#district').empty(); // Clear current district options
+                            $('#district').append(
+                                '<option value="" disabled selected>জেলা</option>'
+                                ); // Add default option
+
+                            // Loop through the received districts and append them to the district dropdown
+                            $.each(data, function(index, district) {
+                                $('#district').append('<option value="' + district
+                                    .bn_name + '">' + district.bn_name +'-'+ district.name + '</option>'
+                                    );
+                            });
+                        }
+                    });
+                } else {
+                    $('#district').empty();
+                    $('#district').append('<option value="" disabled selected>জেলা</option>');
+                }
+
+                // Clear the thana dropdown when division changes
+                $('#thana').empty();
+                $('#thana').append('<option value="" disabled selected>থানা</option>');
+            });
+
+            // When the district is changed
+            $('#district').change(function() {
+                var districtName = $(this).val(); // Get the selected district
+
+                if (districtName) {
+                    $.ajax({
+                        url: '{{ url('get-thanas-by-district') }}/' +
+                        districtName, // Call the controller method
+                        type: 'GET',
+                        success: function(data) {
+                            $('#thana').empty(); // Clear current thana options
+                            $('#thana').append(
+                                '<option value="" disabled selected>থানা</option>'
+                                ); // Add default option
+
+                            // Loop through the received thanas and append them to the thana dropdown
+                            $.each(data, function(index, thana) {
+                                $('#thana').append('<option value="' + thana.bn_name +
+                                    '">' + thana.bn_name +'-'+ thana.name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#thana').empty();
+                    $('#thana').append('<option value="" disabled selected>থানা</option>');
+                }
+            });
+        });
+    </script>
 
     <script>
         function addToCart(e, csrfToken, cartUrl) {
@@ -237,7 +327,7 @@
                             title: data.success
                         });
                         button.disabled = true; // Disable the button
-                        button.innerText = 'Included'; // Change button text
+                        button.innerText = '✔'; // Change button text
                         document.querySelector(".cartCount").innerHTML = data.cartCount;
                         cartHeader.innerHTML = data.cartHeader;
                         if (data.subTotal > 4000) {
@@ -353,12 +443,23 @@
                 e.preventDefault(); // Prevent the default action of the link
 
                 // Find the quantity input
-                var $quantityInput = $(this).closest('.ps-product__feature').find('.quantity');
-                var product_id = $(this).data('product_id');
-                var cartHeader = $('.miniCart');
+                var $quantityInput = $("input[name='quantity']");
                 var qty = $quantityInput.val(); // Get the quantity value
+                // alert(qty);
+                var size = $("input[name='size']:checked")
+                    .val(); // Get the selected size from the radio buttons
+                // alert(size);
 
-                // Check if quantity is valid
+                // Check if size is selected and if quantity is valid
+                if (!size) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Size not selected',
+                        text: 'Please select a size for the product.'
+                    });
+                    return;
+                }
+
                 if (qty <= 0) {
                     Swal.fire({
                         icon: 'warning',
@@ -368,12 +469,17 @@
                     return;
                 }
 
+                var product_id = $(this).data(
+                    'product_id');
+                var cartHeader = $('.miniCart');
+
                 $.ajax({
                     type: "POST",
                     url: '/cart/store/' + product_id,
                     data: {
                         _token: "{{ csrf_token() }}", // Include CSRF token for security
-                        quantity: qty
+                        quantity: qty,
+                        size: size // Pass the selected size along with the quantity
                     },
                     dataType: 'json',
                     success: function(data) {
@@ -385,124 +491,15 @@
                             icon: 'success',
                             title: data.success
                         });
-                        if (data.subTotal > 4000) {
-                            Toast.fire({
-                                title: 'Congratulations!',
-                                text: "Your shipping is now free. Happy Shopping!",
-                                icon: 'success',
-                                showCancelButton: true,
-                                // confirmButtonText: 'Yes, delete it!',
-                                cancelButtonText: 'Close',
-                                buttonsStyling: false,
-                                customClass: {
-                                    // confirmButton: 'btn btn-danger',
-                                    cancelButton: 'btn btn-success'
-                                }
-                            })
-                        }
+
+
+
                         if ($.isEmptyObject(data.error)) {
-                            Toast.fire({
-                                icon: 'success',
-                                title: data.success
-                            });
-
-                            // Update mini cart
+                            // Update mini cart and item count
                             cartHeader.html(data.cartHeader);
                             $(".cartCount").html(data.cartCount);
+                            window.location.href = '/checkout';
                         } else {
-                            Toast.fire({
-                                icon: 'error',
-                                title: data.error
-                            });
-                        }
-                    },
-                    error: function(xhr) {
-                        let errorMessage = 'An unexpected error occurred.';
-
-                        // Check if the response is JSON and contains an error message
-                        if (xhr.responseJSON && xhr.responseJSON.error) {
-                            errorMessage = xhr.responseJSON.error;
-                        } else if (xhr.responseText) {
-                            try {
-                                let response = JSON.parse(xhr.responseText);
-                                if (response.error) {
-                                    errorMessage = response.error;
-                                }
-                            } catch (e) {
-                                console.error('Error parsing response text:', e);
-                            }
-                        }
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: errorMessage
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.add_to_cart').click(function(e) {
-                e.preventDefault(); // Prevent the default action of the link
-                var button = $(this);
-                var product_id = button.data('product_id');
-                var qty = button.data('product_qty'); // Get the quantity value
-                var cartUrl = $(this).attr('href');
-                var cartHeader = $('.miniCart');
-
-                // Check if quantity is valid
-                if (qty <= 0) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Invalid Quantity',
-                        timer: 1000,
-                        text: 'Please select a valid quantity.'
-                    });
-                    return;
-                }
-
-                $.ajax({
-                    type: "POST",
-                    data: {
-                        _token: "{{ csrf_token() }}", // Include CSRF token for security
-                        quantity: qty
-                    },
-                    url: cartUrl,
-                    dataType: 'json',
-                    success: function(data) {
-                        const Toast = Swal.mixin({
-                            showConfirmButton: false,
-                            timer: 1000
-                        });
-
-                        if (data.success) {
-                            Toast.fire({
-                                icon: 'success',
-                                title: data.success
-                            });
-                            button.prop('disabled', true); // Disable the button
-                            button.text('Included'); // Change button text
-                            $(".cartCount").html(data.cartCount);
-                            if (data.subTotal > 4000) {
-                                Toast.fire({
-                                    title: 'Congratulations!',
-                                    text: "Your shipping is now free. Happy Shopping!",
-                                    icon: 'success',
-                                    showCancelButton: true,
-                                    // confirmButtonText: 'Yes, delete it!',
-                                    cancelButtonText: 'Close',
-                                    buttonsStyling: false,
-                                    customClass: {
-                                        // confirmButton: 'btn btn-danger',
-                                        cancelButton: 'btn btn-success'
-                                    }
-                                })
-                            }
-                            cartHeader.html(data.cartHeader);
-                        } else if (data.error) {
                             Toast.fire({
                                 icon: 'error',
                                 title: data.error
@@ -572,21 +569,7 @@
                         ).then(function() {
                             location.reload(); // Reload the page to reflect changes
                         });
-                        if (data.subTotal > 4000) {
-                            Toast.fire({
-                                title: 'Congratulations!',
-                                text: "Your shipping is now free. Happy Shopping!",
-                                icon: 'success',
-                                showCancelButton: true,
-                                // confirmButtonText: 'Yes, delete it!',
-                                cancelButtonText: 'Close',
-                                buttonsStyling: false,
-                                customClass: {
-                                    // confirmButton: 'btn btn-danger',
-                                    cancelButton: 'btn btn-success'
-                                }
-                            })
-                        }
+
                     },
                     error: function(xhr) {
                         console.log('AJAX Error Response:', xhr
@@ -638,7 +621,7 @@
                                 title: data.success
                             });
                             button.prop('disabled', true); // Disable the button
-                            // button.text('Included'); // Change button text
+                            // button.text('✔'); // Change button text
                             wishlistCount.html(data.wishlistCount);
                         } else {
                             Toast.fire({
@@ -675,75 +658,7 @@
             });
         });
     </script>
-    {{-- MiNiCart  --}}
-    {{-- <script>
-        function miniCart() {
 
-            $.ajax({
-
-                type: 'GET',
-                dataType: 'json',
-                url: '/product/mini/cart',
-
-                success: function(response) {
-
-                    $('span[id="cartSubTotal"]').text(response.cartTotal);
-                    $('#cartQty').text(response.cartQty);
-
-                    var miniCart = ""
-
-                    $.each(response.carts, function(key, value) {
-
-                        miniCart += `<ul id="minicartHeader" class="product_list_widget list-unstyled">
-
-                            <li>
-                                <div class="media clearfix">
-
-                                    <div class="media-lefta">
-                                        <a href="single-product.html">
-                                            <img src="/${value.options.image}" style="width:50px;height:50px;" alt="hoodie_5_front" />
-                                        </a>
-                                    </div>
-
-                                    <div class="media-body">
-                                        <a href="javascript:void(0)">${value.name}</a>
-
-                                        <span class="price">
-                                            <span class="amount">
-                                                Tk ${value.price}
-                                            </span>
-                                        </span>
-
-                                        <span class="quantity">Qty: ${value.qty} Pcs</span>
-
-                                    </div>
-
-                                </div>
-                                <div class="product-remove">
-
-                                    <a type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)" class="btn-remove" title="Remove this item">
-                                        <i class="fa fa-close"></i>
-                                    </a>
-
-                                </div>
-                            </li>
-
-                            </ul>`
-
-                    });
-
-                    $('#miniCart').html(miniCart);
-
-                }
-
-            })
-
-        }
-
-        miniCart();
-    </script> --}}
-    {{-- //MiNiCart Remove  --}}
-    {{-- Search Script --}}
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -991,7 +906,6 @@
     </script>
     {!! optional($setting)->google_analytics !!}
     {!! optional($setting)->google_adsense !!}
-    {{-- add_to_cart_btn_product_single --}}
 </body>
 
 </html>

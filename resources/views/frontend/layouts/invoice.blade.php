@@ -4,9 +4,8 @@
             <div class="col-lg-6">
                 <div class="pb-5 text-m-center">
                     <img class="text-right" width="150px"
-                        src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
-                        alt=""
-                        onerror="this.onerror=null;this.src='https://neezpackages.com/frontend/img/logo.png';">
+                        src="{{ !empty(optional($setting)->site_logo_black) && file_exists(public_path('storage/' . optional($setting)->site_logo_black)) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
+                        alt="">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -28,10 +27,10 @@
             <div class="col-lg-6">
                 <div class="text-m-center">
                     <span class="font-weight-bold">Invoice To:</span>
-                    <p class="mb-0">{{ optional($order->user)->first_name }} {{ optional($order->user)->last_name }}</p>
+                    <p class="mb-0">{{ optional($order->user)->name }} </p>
                     <p class="mb-0">{{ optional($order->user)->phone }}</p>
                     <p class="mb-0">{{ optional($order->user)->email }}</p>
-                    <p class="mb-0">{{ optional($order)->shipping_address }}</p>
+                    <p class="mb-0">{{ optional($order)->address }}</p>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -79,14 +78,14 @@
                                     </td>
                                     <td>
                                         <span><span
-                                                class="text-info">(৳)</span>{{ optional($item)->quantity * optional($item)->price }}</span>
+                                                class="text-info">৳</span>{{ optional($item)->quantity * optional($item)->price }}</span>
                                     </td>
                                     <td class="text-center">
                                         <span>{{ optional($item)->quantity }}</span>
                                     </td>
                                     <td class="text-right">
                                         <span>
-                                            <span class="text-info">(৳)</span>
+                                            <span class="text-info">৳</span>
                                             {{ optional($item)->quantity * optional($item)->price }}
                                         </span>
                                     </td>
@@ -97,7 +96,7 @@
                                     <span>Subtotal</span>
                                 </td>
                                 <td class="text-right">
-                                    <span><span class="text-info">(৳)</span>{{ $order->sub_total }}</span>
+                                    <span><span class="text-info">৳</span>{{ $order->sub_total }}</span>
                                 </td>
                             </tr>
                             <tr class="">
@@ -105,7 +104,7 @@
                                     <span>VAT (0%)</span>
                                 </td>
                                 <td class="text-right">
-                                    <span><span class="text-info">(৳)</span>0.00</span>
+                                    <span><span class="text-info">৳</span>0.00</span>
                                 </td>
                             </tr>
                             @if (optional($order)->shippingCharge)
@@ -115,7 +114,7 @@
                                     </td>
                                     <td class="text-right">
                                         <span><span
-                                                class="text-info">(৳)</span>{{ optional($order->shippingCharge)->price }}</span>
+                                                class="text-info">৳</span>{{ optional($order->shippingCharge)->price }}</span>
                                     </td>
                                 </tr>
                             @endif
@@ -125,7 +124,7 @@
                                 </td>
                                 <td class="text-right font-weight-bold">
                                     <span><span
-                                            class="text-info">(৳)</span>{{ number_format(optional($order)->total_amount, 2) }}</span>
+                                            class="text-info">৳</span>{{ number_format(optional($order)->total_amount, 2) }}</span>
                                 </td>
                             </tr>
                         </tbody>

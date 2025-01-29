@@ -27,7 +27,8 @@
             <div class="row">
                 <div class="col-lg-12 px-0">
                     <div class="category-banner">
-                        <img class="img-fluid" src="{{ asset('storage/' . $category->banner_image) }}" alt="">
+                        {{-- <img class="img-fluid" src="{{ asset('storage/' . $category->banner_image) }}" alt=""> --}}
+                        <img class="img-fluid w-100" src="{{ asset('images/special-banner.jpg') }}" alt="">
                         <!-- Fallback for missing image -->
                     </div>
                 </div>
@@ -166,7 +167,7 @@
                                                                             title="Wishlist">
                                                                             <a class="add_to_wishlist"
                                                                                 href="{{ route('wishlist.store', $category_product->id) }}"><i
-                                                                                    class="fa fa-heart-o"></i></a>
+                                                                                    class="fa-solid fa-heart"></i></a>
                                                                         </div>
                                                                         <div class="ps-product__item"
                                                                             data-toggle="tooltip" data-placement="left"
@@ -176,7 +177,7 @@
                                                                                 <i class="fa fa-eye"></i>
                                                                             </a>
                                                                         </div>
-                                                                        <div class="ps-product__item"
+                                                                        {{-- <div class="ps-product__item"
                                                                             data-toggle="tooltip" data-placement="left"
                                                                             title="Add To Cart">
                                                                             <a class="add_to_cart"
@@ -185,7 +186,7 @@
                                                                                 data-product_qty="1">
                                                                                 <i class="fa fa-shopping-cart"></i>
                                                                             </a>
-                                                                        </div>
+                                                                        </div> --}}
 
                                                                     </div>
                                                                     @if (!empty($category_product->unit_discount_price))
@@ -225,7 +226,7 @@
                                                                     </div>
                                                                     <div
                                                                         class="d-flex align-items-center card-cart-btn">
-                                                                        <a href="{{ route('buy.now', $category_product->id) }}"
+                                                                        <a href="{{ route('product.details', $category_product->slug) }}"
                                                                             class="btn btn-primary rounded-0 w-100">
                                                                             <i
                                                                                 class="fa-solid fa-basket-shopping pr-2"></i>
@@ -255,7 +256,7 @@
                                                                             data-toggle="tooltip" data-placement="left"
                                                                             title="Wishlist"><a class="add_to_wishlist"
                                                                                 href="{{ route('wishlist.store', $category_product->id) }}"><i
-                                                                                    class="fa fa-heart-o"></i></a>
+                                                                                    class="fa-solid fa-heart"></i></a>
                                                                         </div>
 
                                                                     </div>
@@ -281,13 +282,15 @@
                     <!-- Sidebar Widgets -->
                     <div class="col-md-3 col-12 order-1 order-lg-12 px-0 ps-widget ps-widget--product">
                         <div class="border mb-lg-0 mb-4">
+                            <!-- Categories Filter -->
                             <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
                                 <h4 class="ps-widget__title shadow-sm p-3">
                                     <div class="d-flex align-items-center">
                                         <div>Categories</div>
                                         <div class="title-line"></div>
                                     </div>
-                                </h4><a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
+                                </h4>
+                                <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
                                 <div class="ps-widget__content ps-widget__category border-0">
                                     <ul class="menu--mobile nav nav-tabs border-0" id="myTab" role="tablist">
                                         @foreach ($categories as $allcategory)
@@ -302,31 +305,35 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="mt-3">
+
+                            <!-- Price Filter -->
+                            {{-- <div class="mt-3">
                                 <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
                                     <h4 class="ps-widget__title shadow-sm p-3 bg-light">
                                         <div class="d-flex align-items-center">
                                             <div>By Price</div>
                                             <div class="title-line"></div>
                                         </div>
-                                    </h4><a class="ps-block-control" href="#"><i
-                                            class="fa fa-angle-down"></i></a>
+                                    </h4>
+                                    <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
                                     <div class="ps-widget__content priceing-filter px-4 py-4">
                                         <div class="ps-widget__price">
-                                            <div id="slide-price" class="noUi-target noUi-ltr noUi-horizontal">
-                                            </div>
+                                            <div id="slide-price" class="noUi-target noUi-ltr noUi-horizontal"></div>
                                         </div>
                                         <div class="ps-widget__input">
-                                            <span class="ps-price" id="slide-price-min">৳10</span><span
-                                                class="bridge">-</span><span class="ps-price"
-                                                id="slide-price-max">৳10000</span>
-                                            <input type="hidden" id="price-min" name="price_min" value="10" />
-                                            <input type="hidden" id="price-max" name="price_max" value="10000" />
+                                            <span class="ps-price" id="slide-price-min">{{ $price_min }}</span>
+                                            <span class="bridge">-</span>
+                                            <span class="ps-price" id="slide-price-max">{{ $price_max }}</span>
+                                            <input type="hidden" id="price-min" name="price_min"
+                                                value="{{ $price_min }}" />
+                                            <input type="hidden" id="price-max" name="price_max"
+                                                value="{{ $price_max }}" />
                                         </div>
-                                        {{-- <button id="price-filter" class="ps-widget__filter">Filter</button> --}}
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Size Filter -->
                             <div class="mt-3">
                                 <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
                                     <h4 class="ps-widget__title shadow-sm p-3 bg-light">
@@ -337,26 +344,28 @@
                                     </h4>
                                     <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
                                     <div class="ps-widget__content priceing-filter px-4 py-4">
-                                        <!-- Bootstrap Button Radios -->
-                                        @foreach (range(40, 44) as $size)
+                                        @foreach ($sizes as $size)
                                             <div class="btn-group" role="group" aria-label="Size filter">
                                                 <input type="radio" class="btn-check" name="size"
                                                     id="size-{{ $size }}" value="{{ $size }}"
-                                                    autocomplete="off">
+                                                    autocomplete="off" onchange="updateFilters()"
+                                                    {{ $size == $selected_size ? 'checked' : '' }}>
                                                 <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
-                                                    for="size-{{ $size }}">{{ $size }}</label>
+                                                    for="size-{{ $size }}">
+                                                    {{ $size }}
+                                                </label>
                                             </div>
                                         @endforeach
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
-        <div class="container-fluid"
-            style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+        <div class="container-fluid" style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
             <div class="container juta-delivery">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
@@ -581,6 +590,71 @@
                     // Show the "Show All" button and hide the "Show Less" button
                     document.querySelector('#showAllBtn' + categoryId).classList.remove('d-none');
                     this.classList.add('d-none');
+                });
+            });
+        </script>
+        <script>
+            function updateFilters() {
+                // Collect the selected size
+                var selectedSize = $('input[name="size"]:checked').val();
+                var selectedSizes = selectedSize ? [selectedSize] : []; // Make sure it's an array
+
+                // Get price range values
+                var priceMin = $('#price-min').val();
+                var priceMax = $('#price-max').val();
+                var url = new URL(window.location.href);
+
+                // Clear existing size filter in URL
+                url.searchParams.delete('size'); // Only one size, no []
+
+                // Add price filters
+                url.searchParams.set('price_min', priceMin);
+                url.searchParams.set('price_max', priceMax);
+
+                // Add selected size as query parameter
+                if (selectedSizes.length) {
+                    url.searchParams.set('size', selectedSizes[0]); // Only one size selected
+                }
+
+                // Redirect with updated filters
+                window.location.href = url.href;
+            }
+
+            $(document).ready(function() {
+                var priceSlider = document.getElementById('slide-price');
+                noUiSlider.create(priceSlider, {
+                    start: [{{ $price_min }},
+                    {{ $price_max }}], // Set initial values from the controller
+                    connect: true,
+                    range: {
+                        'min': [0],
+                        'max': [10000]
+                    },
+                    step: 1,
+                    format: {
+                        to: function(value) {
+                            return '৳' + value.toFixed(2);
+                        },
+                        from: function(value) {
+                            return Number(value.replace('৳', ''));
+                        }
+                    }
+                });
+
+                // Update hidden inputs and price display when slider values change
+                priceSlider.noUiSlider.on('update', function(values) { // Use 'update' instead of 'change'
+                    $('#slide-price-min').text(values[0]);
+                    $('#slide-price-max').text(values[1]);
+                    $('#price-min').val(values[0].replace('৳', ''));
+                    $('#price-max').val(values[1].replace('৳', ''));
+
+                    // Trigger form submission when the price slider changes
+                    updateFilters(); // Ensure the page reloads with updated values
+                });
+
+                // Bind change event to size and price filters
+                $('#price-filter, input[name="size"]').on('change', function() {
+                    updateFilters();
                 });
             });
         </script>

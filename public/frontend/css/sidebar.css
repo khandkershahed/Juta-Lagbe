@@ -1,5 +1,5 @@
 :root {
-    --theme-color: #0f8fac;
+    --primary-color: #004d7a;
 }
 .theme-color2 {
     --theme-color: #d97819;
@@ -198,7 +198,7 @@
 .nav-tabs2 li .nav-link:hover,
 .nav-tabs5 li .nav-link:hover {
     color: #fff;
-    background-color: var(--site-green);
+    background-color: #004d7a;;
 }
 .nav-tabs2 li .nav-link.active span svg,
 .nav-tabs5 li .nav-link.active span svg,
@@ -210,7 +210,7 @@
 .nav-tabs5 li .nav-link.active::after,
 .nav-tabs2 li .nav-link:hover::after,
 .nav-tabs5 li .nav-link:hover::after {
-    background-color: var(--theme-color);
+    background-color: #004d7a;
 }
 .nav-tabs2.solid-outline li .nav-link,
 .solid-outline.nav-tabs5 li .nav-link {

@@ -158,7 +158,7 @@
                                                                         data-placement="left" title="Wishlist">
                                                                         <a class="add_to_wishlist"
                                                                             href="{{ route('wishlist.store', $category_product->id) }}"><i
-                                                                                class="fa fa-heart-o"></i></a>
+                                                                                class="fa-solid fa-heart"></i></a>
                                                                     </div>
                                                                     <div class="ps-product__item" data-toggle="tooltip"
                                                                         data-placement="left" title="Quick view">
@@ -243,7 +243,7 @@
                                                                         data-toggle="tooltip" data-placement="left"
                                                                         title="Wishlist"><a class="add_to_wishlist"
                                                                             href="{{ route('wishlist.store', $category_product->id) }}"><i
-                                                                                class="fa fa-heart-o"></i></a>
+                                                                                class="fa-solid fa-heart"></i></a>
                                                                     </div>
 
                                                                 </div>
@@ -275,7 +275,7 @@
                                     @endif
                                     <!-- Delivery Info -->
                                     <div class="container-fluid"
-                                        style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+                                        style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
                                         <div class="container juta-delivery">
                                             <div class="row align-items-center">
                                                 <div class="col-lg-8">

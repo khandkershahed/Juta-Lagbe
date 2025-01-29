@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ef333296f29f4f5a930303f5d59622f",
+    "content-hash": "177273c9e66fecb7ac5ef2e889378d4b",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -1347,6 +1347,65 @@
             "time": "2024-03-30T10:42:21+00:00"
         },
         {
+            "name": "karim007/laravel-bkash-tokenize",
+            "version": "v2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/karim-007/laravel-bkash-tokenize.git",
+                "reference": "b3b874ca711d0d125cec603121660b69f945a4bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/karim-007/laravel-bkash-tokenize/zipball/b3b874ca711d0d125cec603121660b69f945a4bf",
+                "reference": "b3b874ca711d0d125cec603121660b69f945a4bf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^7.4|^8.0|^8.1|^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "LaravelBkashTokenize": "Karim007\\LaravelBkashTokenize\\LaravelBkashTokenize"
+                    },
+                    "providers": [
+                        "Karim007\\LaravelBkashTokenize\\BkashTokenizeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Karim007\\LaravelBkashTokenize\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Md abdul karim",
+                    "email": "karim.cse007@gmail.com"
+                }
+            ],
+            "description": "This is bKash tokenize payment gateway for laravel",
+            "keywords": [
+                "bkash",
+                "bkash-payment",
+                "bkash-payment-gateway",
+                "laravel-bkash",
+                "laravel-bkash-payment",
+                "laravel-bkash-payment-tokenize"
+            ],
+            "support": {
+                "issues": "https://github.com/karim-007/laravel-bkash-tokenize/issues",
+                "source": "https://github.com/karim-007/laravel-bkash-tokenize/tree/v2.3"
+            },
+            "time": "2024-06-02T05:59:25+00:00"
+        },
+        {
             "name": "laravel/framework",
             "version": "v10.48.20",
             "source": {
@@ -2249,6 +2308,54 @@
                 }
             ],
             "time": "2024-01-28T23:22:08+00:00"
+        },
+        {
+            "name": "lemonpatwari/bangladeshgeocode",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lemonpatwari/laravel-bangladesh-geocode.git",
+                "reference": "504479a8c2c935afdffb2bb26773a04bf3dd334d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lemonpatwari/laravel-bangladesh-geocode/zipball/504479a8c2c935afdffb2bb26773a04bf3dd334d",
+                "reference": "504479a8c2c935afdffb2bb26773a04bf3dd334d",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "lemonpatwari\\bangladeshgeocode\\BangladeshGeocodeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "lemonpatwari\\bangladeshgeocode\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lemon Patwari",
+                    "email": "lemonpatwari@gmail.com"
+                }
+            ],
+            "description": "Bangladesh Geocode",
+            "keywords": [
+                "bangladesh-geocode",
+                "lemonpatwari"
+            ],
+            "support": {
+                "issues": "https://github.com/lemonpatwari/laravel-bangladesh-geocode/issues",
+                "source": "https://github.com/lemonpatwari/laravel-bangladesh-geocode/tree/v2.0.4"
+            },
+            "time": "2021-09-07T18:08:14+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -10390,12 +10497,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

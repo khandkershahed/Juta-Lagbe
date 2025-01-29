@@ -12,18 +12,21 @@ use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\DealBanner;
 use App\Models\PageBanner;
+use App\Models\Testimonial;
 use App\Models\BlogCategory;
+use App\Models\SpecialOffer;
 use Illuminate\Http\Request;
 use App\Models\PrivacyPolicy;
 use App\Models\ShippingMethod;
 use App\Models\TermsAndCondition;
 use App\Http\Controllers\Controller;
-use App\Models\SpecialOffer;
-use App\Models\Testimonial;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use lemonpatwari\bangladeshgeocode\Models\Thana;
+use lemonpatwari\bangladeshgeocode\Models\District;
+use lemonpatwari\bangladeshgeocode\Models\Division;
 
 class HomeController extends Controller
 {
@@ -31,10 +34,11 @@ class HomeController extends Controller
     {
         // Cache random categories for performance
         $categoryone = Cache::remember('categoryone', 60, function () {
-            return Category::inRandomOrder()->active()->first();
+            return Category::inRandomOrder()->active()->first() ?: null; // Return null if no category found
         });
 
-        $categoryoneproducts = collect(); // Default to empty collection
+        // Default to empty collection if no category is found
+        $categoryoneproducts = collect();
         if ($categoryone) {
             // Get products for category one with eager loading of related data
             $categoryoneproducts = $categoryone->products()->inRandomOrder()->with(['multiImages', 'reviews'])->paginate(8);
@@ -44,7 +48,7 @@ class HomeController extends Controller
         $categorytwoproducts = collect(); // Default to empty collection
         if ($categoryone) {
             $categorytwo = Cache::remember('categorytwo', 60, function () use ($categoryone) {
-                return Category::where('id', '!=', $categoryone->id)->inRandomOrder()->active()->first();
+                return Category::where('id', '!=', $categoryone->id)->inRandomOrder()->active()->first() ?: null;
             });
 
             if ($categorytwo) {
@@ -55,9 +59,13 @@ class HomeController extends Controller
 
         $categorythree = null;
         $categorythreeproducts = collect(); // Default to empty collection
-        if (isset($categoryone, $categorytwo)) {
+        if ($categoryone && $categorytwo) {
             $categorythree = Cache::remember('categorythree', 60, function () use ($categoryone, $categorytwo) {
-                return Category::where('id', '!=', $categoryone->id)->where('id', '!=', $categorytwo->id)->inRandomOrder()->active()->first();
+                return Category::where('id', '!=', $categoryone->id)
+                    ->where('id', '!=', $categorytwo->id)
+                    ->inRandomOrder()
+                    ->active()
+                    ->first() ?: null;
             });
 
             if ($categorythree) {
@@ -66,14 +74,32 @@ class HomeController extends Controller
             }
         }
 
+        $categoryfour = null;
+        $categoryFourProducts = collect(); // Default to empty collection
+        if ($categoryone && $categorytwo && $categorythree) {
+            $categoryfour = Cache::remember('categoryfour', 60, function () use ($categoryone, $categorytwo, $categorythree) {
+                return Category::where('id', '!=', $categoryone->id)
+                    ->where('id', '!=', $categorytwo->id)
+                    ->where('id', '!=', $categorythree->id)
+                    ->inRandomOrder()
+                    ->active()
+                    ->first() ?: null;
+            });
+
+            if ($categoryfour) {
+                // Get products for category four with eager loading of related data
+                $categoryFourProducts = $categoryfour->products()->inRandomOrder()->with(['multiImages'])->paginate(8);
+            }
+        }
+
         // Cache homepage data
-        $data = Cache::remember('home_page_data', 60, function () use ($categoryone, $categorytwo, $categorythree, $categoryoneproducts, $categorytwoproducts, $categorythreeproducts) {
+        $data = Cache::remember('home_page_data', 60, function () use ($categoryone, $categorytwo, $categorythree, $categoryoneproducts, $categorytwoproducts, $categorythreeproducts, $categoryfour, $categoryFourProducts) {
             return [
                 'sliders'                   => PageBanner::active()->where('page_name', 'home_slider')->latest('id')->get(),
                 'home_slider_bottom_first'  => PageBanner::active()->where('page_name', 'home_slider_bottom_first')->latest('id')->first(),
                 'home_slider_bottom_second' => PageBanner::active()->where('page_name', 'home_slider_bottom_second')->latest('id')->first(),
                 'home_slider_bottom_third'  => PageBanner::active()->where('page_name', 'home_slider_bottom_third')->latest('id')->first(),
-                'blog_posts'                => BlogPost::active()->inRandomOrder()->get(),
+                'blog_posts'                => BlogPost::active()->inRandomOrder()->paginate(5), // Paginated blog posts
                 'deals'                     => DealBanner::active()->inRandomOrder()->limit(7)->get(),
                 'blog'                      => BlogPost::inRandomOrder()->active()->first(),
                 'categorys'                 => Category::orderBy('name', 'ASC')->active()->get(),
@@ -84,13 +110,17 @@ class HomeController extends Controller
                 'categorytwoproducts'       => $categorytwoproducts,
                 'categorythree'             => $categorythree ?? '',
                 'categorythreeproducts'     => $categorythreeproducts,
+                'categoryfour'              => $categoryfour ?? '',
+                'categoryFourProducts'      => $categoryFourProducts,
                 'latest_products'           => Product::with('multiImages', 'reviews')->inRandomOrder()->where('status', 'published')->paginate(8),
                 'deal_products'             => Product::with('multiImages', 'reviews')->whereNotNull('box_discount_price')->inRandomOrder()->limit(10)->get(),
             ];
         });
 
+        // Return the view with the cached data
         return view('frontend.pages.home', $data);
     }
+
 
 
 
@@ -155,40 +185,83 @@ class HomeController extends Controller
     public function productDetails($slug)
     {
         $data = [
+            'shippingmethods'  => ShippingMethod::active()->get(),
             'product'          => Product::with('reviews', 'multiImages')->where('slug', $slug)->first(),
             'related_products' => Product::select('id', 'slug', 'color', 'meta_title', 'thumbnail', 'name', 'box_discount_price', 'unit_discount_price', 'box_price', 'unit_price')->with('multiImages')->where('status', 'published')->inRandomOrder()->limit(12)->get(),
         ];
         return view('frontend.pages.product.productDetails', $data);
     }
-    // public function categoryProducts($slug)
+
+    // public function categoryProducts(Request $request, $slug)
     // {
-    //     $category = Category::where('slug', $slug)->firstOrFail();
+    //     // Using caching to avoid fetching the same categories on every request
+    //     $categories = Cache::remember('categories', 60, function () {
+    //         return Category::orderBy('name', 'ASC')->active()->get(['id', 'name', 'slug']);
+    //     });
+
+    //     // Use eager loading to prevent N+1 problem
+    //     $category = Category::with(['catProducts.multiImages', 'catProducts.reviews'])
+    //         ->where('slug', $slug)
+    //         ->firstOrFail();
+
+    //     // Pass the data to the view
     //     $data = [
-    //         'category'                => $category,
-    //         'categories'              => Category::orderBy('name', 'ASC')->active()->get(),
+    //         'category'   => $category,
+    //         'categories' => $categories,
     //     ];
+
     //     return view('frontend.pages.categoryDetails', $data);
     // }
-    public function categoryProducts($slug)
+
+    public function categoryProducts(Request $request, $slug)
     {
         // Using caching to avoid fetching the same categories on every request
         $categories = Cache::remember('categories', 60, function () {
             return Category::orderBy('name', 'ASC')->active()->get(['id', 'name', 'slug']);
         });
 
-        // Use eager loading to prevent N+1 problem
+        // Get the current category
         $category = Category::with(['catProducts.multiImages', 'catProducts.reviews'])
             ->where('slug', $slug)
             ->firstOrFail();
 
+        // Start the query to fetch products for this category
+        $query = Product::whereJsonContains('category_id', $category->id);
+
+        // Apply Price filter if present
+        if ($request->has('price_min') && $request->has('price_max')) {
+            $priceMin = $request->input('price_min');
+            $priceMax = $request->input('price_max');
+            $query->whereBetween('unit_price', [$priceMin, $priceMax]);
+        }
+
+        // Apply Size filter if present
+        if ($request->has('size')) {
+            $size = $request->input('size'); // Single size selected
+            $query->whereJsonContains('size', $size); // Filter by size
+        }
+
+        // Get the filtered products
+        $products = $query->active()->paginate(12); // Adjust pagination as needed
+        // dd($products);
+
         // Pass the data to the view
         $data = [
-            'category'   => $category,
-            'categories' => $categories,
+            'category'       => $category,
+            'categories'     => $categories,
+            'products'       => $products,
+            'price_min'      => $request->input('price_min', 10),
+            'price_max'      => $request->input('price_max', 10000),
+            'selected_size'  => $request->input('size', null),
+            'sizes'          => ['38', '39', '40', '41', '42', '43', '44'], // You can fetch dynamic sizes here
         ];
 
         return view('frontend.pages.categoryDetails', $data);
     }
+
+
+
+
 
     public function compareList()
     {
@@ -216,6 +289,46 @@ class HomeController extends Controller
         ];
         return view('frontend.pages.cart.mycart', $data);
     }
+    public function getDistrictsByDivision($divisionName)
+    {
+        // Find the division
+        $division = Division::where('bn_name', $divisionName)->first();
+
+        if ($division) {
+            // Get the districts related to the division
+            $districts = $division->districts; // Assuming the relationship is defined like $division->districts
+
+            return response()->json($districts);
+        }
+
+        return response()->json([]);
+    }
+    public function getShippingCahrgeByThana($thanaName)
+    {
+
+        $thana = Thana::where('bn_name', $thanaName)->first();
+        $charge = ShippingMethod::whereJsonContains('thana', optional($thana->district)->bn_name)->first();
+
+        if ($thana) {
+            $price = $charge->price;
+            return response()->json(['price' => $price, 'id' => $charge->id]);
+        }
+
+        return response()->json([]);
+    }
+
+    public function getThanasByDistrict($districtName)
+    {
+        $district = District::where('bn_name', $districtName)->first();
+
+        if ($district) {
+            $thanas = $district->thanas;
+
+            return response()->json($thanas);
+        }
+
+        return response()->json([]);
+    }
     public function checkout()
     {
         $setting = Setting::first();
@@ -226,15 +339,24 @@ class HomeController extends Controller
         $subTotal = (float)$cleanSubtotal;
 
         if ($subTotal > $minimumOrderAmount) {
-            $data = [
-                'shippingmethods' => ShippingMethod::active()->get(),
-                'cartItems'       => Cart::instance('cart')->content(),
-                'total'           => Cart::instance('cart')->total(),
-                'cartCount'       => Cart::instance('cart')->count(),
-                'user'            => Auth::user(),
-                'subTotal'        => $subTotal,
-            ];
-            return view('frontend.pages.cart.checkout', $data);
+            // $data = [
+            $shippingmethods = ShippingMethod::active()->get();
+            $cartItems       = Cart::instance('cart')->content();
+            $total           = Cart::instance('cart')->total();
+            $cartCount       = Cart::instance('cart')->count();
+            $user            = Auth::user();
+            $subTotal        = $subTotal;
+            $bd_divisions   = Division::all();
+            // ];
+            return view('frontend.pages.cart.checkout', compact(
+                'shippingmethods',
+                'cartItems',
+                'total',
+                'cartCount',
+                'user',
+                'subTotal',
+                'bd_divisions'
+            ));
         } else {
             // Redirect back with error message
             Session::flash('error', "'The added product price must be greater than'. $minimumOrderAmount . 'to proceed to check out.'");

@@ -27,7 +27,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11',
+            // 'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ];
     }
@@ -41,14 +42,28 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        // if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        //     RateLimiter::hit($this->throttleKey());
+
+        //     throw ValidationException::withMessages([
+        //         'email' => trans('auth.failed'),
+        //     ]);
+        // }
+        $phone = $this->input('phone'); // Assuming the input field is named 'phone'
+
+        $credentials = [
+            'phone' => $phone,
+            'password' => $this->input('password'),
+        ];
+
+        // Attempt to authenticate
+        if (!Auth::attempt($credentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'phone' => trans('auth.failed'),
             ]);
         }
-
         RateLimiter::clear($this->throttleKey());
     }
 

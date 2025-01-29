@@ -77,7 +77,7 @@
             @csrf
             @method('PUT')
             <div class="row">
-                <div class="gap-7 gap-lg-10 mb-7  col-4">
+                <div class="gap-7 gap-lg-10 mb-7  col-12 col-lg-3">
                     {{-- Status Card Start --}}
                     <div class="card card-flush py-4 mb-6">
                         <div class="card-header">
@@ -86,26 +86,17 @@
                             </div>
                         </div>
                         <div class="card-body pt-0">
-                            <x-metronic.select-option id="kt_ecommerce_add_product_status_select"
-                                class="form-select mb-2" data-control="select2" data-hide-search="true" name="status"
-                                data-placeholder="Select an option">
-                                <option></option>
-                                <option value="published" @selected($product->status == 'published')>Published</option>
-                                <option value="draft" @selected($product->status == 'draft')>Draft</option>
-                                <option value="inactive" @selected($product->status == 'inactive')>Inactive</option>
-                            </x-metronic.select-option>
-                            <div class="text-muted fs-7">Set the product status.</div>
-                        </div>
-                    </div>
-                    {{-- Status Card End --}}
-                    {{-- Category Card Start --}}
-                    <div class="card card-flush py-4">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h2>Category</h2>
+                            <div class="fv-row">
+                                <x-metronic.select-option id="kt_ecommerce_add_product_status_select"
+                                    class="form-select mb-2" data-control="select2" data-hide-search="true"
+                                    name="status" data-placeholder="Select an option">
+                                    <option></option>
+                                    <option value="published" @selected($product->status == 'published')>Published</option>
+                                    <option value="draft" @selected($product->status == 'draft')>Draft</option>
+                                    <option value="inactive" @selected($product->status == 'inactive')>Inactive</option>
+                                </x-metronic.select-option>
+                                <div class="text-muted fs-7">Set the product status.</div>
                             </div>
-                        </div>
-                        <div class="card-body pt-0">
                             <div class="fv-row">
                                 <x-metronic.label for="brand_id" class="col-form-label required fw-bold fs-6">
                                     {{ __('Select Brand') }}</x-metronic.label>
@@ -146,35 +137,32 @@
                                         </option>
                                     @endforeach
                                 </x-metronic.select-option>
-
-                                {{-- @php
-                                        $categoryIds = is_string($product->category_id)
-                                            ? json_decode($product->category_id, true) // Convert JSON string to array
-                                            : $product->category_id;
-                                    @endphp
-
-                                    @if (count($categories) > 0)
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}"
-                                                {{ in_array($category->id, $categoryIds) ? 'selected' : '' }}>
-                                                {{ $category->name }}
-                                            </option>
-                                        @endforeach
-                                    @endif --}}
                             </div>
+                            @php
+                                $sizes = isset($product->size) ? json_decode($product->size, true) : [];
+                            @endphp
                             <div class="fv-row">
-                                <x-metronic.label for="color" class="col-form-label required fw-bold fs-6">
-                                    {{ __('Add Color') }}
+                                <x-metronic.label for="size" class="col-form-label required fw-bold fs-6">
+                                    {{ __('Size') }}
                                 </x-metronic.label>
-                                <!-- Input element for Tagify -->
-                                <input class="form-control d-flex align-items-center" name="color"
-                                    value="{{ old('color', $product->color) }}" id="color" />
+                                <select name="size[]" id="size" class="form-select form-select-solid"
+                                    data-control="select2" data-close-on-select="false"
+                                    data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
+                                    <option>Choose Size</option>
+                                    <option value="39" @selected(is_array($sizes) && in_array('39', $sizes))>39</option>
+                                    <option value="40" @selected(is_array($sizes) && in_array('40', $sizes))>40</option>
+                                    <option value="41" @selected(is_array($sizes) && in_array('41', $sizes))>41</option>
+                                    <option value="42" @selected(is_array($sizes) && in_array('42', $sizes))>42</option>
+                                    <option value="43" @selected(is_array($sizes) && in_array('43', $sizes))>43</option>
+                                    <option value="44" @selected(is_array($sizes) && in_array('44', $sizes))>44</option>
+                                    <option value="45" @selected(is_array($sizes) && in_array('45', $sizes))>45</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    {{-- Category Card End --}}
+                    {{-- Status Card End --}}
                 </div>
-                <div class="gap-7 gap-lg-10 col-8">
+                <div class="gap-7 gap-lg-10 col-12 col-lg-9">
                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
@@ -223,30 +211,11 @@
                                                 value="{{ old('tags', $product->tags) }}" />
                                         </div>
                                         <div class="mb-5 fv-row">
-                                            <x-metronic.label class="form-label">Short Description</x-metronic.label>
-                                            <x-metronic.textarea id="short_description" name="short_description"
-                                                placeholder="Add Product Short Description" class="form-control mb-2"
-                                                cols="30"
-                                                rows="3">{!! old('short_description', $product->short_description) !!}</x-metronic.textarea>
-                                        </div>
-                                        <div class="mb-5 fv-row">
-                                            <x-metronic.label class="form-label">Product Overview</x-metronic.label>
-                                            <textarea name="overview" class="ckeditor">{!! old('overview', $product->overview) !!}</textarea>
-                                            <div class="text-muted fs-7">
-                                                Add product overview here.
-                                            </div>
-                                        </div>
-                                        <div class="mb-5 fv-row">
                                             <x-metronic.label class="form-label">Product Description</x-metronic.label>
                                             <textarea name="description" class="ckeditor">{!! old('description', $product->description) !!}</textarea>
                                             <div class="text-muted fs-7">
                                                 Add product description here.
                                             </div>
-                                        </div>
-                                        <div class="mb-5 fv-row">
-                                            <x-metronic.label class="form-label">Product
-                                                Specification</x-metronic.label>
-                                            <textarea name="specification" class="ckeditor">{!! old('specification', $product->specification) !!}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -263,8 +232,8 @@
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="row">
-                                            <div class="col-lg-4">
-                                                <label class="form-label">Thumbnail Image</label>
+                                            <div class="col-lg-2">
+                                                <label class="form-label">Single Image</label> <br>
                                                 <div class="image-input image-input-empty" data-kt-image-input="true"
                                                     style="background-image: url({{ asset('storage/' . $product->thumbnail) }}); width: auto; background-size: contain;
                                                     background-position: center;
@@ -300,7 +269,7 @@
                                                 </div>
                                                 <div class="invalid-feedback"> Please Enter Thumbnail Image. </div>
                                             </div>
-                                            <div class="col-lg-8">
+                                            <div class="col-lg-10">
                                                 <label class="form-label">Multi Image</label>
                                                 <div class="dropzone-field">
                                                     <label for="files" class="custom-file-upload">

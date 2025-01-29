@@ -9,7 +9,6 @@
             z-index: 2;
             position: relative;
             width: 100%;
-            color: white;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -21,9 +20,9 @@
             word-break: break-word;
         }
     </style>
-    <div class="ps-account my-lg-5 py-lg-5 my-0 py-0">
+    <div class="ps-account py-5">
         <div class="container">
-            <div class="row row-equal-height login-content my-lg-5 my-0 py-5 py-lg-0 align-items-center gx-5 bg-white">
+            <div class="row row-equal-height login-content align-items-center gx-5 bg-white">
                 <div class="col-12 col-md-6 bg-white column-equal-height">
                     <div class="row">
                         <div class="col-lg-12 pl-5">
@@ -49,12 +48,12 @@
                                     @csrf
                                     <div class="ps-form--review w-100 w-lg-75">
                                         <div class="ps-form__group">
-                                            <x-input-label class="form-label form__label" for="email"
-                                                :value="__('Email')" />
-                                            <x-text-input id="email"
-                                                class="form-control form-control-solid ps-form__input" type="email"
-                                                name="email" :value="old('email')" required autocomplete="username" />
-                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                            <x-input-label class="form-label form__label" for="phone"
+                                                :value="__('Phone Number')" />
+                                            <x-text-input id="phone"
+                                                class="form-control form-control-solid ps-form__input" type="number"
+                                                name="phone" :value="old('phone')" placeholder="017........" required autocomplete="017....." />
+                                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                         </div>
                                         <div class="ps-form__group">
                                             <x-input-label class="ps-form__label form-label" for="password"
@@ -94,16 +93,6 @@
                                                 Log in
                                             </button>
                                         </div>
-                                        {{-- <div class="login-divider text-center pt-3">
-                                            <p class="mb-0 pb-0 divider-text">Or Login With</p>
-                                            <p class="devider mb-0 pb-0"></p>
-                                        </div> --}}
-
-                                        {{-- <div class="mt-5">
-                                            <button class="btn btn-outline-primary w-100 p-3 display-4 rounded-3">
-                                              <i class="fa fa-google-plus"></i>  Sign Up With Google
-                                            </button>
-                                        </div> --}}
                                         @if (Route::has('password.request'))
                                             <p class="text-center"><span class="ps-5 text-center">
                                                     Don't Have Account
@@ -121,7 +110,7 @@
                 </div>
                 <div class="col-12 col-md-6 column-equal-height px-0">
                     <div>
-                        <img class="img-fluid login-imge" src="{{ asset('images/login-side-banner.png') }}"
+                        <img class="img-fluid login-imge" src="{{ asset('images/login-banner.jpg') }}"
                             alt="">
                     </div>
                 </div>

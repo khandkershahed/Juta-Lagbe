@@ -117,8 +117,31 @@
                 transform: scale(0.9);
             }
         }
+
+        .ps-categogy .ps-categogy__wrapper {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 0 20px;
+            display: flex;
+            margin-top: 0px !important;
+        }
+
+        .btn-check:checked+.btn {
+            /* Optional: Customize the style for the active button */
+            background-color: var(--site-primary);
+            /* Change background color when active */
+            color: white;
+        }
+
+        .btn-check {
+            display: none;
+            /* Hides the default radio button */
+        }
     </style>
     <div class="ps-categogy">
+        <div>
+            <img class="img-fluid w-100" src="{{ asset('images/special-banner.jpg') }}" alt="">
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-3">
@@ -127,20 +150,13 @@
                             <li class="ps-breadcrumb__item"><a href="/">Home</a></li>
                             <li class="ps-breadcrumb__item">Shop</li>
                         </ul>
-                        <h1 class="ps-categogy__name">Shop <sup>(<span class="productCount">{{ $products->count() }}</span>)</sup></h1>
-                    </div>
-                </div>
-                <div class="col-12 col-md-9 d-flex align-items-center">
-                    <div>
-                        <img class="img-fluid shop-top-banner" src="{{ asset('frontend/img/shop-banner-bg.jpg') }}"
-                            alt="">
                     </div>
                 </div>
             </div>
             <div class="ps-categogy__content">
                 <div class="row row-reverse">
                     <div class="col-md-9 col-12 order-12 order-lg-1">
-                        <div class="ps-categogy__wrapper d-flex justify-content-center px-1">
+                        <div class="ps-categogy__wrapper d-flex justify-content-center px-1 mt-0">
                             <div class="ps-categogy__sort w-100 text-left py-0">
                                 <form>
                                     <select id="sort-by" class="form-select">
@@ -184,9 +200,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 col-12 order-1 order-lg-12">
-                        <div class="ps-widget ps-widget--product">
+                        <div class="ps-widget ps-widget--product px-0">
                             <div class="ps-widget__block p-0">
-                                <h4 class="ps-widget__title">Categories</h4>
                                 <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="ps-widget__content ps-widget__category pt-3 shop-filter">
@@ -254,10 +269,14 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="ps-widget__block ps-widget__block-shop bg-white p-lg-3 p-0 ">
-                                <h4 class="ps-widget__title">By price</h4><a class="ps-block-control" href="#"><i
-                                        class="fa fa-angle-down"></i></a>
-                                <div class="ps-widget__content priceing-filter">
+                            <div class="ps-widget__block ps-widget__block-shop bg-white">
+                                <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <div>By Price</div>
+                                        <div class="title-line"></div>
+                                    </div>
+                                </h4>
+                                <div class="ps-widget__content priceing-filter px-lg-4 px-0">
                                     <div class="ps-widget__price">
                                         <div id="slide-price" class="noUi-target noUi-ltr noUi-horizontal"></div>
                                     </div>
@@ -271,9 +290,13 @@
                                     {{-- <button id="price-filter" class="ps-widget__filter">Filter</button> --}}
                                 </div>
                             </div>
-                            <div class="ps-widget__block ps-widget__block-shop bg-white p-3">
-                                <h4 class="ps-widget__title">Brands</h4><a class="ps-block-control" href="#"><i
-                                        class="fa fa-angle-down"></i></a>
+                            <div class="ps-widget__block ps-widget__block-shop bg-white pt-2">
+                                <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <div>By Brands</div>
+                                        <div class="title-line"></div>
+                                    </div>
+                                </h4>
                                 <div class="ps-widget__content">
                                     @foreach ($brands as $brand)
                                         <div class="ps-widget__item p-0">
@@ -333,6 +356,28 @@
                                     </div>
                                 </div>
                             @endif
+                            <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
+                                <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <div>By Size</div>
+                                        <div class="title-line"></div>
+                                    </div>
+                                </h4>
+                                <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
+                                <div class="ps-widget__content priceing-filter px-4 py-4">
+                                    <!-- Bootstrap Button Radios -->
+                                    @foreach ($sizes as $size)
+                                        <div class="btn-group" role="group" aria-label="Size filter">
+                                            <input type="radio" class="btn-check" name="size"
+                                                id="size-{{ $size }}" value="{{ $size }}"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                                for="size-{{ $size }}">{{ $size }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -357,6 +402,7 @@
                                                 @if ($product->multiImages->isNotEmpty())
                                                     @foreach ($product->multiImages->slice(0, 5) as $image)
                                                         @php
+
                                                             $imagePath = 'storage/' . $image->photo;
                                                             $imageSrc = file_exists(public_path($imagePath))
                                                                 ? asset($imagePath)
@@ -431,14 +477,20 @@
                                             </div>
                                             @if (!empty($product->unit_discount_price))
                                                 <div class="ps-product__meta">
+                                                    <span class="ps-product__price sale fw-bold"
+                                                        style="font-weight:600;">দাম
+                                                        {{ $product->unit_discount_price }}
+                                                        টাকা</span>
                                                     <span
-                                                        class="ps-product__price sale">৳{{ $product->unit_discount_price }}</span>
-                                                    <span class="ps-product__del">৳{{ $product->unit_price }}</span>
+                                                        class="ps-product__del text-danger">{{ $product->unit_price }}
+                                                        টাকা</span>
                                                 </div>
                                             @else
                                                 <div class="ps-product__meta">
-                                                    <span
-                                                        class="ps-product__price sale">৳{{ $product->unit_price }}</span>
+                                                    <span class="ps-product__price sale fw-bold"
+                                                        style="font-weight:600;">দাম
+                                                        {{ $product->unit_price }}
+                                                        টাকা</span>
                                                 </div>
                                             @endif
 
@@ -515,7 +567,7 @@
                                 title: data.success
                             });
                             button.prop('disabled', true); // Disable the button
-                            button.text('Included'); // Change button text
+                            button.text('✔'); // Change button text
                             wishlistCount.html(data.wishlistCount);
                         } else {
                             Toast.fire({
@@ -631,87 +683,6 @@
             }
         </script>
         <script>
-            // $(document).ready(function() {
-            //     // Initialize noUiSlider
-            //     var priceSlider = document.getElementById('slide-price');
-            //     noUiSlider.create(priceSlider, {
-            //         start: [1, 10000], // Default values
-            //         connect: true,
-            //         range: {
-            //             'min': [0],
-            //             'max': [10000]
-            //         },
-            //         step: 1,
-            //         format: {
-            //             to: function(value) {
-            //                 return '৳' + value.toFixed(2);
-            //             },
-            //             from: function(value) {
-            //                 return Number(value.replace('৳', ''));
-            //             }
-            //         }
-            //     });
-
-            //     // Update hidden inputs and displayed values, and trigger filtering
-            //     priceSlider.noUiSlider.on('update', function(values, handle) {
-            //         $('#slide-price-min').text(values[0]);
-            //         $('#slide-price-max').text(values[1]);
-            //         $('#price-min').val(values[0].replace('৳', ''));
-            //         $('#price-max').val(values[1].replace('৳', ''));
-
-            //         // Trigger filtering when slider values change
-            //         filterProducts();
-            //     });
-
-            //     function filterProducts() {
-            //         let categories = [];
-            //         let subcategories = [];
-            //         let brands = [];
-            //         let priceMin = $('#price-min').val();
-            //         let priceMax = $('#price-max').val();
-            //         let sortBy = $('#sort-by').val();
-            //         let showPage = $('#show-per-page').val();
-
-            //         $('.category-filter:checked').each(function() {
-            //             categories.push($(this).data('id'));
-            //         });
-
-            //         $('.subcategory-filter:checked').each(function() {
-            //             subcategories.push($(this).data('id'));
-            //         });
-
-            //         $('.brand-filter:checked').each(function() {
-            //             brands.push($(this).data('id'));
-            //         });
-
-            //         $.ajax({
-            //             url: '{{ route('products.filter') }}',
-            //             method: 'GET',
-            //             data: {
-            //                 categories: categories,
-            //                 subcategories: subcategories,
-            //                 brands: brands,
-            //                 price_min: priceMin,
-            //                 price_max: priceMax,
-            //                 sort_by: sortBy,
-            //                 showPage: showPage,
-            //             },
-            //             success: function(response) {
-            //                 $('#productContainer').html(response);
-            //             }
-            //         });
-            //     }
-
-            //     // Trigger filtering on change
-            //     $('.category-filter, .subcategory-filter, .brand-filter, #sort-by, #price-filter, #show-per-page').on(
-            //         'change',
-            //         function() {
-            //             filterProducts();
-            //         });
-
-            //     // Initial filtering
-            //     filterProducts();
-            // });
             $(document).ready(function() {
                 var priceSlider = document.getElementById('slide-price');
                 noUiSlider.create(priceSlider, {
@@ -748,6 +719,7 @@
                     let categories = [];
                     let subcategories = [];
                     let brands = [];
+                    let sizes = []; // Collect selected sizes
                     let priceMin = $('#price-min').val();
                     let priceMax = $('#price-max').val();
                     let sortBy = $('#sort-by').val();
@@ -764,7 +736,9 @@
                     $('.brand-filter:checked').each(function() {
                         brands.push($(this).data('id'));
                     });
-
+                    $('input[name="size"]:checked').each(function() {
+                        sizes.push($(this).val());
+                    });
                     // Send AJAX request
                     $.ajax({
                         url: '{{ route('products.filter') }}',
@@ -773,6 +747,7 @@
                             categories: categories,
                             subcategories: subcategories,
                             brands: brands,
+                            sizes: sizes,
                             price_min: priceMin,
                             price_max: priceMax,
                             sort_by: sortBy,
@@ -796,11 +771,12 @@
                 }
 
                 // Filter form change event
-                $('.category-filter, .subcategory-filter, .brand-filter, #sort-by, #price-filter, #show-per-page').on(
-                    'change',
-                    function() {
-                        fetchProducts();
-                    });
+                $('.category-filter, .subcategory-filter, .brand-filter, #sort-by, #price-filter, #show-per-page, input[name="size"]')
+                    .on(
+                        'change',
+                        function() {
+                            fetchProducts();
+                        });
                 // $('#filterForm input, #filterForm select').on('change', function() {
                 //     fetchProducts();
                 // });

@@ -9,11 +9,29 @@
         @endphp
     @endpush
     <style>
-        .product-slider-wrapper {
-            /* width: 600px;
-            height: 800px; */
+        .magnifier-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            /* Adjust width as needed */
+            height: 100%;
+            /* Adjust height as needed */
+            cursor: crosshair;
+        }
+
+        .magnifier-container img {
+            display: block;
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            /* Smooth zoom */
+        }
+
+        .magnifier-container:hover img {
+            transform: scale(1.5);
+            /* Adjust zoom level */
+            transition: transform 0.3s ease;
         }
 
         .swiper {
@@ -61,18 +79,18 @@
         }
 
         .mySwiper .swiper-slide,
-        .product-details-slide .swiper-slide {
+        .mySwiperDesktop .swiper-slide {
             width: 25%;
             height: 100%;
             opacity: 0.4;
         }
 
         .mySwiper .swiper-slide-thumb-active,
-        .product-details-slide .swiper-slide-thumb-active {
+        .mySwiperDesktop .swiper-slide-thumb-active {
             opacity: 1;
         }
 
-        .product-details-slide {
+        .mySwiperDesktop {
             margin-bottom: 10px;
         }
 
@@ -95,7 +113,7 @@
                 display: none;
             }
 
-            .product-slider-wrapper {
+            .kovi-product-slider-wrapper {
                 display: flex;
                 flex-direction: row;
             }
@@ -106,19 +124,42 @@
 
             .swiper {
                 width: 100%;
-                height: 850px;
+                height: 700px;
             }
 
-            .product-details-slide .swiper-slide {
+            .mySwiperDesktop .swiper-slide {
                 width: 100%;
             }
 
-            .product-details-slide {
+            .mySwiperDesktop {
                 width: calc(22% - 20px);
             }
 
             .mySwiper2 {
                 width: 78%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .kovi-product-slider-wrapper {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .mySwiperDesktop {
+                display: none;
+            }
+
+            .kovi-product-slider-wrapper {
+                width: 100%;
+                height: 70%;
+            }
+
+            .mySwiperDesktop {
+                height: 250px;
+            }
+            .releted-order{
+                font-size: 14px !important;
             }
         }
 
@@ -139,6 +180,10 @@
 
             .product-details-slide {
                 height: 250px;
+            }
+
+            .product-details-juta .title {
+                height: 100%;
             }
         }
 
@@ -162,6 +207,28 @@
             font-size: 14px;
             color: var(--site-primary);
         }
+
+        .select2-search--dropdown .select2-search__field {
+            padding: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            height: 32px;
+        }
+
+        .overlay-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            cursor: not-allowed;
+        }
+
+        .product-details-juta .title {
+            height: 60px;
+        }
     </style>
     <section>
         <div class="container">
@@ -178,106 +245,177 @@
         <div class="container product-details">
             <div class="row">
                 <div class="col-lg-7">
-                    <div class="product-slider-wrapper">
-                        <div thumbsSlider="" class="swiper product-details-slide">
-                            <div class="swiper-wrapper">
+                    <div class="kovi-product-slider-wrapper">
+                        <div thumbsSlider="" class="swiper mySwiperDesktop">
+                            <div class="swiper-wrapper bg-white">
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
+                                {{-- Add Video at the End --}}
+                                @if (!empty($product->video_link))
+                                    <div class="swiper-slide">
+                                        <div style="position: relative; width: 100%; height: 100%;">
+                                            <iframe width="100%" height="100%"
+                                                src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
+                                                title="YouTube video player" frameborder="0"
+                                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                            <div class="overlay-iframe"></div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <!-- Swiper -->
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
+                                {{-- Loop through images --}}
+                                @foreach ($product->multiImages as $image)
+                                    <div class="swiper-slide magnifier-container">
+                                        <img src="{{ asset('storage/' . $image->photo) }}" />
+                                    </div>
+                                @endforeach
+
+                                {{-- Add Video at the End --}}
+                                @if (!empty($product->video_link))
+                                    <div class="swiper-slide">
+                                        <iframe width="100%" height="100%"
+                                            src="{{ $product->video_link }}&autoplay=1&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                        <div thumbsSlider="" class="swiper mySwiper">
+                            <div class="swiper-wrapper">
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
+                                {{-- Add Video at the End --}}
+                                @if (!empty($product->video_link))
+                                    <div class="swiper-slide">
+                                        <div style="position: relative; width: 100%; height: 100%;">
+                                            <iframe width="100%" height="100%"
+                                                src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
+                                                title="YouTube video player" frameborder="0"
+                                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                            <div class="overlay-iframe"></div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
                         </div>
                     </div>
+
                 </div>
-                <div class="col-lg-5">
-                    <div>
+                <div class="col-lg-5 pl-0">
+                    <div class="product-details-juta">
                         <h3 class="title">{{ $product->name }}</h3>
                         <div>
                             @if (!empty($product->stock) && $product->stock > 0)
                                 <div class="mb-0">
-                                    <span class="ps-badge bg-success rounded-0">{{ $product->stock }} In Stock</span>
+                                    <span class="ps-badge bg-success rounded-0">Available</span>
                                 </div>
                             @else
                                 <div class="mb-0">
-                                    <span class="ps-badge ps-badge--outstock rounded-0">Out Of Stock</span>
+                                    <span class="ps-badge ps-badge--outstock rounded-0">Not Available</span>
                                 </div>
                             @endif
                         </div>
                         <div class="w-100 pt-3">
                             @if (!empty($product->unit_discount_price))
                                 <div class="d-flex justify-content-start align-items-center">
-                                    <h4 class="mb-0">দামঃ</h4>
-                                    <h4 class="text-success pl-2 mb-0"> {{ $product->unit_discount_price }} টাকা</h4>
+                                    <h3 class="mb-0">দামঃ</h3>
+                                    <h3 class="text-success pl-2 mb-0">{{ $product->unit_discount_price }} টাকা</h3>
                                     <h4 class="ps-product__del text-danger pl-4 mb-0">{{ $product->unit_price }} টাকা
                                     </h4>
                                 </div>
                             @else
-                                <div class="">
-                                    {{ $product->unit_price }} টাকা
+                                <div class="d-flex align-items-center">
+                                    <h3>দামঃ {{ $product->unit_price }} টাকা</h3>
                                 </div>
                             @endif
                         </div>
-                        <div class="pt-3">
-                            <div class="pl-3">
-                                {!! $product->specification ??
-                                    ' <div>
-                                                                                                                                                                        <ul class="pl-2">
-                                                                                                                                                                            <li><strong>Brand:</strong> Juta Lagbe</li>
-                                                                                                                                                                            <li><strong>Model:</strong> Footwear</li>
-                                                                                                                                                                            <li><strong>Weight:</strong> Light Weight</li>
-                                                                                                                                                                            <li><strong>Outsole:</strong> PU Leather/Leather</li>
-                                                                                                                                                                        </ul>
-                                                                                                                                                                    </div>
-                                                                                                                                                                ' !!}
-                            </div>
+                        <div>
+                            <p class="mb-0 pt-2">প্রোডাক্ট কোডঃ <span
+                                    class="text-danger">{{ $product->sku_code }}</span></p>
                         </div>
-                        <div class="ps-page__content py-2">
-                            <div class="ps-product--detail">
-                                <div class="ps-product__feature w-50 bg-light">
-                                    <div class="ps-product__quantity">
-                                        <h6>Quantity</h6>
-                                        <div class="def-number-input number-input safari_only">
+                        {{-- Size Variation End --}}
+                        <div class="ps-page__content py-2 row align-items-center pt-4">
+                            <div class="ps-product--detail col-12 col-lg-3">
+                                <div class="ps-product__feature bg-transparent p-0">
+                                    <div class="ps-product__quantity pb-0 rounded-0">
+                                        <div class="def-number-input number-input safari_only w-100 rounded-0">
                                             <button class="minus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                    class="icon-minus"></i></button>
+                                                    class="icon-minus text-white"></i></button>
                                             <input class="quantity" min="1" name="quantity" value="1"
                                                 type="number" data-product_id="{{ $product->id }}" />
                                             <button class="plus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                    class="icon-plus"></i></button>
+                                                    class="icon-plus text-white"></i></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-9">
+                                <div class="d-flex size-box">
+                                    @php
+                                        $sizes = isset($product->size) ? json_decode($product->size, true) : [];
+                                    @endphp
+
+                                    @if (!empty($sizes))
+                                        @foreach ($sizes as $size)
+                                            <div class="radio-wrapper-46 mr-1 mr-lg-3">
+                                                <input class="inp-radio" id="radio-{{ $size }}" name="size"
+                                                    type="radio" value="{{ $size }}" />
+                                                <label class="radio" for="radio-{{ $size }}">
+                                                    <span>
+                                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                            <circle cx="6" cy="6" r="4"></circle>
+                                                        </svg>
+                                                    </span>
+                                                    <span>{{ $size }}</span>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p class="no-sizes-text mb-0">No sizes available.</p>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center card-cart-btn mt-4">
+                        <div class="d-flex align-items-center card-cart-btn mt-2">
                             <!-- Order Modal  -->
-                            <a href="#" class="btn btn-primary rounded-0 w-100 mr-3 py-3" data-toggle="modal"
-                                data-target="#order-product{{ $product->id }}">
-                                <i class="fa-solid fa-basket-shopping pr-2 fa-fade"></i>
-                                অর্ডার করুন
-                            </a>
-                            <!-- Order Modal End-->
-                            <a data-product_id="{{ $product->id }}" href="#"
-                                class="btn btn-outline-primary rounded-0 w-100 py-3 add_to_cart_btn_product_single">
-                                <i class="fa-solid fa-shopping-cart fa-fade"></i>
-                                কার্ট এ যোগ করুন।
-                            </a>
+                            @if (count($sizes) > 0)
+                                <a href="#" data-product_id="{{ $product->id }}"
+                                    class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
+                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                    অর্ডার করুন
+                                </a>
+                            @else
+                                <button href="#" class="btn btn-secondary rounded-0 w-100 py-3" disabled>
+                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                    অর্ডার করুন
+                                </button>
+                            @endif
+
+
                         </div>
+                        {{-- <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
+                            data-target="#order-product{{ $product->id }}">
+                            <i class="fa-solid fa-basket-shopping pr-2"></i>
+                            অর্ডার করুন
+                        </a> --}}
+                        <!-- Order Modal End-->
                         <div class="mt-3">
                             @php
                                 $phoneNumber = '+8801832828385' . $product->phone; // prepend country code dynamically
@@ -286,19 +424,20 @@
                             <a href="https://wa.me/{{ $phoneNumber }}" target="_blank"
                                 class="btn btn-primary rounded-0 w-100 py-3 mb-2"
                                 style="background-color: #25D366; border-color: #25D366; color: white;">
-                                <i class="fab fa-whatsapp fa-bounce"></i>
+                                <i class="fab fa-whatsapp"></i>
                                 হোয়াটসঅ্যাপ এ যোগ করুন।
                             </a>
                             <a href="tel:+8801832828385" target="_blank"
                                 class="btn btn-primary rounded-0 w-100 py-3 mb-2">
-                                <i class="fab fa-whatsapp fa-bounce"></i>
+                                <i class="fa-solid fa-phone fa-bounce"></i>
                                 কল করুন।
                             </a>
                             <a href="https://www.facebook.com/messages/t/109206945276633" target="_blank"
                                 class="btn btn-primary rounded-0 w-100 py-3 mb-2"
-                                style="background: linear-gradient(90deg, #00B2FF, #006AFF, #00FFEB, #FFC700, #FF7EA5);
-          border: none; color: #fff; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
-                                <i class="fab fa-facebook-messenger fa-bounce"></i>
+                                style="background: linear-gradient(90deg, #00B2FF, #006AFF, #FF5F7E);
+           border: none; color: #fff; font-weight: bold;
+           text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                                <i class="fab fa-facebook-messenger"></i>
                                 ফেসবুক এ মেসেজ দিন।
                             </a>
                         </div>
@@ -306,23 +445,12 @@
                             <div class="table-responsive">
                                 <table class="table border bg-white">
                                     <tbody>
-                                        <tr class="">
-                                            <td><small>ঢাকা মেট্রো সিটি ডেলিভারি খরচ :</small></td>
-                                            <td>৬০ টাকা</td>
-                                        </tr>
-                                        <tr class="">
-                                            <td><small>ডেমরা, কামরাঙ্গীরচর ডেলিভারি খরচ :</small></td>
-                                            <td>৮০ টাকা</td>
-                                        </tr>
-                                        <tr class="">
-                                            <td><small>সাভার, গাজীপুর, কেরানীগঞ্জ, নারায়ণগঞ্জ ডেলিভারি খরচ : </small>
-                                            </td>
-                                            <td>১০০ টাকা</td>
-                                        </tr>
-                                        <tr class="">
-                                            <td><small>অন্যান্য জেলা, উপজেলা, বিভাগ ডেলিভারি খরচ : </small></td>
-                                            <td>১৩০ টাকা</td>
-                                        </tr>
+                                        @foreach ($shippingmethods as $shippingmethod)
+                                            <tr class="">
+                                                <td><small>{{ $shippingmethod->title }} :</small></td>
+                                                <td>{{ $shippingmethod->price }} টাকা</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -346,27 +474,8 @@
                                     প্রোডাক্ট বিস্তারিত
                                 </a>
                             </li>
-                            <li class="nav-item ml-3 pr-info-tabs" role="presentation">
-                                <a class="nav-link" id="description-tab" data-toggle="tab"
-                                    href="#description-content" role="tab" aria-controls="description-content"
-                                    aria-selected="true">
-                                    প্রোডাক্ট ফিচার।
-                                </a>
-                            </li>
-                            <li class="nav-item ml-3 pr-inf-tabs" role="presentation">
-                                <a class="nav-link" id="specification-tab" data-toggle="tab"
-                                    href="#specification-content" role="tab"
-                                    aria-controls="specification-content" aria-selected="false">
-                                    প্রোডাক্ট স্পেসিফিকেশন।
-                                </a>
-                            </li>
-                            <li class="nav-item ml-3" role="presentation">
-                                <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews-content"
-                                    role="tab" aria-controls="reviews-content" aria-selected="false">
-                                    প্রোডাক্ট রিভিউ ({{ count($product->reviews) }})।
-                                </a>
-                            </li>
-                            <li class="nav-item ml-3 pr-info-tabs" role="presentation">
+
+                            <li class="nav-item ml-3 mt-3 mt-lg-0 pr-info-tabs" role="presentation">
                                 <a class="nav-link" id="delivery-tab" data-toggle="tab" href="#delivery-process"
                                     role="tab" aria-controls="delivery-process" aria-selected="false">
                                     ডেলিভারি প্রসেস এবং রিটার্ন পলিসি।
@@ -381,77 +490,6 @@
                                         <div class="col-12">
                                             {!! $product->description !!}
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="description-content" role="tabpanel"
-                                aria-labelledby="description-tab">
-                                <div class="ps-document">
-                                    <div class="row row-reverse">
-                                        <div class="col-12">
-                                            {!! $product->overview !!}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="specification-content" role="tabpanel"
-                                aria-labelledby="specification-tab">
-                                <div class="ps-document">
-                                    <div class="row row-reverse">
-                                        <div class="col-12">
-                                            {!! $product->specification !!}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="reviews-content" role="tabpanel"
-                                aria-labelledby="reviews-tab">
-                                <div class="ps-product__tabreview">
-                                    <div class="ps-review--product">
-                                        {{-- Check if $reviews is not empty --}}
-                                        @if (!empty($product->reviews) && count($product->reviews) > 0)
-                                            @foreach ($product->reviews as $review)
-                                                <div class="ps-review__row">
-                                                    <div class="ps-review__avatar">
-
-                                                        <img src="{{ !empty($review['image']) ? asset('storage/' . $review['image']) : asset('images/testimonial.png') }}"
-                                                            alt="{{ $review['name'] }}" />
-                                                    </div>
-                                                    <div class="ps-review__info">
-                                                        <div class="ps-review__name">{{ $review['name'] }}</div>
-                                                        <div class="ps-review__date">
-                                                            {{ \Carbon\Carbon::parse($review['date'])->format('M d, Y') }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="ps-review__rating">
-
-                                                        @if ($review['rating'] > 0)
-                                                            <div class="br-wrapper br-theme-fontawesome-stars">
-                                                                <select class="ps-rating" data-read-only="true"
-                                                                    style="display: none;">
-                                                                    @php
-                                                                        $maxRating = min(
-                                                                            5,
-                                                                            max(1, floor($review['rating'])),
-                                                                        ); // Get the highest full rating value
-                                                                    @endphp
-                                                                    @for ($i = 1; $i <= $maxRating; $i++)
-                                                                        <option value="{{ $i }}">
-                                                                            {{ $i }}</option>
-                                                                    @endfor
-                                                                </select>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                    <div class="ps-review__desc">
-                                                        <p>{{ $review['message'] }}</p>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            <p>No reviews available.</p>
-                                        @endif
-
                                     </div>
                                 </div>
                             </div>
@@ -538,128 +576,82 @@
                         </div>
                     </div>
                 </div>
-                <section class="ps-section--also" data-background="img/related-bg.jpg">
+                <section class="ps-section--also mb-0 mb-lg-3" data-background="img/related-bg.jpg">
                     <div class="container px-0">
                         <h3 class="ps-section__title">গ্রাহক আরও কিনেছেন</h3>
-                        <div class="owl-carousel">
-                            @foreach ($related_products as $related_product)
-                                <div class="ps-section__product border">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail">
-                                            <a class="ps-product__image"
-                                                href="{{ route('product.details', $related_product->slug) }}">
-                                                <figure>
-                                                    @if (!empty($related_product->thumbnail))
-                                                        @php
-                                                            $thumbnailPath = 'storage/' . $related_product->thumbnail;
-                                                            $thumbnailSrc = file_exists(public_path($thumbnailPath))
-                                                                ? asset($thumbnailPath)
-                                                                : asset('frontend/img/no-product.jpg');
-                                                        @endphp
-                                                        <img src="{{ $thumbnailSrc }}"
-                                                            alt="{{ $related_product->meta_title }}" width="210"
-                                                            height="210" />
-                                                    @else
-                                                        @foreach ($related_product->multiImages->slice(0, 2) as $image)
+                        <div class="row g-0">
+                            @foreach ($related_products->take(4) as $related_product)
+                                <div class="col-md-3 col-sm-6 mb-4 pr-3 pr-lg-0">
+                                    <div class="ps-section__product border">
+                                        <div class="ps-product ps-product--standard">
+                                            <div class="ps-product__thumbnail">
+                                                <a class="ps-product__image"
+                                                    href="{{ route('product.details', $related_product->slug) }}">
+                                                    <figure>
+                                                        @if (!empty($related_product->thumbnail))
                                                             @php
-                                                                $imagePath = 'storage/' . $image->photo;
-                                                                $imageSrc = file_exists(public_path($imagePath))
-                                                                    ? asset($imagePath)
+                                                                $thumbnailPath =
+                                                                    'storage/' . $related_product->thumbnail;
+                                                                $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                                    ? asset($thumbnailPath)
                                                                     : asset('frontend/img/no-product.jpg');
                                                             @endphp
-                                                            <img src="{{ $imageSrc }}"
+                                                            <img src="{{ $thumbnailSrc }}"
                                                                 alt="{{ $related_product->meta_title }}"
                                                                 width="210" height="210" />
-                                                        @endforeach
-                                                    @endif
-                                                </figure>
-                                            </a>
-                                            {{-- Review End --}}
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip"
-                                                    data-placement="left" title="Wishlist">
-                                                    <a class="add_to_wishlist"
-                                                        href="{{ route('wishlist.store', $related_product->id) }}"><i
-                                                            class="fa fa-heart-o"></i></a>
-                                                </div>
-                                                <div class="ps-product__item" data-toggle="tooltip"
-                                                    data-placement="left" title="Quick view">
-                                                    <a href="#" data-toggle="modal"
-                                                        data-target="#popupQuickview{{ $related_product->id }}">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="ps-product__item" data-toggle="tooltip"
-                                                    data-placement="left" title="Add To Cart">
-                                                    <a class="add_to_cart"
-                                                        href="{{ route('cart.store', $related_product->id) }}"
-                                                        data-product_id="{{ $related_product->id }}"
-                                                        data-product_qty="1">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                    </a>
-                                                </div>
-
-                                            </div>
-                                            @if (!empty($related_product->unit_discount_price))
-                                                <div class="ps-product__badge">
-                                                    <div class="ps-badge ps-badge--sale">
-                                                        -
-                                                        {{ !empty($related_product->unit_discount_price) && $related_product->unit_discount_price > 0 ? number_format((($related_product->unit_price - $related_product->unit_discount_price) / $related_product->unit_price) * 100, 1) : 0 }}
-                                                        % অফ
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title">
-                                                <a href="{{ route('product.details', $related_product->slug) }}">
-                                                    {{ implode(' ', array_slice(explode(' ', $related_product->name), 0, 5)) }}
+                                                        @else
+                                                            @foreach ($related_product->multiImages->slice(0, 2) as $image)
+                                                                @php
+                                                                    $imagePath = 'storage/' . $image->photo;
+                                                                    $imageSrc = file_exists(public_path($imagePath))
+                                                                        ? asset($imagePath)
+                                                                        : asset('frontend/img/no-product.jpg');
+                                                                @endphp
+                                                                <img src="{{ $imageSrc }}"
+                                                                    alt="{{ $related_product->meta_title }}"
+                                                                    width="210" height="210" />
+                                                            @endforeach
+                                                        @endif
+                                                    </figure>
                                                 </a>
-                                            </h5>
-                                            <div class="pb-3">
                                                 @if (!empty($related_product->unit_discount_price))
-                                                    <div class="ps-product__meta">
-                                                        <span
-                                                            class="ps-product__price sale">{{ $related_product->unit_discount_price }}
-                                                            টাকা</span>
-                                                        <span
-                                                            class="ps-product__del text-danger">{{ $related_product->unit_price }}
-                                                            টাকা</span>
-                                                    </div>
-                                                @else
-                                                    <div class="ps-product__meta">
-                                                        <span
-                                                            class="ps-product__price sale">{{ $related_product->unit_price }}
-                                                            টাকা</span>
+                                                    <div class="ps-product__badge">
+                                                        <div class="ps-badge ps-badge--sale">
+                                                            -{{ number_format((($related_product->unit_price - $related_product->unit_discount_price) / $related_product->unit_price) * 100, 1) }}%
+                                                            অফ
+                                                        </div>
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div class="d-flex align-items-center card-cart-btn">
-                                                <a href="{{ route('buy.now', $related_product->id) }}"
-                                                    class="btn btn-primary rounded-0 w-100">
-                                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
-                                                    অর্ডার করুন
-                                                </a>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                                class="icon-minus"></i>
-                                                        </button>
-                                                        <input class="quantity" min="0" name="quantity"
-                                                            value="1" type="number" />
-                                                        <button class="plus"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                                class="icon-plus"></i>
-                                                        </button>
-                                                    </div>
+                                            <div class="ps-product__content">
+                                                <h5 class="ps-product__title">
+                                                    <a href="{{ route('product.details', $related_product->slug) }}">
+                                                        {{ implode(' ', array_slice(explode(' ', $related_product->name), 0, 5)) }}
+                                                    </a>
+                                                </h5>
+                                                <div class="pb-3">
+                                                    @if (!empty($related_product->unit_discount_price))
+                                                        <div class="ps-product__meta">
+                                                            <span class="ps-product__price sale fw-bold"
+                                                                style="font-weight:600;">দাম
+                                                                {{ $related_product->unit_discount_price }} টাকা</span>
+                                                            <span
+                                                                class="ps-product__del text-danger">{{ $related_product->unit_price }}
+                                                                টাকা</span>
+                                                        </div>
+                                                    @else
+                                                        <div class="ps-product__meta">
+                                                            <span class="ps-product__price sale fw-bold"
+                                                                style="font-weight:600;">দাম
+                                                                {{ $related_product->unit_price }} টাকা</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                <div class="ps-product__item" data-toggle="tooltip"
-                                                    data-placement="left" title="Wishlist"><a class="add_to_wishlist"
-                                                        href="{{ route('wishlist.store', $related_product->id) }}"><i
-                                                            class="fa fa-heart-o"></i></a>
+                                                <div class="d-flex align-items-center card-cart-btn">
+                                                    <a href="{{ route('buy.now', $related_product->id) }}"
+                                                        class="btn btn-primary rounded-0 w-100 py-2 releted-order py-lg-2">
+                                                        <i class="fa-solid fa-basket-shopping pr-2"></i> অর্ডার করুন
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -667,13 +659,13 @@
                                 </div>
                             @endforeach
                         </div>
+
                     </div>
                 </section>
             </div>
         </div>
     </div>
-    <div class="container-fluid"
-        style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+    <div class="container-fluid" style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
         <div class="container juta-delivery">
             <div class="row align-items-center">
                 <div class="col-lg-8">
@@ -696,183 +688,7 @@
             </div>
         </div>
     </div>
-    {{-- @foreach ($products as $product) --}}
-    <div class="modal fade rounded-0" id="order-product{{ $product->id }}" data-backdrop="static"
-        data-keyboard="false" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered ps-quickview">
-            <div class="modal-content">
-                <div class="modal-header rounded-0" style="background-color: var(--site-primary);">
-                    <h5 class="modal-title text-white">{{ $product->name }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="wrap-modal-slider container-fluid ps-quickview__body p-2">
-                        {{-- Product ID: {{ $product->id }}
-                        {{ $product->name }} --}}
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <p style="font-size: large;text-align: center">
-                                    <span class="text-danger">*</span> অর্ডার করতে,অনুগ্রহ করে আপনার সম্পূর্ণ নাম,
-                                    মোবাইল নম্বর, সম্পূর্ণ ঠিকানা লিখুন এবং <span class="text-danger">অর্ডার কনফার্ম
-                                        করুন</span> ক্লিক করুন
-                                </p>
-                            </div>
-                            <div class="col-lg-12">
-                                <form action="">
-                                    <div class="ps-form--review row">
-                                        <div class="col-12 col-xl-12">
-                                            <div class="ps-form__group pt-2">
-                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                    for="first_name">আপনার সম্পূর্ণ নাম<span
-                                                        class="text-danger">*</span>
-                                                </label>
-                                                <input id="first_name" class="form-control ps-form__input"
-                                                    type="text" name="first_name" value="Roth" autofocus=""
-                                                    required="" autocomplete="first_name"
-                                                    placeholder="Enter Your First Name" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-xl-6 pr-0">
-                                            <div class="ps-form__group pt-2">
-                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                    for="first_name">আপনার মোবাইল নম্বার... 01...<span
-                                                        class="text-danger">*</span>
-                                                </label>
-                                                <input id="first_name" class="form-control ps-form__input"
-                                                    type="text" name="first_name" value="Roth" autofocus=""
-                                                    required="" autocomplete="first_name"
-                                                    placeholder="Enter Your First Name" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-xl-6">
-                                            <div class="ps-form__group pt-2">
-                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                    for="first_name">ডেলিভারি লোকেশন সিলেক্ট করুন।
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <select name="title" class="form-select ps-form__input" required
-                                                    id="title">
-                                                    <option value="1" data-id="0" data-price="60.00">ঢাকা
-                                                        মেট্রো সিটি
-                                                        ( ৬০ Tk)</option>
-                                                    <option value="2" data-id="1" data-price="80.00">ডেমরা,
-                                                        কামরাঙ্গীরচর ( ৮০ Tk)</option>
-                                                    <option value="4" data-id="2" data-price="100.00">সাভার,
-                                                        গাজীপুর,
-                                                        কেরানীগঞ্জ, নারায়ণগঞ্জ ( ১০০Tk )</option>
-                                                    <option value="5" data-id="3" data-price="130.00">
-                                                        অন্যান্য জেলা,
-                                                        উপজেলা, বিভাগ ( ১৩০ TK )</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-xl-12">
-                                            <div class="ps-form__group pt-2">
-                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                    for="first_name">আপনার সম্পূর্ণ ঠিকানা যেমন গ্রাম , থানা , বিভাগ
-                                                    লিখুন
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <textarea class="ps-form__input w-100" name="" id="" rows="3" required></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-xl-12">
-                                            <div class="ps-form__group pt-2">
-                                                <label class="block font-medium text-sm text-gray-700 ps-form__label"
-                                                    for="first_name">পেমেন্ট অপশন
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="checkout-checkbox">
-                                                    <input class="inp-cbx" id="cbx-006" type="radio"
-                                                        name="payment_method" />
-                                                    <label class="cbx" for="cbx-006"><span>
-                                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                                            </svg></span><span>শুধুমাত্র ডেলিভারি চার্জ পরিশোধ
-                                                            করবো।</span>
-                                                    </label>
-                                                </div>
-                                                <div class="checkout-checkbox">
-                                                    <input class="inp-cbx" id="cbx-007" type="radio"
-                                                        name="payment_method" checked />
-                                                    <label class="cbx" for="cbx-007"><span>
-                                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                                            </svg></span><span>ফুল পেমেন্ট এখনি করবো।</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="card p-0 mt-3 rounded-0">
-                                                <div class="card-body p-0 rounded-0">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-lg-3">
-                                                            @php
-                                                                $thumbnailPath = 'storage/' . $product->thumbnail;
-                                                                $thumbnailSrc = file_exists(public_path($thumbnailPath))
-                                                                    ? asset($thumbnailPath)
-                                                                    : asset('frontend/img/no-product.jpg');
-                                                            @endphp
-                                                            <div class="">
-                                                                <img src="{{ $thumbnailSrc }}" class="img-fluid"
-                                                                    alt="{{ $product->name }}" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-9 px-0">
-                                                            <p class="mb-0"><strong>নামঃ
-                                                                </strong>{{ $product->name }}</p>
-                                                            <p class="mb-0"><strong>দামঃ </strong><span
-                                                                    class="text-success">{{ $related_product->unit_price }}
-                                                                    টাকা</span></p>
-                                                            <p class="mb-0"><strong>সাইজঃ </strong>৪০</p>
-                                                            <p class="mb-0"><strong>কত জোড়াঃ </strong>০১</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="px-3 py-2"
-                                                        style="background-color: var(--site-primary)">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0 text-white">সাব টোটাল</p>
-                                                            <p class="mb-0 text-white">৮৯৯.০০ টাকা</p>
-                                                        </div>
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center pt-1">
-                                                            <p class="mb-0 text-white">ডেলিভারি চার্জ</p>
-                                                            <p class="mb-0 text-white">৬০.০০ টাকা</p>
-                                                        </div>
-                                                        <hr class="mb-1 bg-white">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center pt-2">
-                                                            <p class="mb-0 text-white">সর্বমোট মূল্য</p>
-                                                            <p class="mb-0 text-white fw-bold"><strong>৯৫৯.০০
-                                                                    টাকা</strong></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="mt-3">
-                                                <button type="submit"
-                                                    class="btn btn-danger rounded-0 w-100 mr-3 py-3 fa-bounce"><i
-                                                        class="fa-solid fa-shopping-cart pr-2"></i> অর্ডার কনফার্ম
-                                                    করুন</button>
-                                            </div>
-                                            <p class="pt-3 text-center mb-0">উপরের বাটনে ক্লিক করলে আপনার অর্ডারটি সাথে
-                                                সাথে কনফার্ম হয়ে যাবে !</p>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- @endforeach --}}
+    @include('frontend.pages.product.partial.productOrder')
     @foreach ($related_products as $related_product)
         <div class="modal fade" id="popupQuickview{{ $related_product->id }}" data-backdrop="static"
             data-keyboard="false" tabindex="-1" aria-hidden="true">
@@ -966,18 +782,23 @@
                                             </div>
                                             <div class="ps-product__feature">
                                                 @if (!empty($related_product->unit_discount_price))
-                                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
-                                                        <span
-                                                            class="ps-product__price sale">৳{{ $related_product->unit_discount_price }}</span>
-                                                        <span
-                                                            class="ps-product__del">৳{{ $related_product->unit_price }}</span>
-                                                    </div>
-                                                @else
-                                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
-                                                        <span
-                                                            class="ps-product__price sale">৳{{ $related_product->unit_price }}</span>
-                                                    </div>
-                                                @endif
+                                                            <div class="ps-product__meta">
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $related_product->unit_discount_price }}
+                                                                    টাকা</span>
+                                                                <span
+                                                                    class="ps-product__del text-danger">{{ $related_product->unit_price }}
+                                                                    টাকা</span>
+                                                            </div>
+                                                        @else
+                                                            <div class="ps-product__meta">
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $related_product->unit_price }}
+                                                                    টাকা</span>
+                                                            </div>
+                                                        @endif
 
                                                 <div class="ps-product__quantity">
                                                     <h6>Quantity</h6>
@@ -1013,6 +834,77 @@
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
+            document.querySelectorAll('.magnifier-container').forEach(container => {
+                const img = container.querySelector('img');
+
+                container.addEventListener('mousemove', (e) => {
+                    const rect = container.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const xPercent = (x / rect.width) * 100;
+                    const yPercent = (y / rect.height) * 100;
+
+                    img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+                    img.style.transform = "scale(2)"; // Zoom level
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    img.style.transform = "scale(1)";
+                    img.style.transformOrigin = "center center";
+                });
+            });
+        </script>
+        <!-- Initialize Select2 -->
+        <script>
+            $(document).ready(function() {
+                // Apply Select2 to the 'thana' dropdown
+                $('#thana').select2({
+                    placeholder: "থানা সিলেক্ট করুন", // Placeholder text
+                    allowClear: true, // Allow clearing the selection
+                    matcher: function(params, data) {
+                        // If there is no search term, return all options
+                        if ($.trim(params.term) === '') {
+                            return data;
+                        }
+
+                        // Perform case-insensitive matching on both the text and the data-name attribute
+                        if (data.text.toLowerCase().includes(params.term.toLowerCase()) ||
+                            $(data.element).data('name').toLowerCase().includes(params.term.toLowerCase())
+                        ) {
+                            return data;
+                        }
+
+                        // If no match, return null
+                        return null;
+                    },
+                    width: '100%' // Set the width to 100%
+                });
+
+                // Apply Select2 to the 'district' dropdown
+                $('#district').select2({
+                    placeholder: "জেলা সিলেক্ট করুন",
+                    allowClear: true,
+                    matcher: function(params, data) {
+                        // If there is no search term, return all options
+                        if ($.trim(params.term) === '') {
+                            return data;
+                        }
+
+                        // Perform case-insensitive matching on both the text and the data-name attribute
+                        if (data.text.toLowerCase().includes(params.term.toLowerCase()) ||
+                            $(data.element).data('name').toLowerCase().includes(params.term.toLowerCase())
+                        ) {
+                            return data;
+                        }
+
+                        // If no match, return null
+                        return null;
+                    }
+                });
+            });
+        </script>
+        <script>
             document.addEventListener('click', function(event) {
                 // Check if the clicked element is a modal trigger button
                 if (event.target.matches('[data-bs-toggle="modal"]')) {
@@ -1040,16 +932,130 @@
 
                     if ($(window).width() > 768) {
                         // Initialize Swiper for desktop
+                        galleryTop = new Swiper(".mySwiperDesktop", {
+                            spaceBetween: 10,
+                            slidesPerView: 4,
+                            direction: "vertical",
+                            freeMode: false,
+                            watchSlidesProgress: true,
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true, // Pause autoplay on hover
+                            },
+                            breakpoints: {
+                                768: {
+                                    slidesPerView: 4,
+                                },
+                                530: {
+                                    slidesPerView: 3,
+                                },
+                                300: {
+                                    slidesPerView: 2,
+                                },
+                            },
+                        });
+
+                        galleryThumbs = new Swiper(".mySwiper2", {
+                            spaceBetween: 10,
+                            navigation: {
+                                nextEl: ".swiper-button-next",
+                                prevEl: ".swiper-button-prev",
+                            },
+                            a11y: {
+                                prevSlideMessage: "Previous slide",
+                                nextSlideMessage: "Next slide",
+                            },
+                            thumbs: {
+                                swiper: galleryTop,
+                            },
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true, // Pause autoplay on hover
+                            },
+                        });
+                    } else {
+                        // Initialize Swiper for mobile
+                        galleryTop = new Swiper(".mySwiper", {
+                            spaceBetween: 10,
+                            slidesPerView: 4,
+                            freeMode: false,
+                            watchSlidesProgress: true,
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true, // Pause autoplay on hover
+                            },
+                        });
+
+                        galleryThumbs = new Swiper(".mySwiper2", {
+                            spaceBetween: 10,
+                            navigation: {
+                                nextEl: ".swiper-button-next",
+                                prevEl: ".swiper-button-prev",
+                            },
+                            a11y: {
+                                prevSlideMessage: "Previous slide",
+                                nextSlideMessage: "Next slide",
+                            },
+                            thumbs: {
+                                swiper: galleryTop,
+                            },
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true, // Pause autoplay on hover
+                            },
+                        });
+                    }
+
+                    // Sync the slide change between galleryTop and galleryThumbs
+                    galleryTop.on("slideChangeTransitionStart", function() {
+                        galleryThumbs.slideTo(galleryTop.activeIndex);
+                    });
+                    galleryThumbs.on("transitionStart", function() {
+                        galleryTop.slideTo(galleryThumbs.activeIndex);
+                    });
+                }
+
+                initSwiper();
+
+                // Reinitialize Swiper on window resize
+                $(window).resize(function() {
+                    initSwiper();
+                });
+            });
+        </script>
+        {{-- <script>
+            $(function() {
+                var galleryTop, galleryThumbs;
+
+                function initSwiper() {
+                    // Destroy existing Swiper instances if they exist
+                    if (galleryTop) {
+                        galleryTop.destroy(true, true);
+                    }
+                    if (galleryThumbs) {
+                        galleryThumbs.destroy(true, true);
+                    }
+
+                    if ($(window).width() > 768) {
+                        // Initialize Swiper for desktop
                         galleryTop = new Swiper(".product-details-slide", {
                             spaceBetween: 10,
                             slidesPerView: 4,
                             direction: "vertical",
                             freeMode: false,
                             watchSlidesProgress: true,
-                            loop: true, // Enable looping
+                            loop: true,
                             autoplay: {
-                                delay: 3000, // 3 seconds delay
-                                disableOnInteraction: false, // Keep autoplay after user interaction
+                                delay: 3000,
+                                disableOnInteraction: false,
                             },
                             breakpoints: {
                                 768: {
@@ -1076,7 +1082,7 @@
                             thumbs: {
                                 swiper: galleryTop,
                             },
-                            loop: true, // Enable looping
+                            loop: true,
                             autoplay: {
                                 delay: 3000,
                                 disableOnInteraction: false,
@@ -1089,7 +1095,7 @@
                             slidesPerView: 4,
                             freeMode: false,
                             watchSlidesProgress: true,
-                            loop: true, // Enable looping
+                            loop: true,
                             autoplay: {
                                 delay: 3000,
                                 disableOnInteraction: false,
@@ -1108,7 +1114,7 @@
                             thumbs: {
                                 swiper: galleryTop,
                             },
-                            loop: true, // Enable looping
+                            loop: true,
                             autoplay: {
                                 delay: 3000,
                                 disableOnInteraction: false,
@@ -1123,6 +1129,17 @@
                     galleryThumbs.on("transitionStart", function() {
                         galleryTop.slideTo(galleryThumbs.activeIndex);
                     });
+
+                    // Add hover pause functionality
+                    $(".product-details-slide, .mySwiper2").on("mouseenter", function() {
+                        galleryTop.autoplay.stop();
+                        galleryThumbs.autoplay.stop();
+                    });
+
+                    $(".product-details-slide, .mySwiper2").on("mouseleave", function() {
+                        galleryTop.autoplay.start();
+                        galleryThumbs.autoplay.start();
+                    });
                 }
 
                 initSwiper();
@@ -1132,7 +1149,7 @@
                     initSwiper();
                 });
             });
-        </script>
+        </script> --}}
 
         <script>
             $(document).ready(function() {

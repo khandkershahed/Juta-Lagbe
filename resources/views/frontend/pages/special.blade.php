@@ -3,9 +3,10 @@
         <div class="row">
             <div class="col-lg-12 px-0">
                 <div class="special-banner-container">
-                    <img class="special-banner img-fluid" src="{{ asset('storage/' . $special_offer->banner_image) }}"
+                    {{-- <img class="special-banner img-fluid" src="{{ asset('storage/' . $special_offer->banner_image) }}"
                         onerror="this.onerror=null; this.src='{{ asset('images/Untitled-2.png') }}';"
-                        alt="Special Banner">
+                        alt="Special Banner"> --}}
+                    <img class="w-100 img-fluid" src="{{ asset('images/special-banner.jpg') }}"alt="Special Banner">
                 </div>
             </div>
         </div>
@@ -100,7 +101,7 @@
                                                         data-placement="left" title="Wishlist">
                                                         <a class="add_to_wishlist"
                                                             href="{{ route('wishlist.store', $latest_product->id) }}"><i
-                                                                class="fa fa-heart-o"></i></a>
+                                                                class="fa-solid fa-heart"></i></a>
                                                     </div>
                                                     <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Quick view">
@@ -109,7 +110,7 @@
                                                             <i class="fa fa-eye"></i>
                                                         </a>
                                                     </div>
-                                                    <div class="ps-product__item" data-toggle="tooltip"
+                                                    {{-- <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Add To Cart">
                                                         <a class="add_to_cart"
                                                             href="{{ route('cart.store', $latest_product->id) }}"
@@ -117,7 +118,7 @@
                                                             data-product_qty="1">
                                                             <i class="fa fa-shopping-cart"></i>
                                                         </a>
-                                                    </div>
+                                                    </div> --}}
 
                                                 </div>
                                                 @if (!empty($latest_product->unit_discount_price))
@@ -139,8 +140,9 @@
                                                 <div class="pb-3">
                                                     @if (!empty($latest_product->unit_discount_price))
                                                         <div class="ps-product__meta">
-                                                            <span
-                                                                class="ps-product__price sale">{{ $latest_product->unit_discount_price }}
+                                                            <span class="ps-product__price sale fw-bold"
+                                                                style="font-weight:600;">দাম
+                                                                {{ $latest_product->unit_discount_price }}
                                                                 টাকা</span>
                                                             <span
                                                                 class="ps-product__del text-danger">{{ $latest_product->unit_price }}
@@ -148,8 +150,9 @@
                                                         </div>
                                                     @else
                                                         <div class="ps-product__meta">
-                                                            <span
-                                                                class="ps-product__price sale">{{ $latest_product->unit_price }}
+                                                            <span class="ps-product__price sale fw-bold"
+                                                                style="font-weight:600;">দাম
+                                                                {{ $latest_product->unit_price }}
                                                                 টাকা</span>
                                                         </div>
                                                     @endif
@@ -181,7 +184,7 @@
                                                         data-placement="left" title="Wishlist"><a
                                                             class="add_to_wishlist"
                                                             href="{{ route('wishlist.store', $latest_product->id) }}"><i
-                                                                class="fa fa-heart-o"></i></a>
+                                                                class="fa-solid fa-heart"></i></a>
                                                     </div>
 
                                                 </div>
@@ -201,7 +204,7 @@
             </div>
         </div>
         <div class="container-fluid"
-            style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+            style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
             <div class="container juta-delivery">
                 <div class="row align-items-center">
                     <div class="col-lg-8">

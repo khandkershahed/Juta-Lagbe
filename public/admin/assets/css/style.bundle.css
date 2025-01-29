@@ -41268,7 +41268,7 @@ a:hover {
 
 .btn.btn-primary .svg-icon,
 .btn.btn-primary i {
-    color: #fff;
+    color: #252525;
 }
 
 .btn.btn-primary.dropdown-toggle:after {
@@ -43536,7 +43536,7 @@ a:hover {
 .btn.btn-active-color-dark:hover:not(.btn-active) i,
 .show > .btn.btn-active-color-dark .svg-icon,
 .show > .btn.btn-active-color-dark i {
-    color: #500066;
+    color: #fff;
 }
 
 .btn-check:active + .btn.btn-active-color-dark.dropdown-toggle:after,
@@ -55556,13 +55556,13 @@ body {
 }
 
 .aside.aside-dark {
-    background-color: #eee;
+    background-color: #000;
     /* background-color: #1e1e2d; */
 }
 
 .aside.aside-dark .aside-logo {
     /* background-color: #1f212a; */
-    background-color: #eee;
+    background-color: #000;
 }
 
 .aside.aside-dark .aside-toggle {
@@ -55574,8 +55574,8 @@ body {
 }
 
 .aside.aside-dark .btn-custom {
-    color: #ffffff;
-    background-color: #500066;
+    color: #252525;
+    background-color: #fff;
 }
 
 .aside.aside-dark .btn-custom.active,
@@ -55733,7 +55733,7 @@ body {
     }
 }
 .aside.aside-dark .aside-logo {
-    background-color: #eee;
+    background-color: #000;
 }
 
 @media (max-width: 991.98px) {
@@ -57219,7 +57219,7 @@ body {
 }
 
 .aside-dark .menu .menu-item .menu-link .menu-title {
-    color: #060606;
+    color: #fff;
 }
 
 .aside-dark .menu .menu-item .menu-link .menu-icon,
@@ -57236,11 +57236,11 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-color: transparent;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 9' fill='%23000'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M2.06463 4.42111C1.96161 4.22088 1.9809 3.9637 2.12863 3.78597L5.12847 0.177181C5.31402 -0.046034 5.63049 -0.060261 5.83532 0.145404C6.04015 0.351069 6.05578 0.698744 5.87023 0.921959L3.19406 4.14137L5.84414 7.06417C6.03896 7.27904 6.03835 7.62686 5.84278 7.84105C5.64721 8.05524 5.33073 8.05469 5.13591 7.83982L2.14806 4.54449C2.1141 4.50704 2.08629 4.46541 2.06463 4.42111Z'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 9' fill='%23fff'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M2.06463 4.42111C1.96161 4.22088 1.9809 3.9637 2.12863 3.78597L5.12847 0.177181C5.31402 -0.046034 5.63049 -0.060261 5.83532 0.145404C6.04015 0.351069 6.05578 0.698744 5.87023 0.921959L3.19406 4.14137L5.84414 7.06417C6.03896 7.27904 6.03835 7.62686 5.84278 7.84105C5.64721 8.05524 5.33073 8.05469 5.13591 7.83982L2.14806 4.54449C2.1141 4.50704 2.08629 4.46541 2.06463 4.42111Z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: center;
     background-color: transparent;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 9' fill='%23000'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.93537 4.57889C6.03839 4.77912 6.0191 5.0363 5.87137 5.21403L2.87153 8.82282C2.68598 9.04603 2.36951 9.06026 2.16468 8.8546C1.95985 8.64893 1.94422 8.30126 2.12977 8.07804L4.80594 4.85863L2.15586 1.93583C1.96104 1.72096 1.96165 1.37314 2.15722 1.15895C2.35279 0.944757 2.66927 0.945311 2.86409 1.16018L5.85194 4.45551C5.8859 4.49296 5.91371 4.53459 5.93537 4.57889Z'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 9' fill='%23fff'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.93537 4.57889C6.03839 4.77912 6.0191 5.0363 5.87137 5.21403L2.87153 8.82282C2.68598 9.04603 2.36951 9.06026 2.16468 8.8546C1.95985 8.64893 1.94422 8.30126 2.12977 8.07804L4.80594 4.85863L2.15586 1.93583C1.96104 1.72096 1.96165 1.37314 2.15722 1.15895C2.35279 0.944757 2.66927 0.945311 2.86409 1.16018L5.85194 4.45551C5.8859 4.49296 5.91371 4.53459 5.93537 4.57889Z'/%3e%3c/svg%3e");
 }
 
 .aside-dark
@@ -57374,8 +57374,8 @@ body {
 
 .aside-dark .menu .menu-item.show > .menu-link {
     transition: color 0.2s ease, background-color 0.2s ease;
-    background-color: #500066;
-    color: #fff;
+    background-color: #c0c0c0;
+    color: #252525;
 }
 
 .aside-dark .menu .menu-item.show > .menu-link .menu-title {
@@ -57405,12 +57405,12 @@ body {
 
 .aside-dark .menu .menu-item .menu-link.active {
     transition: color 0.2s ease, background-color 0.2s ease;
-    background-color: #500066cc;
-    color: #fff;
+    background-color: #fff;
+    color: #252525;
 }
 
 .aside-dark .menu .menu-item .menu-link.active .menu-title {
-    color: #fff;
+    color: #252525;
 }
 
 .aside-dark .menu .menu-item .menu-link.active .menu-icon,
@@ -59041,12 +59041,13 @@ body {
 
 /* Custom Style  */
 thead {
-    background-color: #dceaf0;
+    background-color: #252525;
+    color: white !important;
     font-weight: bold;
 }
 th {
     font-weight: 600 !important;
-    color: #6c757d !important;
+    color: white !important;
 }
 /* Custom Style  End */
 

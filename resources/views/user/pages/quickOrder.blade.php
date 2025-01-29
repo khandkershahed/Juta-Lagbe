@@ -25,8 +25,8 @@
                             @include('user.layouts.sidebar')
                         </div>
                         <div class="col-lg-8 col-xl-9">
-                            <div class="row">
-                                <h3 class="ps-shopping__title mb-0">Quick Order<sup>(0)</sup></h3>
+                            <div class="row bg-white">
+                                <h3 class="ps-shopping__title pl-3 pt-2 mb-2">Quick Order<sup>(0)</sup></h3>
                                 <div class="col-12 col-md-12 col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table table-striped order-history-table">
@@ -148,7 +148,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $related_product->id) }}">
-                                                                <i class="fa fa-heart-o"></i>
+                                                                <i class="fa-solid fa-heart"></i>
                                                             </a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
@@ -213,7 +213,7 @@
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $related_product->id) }}">
-                                                                <i class="fa fa-heart-o"></i>
+                                                                <i class="fa-solid fa-heart"></i>
                                                             </a>
                                                         </div>
                                                         {{-- <div class="ps-product__item rotate" data-toggle="tooltip"

@@ -10,7 +10,8 @@
                             @csrf
                             <div class="card-body">
                                 <div class="py-20">
-                                    <img width="200px" class="img-fluid" src="{{ optional($setting)->site_logo_black && file_exists(public_path('storage/' . optional($setting)->site_logo_black)) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                                    <img width="200px" class="img-fluid"
+                                        src="{{ optional($setting)->site_logo_black && file_exists(public_path('storage/' . optional($setting)->site_logo_black)) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
                                         alt="">
                                     {{-- <img width="200px" class="img-fluid" src="{{ !empty($site->site_logo_white) && file_exists(public_path('storage/settings/' . $site->site_logo_white)) ? asset('storage/settings/' . $site->site_logo_white) : asset('frontend/img/logo.png') }}"
                                         alt=""> --}}
@@ -51,21 +52,22 @@
                                     </div>
                                 </div>
                                 <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10">
-                                    @if (Route::has('admin.password.request'))
+                                    {{-- @if (Route::has('admin.password.request'))
                                         <a href="{{ route('admin.password.request') }}" class="link-primary"
                                             data-kt-translate="sign-in-forgot-password">
                                             {{ __('Forgot password ?') }}</a>
-                                    @endif
+                                    @endif --}}
                                     <div class="fv-row mb-0">
-                                        <input id="remember_me" type="checkbox" class="form-check-input me-3" name="remember">
+                                        <input id="remember_me" type="checkbox" class="form-check-input me-3"
+                                            name="remember">
                                         <x-metronic.label for="remember_me"
                                             class="form-check-label">{{ __('Remember me') }}</x-metronic.label>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-stack">
-                                    <x-metronic.button type="submit" class="btn btn-primary me-2 flex-shrink-0 w-100">
+                                    <button type="submit" class="btn btn-primary me-2 flex-shrink-0 w-100" style="background-color: #2028eb !important;">
                                         <span class="indicator-label"> {{ __('Sign In Now') }}</span>
-                                    </x-metronic.button>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -73,7 +75,7 @@
                 </div>
             </div>
             <div class="d-none d-lg-flex flex-lg-row-fluid w-100 bgi-size-cover bgi-position-y-center bgi-position-x-start bgi-no-repeat"
-                style="background-image: url({{ asset('admin/assets/images/adminImage.jpg') }})">
+                style="background-image: url({{ asset('images/admin-login-img.jpg') }})">
             </div>
         </div>
     </div>

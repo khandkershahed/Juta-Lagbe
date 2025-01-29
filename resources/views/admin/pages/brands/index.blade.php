@@ -4,7 +4,7 @@
             <div class="card card-flush shadow-sm">
                 <div class="card-body p-0">
                     <div class="d-flex flex-stack justify-content-between ">
-                        <div class="d-flex align-items-center me-3 p-8 rounded-3 bg-success">
+                        <div class="d-flex align-items-center me-3 p-8 rounded-3 bg-dark">
                             <a href="javascript:void(0)">
                                 <span class="bg-black rounded-3 p-3 me-3"><i class="fa-solid text-white fa-copyright fs-3"
                                         aria-hidden="true"></i></span>
@@ -12,8 +12,8 @@
                             <div class="flex-grow-1">
                                 <a href="javascript:void(0)">
                                 </a>
-                                <a href="#" class="text-black fs-5 fw-bold lh-0">Total Brand
-                                    <span class="text-black fw-semibold d-block fs-6 pt-4">{{ date('d-M-Y') }}</span>
+                                <a href="#" class="text-white fs-5 fw-bold lh-0">Total Brand
+                                    <span class="text-white fw-semibold d-block fs-6 pt-4">{{ date('d-M-Y') }}</span>
                                 </a>
                             </div>
                         </div>
@@ -28,8 +28,8 @@
         </div>
     </div>
     <div class="card card-flush mt-10">
-        <div class="card-header bg-success align-items-center">
-            <h3 class="card-title">Brands List</h3>
+        <div class="card-header bg-dark align-items-center">
+            <h3 class="card-title text-white">Brands List</h3>
             <div>
                 <a class="btn btn-sm btn-light-primary rounded-0" href="{{ route('admin.brands.create') }}">
                     Add New

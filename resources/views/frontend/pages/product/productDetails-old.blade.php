@@ -267,11 +267,13 @@
                                 {{-- <a class="ps-btn ps-btn--warning add_to_cart_btn_product_single"
                                     data-product_id="{{ $product->id }}" href="#">Add to cart</a> --}}
 
-                                <div class="d-flex align-items-center">
-                                    <a class="btn btn-primary mr-1 mr-lg-3"
-                                        href="{{ route('buy.now',$product->id) }}">Buy Now</a>
-                                    <a class="btn btn-outline-primary add_to_cart_btn_product_single"
-                                        data-product_id="{{ $product->id }}" href="#">Add to cart</a>
+                                <div class="d-flex align-items-center card-cart-btn">
+                                    <a href="{{ route('product.details', $product->slug) }}"
+                                        class="btn btn-primary rounded-0 w-100">
+                                        <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                        অর্ডার
+                                        করুন
+                                    </a>
                                 </div>
 
                                 <ul class="ps-product__bundle">
@@ -447,7 +449,7 @@
                                                         data-placement="left" title="Wishlist">
                                                         <a class="add_to_wishlist"
                                                             href="{{ route('wishlist.store', $related_product->id) }}">
-                                                            <i class="fa fa-heart-o"></i>
+                                                            <i class="fa-solid fa-heart"></i>
                                                         </a>
                                                     </div>
                                                     <div class="ps-product__item" data-toggle="tooltip"
@@ -522,16 +524,12 @@
                                                             class="ps-product__price sale">৳{{ $related_product->unit_price }}</span>
                                                     </div>
                                                 @endif
-                                                <div class="d-flex align-items-center">
-                                                    <a href="{{ route('buy.now', $related_product->id) }}"
-                                                        class="btn btn-primary mr-1 mr-lg-3">
-                                                        Buy Now
-                                                    </a>
-                                                    <a href="{{ route('cart.store', $related_product->id) }}"
-                                                        class="btn btn-outline-primary add_to_cart"
-                                                        data-product_id="{{ $related_product->id }}"
-                                                        data-product_qty="1">
-                                                        Add To Cart
+                                                <div class="d-flex align-items-center card-cart-btn">
+                                                    <a href="{{ route('product.details', $related_product->slug) }}"
+                                                        class="btn btn-primary rounded-0 w-100">
+                                                        <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                        অর্ডার
+                                                        করুন
                                                     </a>
                                                 </div>
                                                 <div class="ps-product__actions ps-product__group-mobile">
@@ -555,7 +553,7 @@
                                                         data-placement="left" title="Wishlist">
                                                         <a class="add_to_wishlist"
                                                             href="{{ route('wishlist.store', $related_product->id) }}">
-                                                            <i class="fa fa-heart-o"></i>
+                                                            <i class="fa-solid fa-heart"></i>
                                                         </a>
                                                     </div>
                                                     {{-- <div class="ps-product__item rotate" data-toggle="tooltip"
@@ -676,19 +674,24 @@
                                             <div class="ps-product__desc">
                                                 <p>{!! $related_product->short_description !!}</p>
                                             </div>
-                                            {{-- @if (!empty($related_product->unit_discount_price))
+                                            @if (!empty($related_product->unit_discount_price))
                                                 <div class="ps-product__meta">
+                                                    <span class="ps-product__price sale fw-bold"
+                                                        style="font-weight:600;">দাম
+                                                        {{ $related_product->unit_discount_price }}
+                                                        টাকা</span>
                                                     <span
-                                                        class="ps-product__price sale">৳{{ $related_product->unit_discount_price }}</span>
-                                                    <span
-                                                        class="ps-product__del">৳{{ $related_product->unit_price }}</span>
+                                                        class="ps-product__del text-danger">{{ $related_product->unit_price }}
+                                                        টাকা</span>
                                                 </div>
                                             @else
                                                 <div class="ps-product__meta">
-                                                    <span
-                                                        class="ps-product__price sale">৳{{ $related_product->unit_price }}</span>
+                                                    <span class="ps-product__price sale fw-bold"
+                                                        style="font-weight:600;">দাম
+                                                        {{ $related_product->unit_price }}
+                                                        টাকা</span>
                                                 </div>
-                                            @endif --}}
+                                            @endif
 
                                             <div class="ps-product__feature">
                                                 @if (!empty($related_product->unit_discount_price))

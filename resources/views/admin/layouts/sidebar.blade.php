@@ -5,7 +5,7 @@
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <a href="{{ route('dashboard') }}">
             <img alt="Logo"
-                src="{{ !empty(optional($setting)->site_logo_black) && file_exists(public_path('storage/' . optional($setting)->site_logo_white)) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                src="{{ !empty(optional($setting)->site_logo_white) && file_exists(public_path('storage/' . optional($setting)->site_logo_white)) ? asset('storage/' . optional($setting)->site_logo_white) : asset('frontend/img/logo.png') }}"
                 class="w-100">
         </a>
         <div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-dark aside-toggle active"
@@ -104,6 +104,8 @@
                                 'admin.categories.edit',
                                 'admin.stock-management.index',
                                 'admin.shipping-management.index',
+                                'admin.shipping-management.create',
+                                'admin.shipping-management.edit',
                                 'admin.product.index',
                                 'admin.product.create',
                                 'admin.product.edit',
@@ -141,7 +143,11 @@
                                 ],
                                 [
                                     'title' => 'Shipping',
-                                    'routes' => ['admin.shipping-management.index'],
+                                    'routes' => [
+                                        'admin.shipping-management.index',
+                                        'admin.shipping-management.create',
+                                        'admin.shipping-management.edit',
+                                    ],
                                     'route' => 'admin.shipping-management.index',
                                 ],
                                 [
@@ -187,32 +193,29 @@
                                 ],
                             ],
                         ],
-                        [
-                            'title' => 'Blogs',
-                            'icon' => 'fa-brands fa-blogger-b text-success fs-3',
-                            'routes' => [
-                                'admin.blog-category.index',
-                                'admin.blog-tags.index',
-                                'admin.blog-post.index',
-                                'admin.blog-post.create',
-                                'admin.blog-post.edit',
-                                // 'admin.categories.index',
-                                // 'admin.categories.create',
-                                // 'admin.categories.edit',
-                            ],
-                            'subMenu' => [
-                                [
-                                    'title' => 'Blog Category',
-                                    'routes' => ['admin.blog-category.index'],
-                                    'route' => 'admin.blog-category.index',
-                                ],
-                                [
-                                    'title' => 'Blog Post',
-                                    'routes' => ['admin.blog-post.index'],
-                                    'route' => 'admin.blog-post.index',
-                                ],
-                            ],
-                        ],
+                        // [
+                        //     'title' => 'Blogs',
+                        //     'icon' => 'fa-brands fa-blogger-b text-success fs-3',
+                        //     'routes' => [
+                        //         'admin.blog-category.index',
+                        //         'admin.blog-tags.index',
+                        //         'admin.blog-post.index',
+                        //         'admin.blog-post.create',
+                        //         'admin.blog-post.edit',
+                        //     ],
+                        //     'subMenu' => [
+                        //         [
+                        //             'title' => 'Blog Category',
+                        //             'routes' => ['admin.blog-category.index'],
+                        //             'route' => 'admin.blog-category.index',
+                        //         ],
+                        //         [
+                        //             'title' => 'Blog Post',
+                        //             'routes' => ['admin.blog-post.index'],
+                        //             'route' => 'admin.blog-post.index',
+                        //         ],
+                        //     ],
+                        // ],
                         [
                             'title' => 'Users',
                             'icon' => 'fa-solid fa-users text-primary fs-3',

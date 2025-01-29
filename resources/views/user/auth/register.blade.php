@@ -16,52 +16,76 @@
         .input-group-append {
             margin-left: -1px;
             position: relative;
-            top: 10px;
+            top: 0px;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 9px;
         }
     </style>
     <div class=" register-bg">
         <div class="container">
-            <div class="row align-items-center gx-0 py-5 mb-4">
+            <div class="row align-items-center gx-0 bg-white my-lg-5">
                 <div class="col-lg-6 px-0">
-                    <div class="my-5">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12 pl-5">
+                                <div class="p-3">
+                                    <div class="d-flex justify-content-center align-items-center mb-4">
+                                        <a href="{{ route('home') }}" class="">
+                                            <img class="img-fluid" width="200px"
+                                                src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                                                alt="">
+                                        </a>
+                                    </div>
+                                    <div class="text-lg-start text-center">
+                                        <h2 class="ps-form__title mb-0">Welcome</h2>
+                                        <p>Register To Get Unlimited Access & Data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
                         <form method="POST" action="{{ route('register') }}" id="customerForm">
                             @csrf
-                            <div class="bg-light p-5">
+                            <div class="p-5">
                                 <div class="ps-form--review row mb-3">
                                     <!-- First Name -->
                                     <div class="ps-form__group col-12 col-xl-12">
-                                        <x-input-label class="ps-form__label" for="first_name">আপনার নাম<span
+                                        <x-input-label class="ps-form__label" for="name">আপনার নাম<span
                                                 class="text-danger">*</span></x-input-label>
-                                        <input id="first_name" class="form-control ps-form__input" type="text"
-                                            name="first_name" value="{{ old('first_name') }}" autofocus required
-                                            autocomplete="first_name" placeholder="Enter Your First Name" />
-                                        <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+                                        <input id="name" class="form-control ps-form__input" type="text"
+                                            name="name" value="{{ old('name') }}" autofocus required
+                                            autocomplete="name" placeholder="আপনার নাম" />
+                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 
                                     <!-- Email -->
-                                    <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    {{-- <div class="ps-form__group col-12 col-xl-4 mt-3">
                                         <label class="ps-form__label" for="email">ইমেইল<span
                                                 class="text-danger">*</span></label>
                                         <input id="email" class="form-control ps-form__input" type="email"
-                                            name="email" placeholder="Enter Your Email" value="{{ old('email') }}"
+                                            name="email" placeholder="আপনার ইমেইল" value="{{ old('email') }}"
                                             autocomplete="email" />
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Confirm Email -->
                                     <!-- Phone -->
-                                    <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
                                         <x-input-label class="ps-form__label" for="phone" :value="__('ফোন নাম্বার')" />
                                         <div class="input-group">
                                             <input id="phone" class="form-control ps-form__input" type="tel"
-                                                name="phone" placeholder="Enter Your Phone Number"
+                                                name="phone" placeholder="আপনার ফোন নাম্বার"
                                                 value="{{ old('phone') }}" autocomplete="tel" />
                                         </div>
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
                                     <!-- Password -->
 
-                                    <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
                                         <x-input-label class="ps-form__label" for="password" :value="__('Password')" />
                                         <div class="input-group">
                                             <input id="password" class="form-control ps-form__input" type="password"
@@ -75,37 +99,59 @@
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
                                     <!-- Title -->
-                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
-                                        <div class="ps-checkout__group">
-                                            <label class="ps-form__label">জেলা</label>
-                                            <input class="form-control ps-form__input" type="text" name="state" />
+                                    <div class="col-12 col-xl-6 mb-3">
+                                        <div class="ps-form__group pt-2">
+                                            <label class="block font-medium text-sm site-text ps-form__label" for="division">
+                                                বিভাগ
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="division" id="division" class="form-control select ps-form__input" required>
+                                                <option value="" disabled selected>বিভাগ</option>
+                                                @foreach ($bd_divisions as $division)
+                                                    <option value="{{ $division->bn_name }}" @selected(old('division') == $division->bn_name)>{{ $division->bn_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <x-input-error :messages="$errors->get('state')" class="mt-2" />
                                     </div>
 
-                                    <!-- City/Country -->
-                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
-                                        <label class="ps-form__label" for="City">থানা</label>
-                                        <div class="input-group">
-                                            <input id="address_two" class="form-control ps-form__input" type="text"
-                                                name="address_two" placeholder="Enter Your City Name"
-                                                value="{{ old('address_two') }}" autocomplete="address_two" />
+                                    <div class="col-12 col-xl-6 mb-3">
+                                        <div class="ps-form__group pt-2">
+                                            <label class="block font-medium text-sm site-text ps-form__label" for="district">
+                                                জেলা
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="district" id="district" class="form-control select ps-form__input" required>
+                                                <option value="" disabled selected>জেলা</option>
+                                            </select>
                                         </div>
-                                        <x-input-error :messages="$errors->get('address_two')" class="mt-2" />
+                                    </div>
+
+                                    <div class="col-12 col-xl-6 mb-3">
+                                        <div class="ps-form__group pt-2">
+                                            <label class="block font-medium text-sm site-text ps-form__label" for="thana">
+                                                থানা
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="thana" id="thana" class="form-control ps-form__input" required>
+                                                <option value="" disabled selected>থানা</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <!-- House/Block/Road -->
                                     <div class="ps-form__group col-12 col-xl-12 mt-3">
                                         <label class="ps-form__label" for="House/Block/Road">ঠিকানা<span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input id="address_one" class="form-control ps-form__input" type="text"
-                                                value="{{ old('address_one') }}" placeholder="Enter Your Full Address"
-                                                name="address_one" autocomplete="address_one" required />
+                                            <input id="address_one" class="form-control ps-form__input"
+                                                type="text" value="{{ old('address_one') }}"
+                                                placeholder="Enter Your Full Address" name="address_one"
+                                                autocomplete="address_one" required />
                                         </div>
                                         <x-input-error :messages="$errors->get('address_one')" class="mt-2" />
                                     </div>
                                     <div class="col-12 col-xl-12">
-                                        <p class="pt-4 ps-form__label ">শর্তাবলী ও নিয়মাবলী<span class="text-danger">*</span></p>
+                                        <p class="pt-4 ps-form__label ">শর্তাবলী ও নিয়মাবলী<span
+                                                class="text-danger">*</span></p>
                                     </div>
                                     <div class="col-12 col-xl-12">
                                         <div class="form-check ml-0">
@@ -121,7 +167,8 @@
                                     <h6 class="">
                                         <span style="font-size: 16px">{{ __('Already have an accounts?') }}</span>
                                         <a href="{{ route('login') }}"
-                                            class="btn btn-sm btn-link text-gray fw-bold fs-6 site_text_color_links">Log In Now</a>
+                                            class="btn btn-sm btn-link text-gray fw-bold fs-6 site_text_color_links">Log
+                                            In Now</a>
                                     </h6>
                                 </div>
                                 <div class="ps-form__submit pt-4">
@@ -135,7 +182,7 @@
                 </div>
                 <div class="col-lg-6 px-0">
                     <div>
-                        <img class="img-fluid" src="{{ asset('images/login-side-banner.png') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('images/login-banner.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -145,7 +192,7 @@
         <script>
             document.getElementById('customerForm').addEventListener('submit', function(event) {
                 // Get form elements
-                var first_name = document.getElementById('first_name').value;
+                var name = document.getElementById('name').value;
                 var email = document.getElementById('email').value;
                 var address_one = document.getElementById('address_one').value;
                 var address_two = document.getElementById('address_two').value;
@@ -156,7 +203,7 @@
                 var customerType = document.getElementById('customerType').value;
 
                 // Basic validation
-                if (first_name.length < 2) {
+                if (name.length < 2) {
                     alert('First Name must be at least 2 characters.');
                     event.preventDefault();
                     return;

@@ -32,7 +32,8 @@
                                             <div class="d-flex fs-6 fw-semibold align-items-center">
                                                 <div class="bullet w-8px h-6px rounded-2 bg-danger me-3"></div>
 
-                                                <div class="text-gray-500 flex-grow-1 me-4">{{ $categoryWiseSale->name }}
+                                                <div class="text-gray-500 flex-grow-1 me-4">
+                                                    {{ $categoryWiseSale->name }}
                                                 </div>
 
                                                 <div class="fw-bolder text-gray-700 text-xxl-end">
@@ -50,7 +51,8 @@
                                     <div class="card-title d-flex flex-column">
                                         <span
                                             class="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">{{ number_format($newCustomersCurrentMonth) }}</span>
-                                        <span class="text-gray-500 pt-1 fw-semibold fs-6">New Customers This Month</span>
+                                        <span class="text-gray-500 pt-1 fw-semibold fs-6">New Customers This
+                                            Month</span>
                                     </div>
                                 </div>
                                 <div class="card-body d-flex flex-column">
@@ -66,7 +68,7 @@
                                     <div class="d-flex align-items-center flex-column mt-3 w-100">
                                         <div class="d-flex justify-content-between w-100 mt-auto mb-2">
                                             <span
-                                                class="fw-bolder fs-6 text-gray-900">{{ number_format($ordersCurrentMonth - $ordersLastMonth) }}
+                                                class="fw-bolder fs-6 text-gray-900 pt-3 pb-3">{{ number_format($ordersCurrentMonth - $ordersLastMonth) }}
                                                 to Goal</span>
                                             <span
                                                 class="fw-bold fs-6 text-gray-500">{{ number_format($ordersChange, 2) }}%</span>
@@ -161,14 +163,15 @@
                                 <thead class="bg-light-dark">
                                     <tr class="fw-semibold fs-6 text-gray-800">
                                         <th width="5%">SL</th>
-                                        <th width="10%">Order ID</th>
-                                        <th width="15%">Customer</th>
-                                        <th width="15%">Created</th>
-                                        <th width="15%">Total Price</th>
-                                        <th width="10%">Qty</th>
-                                        <th width="10%">Payment Status</th>
-                                        <th width="10%">Status</th>
-                                        <th width="10%" class="text-center">Action</th>
+                                        <th>Order Number</th>
+                                        <th>Customer</th>
+                                        <th>Created At</th>
+                                        <th>Total Price</th>
+                                        <th>Paid</th>
+                                        <th>Due</th>
+                                        {{-- <th>Payment Status</th> --}}
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -182,19 +185,35 @@
                                                     {{ $order->order_number }}
                                                 </a>
                                             </td>
-                                            <td>{{ $order->user->first_name }}
-                                                {{ $order->user->last_name }}</td>
-                                            <td>{{ $order->created_at->format('d M, Y') }}</td>
-                                            <td><span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
-                                            </td>
-                                            <td>{{ $order->quantity }}</td>
+                                            <td>{{ optional($order->user)->name }}</td>
+                                            <td>{{ $order->created_at->format('d M , Y') }}</td>
                                             <td>
-                                                @if ($order->payment_status == 'unpaid')
-                                                    <span class="badge py-3 px-4 fs-7 badge-danger">Unpaid</span>
-                                                @elseif ($order->payment_status == 'paid')
-                                                    <span class="badge py-3 px-4 fs-7 badge-light-success">Paid</span>
+                                                <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                                + {{ $order->shipping_charge }}
+                                            </td>
+                                            <td>
+                                                @if ($order->payment_status == 'delivery_charge_paid')
+                                                    <span
+                                                        class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
+                                                @elseif ($order->payment_status == 'completely_paid')
+                                                    <span
+                                                        class="text-info fw-bold">৳</span>{{ $order->total_amount + $order->shipping_charge }}
                                                 @endif
                                             </td>
+                                            <td>
+                                                @if ($order->payment_status == 'delivery_charge_paid')
+                                                    <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                                @elseif ($order->payment_status == 'completely_paid')
+                                                    <span class="text-info fw-bold">৳</span>0
+                                                @endif
+                                            </td>
+                                            {{-- <td>
+                                                    @if ($order->payment_status == 'unpaid')
+                                                        <span class="badge py-3 px-4 fs-7 badge-danger">Unpaid</span>
+                                                    @elseif ($order->payment_status == 'paid')
+                                                        <span class="badge py-3 px-4 fs-7 badge-light-success">Paid</span>
+                                                    @endif
+                                                </td> --}}
                                             <td>
                                                 @if ($order->status == 'pending')
                                                     <span

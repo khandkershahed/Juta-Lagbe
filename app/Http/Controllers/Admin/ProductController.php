@@ -73,8 +73,9 @@ class ProductController extends Controller
                 'mf_code'                   => $request->input('mf_code'),
                 'product_code'              => $request->input('barcode_id'),
                 'barcode_id'                => $request->input('barcode_id'),
-                'tags'                      => $request->input('tags'),
-                'color'                     => $request->input('color'),
+                'tags'                      => is_array($request->input('tags')) ? json_encode($request->input('tags')) : null,
+                'color'                     => is_array($request->input('color')) ? json_encode($request->input('color')) : null,
+                'size'                      => is_array($request->input('size')) ? json_encode($request->input('size')) : null,
                 'video_link'                => $request->input('video_link'),
                 'short_description'         => $request->input('short_description'),
                 'overview'                  => $request->input('overview'),
@@ -91,7 +92,7 @@ class ProductController extends Controller
                 'unit_discount_price'       => $request->input('unit_discount_price'),
                 'is_refurbished'            => $is_refurbished,
                 'product_type'              => $request->input('product_type'),
-                'category_id'               => $request->input('category_id'),
+                'category_id'               => is_array($request->input('category_id')) ? json_encode($request->input('category_id')) : null,
                 'vat'                       => $request->input('vat'),
                 'tax'                       => $request->input('tax'),
                 'length'                    => $request->input('length'),
@@ -105,6 +106,7 @@ class ProductController extends Controller
                 'added_by'                  => Auth::guard('admin')->user()->id,
                 'status'                    => $request->input('status'),
             ]);
+
 
             // Handle multiple image uploads
             if ($request->hasFile('multi_images')) {
@@ -197,8 +199,9 @@ class ProductController extends Controller
                 'mf_code'                   => $request->input('mf_code'),
                 'product_code'              => $request->input('barcode_id'),
                 'barcode_id'                => $request->input('barcode_id'),
-                'tags'                      => $request->input('tags'),
-                'color'                     => $request->input('color'),
+                'tags'                      => is_array($request->input('tags')) ? json_encode($request->input('tags')) : $request->input('tags'),
+                'color'                     => is_array($request->input('color')) ? json_encode($request->input('color')) : $request->input('color'),
+                'size'                      => is_array($request->input('size')) ? json_encode($request->input('size')) : $request->input('size'),
                 'video_link'                => $request->input('video_link'),
                 'short_description'         => $request->input('short_description'),
                 'overview'                  => $request->input('overview'),
@@ -215,18 +218,18 @@ class ProductController extends Controller
                 'unit_discount_price'       => $request->input('unit_discount_price'),
                 'is_refurbished'            => $is_refurbished,
                 'product_type'              => $request->input('product_type'),
-                'category_id'               => $request->input('category_id'),
+                'category_id'               => is_array($request->input('category_id')) ? json_encode($request->input('category_id')) : $request->input('category_id'),
                 'vat'                       => $request->input('vat'),
                 'tax'                       => $request->input('tax'),
                 'length'                    => $request->input('length'),
                 'width'                     => $request->input('width'),
                 'height'                    => $request->input('height'),
                 'brand_id'                  => $request->input('brand_id'),
-                'create_date'               => $product->create_date,
+                'create_date'               => $product->create_date, // Keep the original create_date
                 'meta_title'                => $request->input('meta_title'),
                 'meta_description'          => $request->input('meta_description'),
                 'meta_keywords'             => $request->input('meta_keywords'),
-                // 'added_by'                  => Auth::guard('admin')->user()->id,
+                // 'added_by'                  => Auth::guard('admin')->user()->id, // You may or may not want to update this
                 'status'                    => $request->input('status'),
             ]);
 

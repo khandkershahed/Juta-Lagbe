@@ -107,23 +107,24 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
             'blog-category'       => BlogCategoryController::class, //done
             'blog-tags'           => BlogTagController::class, //done
             'catalogue'           => CatalogueController::class, //done
-            'shipping-management' => ShippingManagementController::class, //done
+             //done
         ],
         ['except' => ['show', 'create', 'edit']]
     );
     Route::resources(
         [
-            'faq'             => FaqController::class,
-            'role'            => RoleController::class,
-            'permission'      => PermissionController::class,
-            'email-settings'  => EmailSettingController::class,
-            'terms-condition' => TermsAndConditionController::class,
-            'privacy-policy'  => PrivacyPolicyController::class,
-            'deal-banner'     => DealBannerController::class,
-            'blog-post'       => BlogPostController::class,
-            'testimonial'     => TestimonialController::class,
-            'product-review'  => ProductReviewController::class,
-            'special-offer'   => SpecialOfferController::class,
+            'faq'                 => FaqController::class,
+            'role'                => RoleController::class,
+            'permission'          => PermissionController::class,
+            'email-settings'      => EmailSettingController::class,
+            'terms-condition'     => TermsAndConditionController::class,
+            'privacy-policy'      => PrivacyPolicyController::class,
+            'deal-banner'         => DealBannerController::class,
+            'blog-post'           => BlogPostController::class,
+            'testimonial'         => TestimonialController::class,
+            'product-review'      => ProductReviewController::class,
+            'special-offer'       => SpecialOfferController::class,
+            'shipping-management' => ShippingManagementController::class,
         ],
         ['except' => ['show']]
     );
@@ -201,4 +202,13 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     // Bulk Delete
     // web.php
     Route::post('/categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulk-delete');
+
+    //search payment
+    Route::get('/bkash/search/{trxID}', [App\Http\Controllers\BkashTokenizePaymentController::class,'searchTnx'])->name('bkash-serach');
+
+    //refund payment routes
+    Route::get('/bkash/refund', [App\Http\Controllers\BkashTokenizePaymentController::class,'refund'])->name('bkash-refund');
+    Route::get('/bkash/refund/status', [App\Http\Controllers\BkashTokenizePaymentController::class,'refundStatus'])->name('bkash-refund-status');
+
+
 });

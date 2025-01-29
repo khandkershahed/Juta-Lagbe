@@ -23,6 +23,9 @@ Route::get('product/details/{slug}', [HomeController::class, 'productDetails'])-
 
 Route::post('contact/store', [ContactController::class, 'store'])->name('contact.add');
 Route::post('email-subscription/store', [NewsletterController::class, 'store'])->name('subscription.add');
+Route::get('/get-thanas-by-district/{districtName}', [HomeController::class, 'getThanasByDistrict']);
+Route::get('/get-districts-by-division/{divisionName}', [HomeController::class, 'getDistrictsByDivision']);
+Route::get('/get-charge-by-thana/{thanaName}', [HomeController::class, 'getShippingCahrgeByThana']);
 
 // Cart routes
 Route::get('mycart', [HomeController::class, 'cart'])->name('cart');
@@ -49,5 +52,13 @@ Route::delete('cart/delete/{rowId}', [CartController::class, 'cartDestroy'])->na
 Route::delete('cart/clear', [CartController::class, 'cartClear'])->name('cart.clear');
 Route::post('cart/update', [CartController::class, 'updateCart'])->name('cart.update');
 // Route::get('/filter-products', [filterProducts::class, 'filterProducts'])->name('filterProducts');
+
+});
+
+Route::group(['middleware' => ['web']], function () {
+
+    Route::get('/bkash/payment', [App\Http\Controllers\BkashTokenizePaymentController::class,'index'])->name('bkash.payment');
+    Route::get('/bkash/create-payment/{order_number}', [App\Http\Controllers\BkashTokenizePaymentController::class,'createPayment'])->name('bkash.payment');
+    Route::get('/bkash/callback', [App\Http\Controllers\BkashTokenizePaymentController::class,'callBack'])->name('bkash-callBack');
 
 });

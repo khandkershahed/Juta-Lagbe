@@ -126,7 +126,14 @@ if (!function_exists('noImage')) {
         return 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
     }
 }
+if (!function_exists('convertToBangla')) {
+    function convertToBangla($number) {
+        $englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        $banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
 
+        return str_replace($englishDigits, $banglaDigits, $number);
+    }
+}
 function getTodayVisitorCount()
 {
     return Visitor::whereDate('created_at', Carbon::today())->count();
