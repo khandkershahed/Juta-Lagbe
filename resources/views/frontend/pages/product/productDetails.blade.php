@@ -672,7 +672,6 @@
             </div>
         </div>
     </div>
-    </div>
     <div class="container-fluid"
         style="background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
         <div class="container juta-delivery">
