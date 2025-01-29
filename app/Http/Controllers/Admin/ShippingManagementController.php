@@ -32,7 +32,7 @@ class ShippingManagementController extends Controller
         $data = [
             'thanas' => District::all(),
         ];
-        return view('admin.pages.shippingManagement.create',$data);
+        return view('admin.pages.shippingManagement.create', $data);
     }
 
     /**
@@ -46,7 +46,7 @@ class ShippingManagementController extends Controller
             'location' => 'nullable|string|max:250',
             'duration' => 'nullable|string|max:250',
             'description' => 'nullable|string',
-            'thana' => 'nullable',
+            'thana' => 'nullable|array',  // Validate as an array (if it is an array)
             'carrier' => 'nullable|string|max:250',
             'min_weight' => 'nullable|numeric|min:0',
             'max_weight' => 'nullable|numeric|min:0|gte:min_weight',
@@ -59,18 +59,34 @@ class ShippingManagementController extends Controller
 
         // Check for validation failures
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            foreach ($validator->messages()->all() as $message) {
+                Session::flash('error', $message);
+            }
+            return redirect()->back()->withInput();
         }
 
+        // Handle the 'thana' field as JSON
+        $thana = $request->has('thana') ? json_encode($request->thana) : null;
+
         // Create a new shipping method
-        ShippingMethod::create($request->only([
-            'title', 'location', 'duration', 'description', 'carrier',
-            'min_weight', 'max_weight', 'price', 'thana' ,'status'
-        ]));
+        ShippingMethod::create([
+            'title' => $request->title,
+            'location' => $request->location,
+            'duration' => $request->duration,
+            'description' => $request->description,
+            'carrier' => $request->carrier,
+            'min_weight' => $request->min_weight,
+            'max_weight' => $request->max_weight,
+            'price' => $request->price,
+            'status' => $request->status,
+            'thana' => $thana,  // Store 'thana' as JSON
+        ]);
 
         // Redirect with success message
-        return redirect()->back()->with('success', 'Shipping method has been created successfully!');
+        Session::flash('success', 'Shipping method has been created successfully!');
+        return redirect()->back()->withInput();
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -81,7 +97,7 @@ class ShippingManagementController extends Controller
             'method' => ShippingMethod::findOrFail($id),
             'thanas' => District::all(),
         ];
-        return view('admin.pages.shippingManagement.edit',$data);
+        return view('admin.pages.shippingManagement.edit', $data);
     }
 
     /**
@@ -110,18 +126,33 @@ class ShippingManagementController extends Controller
 
         // Check for validation failures
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            foreach ($validator->messages()->all() as $message) {
+                Session::flash('error', $message);
+            }
+            return redirect()->back()->withInput();
         }
 
-        // Update the shipping method
-        $shippingMethod->update($request->only([
-            'title', 'location', 'duration', 'description', 'carrier',
-            'min_weight', 'max_weight', 'thana' , 'price', 'status'
-        ]));
+        // Handle the 'thana' field as JSON
+        $thana = $request->has('thana') ? json_encode($request->thana) : $shippingMethod->thana;
 
-        // Redirect with success message
-        return redirect()->back()->with('success', 'Shipping method has been updated successfully!');
+        // Update the shipping method
+        $shippingMethod->update([
+            'title'       => $request->title,
+            'location'    => $request->location,
+            'duration'    => $request->duration,
+            'description' => $request->description,
+            'carrier'     => $request->carrier,
+            'min_weight'  => $request->min_weight,
+            'max_weight'  => $request->max_weight,
+            'price'       => $request->price,
+            'status'      => $request->status,
+            'thana'       => $thana,  // Store 'thana' as JSON
+        ]);
+        Session::flash('success', 'Shipping method has been updated successfully!');
+        
+        return redirect()->back()->withInput();
     }
+
 
     /**
      * Remove the specified resource from storage.
