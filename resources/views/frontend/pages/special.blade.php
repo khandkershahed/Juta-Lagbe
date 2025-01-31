@@ -1,7 +1,7 @@
 <x-frontend-app-layout :title="'Special Offers'">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12 px-0">
+            <div class="px-0 col-lg-12">
                 <div class="special-banner-container">
                     {{-- <img class="special-banner img-fluid" src="{{ asset('storage/' . $special_offer->banner_image) }}"
                         onerror="this.onerror=null; this.src='{{ asset('images/Untitled-2.png') }}';"
@@ -15,11 +15,11 @@
         <div class="ps-categogy__main">
             <div class="container px-0">
                 <div class="ps-categogy__product">
-                    <div class="row mb-4">
+                    <div class="mb-4 row">
                         @if ($special_products)
                             @foreach ($special_products as $latest_product)
-                                <div class="col-6 col-md-4 col-lg-3 dot4 p-0">
-                                    <div class="ps-section__product pr-2">
+                                <div class="p-0 col-6 col-md-4 col-lg-3 dot4">
+                                    <div class="pr-2 ps-section__product">
                                         <div class="ps-product ps-product--standard">
                                             <div class="ps-product__thumbnail">
                                                 <a class="ps-product__image"
@@ -63,7 +63,7 @@
                                                                     : 0;
                                                         @endphp
                                                         <div
-                                                            class="d-flex justify-content-between align-items-center my-2 rating-area px-3">
+                                                            class="px-3 my-2 d-flex justify-content-between align-items-center rating-area">
                                                             <div style="color: var(--site-primary)">
                                                                 Reviews
                                                                 ({{ count($latest_product->reviews) }})
@@ -160,7 +160,7 @@
                                                 <div class="d-flex align-items-center card-cart-btn">
                                                     <a href="{{ route('buy.now', $latest_product->id) }}"
                                                         class="btn btn-primary rounded-0 w-100">
-                                                        <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                        <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                                         অর্ডার
                                                         করুন
                                                     </a>
@@ -194,7 +194,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <div class="col-12 text-center bg-white if-show-img">
+                            <div class="text-center bg-white col-12 if-show-img">
                                 <img class="" style="width: 320px;"
                                     src="{{ asset('frontend/img/no-products-category.jpg') }}" alt="">
                             </div>
@@ -210,7 +210,7 @@
                     <div class="col-lg-8">
                         <div class="ps-delivery ps-delivery--info">
                             <div class="ps-delivery__content">
-                                <div class="ps-delivery__text text-white">
+                                <div class="text-white ps-delivery__text">
                                     <i class="icon-shield-check"></i>
                                     <span>
                                         <strong>100% Secure Delivery</strong> Without Courier Communication.

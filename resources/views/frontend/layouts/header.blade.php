@@ -148,7 +148,7 @@
             </div>
             <div class="ps-top__right">
                 <ul class="menu-top">
-                    <li class="nav-item px-1">
+                    <li class="px-1 nav-item">
                         {{-- Log Out --}}
                         <a class="nav-link cust-link" href="javascript:void(0)" id="login-modal">
                             <i class="fa-solid fa-user header-icons"></i>
@@ -159,7 +159,7 @@
                                 <div>
                                     <p>Welcome! Choose an option:</p>
                                     <div class="d-flex align-items-center">
-                                        <a class="btn btn-primary rounded-0 mr-2"
+                                        <a class="mr-2 btn btn-primary rounded-0"
                                             href="{{ route('dashboard') }}">Dashboard</a>
                                         <a class="btn btn-primary rounded-0" href="#"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -179,7 +179,7 @@
                                     <div>
                                         <p>Welcome! Choose an option:</p>
                                         <div class="d-flex align-items-center">
-                                            <a class="btn btn-primary rounded-0 mr-2" href="{{ route('login') }}">
+                                            <a class="mr-2 btn btn-primary rounded-0" href="{{ route('login') }}">
                                                 Log in
                                             </a>
                                             <a class="btn btn-primary rounded-0" href="{{ route('register') }}">
@@ -193,7 +193,7 @@
                                     <div>
                                         <p>Welcome! Choose an option:</p>
                                         <div class="d-flex align-items-center">
-                                            <a class="btn btn-primary rounded-0 mr-2" href="{{ route('dashboard') }}">
+                                            <a class="mr-2 btn btn-primary rounded-0" href="{{ route('dashboard') }}">
                                                 Dashboard
                                             </a>
                                             <a class="btn btn-primary rounded-0" href="#"
@@ -211,7 +211,7 @@
                         @endauth
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link cust-link px-1" href="{{ route('user.wishlist') }}">
+                        <a class="px-1 nav-link cust-link" href="{{ route('user.wishlist') }}">
                             <i class="fa-solid fa-heart header-icons"></i>
                             @php
                                 $wishlistCount = 0; // Default value in case user is not authenticated
@@ -225,7 +225,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link cust-link px-1" href="#" id="cart-mini">
+                        <a class="px-1 nav-link cust-link" href="#" id="cart-mini">
                             <i class="fa-solid fa-shopping-cart header-icons"></i>
                             <span class="top-badge badge cartCount">{{ Cart::instance('cart')->count() }}</span>
                         </a>
@@ -261,7 +261,7 @@
                 </a>
                 <div class="ps-header__right">
                     <div class="row align-items-center">
-                        <div class="col-lg-9 pr-0">
+                        <div class="pr-0 col-lg-9">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div class="ps-navigation__left">
                                     <nav class="ps-main-menu">
@@ -342,8 +342,8 @@
                         @for ($i = 0; $i < 8; $i++)
                             <li>
                                 <a href="{{ route('special.products', optional($special_offer)->slug) }}">
-                                    <p class="text-white marquee-text mb-0 d-flex align-items-center">
-                                        <span><i class="fa-solid fa-cart-shopping pr-3"></i></span>
+                                    <p class="mb-0 text-white marquee-text d-flex align-items-center">
+                                        <span><i class="pr-3 fa-solid fa-cart-shopping"></i></span>
                                         <span>{{ optional($special_offer)->header_slogan }}</span>
                                     </p>
                                 </a>
@@ -355,8 +355,8 @@
                         @for ($i = 0; $i < 8; $i++)
                             <li>
                                 <a href="{{ route('special.products', optional($special_offer)->slug) }}">
-                                    <p class="text-white marquee-text mb-0 d-flex align-items-center">
-                                        <span><i class="fa-solid fa-cart-shopping pr-3"></i></span>
+                                    <p class="mb-0 text-white marquee-text d-flex align-items-center">
+                                        <span><i class="pr-3 fa-solid fa-cart-shopping"></i></span>
                                         <span>{{ optional($special_offer)->header_slogan }}</span>
                                     </p>
                                 </a>

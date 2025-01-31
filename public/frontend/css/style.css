@@ -3702,7 +3702,7 @@ textarea.form-control {
 
 .ps-product__thumbnail {
     position: relative;
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 .ps-product--mini-cart .ps-product__thumbnail img {

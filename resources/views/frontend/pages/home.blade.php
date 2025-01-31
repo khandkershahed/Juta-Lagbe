@@ -85,24 +85,28 @@
                     <div class="col-lg-12">
                         <div class="py-4 d-flex justify-content-between align-items-center py-lg-5">
                             <div class="">
-                                <h3 class="mb-0 text-white ps-section__title d-flex align-items-center text-uppercase" style="font-size: 30px;">
+                                <h3 class="mb-0 text-white ps-section__title d-flex align-items-center text-uppercase"
+                                    style="font-size: 30px;">
                                     Surprise <br> Offer <img width="30px" class="img-fluid"
                                         src="{{ asset('images/hour.png') }}" alt=""></h3>
                             </div>
                             <div style="width: 600px" class="px-3">
                                 <span style="height: 1px; background-color:transparent; display: block"></span>
                             </div>
-                            <div class="ps-delivery--info">
-                                <a class="px-4 py-2 text-end"
-                                    style="background-color: #BD0909 !important;border-radius: 50px;color: white;"
-                                    href="{{ route('allproducts') }}">Live Now <i class="fa-solid fa-"></i></a>
-                            </div>
+                            @if (!empty(optional($special_offer)->slug))
+                                <div class="ps-delivery--info">
+                                    <a class="px-4 py-2 text-end"
+                                        style="background-color: #BD0909 !important;border-radius: 50px;color: white;"
+                                        href="{{ route('special.products', optional($special_offer)->slug) }}">Live Now
+                                        <i class="fa-solid fa-"></i></a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
                 {{-- Category Product --}}
                 <div class="row">
-                    Here Goes The Products Of This Category
+                    Surprice Hour
                 </div>
                 {{-- Category Product End --}}
             </div>
@@ -111,7 +115,8 @@
                     <div class="col-lg-12">
                         <div class="py-4 d-flex justify-content-between align-items-center py-lg-5">
                             <div class="">
-                                <h3 class="mb-0 text-black ps-section__title d-flex align-items-center text-uppercase" style="font-size: 30px;">
+                                <h3 class="mb-0 text-black ps-section__title d-flex align-items-center text-uppercase"
+                                    style="font-size: 30px;">
                                     Trending Now Offer
                                 </h3>
                                 <p>Best Selling Products</p>
@@ -122,14 +127,15 @@
                             <div class="ps-delivery--info">
                                 <a class="px-4 py-2 text-end"
                                     style="background-color: #fff !important;border-radius: 50px;color: #000;"
-                                    href="{{ route('allproducts') }}">Live Now <i class="fa-solid fa-chevron-right"></i></a>
+                                    href="{{ route('allproducts') }}">Live Now <i
+                                        class="fa-solid fa-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 {{-- Category Product --}}
                 <div class="row">
-                    Here Goes The Products Of This Category
+                    latest
                 </div>
                 {{-- Category Product End --}}
             </div>
@@ -138,7 +144,8 @@
                     <div class="col-lg-12">
                         <div class="py-4 d-flex justify-content-between align-items-center py-lg-5">
                             <div class="">
-                                <h3 class="mb-0 text-black ps-section__title d-flex align-items-center text-uppercase" style="font-size: 30px;">
+                                <h3 class="mb-0 text-black ps-section__title d-flex align-items-center text-uppercase"
+                                    style="font-size: 30px;">
                                     All Products
                                 </h3>
                                 <p>Walk in Style, Pay Less!</p>
@@ -149,14 +156,15 @@
                             <div class="ps-delivery--info">
                                 <a class="px-4 py-2 text-end"
                                     style="background-color: #fff !important;border-radius: 50px;color: #000;"
-                                    href="{{ route('allproducts') }}">Live Now <i class="fa-solid fa-chevron-right"></i></a>
+                                    href="{{ route('allproducts') }}">Live Now <i
+                                        class="fa-solid fa-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 {{-- Category Product --}}
                 <div class="row">
-                    Here Goes The Products Of This Category
+                    All Product
                 </div>
                 {{-- Category Product End --}}
             </div>
