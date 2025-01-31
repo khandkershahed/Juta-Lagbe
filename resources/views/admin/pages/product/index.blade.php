@@ -49,6 +49,7 @@
                         <th width="5%">{{ __('Sl') }}</th>
                         <th width="10%">{{ __('Product Image') }}</th>
                         <th width="25%">{{ __('Product Name') }}</th>
+                        <th width="15%" class="text-center">Category</th>
                         <th width="15%" class="text-center">{{ __('Stock') }}</th>
                         <th width="15%" class="text-center">{{ __('Price') }}</th>
                         <th width="10%">{{ __('Product Status') }}</th>
@@ -71,7 +72,7 @@
                                     onerror="this.onerror=null; this.src='{{ asset('frontend/img/no-blogs.jpg') }}';">
                             </td>
                             <td>{{ $product->name }}</td>
-                            <td>
+                            <td class="text-center">
                                 @foreach ($product->categories() as $category)
                                     <span>{{ $category->name }}</span>@if (!$loop->last), @endif
                                 @endforeach
