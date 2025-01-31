@@ -247,7 +247,7 @@
                 <div class="col-lg-7">
                     <div class="kovi-product-slider-wrapper">
                         <div thumbsSlider="" class="swiper mySwiperDesktop">
-                            <div class="swiper-wrapper bg-white">
+                            <div class="bg-white swiper-wrapper">
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
@@ -257,10 +257,13 @@
                                 @if (!empty($product->video_link))
                                     <div class="swiper-slide">
                                         <div style="position: relative; width: 100%; height: 100%;">
-                                            <iframe width="100%" height="100%"
+                                            {{-- <iframe width="100%" height="100%"
                                                 src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
                                                 title="YouTube video player" frameborder="0"
-                                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                                referrerpolicy="strict-origin-when-cross-origin"></iframe> --}}
+                                                <div class="player" data-plyr-provider="youtube"
+                                                data-plyr-embed-id="{{ $product->video_link }}">
+                                            </div>
                                             <div class="overlay-iframe"></div>
                                         </div>
                                     </div>
@@ -316,7 +319,7 @@
                     </div>
 
                 </div>
-                <div class="col-lg-5 pl-0">
+                <div class="pl-0 col-lg-5">
                     <div class="product-details-juta">
                         <h3 class="title">{{ $product->name }}</h3>
                         <div>
@@ -330,12 +333,12 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="w-100 pt-3">
+                        <div class="pt-3 w-100">
                             @if (!empty($product->unit_discount_price))
                                 <div class="d-flex justify-content-start align-items-center">
                                     <h3 class="mb-0">দামঃ</h3>
-                                    <h3 class="text-success pl-2 mb-0">{{ $product->unit_discount_price }} টাকা</h3>
-                                    <h4 class="ps-product__del text-danger pl-4 mb-0">{{ $product->unit_price }} টাকা
+                                    <h3 class="pl-2 mb-0 text-success">{{ $product->unit_discount_price }} টাকা</h3>
+                                    <h4 class="pl-4 mb-0 ps-product__del text-danger">{{ $product->unit_price }} টাকা
                                     </h4>
                                 </div>
                             @else
@@ -345,23 +348,23 @@
                             @endif
                         </div>
                         <div>
-                            <p class="mb-0 pt-2">প্রোডাক্ট কোডঃ <span
+                            <p class="pt-2 mb-0">প্রোডাক্ট কোডঃ <span
                                     class="text-danger">{{ $product->sku_code }}</span></p>
                         </div>
                         {{-- Size Variation End --}}
-                        <div class="ps-page__content py-2 row align-items-center pt-4">
+                        <div class="py-2 pt-4 ps-page__content row align-items-center">
                             <div class="ps-product--detail col-12 col-lg-3">
-                                <div class="ps-product__feature bg-transparent p-0">
-                                    <div class="ps-product__quantity pb-0 rounded-0">
+                                <div class="p-0 bg-transparent ps-product__feature">
+                                    <div class="pb-0 ps-product__quantity rounded-0">
                                         <div class="def-number-input number-input safari_only w-100 rounded-0">
                                             <button class="minus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                    class="icon-minus text-white"></i></button>
+                                                    class="text-white icon-minus"></i></button>
                                             <input class="quantity" min="1" name="quantity" value="1"
                                                 type="number" data-product_id="{{ $product->id }}" />
                                             <button class="plus"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                    class="icon-plus text-white"></i></button>
+                                                    class="text-white icon-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -374,7 +377,7 @@
 
                                     @if (!empty($sizes))
                                         @foreach ($sizes as $size)
-                                            <div class="radio-wrapper-46 mr-1 mr-lg-3">
+                                            <div class="mr-1 radio-wrapper-46 mr-lg-3">
                                                 <input class="inp-radio" id="radio-{{ $size }}" name="size"
                                                     type="radio" value="{{ $size }}" />
                                                 <label class="radio" for="radio-{{ $size }}">
@@ -388,31 +391,31 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <p class="no-sizes-text mb-0">No sizes available.</p>
+                                        <p class="mb-0 no-sizes-text">No sizes available.</p>
                                     @endif
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center card-cart-btn mt-2">
+                        <div class="mt-2 d-flex align-items-center card-cart-btn">
                             <!-- Order Modal  -->
                             @if (count($sizes) > 0)
                                 <a href="#" data-product_id="{{ $product->id }}"
-                                    class="btn btn-primary rounded-0 fa-bounce w-100 py-3 add_to_cart_btn_product_single">
-                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                    class="py-3 btn btn-primary rounded-0 fa-bounce w-100 add_to_cart_btn_product_single">
+                                    <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                     অর্ডার করুন
                                 </a>
                             @else
-                                <button href="#" class="btn btn-secondary rounded-0 w-100 py-3" disabled>
-                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                <button href="#" class="py-3 btn btn-secondary rounded-0 w-100" disabled>
+                                    <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                     অর্ডার করুন
                                 </button>
                             @endif
 
 
                         </div>
-                        {{-- <a href="#" class="btn btn-primary rounded-0 fa-bounce w-100 py-3" data-toggle="modal"
+                        {{-- <a href="#" class="py-3 btn btn-primary rounded-0 fa-bounce w-100" data-toggle="modal"
                             data-target="#order-product{{ $product->id }}">
-                            <i class="fa-solid fa-basket-shopping pr-2"></i>
+                            <i class="pr-2 fa-solid fa-basket-shopping"></i>
                             অর্ডার করুন
                         </a> --}}
                         <!-- Order Modal End-->
@@ -422,18 +425,18 @@
                             @endphp
 
                             <a href="https://wa.me/{{ $phoneNumber }}" target="_blank"
-                                class="btn btn-primary rounded-0 w-100 py-3 mb-2"
+                                class="py-3 mb-2 btn btn-primary rounded-0 w-100"
                                 style="background-color: #25D366; border-color: #25D366; color: white;">
                                 <i class="fab fa-whatsapp"></i>
                                 হোয়াটসঅ্যাপ এ যোগ করুন।
                             </a>
                             <a href="tel:+8801832828385" target="_blank"
-                                class="btn btn-primary rounded-0 w-100 py-3 mb-2">
+                                class="py-3 mb-2 btn btn-primary rounded-0 w-100">
                                 <i class="fa-solid fa-phone fa-bounce"></i>
                                 কল করুন।
                             </a>
                             <a href="https://www.facebook.com/messages/t/109206945276633" target="_blank"
-                                class="btn btn-primary rounded-0 w-100 py-3 mb-2"
+                                class="py-3 mb-2 btn btn-primary rounded-0 w-100"
                                 style="background: linear-gradient(90deg, #00B2FF, #006AFF, #FF5F7E);
            border: none; color: #fff; font-weight: bold;
            text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
@@ -443,7 +446,7 @@
                         </div>
                         <div class="pt-3 pl-1">
                             <div class="table-responsive">
-                                <table class="table border bg-white">
+                                <table class="table bg-white border">
                                     <tbody>
                                         @foreach ($shippingmethods as $shippingmethod)
                                             <tr class="">
@@ -465,9 +468,9 @@
             <div class="ps-page__content">
                 <div class="ps-product--detail">
                     <div class="ps-product__content">
-                        <ul class="nav nav-tabs ps-tab-list bg-white p-3" id="productContentTabs" role="tablist">
+                        <ul class="p-3 bg-white nav nav-tabs ps-tab-list" id="productContentTabs" role="tablist">
 
-                            <li class="nav-item ml-3 pr-info-tabs" role="presentation">
+                            <li class="ml-3 nav-item pr-info-tabs" role="presentation">
                                 <a class="nav-link show active" id="information-tab" data-toggle="tab"
                                     href="#information-content" role="tab" aria-controls="information-content"
                                     aria-selected="false">
@@ -475,14 +478,14 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item ml-3 mt-3 mt-lg-0 pr-info-tabs" role="presentation">
+                            <li class="mt-3 ml-3 nav-item mt-lg-0 pr-info-tabs" role="presentation">
                                 <a class="nav-link" id="delivery-tab" data-toggle="tab" href="#delivery-process"
                                     role="tab" aria-controls="delivery-process" aria-selected="false">
                                     ডেলিভারি প্রসেস এবং রিটার্ন পলিসি।
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content bg-white p-5" id="productContent">
+                        <div class="p-5 bg-white tab-content" id="productContent">
                             <div class="tab-pane fade show active" id="information-content" role="tabpanel"
                                 aria-labelledby="information-tab">
                                 <div class="ps-document">
@@ -576,13 +579,13 @@
                         </div>
                     </div>
                 </div>
-                <section class="ps-section--also mb-0 mb-lg-3" data-background="img/related-bg.jpg">
+                <section class="mb-0 ps-section--also mb-lg-3" data-background="img/related-bg.jpg">
                     <div class="container px-0">
                         <h3 class="ps-section__title">গ্রাহক আরও কিনেছেন</h3>
                         <div class="row g-0">
                             @foreach ($related_products->take(4) as $related_product)
-                                <div class="col-md-3 col-sm-6 mb-4 pr-3 pr-lg-0">
-                                    <div class="ps-section__product border">
+                                <div class="pr-3 mb-4 col-md-3 col-sm-6 pr-lg-0">
+                                    <div class="border ps-section__product">
                                         <div class="ps-product ps-product--standard">
                                             <div class="ps-product__thumbnail">
                                                 <a class="ps-product__image"
@@ -649,8 +652,8 @@
                                                 </div>
                                                 <div class="d-flex align-items-center card-cart-btn">
                                                     <a href="{{ route('buy.now', $related_product->id) }}"
-                                                        class="btn btn-primary rounded-0 w-100 py-2 releted-order py-lg-2">
-                                                        <i class="fa-solid fa-basket-shopping pr-2"></i> অর্ডার করুন
+                                                        class="py-2 btn btn-primary rounded-0 w-100 releted-order py-lg-2">
+                                                        <i class="pr-2 fa-solid fa-basket-shopping"></i> অর্ডার করুন
                                                     </a>
                                                 </div>
                                             </div>
@@ -671,7 +674,7 @@
                 <div class="col-lg-8">
                     <div class="ps-delivery ps-delivery--info">
                         <div class="ps-delivery__content">
-                            <div class="ps-delivery__text text-white">
+                            <div class="text-white ps-delivery__text">
                                 <i class="icon-shield-check"></i>
                                 <span>
                                     <strong>100% Secure Delivery</strong> Without Courier Communication.
@@ -700,7 +703,7 @@
                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <div class="ps-product--detail">
                                 <div class="row">
-                                    <div class="col-12 col-xl-6 pl-0">
+                                    <div class="pl-0 col-12 col-xl-6">
                                         <div class="ps-product--gallery">
                                             <div class="ps-product__thumbnail">
                                                 @if ($related_product->multiImages->isNotEmpty())
@@ -762,13 +765,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-xl-6 pr-0">
-                                        <div class="ps-product__info mb-0">
+                                    <div class="pr-0 col-12 col-xl-6">
+                                        <div class="mb-0 ps-product__info">
                                             <div class="ps-product__badges">
                                                 <span
                                                     class="ps-badge ps-badge--instock">{{ $related_product->box_stock > 0 ? 'IN STOCK' : 'OUT OF STOCK' }}</span>
                                             </div>
-                                            <div class="ps-product__branch pt-2">
+                                            <div class="pt-2 ps-product__branch">
                                                 <a href="#"
                                                     style="text-transform: uppercase;">{{ optional($related_product->brand)->name }}</a>
                                             </div>

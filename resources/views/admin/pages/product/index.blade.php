@@ -72,7 +72,7 @@
                                     onerror="this.onerror=null; this.src='{{ asset('frontend/img/no-blogs.jpg') }}';">
                             </td>
                             <td>{{ $product->name }}</td>
-                            <td>
+                            <td class="text-center">
                                 @foreach ($product->categories() as $category)
                                     <span>{{ $category->name }}</span>@if (!$loop->last), @endif
                                 @endforeach
