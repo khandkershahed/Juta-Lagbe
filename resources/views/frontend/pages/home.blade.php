@@ -105,128 +105,130 @@
                     </div>
                 </div>
                 {{-- Category Product --}}
-                <div class="row">
-                    @foreach ($specialproducts as $specialproduct)
-                        <div class="pl-0 pr-0 my-3 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
-                            <div class="border ps-section__product">
-                                <div class="ps-product ps-product--standard">
-                                    <div class="ps-product__thumbnail">
-                                        <a class="ps-product__image"
-                                            href="{{ route('product.details', $specialproduct->slug) }}">
-                                            <figure>
-                                                @if (!empty($specialproduct->thumbnail))
-                                                    @php
-                                                        $thumbnailPath = 'storage/' . $specialproduct->thumbnail;
-                                                        $thumbnailSrc = file_exists(public_path($thumbnailPath))
-                                                            ? asset($thumbnailPath)
-                                                            : asset('frontend/img/no-product.jpg');
-                                                    @endphp
-                                                    <img src="{{ $thumbnailSrc }}"
-                                                        alt="{{ $specialproduct->meta_title }}" width="210"
-                                                        height="210" />
-                                                @else
-                                                    @foreach ($specialproduct->multiImages->slice(0, 2) as $image)
+                @if ($specialproducts && $specialproducts->count() > 0)
+                    <div class="row">
+                        @foreach ($specialproducts as $specialproduct)
+                            <div class="pl-0 pr-0 my-3 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
+                                <div class="border ps-section__product">
+                                    <div class="ps-product ps-product--standard">
+                                        <div class="ps-product__thumbnail">
+                                            <a class="ps-product__image"
+                                                href="{{ route('product.details', $specialproduct->slug) }}">
+                                                <figure>
+                                                    @if (!empty($specialproduct->thumbnail))
                                                         @php
-                                                            $imagePath = 'storage/' . $image->photo;
-                                                            $imageSrc = file_exists(public_path($imagePath))
-                                                                ? asset($imagePath)
+                                                            $thumbnailPath = 'storage/' . $specialproduct->thumbnail;
+                                                            $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                                ? asset($thumbnailPath)
                                                                 : asset('frontend/img/no-product.jpg');
                                                         @endphp
-                                                        <img src="{{ $imageSrc }}"
+                                                        <img src="{{ $thumbnailSrc }}"
                                                             alt="{{ $specialproduct->meta_title }}" width="210"
                                                             height="210" />
-                                                    @endforeach
-                                                @endif
-                                            </figure>
-                                        </a>
-                                        {{-- Review End --}}
-                                        <div class="ps-product__actions">
-                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
-                                                title="Wishlist">
-                                                <a class="add_to_wishlist"
-                                                    href="{{ route('wishlist.store', $specialproduct->id) }}"><i
-                                                        class="fa-solid fa-heart"></i></a>
-                                            </div>
-                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
-                                                title="Quick view">
-                                                <a href="#" data-toggle="modal"
-                                                    data-target="#popupQuickview{{ $specialproduct->id }}">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                        @if (!empty($specialproduct->unit_discount_price))
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">
-                                                    -
-                                                    {{ !empty($specialproduct->unit_discount_price) && $specialproduct->unit_discount_price > 0 ? number_format((($specialproduct->unit_price - $specialproduct->unit_discount_price) / $specialproduct->unit_price) * 100, 1) : 0 }}
-                                                    % অফ
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div class="ps-product__content">
-                                        <h5 class="ps-product__title">
-                                            <a href="{{ route('product.details', $specialproduct->slug) }}">
-                                                {{ implode(' ', array_slice(explode(' ', $specialproduct->name), 0, 5)) }}
+                                                    @else
+                                                        @foreach ($specialproduct->multiImages->slice(0, 2) as $image)
+                                                            @php
+                                                                $imagePath = 'storage/' . $image->photo;
+                                                                $imageSrc = file_exists(public_path($imagePath))
+                                                                    ? asset($imagePath)
+                                                                    : asset('frontend/img/no-product.jpg');
+                                                            @endphp
+                                                            <img src="{{ $imageSrc }}"
+                                                                alt="{{ $specialproduct->meta_title }}" width="210"
+                                                                height="210" />
+                                                        @endforeach
+                                                    @endif
+                                                </figure>
                                             </a>
-                                        </h5>
-                                        <div class="pb-3">
-                                            @if (!empty($specialproduct->unit_discount_price))
-                                                <div class="ps-product__meta">
-                                                    <span class="ps-product__price sale fw-bold"
-                                                        style="font-weight:600;">দাম
-                                                        {{ $specialproduct->unit_discount_price }}
-                                                        টাকা</span>
-                                                    <span
-                                                        class="ps-product__del text-danger">{{ $specialproduct->unit_price }}
-                                                        টাকা</span>
+                                            {{-- Review End --}}
+                                            <div class="ps-product__actions">
+                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
+                                                    title="Wishlist">
+                                                    <a class="add_to_wishlist"
+                                                        href="{{ route('wishlist.store', $specialproduct->id) }}"><i
+                                                            class="fa-solid fa-heart"></i></a>
                                                 </div>
-                                            @else
-                                                <div class="ps-product__meta">
-                                                    <span class="ps-product__price sale fw-bold"
-                                                        style="font-weight:600;">দাম
-                                                        {{ $specialproduct->unit_price }}
-                                                        টাকা</span>
+                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
+                                                    title="Quick view">
+                                                    <a href="#" data-toggle="modal"
+                                                        data-target="#popupQuickview{{ $specialproduct->id }}">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                            @if (!empty($specialproduct->unit_discount_price))
+                                                <div class="ps-product__badge">
+                                                    <div class="ps-badge ps-badge--sale">
+                                                        -
+                                                        {{ !empty($specialproduct->unit_discount_price) && $specialproduct->unit_discount_price > 0 ? number_format((($specialproduct->unit_price - $specialproduct->unit_discount_price) / $specialproduct->unit_price) * 100, 1) : 0 }}
+                                                        % অফ
+                                                    </div>
                                                 </div>
                                             @endif
                                         </div>
-                                        <div class="d-flex align-items-center card-cart-btn">
-                                            <a href="{{ route('product.details', $specialproduct->slug) }}"
-                                                class="btn btn-primary rounded-0 w-100">
-                                                <i class="pr-2 fa-solid fa-basket-shopping"></i>
-                                                অর্ডার
-                                                করুন
-                                            </a>
-                                        </div>
-                                        <div class="ps-product__actions ps-product__group-mobile">
-                                            <div class="ps-product__quantity">
-                                                <div class="def-number-input number-input safari_only">
-                                                    <button class="minus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                            class="icon-minus"></i>
-                                                    </button>
-                                                    <input class="quantity" min="0" name="quantity"
-                                                        value="1" type="number" />
-                                                    <button class="plus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                            class="icon-plus"></i>
-                                                    </button>
-                                                </div>
+                                        <div class="ps-product__content">
+                                            <h5 class="ps-product__title">
+                                                <a href="{{ route('product.details', $specialproduct->slug) }}">
+                                                    {{ implode(' ', array_slice(explode(' ', $specialproduct->name), 0, 5)) }}
+                                                </a>
+                                            </h5>
+                                            <div class="pb-3">
+                                                @if (!empty($specialproduct->unit_discount_price))
+                                                    <div class="ps-product__meta">
+                                                        <span class="ps-product__price sale fw-bold"
+                                                            style="font-weight:600;">দাম
+                                                            {{ $specialproduct->unit_discount_price }}
+                                                            টাকা</span>
+                                                        <span
+                                                            class="ps-product__del text-danger">{{ $specialproduct->unit_price }}
+                                                            টাকা</span>
+                                                    </div>
+                                                @else
+                                                    <div class="ps-product__meta">
+                                                        <span class="ps-product__price sale fw-bold"
+                                                            style="font-weight:600;">দাম
+                                                            {{ $specialproduct->unit_price }}
+                                                            টাকা</span>
+                                                    </div>
+                                                @endif
                                             </div>
-                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
-                                                title="Wishlist"><a class="add_to_wishlist"
-                                                    href="{{ route('wishlist.store', $specialproduct->id) }}"><i
-                                                        class="fa-solid fa-heart"></i></a>
+                                            <div class="d-flex align-items-center card-cart-btn">
+                                                <a href="{{ route('product.details', $specialproduct->slug) }}"
+                                                    class="btn btn-primary rounded-0 w-100">
+                                                    <i class="pr-2 fa-solid fa-basket-shopping"></i>
+                                                    অর্ডার
+                                                    করুন
+                                                </a>
+                                            </div>
+                                            <div class="ps-product__actions ps-product__group-mobile">
+                                                <div class="ps-product__quantity">
+                                                    <div class="def-number-input number-input safari_only">
+                                                        <button class="minus"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
+                                                                class="icon-minus"></i>
+                                                        </button>
+                                                        <input class="quantity" min="0" name="quantity"
+                                                            value="1" type="number" />
+                                                        <button class="plus"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
+                                                                class="icon-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
+                                                    title="Wishlist"><a class="add_to_wishlist"
+                                                        href="{{ route('wishlist.store', $specialproduct->id) }}"><i
+                                                            class="fa-solid fa-heart"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
+                @endif
                 {{-- Category Product End --}}
             </div>
             <div class="container px-3 pb-4 mt-0 mt-lg-5 px-lg-5 second-section">
