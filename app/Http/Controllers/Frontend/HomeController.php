@@ -153,37 +153,35 @@ class HomeController extends Controller
         $categories = Cache::remember('categories', 60, function () {
             return Category::orderBy('name', 'ASC')->active()->get(['id', 'name', 'slug']);
         });
+        $category = Category::where('slug', $slug)->firstOrFail();
 
-        // Get the current category
-        $category = Category::with(['catProducts.multiImages', 'catProducts.reviews'])
-            ->where('slug', $slug)
-            ->firstOrFail();
-
+        $catProducts = $category->products()->get();  // Use ->get() to execute the query
+        // dd($catProducts);
         // Start the query to fetch products for this category
-        $query = Product::whereJsonContains('category_id', $category->id);
+        // $query = Product::whereJsonContains('category_id', $category->id);
 
-        // Apply Price filter if present
-        if ($request->has('price_min') && $request->has('price_max')) {
-            $priceMin = $request->input('price_min');
-            $priceMax = $request->input('price_max');
-            $query->whereBetween('unit_price', [$priceMin, $priceMax]);
-        }
+        // // Apply Price filter if present
+        // if ($request->has('price_min') && $request->has('price_max')) {
+        //     $priceMin = $request->input('price_min');
+        //     $priceMax = $request->input('price_max');
+        //     $query->whereBetween('unit_price', [$priceMin, $priceMax]);
+        // }
 
-        // Apply Size filter if present
-        if ($request->has('size')) {
-            $size = $request->input('size'); // Single size selected
-            $query->whereJsonContains('size', $size); // Filter by size
-        }
+        // // Apply Size filter if present
+        // if ($request->has('size')) {
+        //     $size = $request->input('size'); // Single size selected
+        //     $query->whereJsonContains('size', $size); // Filter by size
+        // }
 
-        // Get the filtered products
-        $products = $query->active()->paginate(12); // Adjust pagination as needed
-        // dd($products);
+        // // Get the filtered products
+        // $products = $query->active()->paginate(12); // Adjust pagination as needed
+        // // dd($products);
 
         // Pass the data to the view
         $data = [
             'category'       => $category,
             'categories'     => $categories,
-            'products'       => $products,
+            'catProducts'       => $catProducts,
             'price_min'      => $request->input('price_min', 10),
             'price_max'      => $request->input('price_max', 10000),
             'selected_size'  => $request->input('size', null),
