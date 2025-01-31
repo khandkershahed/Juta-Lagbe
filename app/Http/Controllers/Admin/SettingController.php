@@ -132,11 +132,7 @@ class SettingController extends Controller
                     'APP_DEBUG=' . $newAppDebugValue,
                     $envContent
                 );
-
-                // Save the updated .env content
-                // File::put($envFile, $envContent);
                 file_put_contents(base_path('.env'), $envContent);
-                // Clear the configuration cache to apply the changes
                 Artisan::call('config:clear');
                 Artisan::call('cache:clear');
             }
