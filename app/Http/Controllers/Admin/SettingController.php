@@ -6,9 +6,11 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\SettingRequest;
-use Illuminate\Support\Facades\Session;
 
 class SettingController extends Controller
 {
@@ -60,8 +62,8 @@ class SettingController extends Controller
                 'website_name'         => $request->website_name,
                 'site_motto'           => $request->site_motto,
                 'site_favicon'         => $uploadedFiles['site_favicon']['status']    == 1 ? $uploadedFiles['site_favicon']['file_path']   : $webSetting->site_favicon,
-                'site_logo_white'      => $uploadedFiles['site_logo_white']['status'] == 1 ? $uploadedFiles['site_logo_white']['file_path']: $webSetting->site_logo_white,
-                'site_logo_black'      => $uploadedFiles['site_logo_black']['status'] == 1 ? $uploadedFiles['site_logo_black']['file_path']: $webSetting->site_logo_black,
+                'site_logo_white'      => $uploadedFiles['site_logo_white']['status'] == 1 ? $uploadedFiles['site_logo_white']['file_path'] : $webSetting->site_logo_white,
+                'site_logo_black'      => $uploadedFiles['site_logo_black']['status'] == 1 ? $uploadedFiles['site_logo_black']['file_path'] : $webSetting->site_logo_black,
                 'contact_email'        => $request->contact_email,
                 'support_email'        => $request->support_email,
                 'info_email'           => $request->info_email,
@@ -94,8 +96,8 @@ class SettingController extends Controller
                 'reddit_url'           => $request->reddit_url,
                 'tumblr_url'           => $request->tumblr_url,
                 'tiktok_url'           => $request->tiktok_url,
-                'user_verification'    => !empty($request->user_verification) ? $request->user_verification : 0 ,
-                'minimum_order_amount' => !empty($request->minimum_order_amount) ? $request->minimum_order_amount : 0 ,
+                'user_verification'    => !empty($request->user_verification) ? $request->user_verification : 0,
+                'minimum_order_amount' => !empty($request->minimum_order_amount) ? $request->minimum_order_amount : 0,
                 'start_time_monday'    => $request->start_time_monday,
                 'monday'               => $request->monday,
                 'end_time_monday'      => $request->end_time_monday,
@@ -119,8 +121,25 @@ class SettingController extends Controller
                 'end_time_sunday'      => $request->end_time_sunday,
 
             ]);
+            $maintenanceMode = $request->maintenance_mode;
+            $newAppDebugValue = $maintenanceMode ? 'true' : 'false';
+            Config::set('mail.mailer', $request->mail_mailer);
+            $envFile = base_path('.env');
 
+            if (File::exists($envFile)) {
+                $envContent = file_get_contents(base_path('.env'));
+                $envContent = preg_replace('/APP_DEBUG=(true|false)/',
+                    'APP_DEBUG=' . $newAppDebugValue,
+                    $envContent
+                );
 
+                // Save the updated .env content
+                // File::put($envFile, $envContent);
+                file_put_contents(base_path('.env'), $envContent);
+                // Clear the configuration cache to apply the changes
+                Artisan::call('config:clear');
+                Artisan::call('cache:clear');
+            }
 
             // $setting = Setting::updateOrCreate([], $dataToUpdateOrCreate);
 

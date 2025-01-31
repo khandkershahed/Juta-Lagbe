@@ -13,7 +13,17 @@
                     </x-metronic.label>
                 </div>
             </div>
-            <div class="col-xl-8 mt-5">
+            <div class="col-xl-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="maintenance_mode"
+                           id="maintenance_mode"
+                           {{ old('maintenance_mode', optional($setting)->maintenance_mode) == '1' ? 'checked' : '' }} />
+                    <x-metronic.label class="form-check-label" for="maintenance_mode">
+                        Maintenance Mode
+                    </x-metronic.label>
+                </div>
+            </div>
+            <div class="col-xl-4 mt-5">
                 <div class="mb-10">
                     <x-metronic.label class="form-label">Minimum Order Amount(Min: 0)</x-metronic.label>
                     <x-metronic.input type="number" name="minimum_order_amount" id="minimum_order_amount"

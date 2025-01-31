@@ -380,11 +380,11 @@
                                     'routes' => ['admin.settings.index'],
                                     'route' => 'admin.settings.index',
                                 ],
-                                [
-                                    'title' => 'Admin Management',
-                                    'routes' => ['admin.admin-managemnet.index'],
-                                    'route' => 'admin.admin-managemnet.index',
-                                ],
+                                // [
+                                //     'title' => 'Admin Management',
+                                //     'routes' => ['admin.admin-managemnet.index'],
+                                //     'route' => 'admin.admin-managemnet.index',
+                                // ],
                                 // [
                                 //     'title' => 'Email Setting',
                                 //     'routes' => ['admin.email-settings.index'],
