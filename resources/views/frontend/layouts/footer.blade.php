@@ -101,7 +101,7 @@
                         <div class="ps-logo">
                             <a href="{{ route('home') }}">
                                 <img width="250px"
-                                    src="{{ !empty(optional($setting)->site_logo_white) ? asset('storage/' . optional($setting)->site_logo_white) : asset('frontend/img/logo.png') }}"
+                                    src="{{ !empty(optional($setting)->site_logo_white) ? asset('storage/' . optional($setting)->site_logo_white) : asset('images/logo_white.png') }}"
                                     alt=""
                                     onerror="this.onerror=null; this.src='{{ asset('images/logo_white.png') }}';">
                             </a>
