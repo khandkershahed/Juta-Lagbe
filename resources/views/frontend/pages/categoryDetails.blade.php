@@ -300,7 +300,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- Size Filter -->
                             <div class="mt-3">
@@ -327,7 +327,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
 
