@@ -40,12 +40,17 @@
             <table class="table border rounded my-datatable table-striped table-row-bordered gy-5 gs-7">
                 <thead>
                     <tr class="text-gray-400 text-start fw-bolder fs-7 text-uppercase gs-0">
+                        {{-- <th width="10%">
+                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                <input class="form-check-input" type="checkbox" data-kt-check="true"
+                                    data-kt-check-target="#kt_product_table .form-check-input" value="1" />
+                            </div>
+                        </th> --}}
                         <th width="5%">{{ __('Sl') }}</th>
                         <th width="10%">{{ __('Product Image') }}</th>
                         <th width="25%">{{ __('Product Name') }}</th>
-                        <th width="15%" class="text-center">Category</th>
                         <th width="15%" class="text-center">{{ __('Stock') }}</th>
-                        <th width="10%" class="text-center">{{ __('Price') }}</th>
+                        <th width="15%" class="text-center">{{ __('Price') }}</th>
                         <th width="10%">{{ __('Product Status') }}</th>
                         <th width="10%" class="text-center">{{ __('Action') }}</th>
                     </tr>
@@ -54,6 +59,11 @@
                     {{-- @foreach ($products as $product) --}}
                     @foreach ($products as $product)
                         <tr>
+                            {{-- <td>
+                                <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                    <input class="form-check-input" type="checkbox" value="1" />
+                                </div>
+                            </td> --}}
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 <img class="w-50px h-50px" src="{{ asset('storage/' . $product->thumbnail) }}"
@@ -61,11 +71,6 @@
                                     onerror="this.onerror=null; this.src='{{ asset('frontend/img/no-blogs.jpg') }}';">
                             </td>
                             <td>{{ $product->name }}</td>
-                            <td>
-                                @foreach ($product->categories as $category)
-                                <span>{{ $category->name }}</span>
-                                @endforeach
-                            </td>
                             <td class="text-center">
                                 @if ($product->box_stock > 0)
                                     <span>
@@ -124,6 +129,10 @@
                                     {{ $product->status == 'published' ? 'Published' : 'Unpublished' }}</span>
                             </td>
                             <td class="text-center">
+                                {{-- <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                    data-bs-toggle="modal" data-bs-target="#faqViewModal_{{ $faq->id }}">
+                                    <i class="fa-solid fa-expand"></i>
+                                </a> --}}
                                 <a href="{{ route('admin.product.edit', $product->id) }}"
                                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <i class="fa-solid fa-pen"></i>

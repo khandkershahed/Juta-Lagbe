@@ -9,25 +9,25 @@
             <div class="card card-flush">
                 <form id="bulk-delete-form" action="{{ route('admin.categories.bulk-delete') }}" method="POST">
                     @csrf
-                    <div class="card-header align-items-center py-5 gap-2 gap-md-5 bg-dark rounded-2">
+                    <div class="gap-2 py-5 card-header align-items-center gap-md-5 bg-dark rounded-2">
                         <div class="card-title">
-                            <div class="d-flex align-items-center position-relative my-1">
+                            <div class="my-1 d-flex align-items-center position-relative">
                                 <button type="submit" id="bulkDelete" class="btn btn-danger"
                                     style="display:none;">Delete
                                     Selected</button>
                             </div>
-                            <span class="ms-4 text-white">Manage Your Categories</span>
+                            <span class="text-white ms-4">Manage Your Categories</span>
                         </div>
-                        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                        <div class="gap-5 card-toolbar flex-row-fluid justify-content-end">
                             <a href="{{ route('admin.categories.create') }}" class="btn btn-white"><i
                                     class="fa-solid fa-plus"></i> Add Category</a>
                         </div>
                     </div>
-                    <div class="card-body pt-0">
+                    <div class="pt-0 card-body">
                         <div class="table-responsive">
-                            <table class="table my-datatable table-striped table-row-bordered gy-5 gx-5 border rounded">
+                            <table class="table border rounded my-datatable table-striped table-row-bordered gy-5 gx-5">
                                 <thead>
-                                    <tr class="fw-bold fs-6 text-gray-800 px-7">
+                                    <tr class="text-gray-800 fw-bold fs-6 px-7">
                                         <th width="10%">
                                             <div class="form-check form-check-sm form-check-solid">
                                                 <input class="form-check-input metronic_select_all" type="checkbox"
@@ -42,7 +42,7 @@
                                         <th width="20%" class="text-end pe-5">{{ __('category.Action') }}</th>
                                     </tr>
                                 </thead>
-                                <tbody class="fw-bold text-gray-600">
+                                <tbody class="text-gray-600 fw-bold">
                                     @forelse ($categories as $category)
                                         <tr>
                                             <td>

@@ -22,8 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         $data = [
-            'products'     => Product::with('categories')->get(),
-            // 'products'     => DB::table('products')->latest('id')->get(),
+            'products'     => DB::table('products')->latest('id')->get(),
         ];
         return view('admin.pages.product.index', $data);
     }
