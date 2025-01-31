@@ -28,7 +28,10 @@
                 <div class="col-lg-12 px-0">
                     <div class="category-banner">
                         {{-- <img class="img-fluid" src="{{ asset('storage/' . $category->banner_image) }}" alt=""> --}}
-                        <img class="img-fluid w-100" src="{{ asset('images/special-banner.jpg') }}" alt="">
+                        <img class="img-fluid" style="object-fit: cover;height: 200px;width: 100%;"
+                            src="{{ asset('storage/' . $category->banner_image) }}"
+                            onerror="this.onerror=null; this.src='{{ asset('images/no-preview2.png') }}';"
+                            alt="">
                         <!-- Fallback for missing image -->
                     </div>
                 </div>
@@ -49,7 +52,7 @@
                                     @if ($catProducts->isEmpty())
                                         <p>No products available in this category.</p>
                                     @else
-                                        
+
                                         <div class="ps-categogy--grid mt-0">
                                             <div class="row m-0">
                                                 @forelse ($catProducts as $key => $category_product)

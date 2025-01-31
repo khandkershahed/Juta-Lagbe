@@ -48,9 +48,10 @@
                         </th> --}}
                         <th width="5%">{{ __('Sl') }}</th>
                         <th width="10%">{{ __('Product Image') }}</th>
-                        <th width="25%">{{ __('Product Name') }}</th>
-                        <th width="15%" class="text-center">{{ __('Stock') }}</th>
-                        <th width="15%" class="text-center">{{ __('Price') }}</th>
+                        <th width="32%">{{ __('Product Name') }}</th>
+                        <th width="13%">Category</th>
+                        <th width="10%" class="text-center">{{ __('Stock') }}</th>
+                        <th width="10%" class="text-center">{{ __('Price') }}</th>
                         <th width="10%">{{ __('Product Status') }}</th>
                         <th width="10%" class="text-center">{{ __('Action') }}</th>
                     </tr>
