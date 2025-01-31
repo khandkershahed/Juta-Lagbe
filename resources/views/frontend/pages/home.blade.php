@@ -16,7 +16,7 @@
                                     <p class="mb-0 text-white marquee-text d-flex align-items-center">
                                         <span><img class="pr-3 img-fluid" width="60px"
                                                 src="{{ asset('images/markque-icons.png') }}" alt=""></span>
-                                        <span>{{ optional($special_offer)->header_slogan }}</span>
+                                        <span>{{ optional($special_offer)->header_slogan ?? 'Step Into Style' }}</span>
                                     </p>
                                 </a>
                             @endfor
@@ -27,7 +27,7 @@
                                     <p class="mb-0 text-white marquee-text d-flex align-items-center">
                                         <span><img class="pr-3 img-fluid" width="60px"
                                                 src="{{ asset('images/markque-icons.png') }}" alt=""></span>
-                                        <span>{{ optional($special_offer)->header_slogan }}</span>
+                                        <span>{{ optional($special_offer)->header_slogan ?? 'Step Into Style' }}</span>
                                     </p>
                                 </a>
                             @endfor
