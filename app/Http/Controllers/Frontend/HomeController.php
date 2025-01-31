@@ -43,6 +43,7 @@ class HomeController extends Controller
             ->get();
 
         $special_offer = SpecialOffer::latest()->first();
+        $specialproducts = $special_offer ? $special_offer->products() : null;
 
         $data = [
             'sliders'                   => PageBanner::active()->where('page_name', 'home_slider')->latest('id')->first(),
@@ -50,7 +51,7 @@ class HomeController extends Controller
             'categorys'                 => Category::select('name', 'logo', 'video_link', 'id', 'slug')->get(),
             'latestproducts'            => $latestproducts,
             'randomproducts'            => $randomproducts,
-            'specialproducts'           => $special_offer->products(),
+            'specialproducts'           => $specialproducts,
         ];
         return view('frontend.pages.home', $data);
     }
