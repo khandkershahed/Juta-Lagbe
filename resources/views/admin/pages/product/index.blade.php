@@ -62,10 +62,11 @@
                             </td>
                             <td>{{ $product->name }}</td>
                             <td>
-                                @foreach ($product->categories as $category)
-                                <span>{{ $category->name }}</span>
+                                @foreach ($product->categories() as $category)
+                                    <span>{{ $category->name }}</span>@if (!$loop->last), @endif
                                 @endforeach
                             </td>
+
                             <td class="text-center">
                                 @if ($product->box_stock > 0)
                                     <span>
