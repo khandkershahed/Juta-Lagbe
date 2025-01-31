@@ -1,6 +1,6 @@
 <x-frontend-app-layout :title="'Checkout'">
     <div class="ps-checkout">
-        <div class="container mb-5 px-0 pb-4">
+        <div class="container px-0 pb-4 mb-5">
             <ul class="ps-breadcrumb">
                 <li class="ps-breadcrumb__item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="ps-breadcrumb__item active" aria-current="page">
@@ -10,21 +10,21 @@
             <div class="ps-checkout__content">
                 <form action="{{ route('checkout.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="card border-0">
-                        <div class="card-header border-0">
-                            <div class="d-flex justify-content-between align-items-center py-2">
+                    <div class="border-0 card">
+                        <div class="border-0 card-header">
+                            <div class="py-2 d-flex justify-content-between align-items-center">
                                 <h3 class="mb-0 site-text">অর্ডার সম্পূর্ণ করতে আপনার তথ্য দিন</h3>
                                 <h3 class="mb-0 site-text">আপনার অর্ডার</h3>
                             </div>
                         </div>
-                        <div class="card-body py-0 pr-0">
+                        <div class="py-0 pr-0 card-body">
                             <div class="row">
                                 <div class="col-12 col-lg-5">
-                                    <div class="ps-checkout__form border-0 mb-0 pb-0">
+                                    <div class="pb-0 mb-0 border-0 ps-checkout__form">
                                         <div class="row">
-                                            <div class="col-12 col-xl-6 mb-3">
-                                                <div class="ps-form__group pt-2">
-                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                            <div class="mb-3 col-12 col-xl-6">
+                                                <div class="pt-2 ps-form__group">
+                                                    <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="name">নাম<span class="text-danger">*</span>
                                                     </label>
                                                     <input id="name" class="form-control ps-form__input"
@@ -34,9 +34,9 @@
                                                         required>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-6 mb-3">
-                                                <div class="ps-form__group pt-2">
-                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                            <div class="mb-3 col-12 col-xl-6">
+                                                <div class="pt-2 ps-form__group">
+                                                    <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="phone">মোবাইল নম্বার<span class="text-danger">*</span>
                                                     </label>
                                                     <input id="phone" class="form-control ps-form__input"
@@ -47,9 +47,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12 col-xl-6 mb-3">
-                                                <div class="ps-form__group pt-2">
-                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                            <div class="mb-3 col-12 col-xl-12">
+                                                <div class="pt-2 ps-form__group">
+                                                    <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="division">
                                                         বিভাগ
                                                         <span class="text-danger">*</span>
@@ -67,9 +67,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12 col-xl-6 mb-3">
-                                                <div class="ps-form__group pt-2">
-                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                            <div class="mb-3 col-12 col-xl-6">
+                                                <div class="pt-2 ps-form__group">
+                                                    <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="district">
                                                         জেলা
                                                         <span class="text-danger">*</span>
@@ -81,9 +81,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12 col-xl-6 mb-3">
-                                                <div class="ps-form__group pt-2">
-                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                            <div class="mb-3 col-12 col-xl-6">
+                                                <div class="pt-2 ps-form__group">
+                                                    <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="thana">
                                                         থানা
                                                         <span class="text-danger">*</span>
@@ -95,9 +95,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12 col-xl-12 mb-3">
-                                                <div class="ps-form__group pt-2">
-                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                            <div class="mb-3 col-12 col-xl-12">
+                                                <div class="pt-2 ps-form__group">
+                                                    <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="address">সম্পূর্ণ ঠিকানা
                                                         <span class="text-danger">*</span>
                                                     </label>
@@ -107,9 +107,9 @@
                                                         placeholder="সম্পূর্ণ ঠিকানা" required>
                                                 </div>
                                             </div>
-                                            {{-- <div class="col-12 col-xl-12 mb-3">
-                                                <div class="ps-form__group pt-4">
-                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                            {{-- <div class="mb-3 col-12 col-xl-12">
+                                                <div class="pt-4 ps-form__group">
+                                                    <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="shipping_id">
                                                         ডেলিভারি লোকেশন <span class="text-danger">*</span>
                                                     </label>
@@ -140,9 +140,9 @@
                                                 </div>
                                             </div> --}}
 
-                                            <div class="col-12 col-xl-12 mb-3">
-                                                <div class="ps-form__group pt-4">
-                                                    <label class="block font-medium text-sm site-text ps-form__label"
+                                            <div class="mb-3 col-12 col-xl-12">
+                                                <div class="pt-4 ps-form__group">
+                                                    <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="payment_status">পেমেন্ট অপশন
                                                         <span class="text-danger">*</span>
                                                     </label>
@@ -180,10 +180,10 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <div class="ps-checkout__order mb-0 rounded-0 border-0 pb-lg-4">
+                                    <div class="mb-0 border-0 ps-checkout__order rounded-0 pb-lg-4">
                                         <div class="ps-checkout__row bg-light" style="border-top: 1px solid #f0f2f5">
-                                            <div class="ps-title pl-2">প্রোডাক্ট</div>
-                                            <div class="ps-title pr-2">মূল্য</div>
+                                            <div class="pl-2 ps-title">প্রোডাক্ট</div>
+                                            <div class="pr-2 ps-title">মূল্য</div>
                                         </div>
                                         @foreach ($cartItems as $cartItem)
                                             <div class="ps-checkout__row ps-product">
@@ -245,7 +245,7 @@
                                             </div>
                                         </div>
                                         <div class="check-faq">
-                                            <div class="form-check pt-2">
+                                            <div class="pt-2 form-check">
                                                 <input class="form-check-input" type="checkbox" id="agree-faq"
                                                     checked required />
                                                 <label class="form-check-label" for="agree-faq">
@@ -254,11 +254,11 @@
                                         </div>
                                         <div class="pt-5 mt-2">
                                             <button type="submit"
-                                                class="btn btn-primary w-100 mt-5 py-3 register-btns">
-                                                <i class="fa-solid fa-clipboard-check pr-2"></i> আপনার অর্ডার কনফার্ম
+                                                class="py-3 mt-5 btn btn-primary w-100 register-btns">
+                                                <i class="pr-2 fa-solid fa-clipboard-check"></i> আপনার অর্ডার কনফার্ম
                                                 করতে ক্লিক করুন
                                             </button>
-                                            <p class="text-info text-center pt-3 mb-0">উপরের বাটনে ক্লিক করলে আপনার
+                                            <p class="pt-3 mb-0 text-center text-info">উপরের বাটনে ক্লিক করলে আপনার
                                                 অর্ডারটি সাথে সাথে কনফার্ম হয়ে যাবে !</p>
                                         </div>
                                     </div>

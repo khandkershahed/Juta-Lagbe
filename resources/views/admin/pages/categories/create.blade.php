@@ -1,6 +1,6 @@
 <x-admin-app-layout :title="'Category Add'">
     <div class="card card-flash">
-        <div class="card-header mt-6">
+        <div class="mt-6 card-header">
             <div class="card-title"></div>
             <div class="card-toolbar">
                 <a href="{{ route('admin.categories.index') }}" class="btn btn-light-info">
@@ -19,7 +19,7 @@
                 </a>
             </div>
         </div>
-        <div class="card-body pt-0">
+        <div class="pt-0 card-body">
             <form method="POST" action="{{ route('admin.categories.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
@@ -60,7 +60,7 @@
                         <x-metronic.file-input id="banner_image" :value="old('banner_image')" name="banner_image"></x-metronic.file-input>
                     </div>
                     <div class="col-lg-8 mb-7">
-                        <x-metronic.label for="video_link" class="col-form-label fw-bold fs-6 ">{{ __('Video Link') }}
+                        <x-metronic.label for="video_link" class="col-form-label fw-bold fs-6 ">{{ __('Video ID') }}
                         </x-metronic.label>
 
                         <x-metronic.textarea id="video_link" name="video_link"></x-metronic.textarea>
