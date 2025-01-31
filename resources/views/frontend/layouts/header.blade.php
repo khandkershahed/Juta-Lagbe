@@ -492,7 +492,7 @@
             </div>
             <div class="ps-logo">
                 <a href="{{ route('home') }}">
-                    <img src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                    <img src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
                         alt="">
                 </a>
             </div>
