@@ -49,13 +49,7 @@
                                     @if ($catProducts->isEmpty())
                                         <p>No products available in this category.</p>
                                     @else
-                                        {{-- <ul>
-                                        @foreach ($catProducts as $product)
-                                            <li>
-                                                <strong>{{ $product->name }}</strong> - SKU: {{ $product->sku }}
-                                            </li>
-                                        @endforeach
-                                    </ul> --}}
+                                        
                                         <div class="ps-categogy--grid mt-0">
                                             <div class="row m-0">
                                                 @forelse ($catProducts as $key => $category_product)
