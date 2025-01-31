@@ -113,6 +113,7 @@
         border: none;
         outline: none;
         padding: 10px 7px;
+        border: 1px solid #004d7a;
     }
 
     .button-new::before,
@@ -139,7 +140,7 @@
         transform: scale(0.95);
     }
 </style>
-<div class="ps-header ps-header--2">
+{{-- <div class="ps-header ps-header--2">
     <div class="ps-header__top">
         <div class="container">
             <div class="ps-header__text">
@@ -149,13 +150,11 @@
             <div class="ps-top__right">
                 <ul class="menu-top">
                     <li class="px-1 nav-item">
-                        {{-- Log Out --}}
                         <a class="nav-link cust-link" href="javascript:void(0)" id="login-modal">
                             <i class="fa-solid fa-user header-icons"></i>
                         </a>
                         @auth
                             <div class="ps-login--modal">
-                                <!-- If the user is authenticated, show these options -->
                                 <div>
                                     <p>Welcome! Choose an option:</p>
                                     <div class="d-flex align-items-center">
@@ -165,7 +164,6 @@
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             {{ __('Log Out') }}
                                         </a>
-                                        <!-- Hidden logout form -->
                                         <form id="logout-form" method="POST" action="{{ route('logout') }}"
                                             style="display: none;">
                                             @csrf
@@ -188,7 +186,6 @@
                                         </div>
                                     </div>
                                 @endguest
-                                {{-- If Logged In --}}
                                 @auth
                                     <div>
                                         <p>Welcome! Choose an option:</p>
@@ -214,7 +211,7 @@
                         <a class="px-1 nav-link cust-link" href="{{ route('user.wishlist') }}">
                             <i class="fa-solid fa-heart header-icons"></i>
                             @php
-                                $wishlistCount = 0; // Default value in case user is not authenticated
+                                $wishlistCount = 0;
                                 if (Auth::check()) {
                                     $userId = Auth::id();
                                     $wishlistCount = App\Models\Wishlist::where('user_id', $userId)->count();
@@ -241,6 +238,26 @@
             </div>
         </div>
     </div>
+</div> --}}
+<div id="promo-banner" style="background-color: var(--primary-color)">
+    <div class="container py-2">
+        <div class="row">
+            <div class="col-11">
+                <div class="d-flex align-items-center justify-content-center">
+                    <p class="mb-0 text-white pe-2">Sign up and get 20% off to your first order.</p>
+                    <a href="{{ route('register') }}" class="pl-2 text-white fw-bold"
+                        style="font-weight: 600; text-decoration: underline">Sign Up Now</a>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="d-flex justify-content-end">
+                    <a href="javascript:void(0)" id="close-banner">
+                        <i class="text-white fa-solid fa-close"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="sticky-top">
     <header class="ps-header ps-header--2">
@@ -249,7 +266,7 @@
                 <div class="ps-logo">
                     <a href="{{ route('home') }}">
                         <img class="rounded-2"
-                            src="{{ !empty(optional($setting)->site_logo_white) ? asset('storage/' . optional($setting)->site_logo_white) : asset('frontend/img/logo.png') }}"
+                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
                             alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
                         <img class="sticky-logo rounded-2"
                             src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
@@ -261,7 +278,7 @@
                 </a>
                 <div class="ps-header__right">
                     <div class="row align-items-center">
-                        <div class="pr-0 col-lg-9">
+                        <div class="pr-0 col-lg-8">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div class="ps-navigation__left">
                                     <nav class="ps-main-menu">
@@ -294,10 +311,9 @@
                                 </div>
                             </div>
                         </div>
-                        @if (!empty(optional($special_offer)->slug))
+                        {{-- @if (!empty(optional($special_offer)->slug))
                             <div class="col-lg-3">
                                 <div class="text-right">
-                                    {{-- <a href="#" class="animated-button">11:11 SALE</a> --}}
                                     <a href="{{ route('special.products', optional($special_offer)->slug) }}"
                                         class="button-new">
                                         <span class="fold"></span>
@@ -314,10 +330,9 @@
                                             <i class="point"></i>
                                         </div>
 
-                                        <span class="inner"><svg class="icon" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2.5">
+                                        <span class="inner"><svg class="icon" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
                                                 <polyline
                                                     points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
                                                 </polyline>
@@ -326,16 +341,111 @@
                                     </a>
                                 </div>
                             </div>
-                        @endif
+                        @endif --}}
+                        <div class="col-lg-4">
+                            <div class="d-flex justify-content-end">
+                                <ul class="menu-top">
+                                    <li class="px-1 nav-item">
+                                        <a class="nav-link cust-link" href="javascript:void(0)" id="login-modal">
+                                            <i class="fa-solid fa-user header-icons"></i>
+                                        </a>
+                                        @auth
+                                            <div class="ps-login--modal">
+                                                <div>
+                                                    <p>Welcome! Choose an option:</p>
+                                                    <div class="d-flex align-items-center">
+                                                        <a class="mr-2 btn btn-primary rounded-0"
+                                                            href="{{ route('dashboard') }}">Dashboard</a>
+                                                        <a class="btn btn-primary rounded-0" href="#"
+                                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                            {{ __('Log Out') }}
+                                                        </a>
+                                                        <form id="logout-form" method="POST"
+                                                            action="{{ route('logout') }}" style="display: none;">
+                                                            @csrf
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="ps-login--modal">
+                                                @guest
+                                                    <div>
+                                                        <p>Welcome! Choose an option:</p>
+                                                        <div class="d-flex align-items-center">
+                                                            <a class="mr-2 btn btn-primary rounded-0"
+                                                                href="{{ route('login') }}">
+                                                                Log in
+                                                            </a>
+                                                            <a class="btn btn-primary rounded-0"
+                                                                href="{{ route('register') }}">
+                                                                Register
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                @endguest
+                                                @auth
+                                                    <div>
+                                                        <p>Welcome! Choose an option:</p>
+                                                        <div class="d-flex align-items-center">
+                                                            <a class="mr-2 btn btn-primary rounded-0"
+                                                                href="{{ route('dashboard') }}">
+                                                                Dashboard
+                                                            </a>
+                                                            <a class="btn btn-primary rounded-0" href="#"
+                                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                                Log Out
+                                                            </a>
+                                                            <form id="logout-form" method="POST"
+                                                                action="{{ route('logout') }}" style="display: none;">
+                                                                @csrf
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                @endauth
+                                            </div>
+                                        @endauth
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="px-1 nav-link cust-link heart-icons"
+                                            href="{{ route('user.wishlist') }}">
+                                            <i class="fa-solid fa-heart header-icons"></i>
+                                            @php
+                                                $wishlistCount = 0;
+                                                if (Auth::check()) {
+                                                    $userId = Auth::id();
+                                                    $wishlistCount = App\Models\Wishlist::where(
+                                                        'user_id',
+                                                        $userId,
+                                                    )->count();
+                                                }
+                                            @endphp
+                                            <span class="top-badge badge wishlistCount">{{ $wishlistCount }}</span>
+
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="px-1 nav-link cust-link" href="#" id="cart-mini">
+                                            <i class="fa-solid fa-shopping-cart header-icons"></i>
+                                            <span
+                                                class="top-badge badge cartCount">{{ Cart::instance('cart')->count() }}</span>
+                                        </a>
+                                        <div class="ps-cart--mini miniCart">
+                                            @include('frontend.pages.cart.partials.minicart')
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 </div>
-<div class="ps-header ps-header--13 ps-header--mobile">
-    <div class="ps-noti">
-        @if (!empty(optional($special_offer)->slug) || !empty(optional($special_offer)->header_slogan))
+<div class="shadow-sm ps-header ps-header--13 ps-header--mobile">
+    @if (!empty(optional($special_offer)->slug) || !empty(optional($special_offer)->header_slogan))
+        <div class="ps-noti">
             <section>
                 <div class="marquee marquee--hover-pause">
                     <ul class="marquee__content">
@@ -344,7 +454,7 @@
                                 <a href="{{ route('special.products', optional($special_offer)->slug) }}">
                                     <p class="mb-0 text-white marquee-text d-flex align-items-center">
                                         <span><i class="pr-3 fa-solid fa-cart-shopping"></i></span>
-                                        <span>{{ optional($special_offer)->header_slogan }}</span>
+                                        <span>{{ optional($special_offer)->header_slogan ?? 'Step Into Style' }}</span>
                                     </p>
                                 </a>
                             </li>
@@ -357,7 +467,7 @@
                                 <a href="{{ route('special.products', optional($special_offer)->slug) }}">
                                     <p class="mb-0 text-white marquee-text d-flex align-items-center">
                                         <span><i class="pr-3 fa-solid fa-cart-shopping"></i></span>
-                                        <span>{{ optional($special_offer)->header_slogan }}</span>
+                                        <span>{{ optional($special_offer)->header_slogan ?? 'Step Into Style' }}</span>
                                     </p>
                                 </a>
                             </li>
@@ -365,8 +475,9 @@
                     </ul>
                 </div>
             </section>
-        @endif
-    </div>
+        </div>
+    @endif
+
     <div class="ps-header__middle">
         <div class="container">
             <div class="ps-header__left">
@@ -403,3 +514,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("close-banner").addEventListener("click", function() {
+        document.getElementById("promo-banner").style.display = "none";
+    });
+</script>

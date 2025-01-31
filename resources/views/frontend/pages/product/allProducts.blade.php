@@ -155,9 +155,9 @@
             </div>
             <div class="ps-categogy__content">
                 <div class="row row-reverse">
-                    <div class="col-md-9 col-12 order-12 order-lg-1">
-                        <div class="ps-categogy__wrapper d-flex justify-content-center px-1 mt-0">
-                            <div class="ps-categogy__sort w-100 text-left py-0">
+                    <div class="order-12 col-md-9 col-12 order-lg-1">
+                        <div class="px-1 mt-0 ps-categogy__wrapper d-flex justify-content-center">
+                            <div class="py-0 text-left ps-categogy__sort w-100">
                                 <form>
                                     <select id="sort-by" class="form-select">
                                         <option value="latest">Latest</option>
@@ -170,10 +170,10 @@
                                     {{-- <span>Sort by</span> --}}
                                 </form>
                             </div>
-                            <div class="ps-categogy__show w-100 text-right py-0">
+                            <div class="py-0 text-right ps-categogy__show w-100">
                                 <form>
                                     {{-- <span>Show</span> --}}
-                                    <select id="show-per-page" class="form-select w-auto show_per_page">
+                                    <select id="show-per-page" class="w-auto form-select show_per_page">
                                         <option value="10" selected>10</option>
                                         <option value="20">20</option>
                                         <option value="30">30</option>
@@ -188,7 +188,7 @@
                         {{-- <div class="ps-pagination">
                             {{ $products->links() }}
                         </div> --}}
-                        <div class="ps-delivery ps-delivery--info mb-5"
+                        <div class="mb-5 ps-delivery ps-delivery--info"
                             data-background="{{ asset('images/delivery_banner.jpg') }}"
                             style="background-image: url({{ asset('images/delivery_banner.jpg') }});">
                             <div class="ps-delivery__content">
@@ -199,12 +199,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-12 order-1 order-lg-12">
-                        <div class="ps-widget ps-widget--product px-0">
-                            <div class="ps-widget__block p-0">
+                    <div class="order-1 col-md-3 col-12 order-lg-12">
+                        <div class="px-0 ps-widget ps-widget--product">
+                            <div class="p-0 ps-widget__block">
                                 <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i>
                                 </a>
-                                <div class="ps-widget__content ps-widget__category pt-3 shop-filter">
+                                <h4 class="p-3 shadow-sm ps-widget__title bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <div>By Category</div>
+                                        <div class="title-line"></div>
+                                    </div>
+                                </h4>
+                                <div class="pt-3 ps-widget__content ps-widget__category shop-filter">
                                     <ul class="">
                                         @foreach ($categories as $category)
                                             <li>
@@ -269,14 +275,16 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="ps-widget__block ps-widget__block-shop bg-white">
-                                <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                            <div class="bg-white ps-widget__block ps-widget__block-shop">
+                                <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i>
+                                </a>
+                                <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                     <div class="d-flex align-items-center">
                                         <div>By Price</div>
                                         <div class="title-line"></div>
                                     </div>
                                 </h4>
-                                <div class="ps-widget__content priceing-filter px-lg-4 px-0">
+                                <div class="px-0 ps-widget__content priceing-filter px-lg-4">
                                     <div class="ps-widget__price">
                                         <div id="slide-price" class="noUi-target noUi-ltr noUi-horizontal"></div>
                                     </div>
@@ -290,8 +298,10 @@
                                     {{-- <button id="price-filter" class="ps-widget__filter">Filter</button> --}}
                                 </div>
                             </div>
-                            <div class="ps-widget__block ps-widget__block-shop bg-white pt-2">
-                                <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                            <div class="pt-2 bg-white ps-widget__block ps-widget__block-shop">
+                                <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i>
+                                </a>
+                                <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                     <div class="d-flex align-items-center">
                                         <div>By Brands</div>
                                         <div class="title-line"></div>
@@ -299,7 +309,7 @@
                                 </h4>
                                 <div class="ps-widget__content">
                                     @foreach ($brands as $brand)
-                                        <div class="ps-widget__item p-0">
+                                        <div class="p-0 ps-widget__item">
                                             <div class="checkbox-shop">
                                                 <input type="checkbox" class="brand-filter inp-cbx"
                                                     data-id="{{ $brand->id }}"
@@ -356,22 +366,22 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
-                                <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                            <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
+                                <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                     <div class="d-flex align-items-center">
                                         <div>By Size</div>
                                         <div class="title-line"></div>
                                     </div>
                                 </h4>
                                 <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
-                                <div class="ps-widget__content priceing-filter px-4 py-4">
+                                <div class="px-4 py-4 ps-widget__content priceing-filter">
                                     <!-- Bootstrap Button Radios -->
                                     @foreach ($sizes as $size)
                                         <div class="btn-group" role="group" aria-label="Size filter">
                                             <input type="radio" class="btn-check" name="size"
                                                 id="size-{{ $size }}" value="{{ $size }}"
                                                 autocomplete="off">
-                                            <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                            <label class="w-auto my-2 mb-0 mr-2 btn btn-outline-primary rounded-0"
                                                 for="size-{{ $size }}">{{ $size }}</label>
                                         </div>
                                     @endforeach

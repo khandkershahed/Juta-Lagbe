@@ -8,7 +8,7 @@
         <a href="{{ route('home') }}">
             <img src="{{ !empty(optional($setting)->site_logo_white) ? asset('storage/' . optional($setting)->site_logo_white) : asset('frontend/img/logo.png') }}"
                 style="width: 100%; padding: 20px; border-radius: 12px"
-                onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
+                onerror="this.onerror=null; this.src='{{ asset('images/logo_white.png') }}';">
         </a>
     </div>
     <div class="d-flex align-items-center">
@@ -30,19 +30,19 @@
                 <span class="badge wishlistCount">{{ $wishlistCount }}</span>
             </a>
         </div>
-        <div class="ps-nav__item pr-4">
+        <div class="pr-4 ps-nav__item">
             <a href="{{ route('cart') }}">
                 <img src="{{ asset('images/icon-cart.svg') }}" style="width: 20px" alt="">
                 <span class="badge cartCount">{{ Cart::instance('cart')->count() }}</span>
             </a>
         </div>
-        <div class="ps-nav__item pr-2">
+        <div class="pr-2 ps-nav__item">
             <a href="#" id="open-menu">
                 {{-- <i class="icon-menu"></i> --}}
-                <i class="fa-solid fa-bars site-text bg-light p-2" style="border-radius: 5px"></i>
+                <i class="p-2 fa-solid fa-bars site-text bg-light" style="border-radius: 5px"></i>
             </a>
             <a href="#" id="close-menu">
-                <i class="fa-solid fa-xmark site-text bg-light p-2" style="border-radius: 5px"></i>
+                <i class="p-2 fa-solid fa-xmark site-text bg-light" style="border-radius: 5px"></i>
             </a>
         </div>
     </div>
@@ -65,7 +65,7 @@
             </li>
             @if (!empty(optional($special_offer)->slug))
                 <li>
-                    <a href="{{ route('special.products', optional($special_offer)->slug) }}" class="button-new mt-2">
+                    <a href="{{ route('special.products', optional($special_offer)->slug) }}" class="mt-2 button-new">
                         <span class="fold"></span>
 
                         <div class="points_wrapper">
