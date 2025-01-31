@@ -156,7 +156,7 @@ class HomeController extends Controller
         $category = Category::where('slug', $slug)->firstOrFail();
 
         $catProducts = $category->products()->get();  // Use ->get() to execute the query
-        dd($catProducts);
+        // dd($catProducts);
         // Start the query to fetch products for this category
         // $query = Product::whereJsonContains('category_id', $category->id);
 

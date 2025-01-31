@@ -45,11 +45,14 @@
                         <div class="products">
 
                             @if ($catProducts->isEmpty())
-                                <p>No products available in this category.</p>
+                                <div class="col-12 text-center bg-white if-show-img">
+                                    <img class="" style="width: 320px;"
+                                        src="{{ asset('frontend/img/no-products-category.jpg') }}" alt="">
+                                </div>
                             @else
                                 <div class="ps-categogy--grid mt-0">
                                     <div class="row m-0">
-                                        @forelse ($catProducts as $key => $category_product)
+                                        @foreach ($catProducts as $key => $category_product)
                                             <div
                                                 class="col-12 col-lg-4 p-0 product-item {{ $key >= 4 ? 'd-none' : '' }}">
                                                 <div class="ps-section__product pr-2">
@@ -238,13 +241,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        @empty
-                                            <div class="col-12 text-center bg-white if-show-img">
-                                                <img class="" style="width: 320px;"
-                                                    src="{{ asset('frontend/img/no-products-category.jpg') }}"
-                                                    alt="">
-                                            </div>
-                                        @endforelse
+                                        @endforeach
                                     </div>
                                 </div>
                             @endif
