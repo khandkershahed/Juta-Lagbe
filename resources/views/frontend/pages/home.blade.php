@@ -5,7 +5,7 @@
             <img src="{{ asset('images/jutalagbe-main-banner.jpg') }}" alt="">
         </div>
     </section>
-    <div class="ps-home ps-home--14 bg-white">
+    <div class="bg-white ps-home ps-home--14">
         @if (!empty(optional($special_offer)->slug) || !empty(optional($special_offer)->header_slogan))
             <div class="ps-noti h-marqee">
                 <section>
@@ -13,7 +13,7 @@
                         <div class="marquee__content">
                             @for ($i = 0; $i < 10; $i++)
                                 <a href="{{ route('special.products', optional($special_offer)->slug) }}">
-                                    <p class="text-white marquee-text mb-0 d-flex align-items-center">
+                                    <p class="mb-0 text-white marquee-text d-flex align-items-center">
                                         <span><img class="pr-3 img-fluid" width="60px"
                                                 src="{{ asset('images/markque-icons.png') }}" alt=""></span>
                                         <span>{{ optional($special_offer)->header_slogan }}</span>
@@ -24,7 +24,7 @@
                         <div aria-hidden="true" class="marquee__content">
                             @for ($i = 0; $i < 10; $i++)
                                 <a href="{{ route('special.products', optional($special_offer)->slug) }}">
-                                    <p class="text-white marquee-text mb-0 d-flex align-items-center">
+                                    <p class="mb-0 text-white marquee-text d-flex align-items-center">
                                         <span><img class="pr-3 img-fluid" width="60px"
                                                 src="{{ asset('images/markque-icons.png') }}" alt=""></span>
                                         <span>{{ optional($special_offer)->header_slogan }}</span>
@@ -71,17 +71,17 @@
         @endif
         <div class="ps-home__content">
             @if ($latest_products->count() > 0)
-                <section class="ps-section--latest-horizontal pt-0">
+                <section class="pt-0 ps-section--latest-horizontal">
                     <section class="container px-0">
-                        <h3 class="ps-section__title mb-0 py-4" style="font-size: 30px;">Latest Products <img
+                        <h3 class="py-4 mb-0 ps-section__title" style="font-size: 30px;">Latest Products <img
                                 width="40px"
                                 src="https://static.vecteezy.com/system/resources/previews/011/999/958/non_2x/fire-icon-free-png.png"
                                 alt="" style="position: relative;top: -3px;left: -6px;">
                         </h3>
                         <div class="ps-section__content">
-                            <div class="row m-0">
+                            <div class="m-0 row">
                                 @foreach ($latest_products as $latest_product)
-                                    <div class="col-6 col-md-4 col-lg-3 dot4 pr-0 pr-lg-3 pl-0 mb-3">
+                                    <div class="pl-0 pr-0 mb-3 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
                                         <div class="ps-section__product">
                                             <div class="ps-product ps-product--standard">
                                                 <div class="ps-product__thumbnail">
@@ -182,7 +182,7 @@
                                                     <div class="d-flex align-items-center card-cart-btn">
                                                         <a href="{{ route('product.details', $latest_product->slug) }}"
                                                             class="btn btn-primary rounded-0 w-100">
-                                                            <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                            <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                                             অর্ডার
                                                             করুন
                                                         </a>
@@ -223,15 +223,15 @@
                 <div class="container px-0">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="d-flex justify-content-between align-items-center pb-4 pb-lg-5">
+                            <div class="pb-4 d-flex justify-content-between align-items-center pb-lg-5">
                                 <div class="">
-                                    <h3 class="ps-section__title mb-0" style="font-size: 30px;">
+                                    <h3 class="mb-0 ps-section__title" style="font-size: 30px;">
                                         {{ optional($categoryone)->name }}</h3>
                                 </div>
                                 <div style="width: 900px" class="px-3">
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
-                                <div class="ps-delivery ps-delivery--info p-0">
+                                <div class="p-0 ps-delivery ps-delivery--info">
                                     <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন <i
                                             class="fa-solid fa-"></i></a>
                                 </div>
@@ -240,10 +240,10 @@
                     </div>
                     <div class="ps-home--block">
                         <div class="ps-section__content">
-                            <div class="row m-0">
+                            <div class="m-0 row">
                                 @foreach ($categoryoneproducts as $categoryoneproduct)
-                                    <div class="col-6 col-md-4 col-lg-3 dot4 pr-0 pr-lg-3 pl-0">
-                                        <div class="ps-section__product border">
+                                    <div class="pl-0 pr-0 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
+                                        <div class="border ps-section__product">
                                             <div class="ps-product ps-product--standard">
                                                 <div class="ps-product__thumbnail">
                                                     <a class="ps-product__image"
@@ -343,7 +343,7 @@
                                                     <div class="d-flex align-items-center card-cart-btn">
                                                         <a href="{{ route('product.details', $categoryoneproduct->slug) }}"
                                                             class="btn btn-primary rounded-0 w-100">
-                                                            <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                            <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                                             অর্ডার
                                                             করুন
                                                         </a>
@@ -387,7 +387,7 @@
                         <div class="col-lg-8">
                             <div class="ps-delivery ps-delivery--info">
                                 <div class="ps-delivery__content">
-                                    <div class="ps-delivery__text text-white">
+                                    <div class="text-white ps-delivery__text">
                                         <i class="icon-shield-check"></i>
                                         <span>
                                             <strong>100% Secure Delivery</strong> Without Courier Communication.
@@ -406,33 +406,33 @@
                 </div>
             </div>
             @if ($categorytwo && $categorytwoproducts->count() > 0)
-                <section class="ps-section--latest mt-0">
+                <section class="mt-0 ps-section--latest">
                     <div class="container px-0">
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="d-flex justify-content-between align-items-center py-4 pt-0 py-lg-5">
+                                <div class="py-4 pt-0 d-flex justify-content-between align-items-center py-lg-5">
                                     <div class="">
-                                        <h3 class="ps-section__title mb-0" style="font-size: 30px;">
+                                        <h3 class="mb-0 ps-section__title" style="font-size: 30px;">
                                             {{ optional($categorytwo)->name }}</h3>
                                     </div>
                                     <div style="width: 900px" class="px-3">
                                         <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                     </div>
-                                    <div class="ps-delivery ps-delivery--info p-0">
+                                    <div class="p-0 ps-delivery ps-delivery--info">
                                         <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন <i
                                                 class="fa-solid fa-"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="ps-section__carousel mb-0 pb-0">
+                        <div class="pb-0 mb-0 ps-section__carousel">
                             <div class="takeway-slider owl-carousel owl-loaded owl-drag">
                                 <div class="owl-stage-outer">
-                                    <div class="owl-stage mb-4"
+                                    <div class="mb-4 owl-stage"
                                         style="transform: translate3d(-2228px, 0px, 0px); transition: 1s; width: 4952px;">
                                         @foreach ($categorytwoproducts as $categorytwoproduct)
                                             <div class="owl-item" style="width: 247.6px;">
-                                                <div class="ps-section__product border">
+                                                <div class="border ps-section__product">
                                                     <div class="ps-product ps-product--standard">
                                                         <div class="ps-product__thumbnail">
                                                             <a class="ps-product__image"
@@ -484,7 +484,7 @@
                                                                                 : 0;
                                                                     @endphp
                                                                     <div
-                                                                        class="d-flex justify-content-between align-items-center my-2 rating-area px-3">
+                                                                        class="px-3 my-2 d-flex justify-content-between align-items-center rating-area">
                                                                         <div style="color: var(--site-primary)">
                                                                             Reviews
                                                                             ({{ count($categorytwoproduct->reviews) }})
@@ -585,7 +585,7 @@
                                                             <div class="d-flex align-items-center card-cart-btn">
                                                                 <a href="{{ route('product.details', $categorytwoproduct->slug) }}"
                                                                     class="btn btn-primary rounded-0 w-100">
-                                                                    <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                                    <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                                                     অর্ডার
                                                                     করুন
                                                                 </a>
@@ -632,16 +632,16 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="d-flex justify-content-between align-items-center py-2 py-lg-5">
+                            <div class="py-2 d-flex justify-content-between align-items-center py-lg-5">
                                 <div class="">
-                                    <h3 class="ps-section__title mb-0" style="font-size: 30px;">
+                                    <h3 class="mb-0 ps-section__title" style="font-size: 30px;">
                                         {{ optional($categoryfour)->name }}
                                     </h3>
                                 </div>
                                 <div style="width: 900px" class="px-3">
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
-                                <div class="ps-delivery ps-delivery--info p-0">
+                                <div class="p-0 ps-delivery ps-delivery--info">
                                     <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন
                                         <i class="fa-solid fa-"></i>
                                     </a>
@@ -654,8 +654,8 @@
                         @foreach ($categoryFourProducts as $categoryFourProduct)
                             <div class="col-lg-3">
                                 <a href="{{ route('product.details', $categoryFourProduct->slug) }}">
-                                    <div class="card p-0 video-box-pr">
-                                        <div class="card-header p-0">
+                                    <div class="p-0 card video-box-pr">
+                                        <div class="p-0 card-header">
                                             <div class="player" data-plyr-provider="youtube"
                                                 data-plyr-embed-id="{{ $categoryFourProduct->video_link }}">
                                             </div>
@@ -669,7 +669,7 @@
                                                             ? asset($thumbnailPath)
                                                             : asset('frontend/img/no-product.jpg');
                                                     @endphp
-                                                    <img src="{{ $thumbnailSrc }}" class="img-fluid shadow-sm border"
+                                                    <img src="{{ $thumbnailSrc }}" class="border shadow-sm img-fluid"
                                                         alt="{{ $categoryFourProduct->meta_title }}" />
                                                 </div>
                                             </div>
@@ -704,18 +704,18 @@
             @endif
             {{-- Video Section End --}}
             @if ($categorythree && $categorythreeproducts->count() > 0)
-                <div class="container px-0 mb-5 pb-0 pb-lg-5">
+                <div class="container px-0 pb-0 mb-5 pb-lg-5">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="d-flex justify-content-between align-items-center py-2 py-lg-5">
+                            <div class="py-2 d-flex justify-content-between align-items-center py-lg-5">
                                 <div class="">
-                                    <h3 class="ps-section__title mb-0" style="font-size: 30px;">
+                                    <h3 class="mb-0 ps-section__title" style="font-size: 30px;">
                                         {{ optional($categorythree)->name }}</h3>
                                 </div>
                                 <div style="width: 900px" class="px-3">
                                     <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
                                 </div>
-                                <div class="ps-delivery ps-delivery--info p-0">
+                                <div class="p-0 ps-delivery ps-delivery--info">
                                     <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন <i
                                             class="fa-solid fa-"></i></a>
                                 </div>
@@ -724,10 +724,10 @@
                     </div>
                     <div class="ps-home--block">
                         <div class="ps-section__content">
-                            <div class="row m-0">
+                            <div class="m-0 row">
                                 @foreach ($categorythreeproducts as $categorythreeproduct)
-                                    <div class="col-6 col-md-4 col-lg-3 dot4 pr-0 pr-lg-3 pl-0">
-                                        <div class="ps-section__product border">
+                                    <div class="pl-0 pr-0 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
+                                        <div class="border ps-section__product">
                                             <div class="ps-product ps-product--standard">
                                                 <div class="ps-product__thumbnail">
                                                     <a class="ps-product__image"
@@ -827,7 +827,7 @@
                                                     <div class="d-flex align-items-center card-cart-btn">
                                                         <a href="{{ route('product.details', $categorythreeproduct->slug) }}"
                                                             class="btn btn-primary rounded-0 w-100">
-                                                            <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                            <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                                             অর্ডার
                                                             করুন
                                                         </a>
@@ -868,7 +868,7 @@
         @if ($deals->count() > 0 || $deal_products->count() > 0)
             <div class="container px-0">
                 @if ($deals->count() > 0)
-                    <h3 class="ps-section__title pb-3 pb-lg-5 mb-0" style="font-size: 30px;">This week deals</h3>
+                    <h3 class="pb-3 mb-0 ps-section__title pb-lg-5" style="font-size: 30px;">This week deals</h3>
                     <div class="ps-promo ps-promo--home">
                         <!-- First Row: First Three Deals -->
                         <div class="row">
@@ -898,7 +898,7 @@
                                                         <p class="ps-promo__price text-warning">
                                                             ৳{{ $deal->offer_price }}
                                                         </p>
-                                                        <p class="ps-promo__del text-white">৳{{ $deal->price }}
+                                                        <p class="text-white ps-promo__del">৳{{ $deal->price }}
                                                         </p>
                                                     </div>
                                                 @endif
@@ -957,13 +957,13 @@
                 @if ($deal_products->count() > 0)
                     <section class="ps-section--deals">
                         <div class="ps-section__header">
-                            <h3 class="ps-section__title  mb-0" style="font-size: 30px;">Best Deals of the
+                            <h3 class="mb-0 ps-section__title" style="font-size: 30px;">Best Deals of the
                                 week!</h3>
                         </div>
                         <div class="ps-section__carousel">
                             <div class="dealCarousel owl-carousel">
                                 @foreach ($deal_products as $deal_product)
-                                    <div class="ps-section__product border">
+                                    <div class="border ps-section__product">
                                         <div class="ps-product ps-product--standard">
                                             <div class="ps-product__thumbnail">
                                                 <a class="ps-product__image"
@@ -1058,7 +1058,7 @@
                                                 <div class="d-flex align-items-center card-cart-btn">
                                                     <a href="{{ route('product.details', $deal_product->slug) }}"
                                                         class="btn btn-primary rounded-0 w-100">
-                                                        <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                        <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                                         অর্ডার
                                                         করুন
                                                     </a>
