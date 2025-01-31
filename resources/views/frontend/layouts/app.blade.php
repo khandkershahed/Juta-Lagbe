@@ -187,11 +187,11 @@
     <script src="{{ asset('frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}"></script>
     <script src="{{ asset('frontend/plugins/slick/slick/slick.min.js') }}"></script>
     <script src="{{ asset('frontend/plugins/noUiSlider/nouislider.min.js') }}"></script>
-    <script src="https://kit.fontawesome.com/69b7156a94.js" crossorigin="anonymous"></script>
+    
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://kit.fontawesome.com/69b7156a94.js" crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>

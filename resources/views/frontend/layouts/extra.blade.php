@@ -100,8 +100,9 @@
                     <h5 class="ps-footer__title">Need help</h5>
                     <div class="ps-footer__fax number-mobile">
                         <div class="d-flex align-items-center">
-                            <img class="" src="{{ asset('images/whatsapp-icons.gif') }}" alt=""
-                                width="55px">
+                            {{-- <img class="" src="{{ asset('images/whatsapp-icons.gif') }}" alt=""
+                                width="55px"> --}}
+                            <i class="pl-3 text-white fa-brands fa-whatsapp fa-bounce"></i>
                             {{ optional($setting)->primary_phone }}
                         </div>
 

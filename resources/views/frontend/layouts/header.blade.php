@@ -266,10 +266,10 @@
                 <div class="ps-logo">
                     <a href="{{ route('home') }}">
                         <img class="rounded-2"
-                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
                             alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
                         <img class="sticky-logo rounded-2"
-                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
                             alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
                     </a>
                 </div>
