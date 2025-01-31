@@ -46,7 +46,7 @@ class HomeController extends Controller
         $specialproducts = $special_offer ? $special_offer->products() : null;
 
         $data = [
-            'sliders'                   => PageBanner::active()->where('page_name', 'home_slider')->latest('id')->first(),
+            'slider'                    => PageBanner::active()->where('page_name', 'home_slider')->latest('id')->first(),
             'deal_products'             => Product::with('multiImages', 'reviews')->whereNotNull('unit_discount_price')->inRandomOrder()->limit(15)->get(),
             'categorys'                 => Category::select('name', 'logo', 'video_link', 'id', 'slug')->get(),
             'latestproducts'            => $latestproducts,

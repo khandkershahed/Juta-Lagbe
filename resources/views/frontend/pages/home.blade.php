@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
     <section class="ps-section--banner">
         <div class="main-banner">
-            <img src="{{ asset('images/jutalagbe-main-banner.jpg') }}" alt="">
+            <img src="{{ !empty($slider->bg_image) && public_path('storage/' . $slider->bg_image) ? asset('storage/' . $slider->bg_image) : asset('images/jutalagbe-main-banner.jpg')}}" alt="">
         </div>
     </section>
     <div class="bg-white ps-home ps-home--14">
