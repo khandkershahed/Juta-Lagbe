@@ -153,30 +153,26 @@ class HomeController extends Controller
         $categories = Cache::remember('categories', 60, function () {
             return Category::orderBy('name', 'ASC')->active()->get(['id', 'name', 'slug']);
         });
+
+        // Fetch the category
         $category = Category::where('slug', $slug)->firstOrFail();
 
-        $catProducts = $category->products()->get();  // Use ->get() to execute the query
-        // dd($catProducts);
-        // Start the query to fetch products for this category
-        if ($request->has('size') || $request->has('price_min')) {
-            $query = Product::whereJsonContains('category_id', $category->id);
+        $query = $category->products();
 
-            // Apply Price filter if present
-            if ($request->has('price_min') && $request->has('price_max')) {
-                $priceMin = $request->input('price_min');
-                $priceMax = $request->input('price_max');
-                $query->whereBetween('unit_price', [$priceMin, $priceMax]);
-            }
-
-            // Apply Size filter if present
-            if ($request->has('size')) {
-                $size = $request->input('size'); // Single size selected
-                $query->whereJsonContains('size', $size); // Filter by size
-            }
-
-            $catProducts = $query->active()->get();
+        // Apply price filter if present
+        if ($request->has('price_min') && $request->has('price_max')) {
+            $priceMin = $request->input('price_min');
+            $priceMax = $request->input('price_max');
+            $query->whereBetween('unit_price', [$priceMin, $priceMax]);
         }
-        // // dd($products);
+
+        // Apply size filter if present
+        if ($request->has('size')) {
+            $size = $request->input('size');
+            $query->whereJsonContains('size', $size);
+        }
+
+        $catProducts = $query->active()->get();
 
         // Pass the data to the view
         $data = [
@@ -191,6 +187,7 @@ class HomeController extends Controller
 
         return view('frontend.pages.categoryDetails', $data);
     }
+
 
 
 

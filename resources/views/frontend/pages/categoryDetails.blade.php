@@ -365,42 +365,42 @@
         <script>
             $(document).ready(function() {
                 var priceSlider = document.getElementById('slide-price');
-                noUiSlider.create(priceSlider, {
-                    start: [1, 10000], // Default values
-                    connect: true,
-                    range: {
-                        'min': [0],
-                        'max': [10000]
-                    },
-                    step: 1,
-                    format: {
-                        to: function(value) {
-                            return '৳' + value.toFixed(2);
-                        },
-                        from: function(value) {
-                            return Number(value.replace('৳', ''));
-                        }
-                    }
-                });
+                // noUiSlider.create(priceSlider, {
+                //     start: [1, 10000], // Default values
+                //     connect: true,
+                //     range: {
+                //         'min': [0],
+                //         'max': [10000]
+                //     },
+                //     step: 1,
+                //     format: {
+                //         to: function(value) {
+                //             return '৳' + value.toFixed(2);
+                //         },
+                //         from: function(value) {
+                //             return Number(value.replace('৳', ''));
+                //         }
+                //     }
+                // });
 
-                // Update hidden inputs and displayed values, and trigger filtering
-                priceSlider.noUiSlider.on('update', function(values, handle) {
-                    $('#slide-price-min').text(values[0]);
-                    $('#slide-price-max').text(values[1]);
-                    $('#price-min').val(values[0].replace('৳', ''));
-                    $('#price-max').val(values[1].replace('৳', ''));
+                // // Update hidden inputs and displayed values, and trigger filtering
+                // priceSlider.noUiSlider.on('update', function(values, handle) {
+                //     $('#slide-price-min').text(values[0]);
+                //     $('#slide-price-max').text(values[1]);
+                //     $('#price-min').val(values[0].replace('৳', ''));
+                //     $('#price-max').val(values[1].replace('৳', ''));
 
-                    // Trigger filtering when slider values change
-                    fetchProducts();
-                });
+                //     // Trigger filtering when slider values change
+                //     fetchProducts();
+                // });
 
                 function fetchProducts(page = 1) {
                     // Collect filter data
                     let categories = [];
                     let subcategories = [];
                     let brands = [];
-                    let priceMin = $('#price-min').val();
-                    let priceMax = $('#price-max').val();
+                    // let priceMin = $('#price-min').val();
+                    // let priceMax = $('#price-max').val();
                     let sortBy = $('#sort-by').val();
                     let showPage = $('#show-per-page').val();
 
@@ -577,8 +577,8 @@
                 url.searchParams.delete('size'); // Only one size, no []
 
                 // Add price filters
-                url.searchParams.set('price_min', priceMin);
-                url.searchParams.set('price_max', priceMax);
+                // url.searchParams.set('price_min', priceMin);
+                // url.searchParams.set('price_max', priceMax);
 
                 // Add selected size as query parameter
                 if (selectedSizes.length) {
