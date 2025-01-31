@@ -20943,6 +20943,17 @@ table.dataTable tbody td:last-child {
     .shop-pr-price{
         text-align: center !important;
     }
+    .plyr--video {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        height: 170px !important;
+    }
+    .video-category-info {
+        display: flex ;
+        justify-content: center;
+        align-items: center;
+        margin-top: -65px;
+    }
     .section-banner-main,
     .banner-first-row {
         display: none;
