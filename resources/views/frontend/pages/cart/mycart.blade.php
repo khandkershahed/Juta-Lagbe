@@ -212,7 +212,7 @@
                 });
             });
         </script>
-        <script>
+        {{-- <script>
             $(document).ready(function() {
                 $('.dealCarousel').owlCarousel({
                     loop: true,
@@ -239,6 +239,6 @@
                     }
                 });
             });
-        </script>
+        </script> --}}
     @endpush
 </x-frontend-app-layout>

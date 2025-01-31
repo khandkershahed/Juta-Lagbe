@@ -200,6 +200,34 @@
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     @stack('scripts')
     <script>
+        $(document).ready(function() {
+            $('.dealCarousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                dots: true,
+                autoplay: false,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                navText: [
+                    '<div class="dealCarousel-prev">←</div>',
+                    '<div class="dealCarousel-next">→</div>'
+                ],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
         const backToTopButton = document.getElementById("backToTop");
 
         // Show the button when the user scrolls down
@@ -228,19 +256,20 @@
                 if (divisionName) {
                     $.ajax({
                         url: '{{ url('get-districts-by-division') }}/' +
-                        divisionName, // Call the controller method
+                            divisionName, // Call the controller method
                         type: 'GET',
                         success: function(data) {
                             $('#district').empty(); // Clear current district options
                             $('#district').append(
                                 '<option value="" disabled selected>জেলা</option>'
-                                ); // Add default option
+                            ); // Add default option
 
                             // Loop through the received districts and append them to the district dropdown
                             $.each(data, function(index, district) {
                                 $('#district').append('<option value="' + district
-                                    .bn_name + '">' + district.bn_name +'-'+ district.name + '</option>'
-                                    );
+                                    .bn_name + '">' + district.bn_name + '-' +
+                                    district.name + '</option>'
+                                );
                             });
                         }
                     });
@@ -261,18 +290,19 @@
                 if (districtName) {
                     $.ajax({
                         url: '{{ url('get-thanas-by-district') }}/' +
-                        districtName, // Call the controller method
+                            districtName, // Call the controller method
                         type: 'GET',
                         success: function(data) {
                             $('#thana').empty(); // Clear current thana options
                             $('#thana').append(
                                 '<option value="" disabled selected>থানা</option>'
-                                ); // Add default option
+                            ); // Add default option
 
                             // Loop through the received thanas and append them to the thana dropdown
                             $.each(data, function(index, thana) {
                                 $('#thana').append('<option value="' + thana.bn_name +
-                                    '">' + thana.bn_name +'-'+ thana.name + '</option>');
+                                    '">' + thana.bn_name + '-' + thana.name +
+                                    '</option>');
                             });
                         }
                     });
