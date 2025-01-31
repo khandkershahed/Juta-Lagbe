@@ -32,92 +32,26 @@ class HomeController extends Controller
 {
     public function home()
     {
-        // Cache random categories for performance
-        $categoryone = Cache::remember('categoryone', 60, function () {
-            return Category::inRandomOrder()->active()->first() ?: null; // Return null if no category found
-        });
+        $latestproducts = Product::with('multiImages', 'reviews')
+            ->latest()
+            ->take(8)
+            ->get();
+        $latestProductIds = $latestproducts->pluck('id')->toArray();
+        $randomproducts = Product::inRandomOrder()
+            ->whereNotIn('id', $latestProductIds)
+            ->take(12)
+            ->get();
 
-        // Default to empty collection if no category is found
-        $categoryoneproducts = collect();
-        if ($categoryone) {
-            // Get products for category one with eager loading of related data
-            $categoryoneproducts = $categoryone->products()->inRandomOrder()->with(['multiImages', 'reviews'])->paginate(8);
-        }
+        $special_offer = SpecialOffer::latest()->first();
 
-        $categorytwo = null;
-        $categorytwoproducts = collect(); // Default to empty collection
-        if ($categoryone) {
-            $categorytwo = Cache::remember('categorytwo', 60, function () use ($categoryone) {
-                return Category::where('id', '!=', $categoryone->id)->inRandomOrder()->active()->first() ?: null;
-            });
-
-            if ($categorytwo) {
-                // Get products for category two with eager loading of related data
-                $categorytwoproducts = $categorytwo->products()->inRandomOrder()->with(['multiImages', 'reviews'])->paginate(8);
-            }
-        }
-
-        $categorythree = null;
-        $categorythreeproducts = collect(); // Default to empty collection
-        if ($categoryone && $categorytwo) {
-            $categorythree = Cache::remember('categorythree', 60, function () use ($categoryone, $categorytwo) {
-                return Category::where('id', '!=', $categoryone->id)
-                    ->where('id', '!=', $categorytwo->id)
-                    ->inRandomOrder()
-                    ->active()
-                    ->first() ?: null;
-            });
-
-            if ($categorythree) {
-                // Get products for category three with eager loading of related data
-                $categorythreeproducts = $categorythree->products()->inRandomOrder()->with(['multiImages', 'reviews'])->paginate(8);
-            }
-        }
-
-        $categoryfour = null;
-        $categoryFourProducts = collect(); // Default to empty collection
-        if ($categoryone && $categorytwo && $categorythree) {
-            $categoryfour = Cache::remember('categoryfour', 60, function () use ($categoryone, $categorytwo, $categorythree) {
-                return Category::where('id', '!=', $categoryone->id)
-                    ->where('id', '!=', $categorytwo->id)
-                    ->where('id', '!=', $categorythree->id)
-                    ->inRandomOrder()
-                    ->active()
-                    ->first() ?: null;
-            });
-
-            if ($categoryfour) {
-                // Get products for category four with eager loading of related data
-                $categoryFourProducts = $categoryfour->products()->inRandomOrder()->with(['multiImages'])->paginate(8);
-            }
-        }
-
-        // Cache homepage data
-        $data = Cache::remember('home_page_data', 60, function () use ($categoryone, $categorytwo, $categorythree, $categoryoneproducts, $categorytwoproducts, $categorythreeproducts, $categoryfour, $categoryFourProducts) {
-            return [
-                'sliders'                   => PageBanner::active()->where('page_name', 'home_slider')->latest('id')->get(),
-                'home_slider_bottom_first'  => PageBanner::active()->where('page_name', 'home_slider_bottom_first')->latest('id')->first(),
-                'home_slider_bottom_second' => PageBanner::active()->where('page_name', 'home_slider_bottom_second')->latest('id')->first(),
-                'home_slider_bottom_third'  => PageBanner::active()->where('page_name', 'home_slider_bottom_third')->latest('id')->first(),
-                'blog_posts'                => BlogPost::active()->inRandomOrder()->paginate(5), // Paginated blog posts
-                'deals'                     => DealBanner::active()->inRandomOrder()->limit(7)->get(),
-                'blog'                      => BlogPost::inRandomOrder()->active()->first(),
-                'categorys'                 => Category::orderBy('name', 'ASC')->active()->get(),
-                'testimonials'              => Testimonial::latest()->where('status', 'active')->get(),
-                'categoryone'               => $categoryone ?? '',
-                'categoryoneproducts'       => $categoryoneproducts,
-                'categorytwo'               => $categorytwo ?? '',
-                'categorytwoproducts'       => $categorytwoproducts,
-                'categorythree'             => $categorythree ?? '',
-                'categorythreeproducts'     => $categorythreeproducts,
-                'categoryfour'              => $categoryfour ?? '',
-                'categoryFourProducts'      => $categoryFourProducts,
-                'latest_products'           => Product::with('multiImages', 'reviews')->inRandomOrder()->where('status', 'published')->paginate(8),
-                'deal_products'             => Product::with('multiImages', 'reviews')->whereNotNull('box_discount_price')->inRandomOrder()->limit(10)->get(),
-            ];
-        });
-
-        // Return the view with the cached data
+        $data = [
+            'sliders'                   => PageBanner::active()->where('page_name', 'home_slider')->latest('id')->first(),
+            'deal_products'             => Product::with('multiImages', 'reviews')->whereNotNull('unit_discount_price')->inRandomOrder()->limit(15)->get(),
+            'categorys'                 => Category::select('name','logo','video_link','id','slug')->get(),
+            'latestproducts'            => $latestproducts,
+            'randomproducts'            => $randomproducts,
+            'specialproducts'           => $special_offer->products(),
+        ];
         return view('frontend.pages.home', $data);
     }
 
