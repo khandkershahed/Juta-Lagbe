@@ -21,25 +21,24 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="ps-product__info shop-pr-price">
-                            <h5 class="ps-product__title shop_product-title">
-                                <a href="{{ route('product.details', $product->slug) }}">
-                                    {{ implode(' ', array_slice(explode(' ', $product->name), 0, 6)) }}
-                                </a>
-                            </h5>
-                            <div class="ps-product__desc shop-pr-price">
-                                @php
-                                    $description = strip_tags($product->short_description);
-                                    $words = explode(' ', $description);
-                                    $limitedWords = implode(' ', array_slice($words, 0, 20));
-                                @endphp
-                                {!! $limitedWords !!}...
+                        @if (!empty($product->description))
+                            <div class="ps-product__info shop-pr-price">
+                                <h5 class="ps-product__title shop_product-title">
+                                    <a href="{{ route('product.details', $product->slug) }}">
+                                        {{ implode(' ', array_slice(explode(' ', $product->name), 0, 6)) }}
+                                    </a>
+                                </h5>
+                                <div class="ps-product__desc shop-pr-price">
+                                    @php
+                                        $description = strip_tags($product->description);
+                                        $words = explode(' ', $description);
+                                        $limitedWords = implode(' ', array_slice($words, 0, 30));
+                                    @endphp
+                                    {!! $limitedWords !!}...
+                                </div>
+
                             </div>
-                            <div class="pt-3">
-                                <p class="fw-semibold">Reviews <span
-                                        class="text-info">({{ count($product->reviews) }})</span></p>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                     <div class="ps-product__footer shop-pr-price">
                         @if (!empty($product->unit_discount_price))
