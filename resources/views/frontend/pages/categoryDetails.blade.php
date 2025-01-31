@@ -22,10 +22,10 @@
         }
     </style>
 
-    <div class="ps-categogy ps-categogy--dark bg-white">
+    <div class="bg-white ps-categogy ps-categogy--dark">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12 px-0">
+                <div class="px-0 col-lg-12">
                     <div class="category-banner">
                         {{-- <img class="img-fluid" src="{{ asset('storage/' . $category->banner_image) }}" alt=""> --}}
                         <img class="img-fluid w-100" src="{{ asset('images/special-banner.jpg') }}" alt="">
@@ -35,10 +35,10 @@
             </div>
         </div>
         <div class="container">
-            <div class="ps-categogy__content pt-2">
-                <div class="row row-reverse pb-0 pb-lg-5">
+            <div class="pt-2 ps-categogy__content">
+                <div class="pb-0 row row-reverse pb-lg-5">
                     <!-- Products Section -->
-                    <div class="col-md-9 col-12 order-12 order-lg-1">
+                    <div class="order-12 col-md-9 col-12 order-lg-1">
                         @foreach ($categories as $allcategory)
                             @if ($allcategory->id == $category->id)
                                 <!-- Display individual product data -->
@@ -49,13 +49,13 @@
                                     @if ($catProducts->isEmpty())
                                         <p>No products available in this category.</p>
                                     @else
-                                        
-                                        <div class="ps-categogy--grid mt-0">
-                                            <div class="row m-0">
+
+                                        <div class="mt-0 ps-categogy--grid">
+                                            <div class="m-0 row">
                                                 @forelse ($catProducts as $key => $category_product)
                                                     <div
-                                                        class="col-12 col-lg-4 p-0 product-item {{ $key >= 4 ? 'd-none' : '' }}">
-                                                        <div class="ps-section__product pr-2">
+                                                        class="col-12 col-lg-4 p-0 product-item mb-2 {{ $key >= 4 ? 'd-none' : '' }}">
+                                                        <div class="pr-2 ps-section__product">
                                                             <div class="ps-product ps-product--standard">
                                                                 <div class="ps-product__thumbnail">
                                                                     <a class="ps-product__image"
@@ -113,7 +113,7 @@
                                                                                         : 0;
                                                                             @endphp
                                                                             <div
-                                                                                class="d-flex justify-content-between align-items-center my-2 rating-area px-3">
+                                                                                class="px-3 my-2 d-flex justify-content-between align-items-center rating-area">
                                                                                 <div style="color: var(--site-primary)">
                                                                                     Reviews
                                                                                     ({{ count($category_product->reviews) }})
@@ -163,14 +163,14 @@
                                                                                 href="{{ route('wishlist.store', $category_product->id) }}"><i
                                                                                     class="fa-solid fa-heart"></i></a>
                                                                         </div>
-                                                                        <div class="ps-product__item"
+                                                                        {{-- <div class="ps-product__item"
                                                                             data-toggle="tooltip" data-placement="left"
                                                                             title="Quick view">
                                                                             <a href="#" data-toggle="modal"
                                                                                 data-target="#popupQuickview{{ $category_product->id }}">
                                                                                 <i class="fa fa-eye"></i>
                                                                             </a>
-                                                                        </div>
+                                                                        </div> --}}
                                                                         {{-- <div class="ps-product__item"
                                                                             data-toggle="tooltip" data-placement="left"
                                                                             title="Add To Cart">
@@ -223,7 +223,7 @@
                                                                         <a href="{{ route('product.details', $category_product->slug) }}"
                                                                             class="btn btn-primary rounded-0 w-100">
                                                                             <i
-                                                                                class="fa-solid fa-basket-shopping pr-2"></i>
+                                                                                class="pr-2 fa-solid fa-basket-shopping"></i>
                                                                             অর্ডার
                                                                             করুন
                                                                         </a>
@@ -259,7 +259,7 @@
                                                         </div>
                                                     </div>
                                                 @empty
-                                                    <div class="col-12 text-center bg-white if-show-img">
+                                                    <div class="text-center bg-white col-12 if-show-img">
                                                         <img class="" style="width: 320px;"
                                                             src="{{ asset('frontend/img/no-products-category.jpg') }}"
                                                             alt="">
@@ -274,21 +274,21 @@
                     </div>
 
                     <!-- Sidebar Widgets -->
-                    <div class="col-md-3 col-12 order-1 order-lg-12 px-0 ps-widget ps-widget--product">
-                        <div class="border mb-lg-0 mb-4">
+                    <div class="order-1 px-0 col-md-3 col-12 order-lg-12 ps-widget ps-widget--product">
+                        <div class="mb-4 border mb-lg-0">
                             <!-- Categories Filter -->
-                            <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
-                                <h4 class="ps-widget__title shadow-sm p-3">
+                            <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
+                                <h4 class="p-3 shadow-sm ps-widget__title">
                                     <div class="d-flex align-items-center">
                                         <div>Categories</div>
                                         <div class="title-line"></div>
                                     </div>
                                 </h4>
                                 <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
-                                <div class="ps-widget__content ps-widget__category border-0">
-                                    <ul class="menu--mobile nav nav-tabs border-0" id="myTab" role="tablist">
+                                <div class="border-0 ps-widget__content ps-widget__category">
+                                    <ul class="border-0 menu--mobile nav nav-tabs" id="myTab" role="tablist">
                                         @foreach ($categories as $allcategory)
-                                            <li class="nav-item col-12 py-0 mb-0">
+                                            <li class="py-0 mb-0 nav-item col-12">
                                                 <a class="nav-link cat-tabs-triger pl-3 py-3 category-menus {{ $allcategory->id == $category->id ? 'active-cat' : '' }}"
                                                     href="{{ route('category.products', $allcategory->slug) }}"
                                                     aria-selected="{{ $allcategory->id == $category->id ? 'true' : 'false' }}">
@@ -302,15 +302,15 @@
 
                             <!-- Price Filter -->
                             {{-- <div class="mt-3">
-                                <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
-                                    <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
+                                    <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                         <div class="d-flex align-items-center">
                                             <div>By Price</div>
                                             <div class="title-line"></div>
                                         </div>
                                     </h4>
                                     <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
-                                    <div class="ps-widget__content priceing-filter px-4 py-4">
+                                    <div class="px-4 py-4 ps-widget__content priceing-filter">
                                         <div class="ps-widget__price">
                                             <div id="slide-price" class="noUi-target noUi-ltr noUi-horizontal"></div>
                                         </div>
@@ -329,22 +329,22 @@
 
                             <!-- Size Filter -->
                             <div class="mt-3">
-                                <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
-                                    <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
+                                    <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                         <div class="d-flex align-items-center">
                                             <div>By Size</div>
                                             <div class="title-line"></div>
                                         </div>
                                     </h4>
                                     <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
-                                    <div class="ps-widget__content priceing-filter px-4 py-4">
+                                    <div class="px-4 py-4 ps-widget__content priceing-filter">
                                         @foreach ($sizes as $size)
                                             <div class="btn-group" role="group" aria-label="Size filter">
                                                 <input type="radio" class="btn-check" name="size"
                                                     id="size-{{ $size }}" value="{{ $size }}"
                                                     autocomplete="off" onchange="updateFilters()"
                                                     {{ $size == $selected_size ? 'checked' : '' }}>
-                                                <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                                <label class="w-auto my-2 mb-0 mr-2 btn btn-outline-primary rounded-0"
                                                     for="size-{{ $size }}">
                                                     {{ $size }}
                                                 </label>
@@ -363,9 +363,9 @@
             <div class="container juta-delivery">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
-                        <div class="ps-delivery ps-delivery--info mb-0">
+                        <div class="mb-0 ps-delivery ps-delivery--info">
                             <div class="ps-delivery__content">
-                                <div class="ps-delivery__text text-white">
+                                <div class="text-white ps-delivery__text">
                                     <i class="icon-shield-check"></i>
                                     <span>
                                         <strong>100% Secure Delivery</strong> Without

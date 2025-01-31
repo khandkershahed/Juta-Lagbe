@@ -21670,7 +21670,7 @@ table.dataTable tbody td:last-child {
 }
 .cat-tabs-triger:hover {
     background-color: var(--site-primary);
-    color: #fff;
+    color: #fff !important;
 }
 /* New End */
 .video-box-pr {
