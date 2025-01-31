@@ -19055,7 +19055,7 @@ table.dataTable tbody td:last-child {
         margin-bottom: 10px !important;
     }
     .juta-delivery {
-        margin-top: 20px !important;
+        margin-top: 0px !important;
     }
     .ctg-btns {
         width: 100%;
@@ -21116,6 +21116,19 @@ table.dataTable tbody td:last-child {
         padding-bottom: 5px;
         padding-top: 15px;
     }
+    .first-section{
+        border-radius: 0 !important;
+    }
+    .second-section{
+        border-radius: 0 !important;
+    }
+    .third-section{
+        border-radius: 0 !important;
+    }
+    .home-header-title{
+        flex-direction: column !important;
+        text-align: center;
+    }
     .shop-qty{
         width: 45%;
     }
@@ -21162,7 +21175,7 @@ table.dataTable tbody td:last-child {
         color: #fff;
         background-color: var(--site-primary);
         border: 1px solid var(--site-primary);
-        font-size: 10px !important;
+        font-size: 14px !important;
     }
     .btn-primary:hover {
         width: 50%;
@@ -21676,6 +21689,7 @@ table.dataTable tbody td:last-child {
     top: -10px;
     background: white;
     border: 1px solid black !important;
+    border-radius: 5px;
 }
 .video-pr-title {
     color: white;

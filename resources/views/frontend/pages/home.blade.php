@@ -38,7 +38,7 @@
         @endif
         @if ($categorys->count() > 0)
             <section class="ps-section--categories" style="background-color: #f3f2f257;">
-                <div class="container px-0 py-5">
+                <div class="container px-0 py-2 py-lg-5">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="ps-categories__list owl-carousel">
@@ -60,7 +60,7 @@
                                                                     ? asset($logoPath)
                                                                     : asset('frontend/img/no-category.png');
                                                             @endphp
-                                                            <img class="p-3 border shadow-sm rounded-circle"
+                                                            <img class="p-3 border shadow-sm"
                                                                 src="{{ $logoSrc }}" alt="{{ $category->name }}"
                                                                 onerror="this.onerror=null; this.src='frontend/img/no-category.png';">
                                                         </div>
@@ -80,10 +80,10 @@
             </section>
         @endif
         <div class="ps-home__content">
-            <div class="container px-5 pb-5 mt-5 first-section">
+            <div class="container px-3 pb-4 mt-5 px-lg-5 first-section">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="py-4 d-flex justify-content-between align-items-center py-lg-5">
+                        <div class="pt-4 d-flex justify-content-between align-items-center pt-lg-5 home-header-title">
                             <div class="">
                                 <h3 class="mb-0 text-white ps-section__title d-flex align-items-center text-uppercase"
                                     style="font-size: 30px;">
@@ -94,7 +94,7 @@
                                 <span style="height: 1px; background-color:transparent; display: block"></span>
                             </div>
                             @if (!empty(optional($special_offer)->slug))
-                                <div class="ps-delivery--info">
+                                <div class="pt-3 ps-delivery--info pt-lg-0">
                                     <a class="px-4 py-2 text-end"
                                         style="background-color: #BD0909 !important;border-radius: 50px;color: white;"
                                         href="{{ route('special.products', optional($special_offer)->slug) }}">Live Now
@@ -107,7 +107,7 @@
                 {{-- Category Product --}}
                 <div class="row">
                     @foreach ($specialproducts as $specialproduct)
-                        <div class="pl-0 pr-0 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
+                        <div class="pl-0 pr-0 my-3 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
                             <div class="border ps-section__product">
                                 <div class="ps-product ps-product--standard">
                                     <div class="ps-product__thumbnail">
@@ -229,10 +229,10 @@
                 </div>
                 {{-- Category Product End --}}
             </div>
-            <div class="container px-5 pb-5 mt-5 second-section">
+            <div class="container px-3 pb-4 mt-0 mt-lg-5 px-lg-5 second-section">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="py-4 d-flex justify-content-between align-items-center py-lg-5">
+                        <div class="pt-4 d-flex justify-content-between align-items-center pt-lg-5 home-header-title">
                             <div class="">
                                 <h3 class="mb-0 text-black ps-section__title d-flex align-items-center text-uppercase"
                                     style="font-size: 30px;">
@@ -255,7 +255,7 @@
                 {{-- Category Product --}}
                 <div class="row">
                     @foreach ($latestproducts as $latestproduct)
-                        <div class="pl-0 pr-0 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
+                        <div class="pl-0 pr-0 my-3 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
                             <div class="border ps-section__product">
                                 <div class="ps-product ps-product--standard">
                                     <div class="ps-product__thumbnail">
@@ -377,10 +377,10 @@
                 </div>
                 {{-- Category Product End --}}
             </div>
-            <div class="container px-5 pb-5 mt-5 third-section">
+            <div class="container px-3 pb-4 mt-0 mt-lg-5 px-lg-5 third-section">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="py-4 d-flex justify-content-between align-items-center py-lg-5">
+                        <div class="pt-4 d-flex justify-content-between align-items-center pt-lg-5 home-header-title">
                             <div class="">
                                 <h3 class="mb-0 text-black ps-section__title d-flex align-items-center text-uppercase"
                                     style="font-size: 30px;">
@@ -403,7 +403,7 @@
                 {{-- Category Product --}}
                 <div class="row">
                     @foreach ($randomproducts as $randomproduct)
-                        <div class="pl-0 pr-0 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
+                        <div class="pl-0 pr-0 my-3 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
                             <div class="border ps-section__product">
                                 <div class="ps-product ps-product--standard">
                                     <div class="ps-product__thumbnail">
