@@ -38,39 +38,74 @@
         @endif
         @if ($categorys->count() > 0)
             <section class="ps-section--categories" style="background-color: #f3f2f257;">
-                <div class="container px-0">
+                <div class="container px-0 py-5">
                     <div class="row">
-                        <div class="col-lg-8 offset-lg-2">
-                            <div class="ps-section__content section-category">
-                                <div class="ps-categories__list owl-carousel">
-                                    @foreach ($categorys as $category)
-                                        <div class="ps-categories__item">
-                                            <a class="ps-categories__link"
-                                                href="{{ route('category.products', $category->slug) }}">
-                                                @php
-                                                    $logoPath = 'storage/' . $category->logo;
-                                                    $logoSrc = file_exists(public_path($logoPath))
-                                                        ? asset($logoPath)
-                                                        : asset('frontend/img/no-category.png');
-                                                @endphp
-                                                <img src="{{ $logoSrc }}" alt="{{ $category->name }}"
-                                                    onerror="this.onerror=null; this.src='frontend/img/no-category.png';">
-                                            </a>
-                                            <a class="ps-categories__name"
-                                                href="{{ route('category.products', $category->slug) }}">
-                                                {{ $category->name }}
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                </div>
+                        <div class="col-lg-12">
+                            <div class="ps-categories__list owl-carousel">
+                                @foreach ($categorys as $category)
+                                    <div class="py-4 ps-categories__item">
+                                        <a href="{{ route('category.products', $category->slug) }}">
+                                            <div class="p-0 card video-box-pr">
+                                                <div class="p-0 card-header">
+                                                    <div class="player" data-plyr-provider="youtube"
+                                                        data-plyr-embed-id="{{ $category->video_link }}">
+                                                    </div>
+                                                </div>
+                                                <div class="category-box card-body">
+                                                    <div class="video-category-info">
+                                                        <div class="">
+                                                            @php
+                                                                $logoPath = 'storage/' . $category->logo;
+                                                                $logoSrc = file_exists(public_path($logoPath))
+                                                                    ? asset($logoPath)
+                                                                    : asset('frontend/img/no-category.png');
+                                                            @endphp
+                                                            <img class="p-3 border shadow-sm rounded-circle" src="{{ $logoSrc }}" alt="{{ $category->name }}"
+                                                                onerror="this.onerror=null; this.src='frontend/img/no-category.png';">
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <h6 class="video-pr-title">{{ $category->name }}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
         @endif
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="pb-4 d-flex justify-content-between align-items-center pb-lg-5">
+                            <div class="">
+                                <h3 class="mb-0 ps-section__title" style="font-size: 30px;">
+                                    {{ optional($categoryone)->name }}</h3>
+                            </div>
+                            <div style="width: 900px" class="px-3">
+                                <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
+                            </div>
+                            <div class="p-0 ps-delivery ps-delivery--info">
+                                <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন <i
+                                        class="fa-solid fa-"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="ps-home__content">
-            @if ($latest_products->count() > 0)
+            @if ($categoryone && $categoryoneproducts->count() > 0)
                 <section class="pt-0 ps-section--latest-horizontal">
                     <section class="container px-0">
                         <h3 class="py-4 mb-0 ps-section__title" style="font-size: 30px;">Latest Products <img
@@ -80,18 +115,18 @@
                         </h3>
                         <div class="ps-section__content">
                             <div class="m-0 row">
-                                @foreach ($latest_products as $latest_product)
-                                    <div class="pl-0 pr-0 mb-3 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
-                                        <div class="ps-section__product">
+                                @foreach ($categoryoneproducts as $categoryoneproduct)
+                                    <div class="pl-0 pr-0 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
+                                        <div class="border ps-section__product">
                                             <div class="ps-product ps-product--standard">
                                                 <div class="ps-product__thumbnail">
                                                     <a class="ps-product__image"
-                                                        href="{{ route('product.details', $latest_product->slug) }}">
+                                                        href="{{ route('product.details', $categoryoneproduct->slug) }}">
                                                         <figure>
-                                                            @if (!empty($latest_product->thumbnail))
+                                                            @if (!empty($categoryoneproduct->thumbnail))
                                                                 @php
                                                                     $thumbnailPath =
-                                                                        'storage/' . $latest_product->thumbnail;
+                                                                        'storage/' . $categoryoneproduct->thumbnail;
                                                                     $thumbnailSrc = file_exists(
                                                                         public_path($thumbnailPath),
                                                                     )
@@ -99,10 +134,10 @@
                                                                         : asset('frontend/img/no-product.jpg');
                                                                 @endphp
                                                                 <img src="{{ $thumbnailSrc }}"
-                                                                    alt="{{ $latest_product->meta_title }}"
+                                                                    alt="{{ $categoryoneproduct->meta_title }}"
                                                                     width="210" height="210" />
                                                             @else
-                                                                @foreach ($latest_product->multiImages->slice(0, 2) as $image)
+                                                                @foreach ($categoryoneproduct->multiImages->slice(0, 2) as $image)
                                                                     @php
                                                                         $imagePath = 'storage/' . $image->photo;
                                                                         $imageSrc = file_exists(public_path($imagePath))
@@ -110,7 +145,7 @@
                                                                             : asset('frontend/img/no-product.jpg');
                                                                     @endphp
                                                                     <img src="{{ $imageSrc }}"
-                                                                        alt="{{ $latest_product->meta_title }}"
+                                                                        alt="{{ $categoryoneproduct->meta_title }}"
                                                                         width="210" height="210" />
                                                                 @endforeach
                                                             @endif
@@ -121,32 +156,23 @@
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Wishlist">
                                                             <a class="add_to_wishlist"
-                                                                href="{{ route('wishlist.store', $latest_product->id) }}"><i
+                                                                href="{{ route('wishlist.store', $categoryoneproduct->id) }}"><i
                                                                     class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Quick view">
                                                             <a href="#" data-toggle="modal"
-                                                                data-target="#popupQuickview{{ $latest_product->id }}">
+                                                                data-target="#popupQuickview{{ $categoryoneproduct->id }}">
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
                                                         </div>
-                                                        {{-- <div class="ps-product__item" data-toggle="tooltip"
-                                                            data-placement="left" title="Add To Cart">
-                                                            <a class="add_to_cart"
-                                                                href="{{ route('cart.store', $latest_product->id) }}"
-                                                                data-product_id="{{ $latest_product->id }}"
-                                                                data-product_qty="1">
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                            </a>
-                                                        </div> --}}
 
                                                     </div>
-                                                    @if (!empty($latest_product->unit_discount_price))
+                                                    @if (!empty($categoryoneproduct->unit_discount_price))
                                                         <div class="ps-product__badge">
                                                             <div class="ps-badge ps-badge--sale">
                                                                 -
-                                                                {{ !empty($latest_product->unit_discount_price) && $latest_product->unit_discount_price > 0 ? number_format((($latest_product->unit_price - $latest_product->unit_discount_price) / $latest_product->unit_price) * 100, 1) : 0 }}
+                                                                {{ !empty($categoryoneproduct->unit_discount_price) && $categoryoneproduct->unit_discount_price > 0 ? number_format((($categoryoneproduct->unit_price - $categoryoneproduct->unit_discount_price) / $categoryoneproduct->unit_price) * 100, 1) : 0 }}
                                                                 % অফ
                                                             </div>
                                                         </div>
@@ -155,32 +181,32 @@
                                                 <div class="ps-product__content">
                                                     <h5 class="ps-product__title">
                                                         <a
-                                                            href="{{ route('product.details', $latest_product->slug) }}">
-                                                            {{ implode(' ', array_slice(explode(' ', $latest_product->name), 0, 5)) }}
+                                                            href="{{ route('product.details', $categoryoneproduct->slug) }}">
+                                                            {{ implode(' ', array_slice(explode(' ', $categoryoneproduct->name), 0, 5)) }}
                                                         </a>
                                                     </h5>
                                                     <div class="pb-3">
-                                                        @if (!empty($latest_product->unit_discount_price))
+                                                        @if (!empty($categoryoneproduct->unit_discount_price))
                                                             <div class="ps-product__meta">
                                                                 <span class="ps-product__price sale fw-bold"
                                                                     style="font-weight:600;">দাম
-                                                                    {{ $latest_product->unit_discount_price }}
+                                                                    {{ $categoryoneproduct->unit_discount_price }}
                                                                     টাকা</span>
                                                                 <span
-                                                                    class="ps-product__del text-danger">{{ $latest_product->unit_price }}
+                                                                    class="ps-product__del text-danger">{{ $categoryoneproduct->unit_price }}
                                                                     টাকা</span>
                                                             </div>
                                                         @else
                                                             <div class="ps-product__meta">
                                                                 <span class="ps-product__price sale fw-bold"
                                                                     style="font-weight:600;">দাম
-                                                                    {{ $latest_product->unit_price }}
+                                                                    {{ $categoryoneproduct->unit_price }}
                                                                     টাকা</span>
                                                             </div>
                                                         @endif
                                                     </div>
                                                     <div class="d-flex align-items-center card-cart-btn">
-                                                        <a href="{{ route('product.details', $latest_product->slug) }}"
+                                                        <a href="{{ route('product.details', $categoryoneproduct->slug) }}"
                                                             class="btn btn-primary rounded-0 w-100">
                                                             <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                                             অর্ডার
@@ -205,7 +231,7 @@
                                                         <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Wishlist"><a
                                                                 class="add_to_wishlist"
-                                                                href="{{ route('wishlist.store', $latest_product->id) }}"><i
+                                                                href="{{ route('wishlist.store', $categoryoneproduct->id) }}"><i
                                                                     class="fa-solid fa-heart"></i></a>
                                                         </div>
                                                     </div>
@@ -627,82 +653,6 @@
                     </div>
                 </section>
             @endif
-            {{-- Video Section Start --}}
-            @if ($categoryfour && $categoryFourProducts->count() > 0)
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="py-2 d-flex justify-content-between align-items-center py-lg-5">
-                                <div class="">
-                                    <h3 class="mb-0 ps-section__title" style="font-size: 30px;">
-                                        {{ optional($categoryfour)->name }}
-                                    </h3>
-                                </div>
-                                <div style="width: 900px" class="px-3">
-                                    <span style="height: 1px; background-color:#c9c8c8; display: block"></span>
-                                </div>
-                                <div class="p-0 ps-delivery ps-delivery--info">
-                                    <a class="ps-delivery__more" href="{{ route('allproducts') }}">আরো দেখুন
-                                        <i class="fa-solid fa-"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- First Column -->
-                        @foreach ($categoryFourProducts as $categoryFourProduct)
-                            <div class="col-lg-3">
-                                <a href="{{ route('product.details', $categoryFourProduct->slug) }}">
-                                    <div class="p-0 card video-box-pr">
-                                        <div class="p-0 card-header">
-                                            <div class="player" data-plyr-provider="youtube"
-                                                data-plyr-embed-id="{{ $categoryFourProduct->video_link }}">
-                                            </div>
-                                        </div>
-                                        <div class="card-body ">
-                                            <div class="video-category-info">
-                                                <div>
-                                                    @php
-                                                        $thumbnailPath = 'storage/' . $categoryFourProduct->thumbnail;
-                                                        $thumbnailSrc = file_exists(public_path($thumbnailPath))
-                                                            ? asset($thumbnailPath)
-                                                            : asset('frontend/img/no-product.jpg');
-                                                    @endphp
-                                                    <img src="{{ $thumbnailSrc }}" class="border shadow-sm img-fluid"
-                                                        alt="{{ $categoryFourProduct->meta_title }}" />
-                                                </div>
-                                            </div>
-                                            <div class="text-center">
-                                                <h6 class="video-pr-title">{{ $categoryFourProduct->name }}</h6>
-                                                <p>
-                                                    @if (!empty($categorytwoproduct->unit_discount_price))
-                                                        <span
-                                                            class="text-success fw-bold fs-2 video-price">{{ $categorytwoproduct->unit_discount_price }}
-                                                            টাকা</span>
-                                                        <del class="video-discount">{{ $categorytwoproduct->unit_price }}
-                                                            টাকা</del>
-                                                        <span class="video-off">
-                                                            {{ !empty($categorytwoproduct->unit_discount_price) && $categorytwoproduct->unit_discount_price > 0 ? number_format((($categorytwoproduct->unit_price - $categorytwoproduct->unit_discount_price) / $categorytwoproduct->unit_price) * 100, 1) : 0 }}
-                                                            % Off
-                                                        </span>
-                                                    @else
-                                                        <span
-                                                            class="text-success fw-bold fs-2 video-price">{{ $categorytwoproduct->unit_price }}
-                                                            টাকা</span>
-                                                    @endif
-
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-            {{-- Video Section End --}}
             @if ($categorythree && $categorythreeproducts->count() > 0)
                 <div class="container px-0 pb-0 mb-5 pb-lg-5">
                     <div class="row">
