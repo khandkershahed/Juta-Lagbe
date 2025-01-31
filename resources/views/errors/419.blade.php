@@ -3,7 +3,9 @@
         <div class="d-flex flex-column flex-column-fluid">
             <div class="d-flex flex-column flex-column-fluid text-center p-10 py-lg-15">
                 <a href="{{ url('/') }}" class="mb-10 pt-lg-10">
-                    <img alt="Logo" src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}" class="h-40px mb-5" />
+                    <img class="rounded-2 mb-5"
+                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
+                            alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
                 </a>
                 <div class="pt-lg-10 mb-10">
                     <h1 class="fw-bolder fs-2qx text-gray-800 mb-10">419</h1>
