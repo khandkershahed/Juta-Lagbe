@@ -151,9 +151,7 @@ class HomeController extends Controller
     public function categoryProducts(Request $request, $slug)
     {
         // Using caching to avoid fetching the same categories on every request
-        $categories = Cache::remember('categories', 60, function () {
-            return Category::orderBy('name', 'ASC')->active()->get(['id', 'name', 'slug']);
-        });
+        $categories = Category::orderBy('name', 'ASC')->active()->get(['id', 'name', 'slug']);
 
         // Fetch the category
         $category = Category::where('slug', $slug)->firstOrFail();

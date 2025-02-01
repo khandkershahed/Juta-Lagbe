@@ -28,10 +28,15 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
+    // public function products()
+    // {
+    //     return Product::whereJsonContains('category_id', json_encode($this->id));
+    // }
     public function products()
     {
-        return Product::whereJsonContains('category_id', json_encode($this->id));
+        return Product::whereJsonContains('category_id', $this->id);  // Use raw ID
     }
+
     public function deals()
     {
         return $this->hasMany(DealBanner::class, 'brand_id');
