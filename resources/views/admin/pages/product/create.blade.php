@@ -115,7 +115,10 @@
                                     name="category_id[]" multiple multiselect-search="true"
                                     multiselect-select-all="true" data-control="select2"
                                     data-placeholder="Select an option" data-allow-clear="true">
-                                    {!! $categoriesOptions !!}
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}
+                                        </option>
+                                    @endforeach
                                 </x-metronic.select-option>
                             </div>
                             {{-- <div class="fv-row">

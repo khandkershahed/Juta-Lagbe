@@ -36,6 +36,7 @@ class ProductController extends Controller
         $categoriesOptions = $this->buildCategoriesOptions($categories);
         $data = [
             'brands'            => DB::table('brands')->select('id', 'name')->latest('id')->get(),
+            'categories'        => DB::table('categories')->select('id', 'name')->latest('id')->get(),
             'categoriesOptions' => $categoriesOptions,
         ];
         return view('admin.pages.product.create', $data);
@@ -52,9 +53,6 @@ class ProductController extends Controller
         $thumbnailFilePath = null;
         try {
             // Handle the file upload for the thumbnail
-
-
-
             if ($thumbnailFile) {
                 $thumbnailUpload = customUpload($thumbnailFile, 'products/thumbnail');
                 if ($thumbnailUpload['status'] === 0) {
@@ -65,8 +63,6 @@ class ProductController extends Controller
 
             $is_refurbished = $request->has('is_refurbished') ? 1 : 0;
 
-            // dd($is_refurbished);
-            // Create a new product record
             $product = Product::create([
                 'name' => $request->input('name'),
                 'sku_code' => $request->input('sku_code'),
@@ -76,6 +72,7 @@ class ProductController extends Controller
                 'tags' => is_array($request->input('tags')) ? json_encode($request->input('tags')) : null,
                 'color' => is_array($request->input('color')) ? json_encode($request->input('color')) : null,
                 'size' => is_array($request->input('size')) ? json_encode($request->input('size')) : null,
+                'category_id' => is_array($request->input('category_id')) ? json_encode($request->input('category_id')) : null,
                 'video_link' => $request->input('video_link'),
                 'short_description' => $request->input('short_description'),
                 'overview' => $request->input('overview'),
@@ -92,7 +89,6 @@ class ProductController extends Controller
                 'unit_discount_price' => $request->input('unit_discount_price'),
                 'is_refurbished' => $is_refurbished,
                 'product_type' => $request->input('product_type'),
-                'category_id' => is_array($request->input('category_id')) ? $request->input('category_id') : null,
                 'vat' => $request->input('vat'),
                 'tax' => $request->input('tax'),
                 'length' => $request->input('length'),
@@ -106,8 +102,6 @@ class ProductController extends Controller
                 'added_by' => Auth::guard('admin')->user()->id,
                 'status' => $request->input('status'),
             ]);
-
-
 
             // Handle multiple image uploads
             if ($request->hasFile('multi_images')) {
@@ -129,7 +123,6 @@ class ProductController extends Controller
 
             DB::commit();
 
-            // Redirect with success message
             return redirect()->route('admin.product.index')->with('success', 'Product has been created successfully!');
         } catch (\Exception $e) {
             DB::rollback();
