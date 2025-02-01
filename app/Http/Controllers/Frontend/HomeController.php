@@ -173,7 +173,7 @@ class HomeController extends Controller
             $query->whereJsonContains('size', $size);
         }
 
-        $catProducts = $query->active()->get();
+        $catProducts = $query->get();
 
         // Pass the data to the view
         $data = [
