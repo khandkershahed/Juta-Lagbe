@@ -156,7 +156,8 @@ class HomeController extends Controller
         // Fetch the category
         $category = Category::where('slug', $slug)->firstOrFail();
 
-        $query = $category->products();
+        // Ensure you are querying products with the correct category ID in JSON format
+        $query = Product::whereJsonContains('category_id', $category->id); // Adjusted to use $category->id
 
         // Apply price filter if present
         if ($request->has('price_min') && $request->has('price_max')) {
@@ -171,6 +172,7 @@ class HomeController extends Controller
             $query->whereJsonContains('size', $size);
         }
 
+        // Get the products based on the query
         $catProducts = $query->get();
 
         // Pass the data to the view
@@ -178,10 +180,10 @@ class HomeController extends Controller
             'category'       => $category,
             'categories'     => $categories,
             'catProducts'    => $catProducts,
-            'price_min'      => $request->input('price_min', 10),
-            'price_max'      => $request->input('price_max', 10000),
-            'selected_size'  => $request->input('size', null),
-            'sizes'          => ['38', '39', '40', '41', '42', '43', '44'], // You can fetch dynamic sizes here
+            'price_min'      => $request->input('price_min', 10), // Default price_min if not provided
+            'price_max'      => $request->input('price_max', 10000), // Default price_max if not provided
+            'selected_size'  => $request->input('size', null), // Pass selected size to the view
+            'sizes'          => ['38', '39', '40', '41', '42', '43', '44'], // Static sizes (can be dynamic if needed)
         ];
 
         return view('frontend.pages.categoryDetails', $data);
