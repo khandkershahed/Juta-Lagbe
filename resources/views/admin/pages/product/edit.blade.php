@@ -113,10 +113,9 @@
                             <div class="fv-row">
                                 <x-metronic.label for="category_id" class="col-form-label required fw-bold fs-6">
                                     {{ __('Select Category') }}</x-metronic.label>
-                                <x-metronic.select-option id="category_id" class="form-control select mb-2"
-                                    name="category_id[]" multiple multiselect-search="true"
-                                    multiselect-select-all="true" data-control="select2"
-                                    data-placeholder="Select an option" data-allow-clear="true">
+                                <x-metronic.select-option id="category_id" class="form-select form-select-solid mb-2"
+                                    name="category_id[]" data-control="select2" data-close-on-select="false"
+                                    data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
                                     @php
                                         // Ensure $categoryIds is an array
                                         $categoryIds = isset($product->category_id)
@@ -129,7 +128,6 @@
                                             $tagIds = [];
                                         }
                                     @endphp
-
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
                                             {{ in_array($category->id, $categoryIds) ? 'selected' : '' }}>
