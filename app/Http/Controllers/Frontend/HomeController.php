@@ -158,8 +158,8 @@ class HomeController extends Controller
 
         // Ensure you are querying products with the correct category ID in JSON format
         // $query = Product::whereJsonContains('category_id', json_encode($category->id)); // Adjusted to use $category->id
-        $query = Product::whereJsonContains('category_id', (string) $category->id);
-
+        $query = Product::query();
+        $query->whereJsonContains('category_id', (string) $category->id);
         // Apply price filter if present
         if ($request->has('price_min') && $request->has('price_max')) {
             $priceMin = $request->input('price_min');
