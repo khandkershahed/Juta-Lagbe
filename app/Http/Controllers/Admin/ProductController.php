@@ -219,7 +219,7 @@ class ProductController extends Controller
                 'unit_discount_price' => $request->input('unit_discount_price'),
                 'is_refurbished' => $is_refurbished,
                 'product_type' => $request->input('product_type'),
-                'category_id' => is_array($request->input('category_id')) ? json_encode($request->input('category_id')) : ($product->category_id ? $product->category_id : null),
+                'category_id' => is_array($request->input('category_id')) ? $request->input('category_id') : ($product->category_id ? $product->category_id : null),
                 'vat' => $request->input('vat'),
                 'tax' => $request->input('tax'),
                 'length' => $request->input('length'),
