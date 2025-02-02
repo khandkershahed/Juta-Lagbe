@@ -1,47 +1,47 @@
 <x-admin-app-layout :title="'Order Details'">
-    <div class="d-flex flex-column flex-column-fluid mt-5">
-        <div id="kt_app_toolbar" class="app-toolbar  py-3 py-lg-6 ">
-            <div id="kt_app_toolbar_container" class="app-container  container-xxl d-flex flex-stack ">
-                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3 ">
-                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+    <div class="mt-5 d-flex flex-column flex-column-fluid">
+        <div id="kt_app_toolbar" class="py-3 app-toolbar py-lg-6 ">
+            <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack ">
+                <div class="flex-wrap page-title d-flex flex-column justify-content-center me-3 ">
+                    <ul class="pt-1 my-0 breadcrumb breadcrumb-separatorless fw-semibold fs-7">
                         <li class="breadcrumb-item text-muted">
                             <a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">
                                 Dashboard </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                            <span class="bg-gray-500 bullet w-5px h-2px"></span>
                         </li>
                         <li class="breadcrumb-item text-muted">
                             <a href="{{ route('admin.order-management.index') }}" class="text-muted text-hover-primary">
                                 Order List </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                            <span class="bg-gray-500 bullet w-5px h-2px"></span>
                         </li>
                         <li class="breadcrumb-item text-muted">
                             Order Details (#{{ $order->order_number }}) </li>
                     </ul>
-                    <h5 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">
+                    <h5 class="my-0 text-gray-900 page-heading d-flex fw-bold fs-3 flex-column justify-content-center">
                         Order Details (#{{ $order->order_number }})
                     </h5>
 
                 </div>
             </div>
         </div>
-        <div id="kt_app_content" class="app-content  flex-column-fluid ">
+        <div id="kt_app_content" class="app-content flex-column-fluid ">
             <div id="kt_app_content_container" class="app-container container-fluid">
-                <div class="row mb-10">
+                <div class="mb-10 row">
                     <div class="col-xl-4">
-                        <div class="card card-flush py-4 flex-row-fluid">
+                        <div class="py-4 card card-flush flex-row-fluid">
                             <div class="card-header">
                                 <div class="card-title">
                                     <h4>অর্ডার ডিটেইলস</h4>
                                 </div>
                             </div>
-                            <div class="card-body pt-0">
+                            <div class="pt-0 card-body">
                                 <div class="table-responsive">
-                                    <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
-                                        <tbody class="fw-semibold text-gray-600">
+                                    <table class="table mb-0 align-middle table-row-bordered fs-6 gy-5 min-w-300px">
+                                        <tbody class="text-gray-600 fw-semibold">
                                             <tr>
                                                 <td class="text-muted">
                                                     <div class="d-flex align-items-center">
@@ -87,24 +87,24 @@
                         </div>
                     </div>
                     <div class="col-xl-4">
-                        <div class="card card-flush py-4  flex-row-fluid">
+                        <div class="py-4 card card-flush flex-row-fluid">
                             <div class="card-header">
                                 <div class="card-title">
                                     <h4>কাস্টোমার ডিটেইলস</h4>
                                 </div>
                             </div>
-                            <div class="card-body pt-0">
+                            <div class="pt-0 card-body">
                                 <div class="table-responsive">
-                                    <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
-                                        <tbody class="fw-semibold text-gray-600">
+                                    <table class="table mb-0 align-middle table-row-bordered fs-6 gy-5 min-w-300px">
+                                        <tbody class="text-gray-600 fw-semibold">
                                             <tr class="w-100">
                                                 <td class="text-muted">
-                                                    <p class="d-flex align-items-center justify-content-start mb-0">
+                                                    <p class="mb-0 d-flex align-items-center justify-content-start">
                                                         <i class="fa-solid fa-user pe-2"></i> কাস্টোমার
                                                     </p>
                                                 </td>
                                                 <td class="text-muted">
-                                                    <p class="d-flex justify-content-end mb-0">
+                                                    <p class="mb-0 d-flex justify-content-end">
                                                         <span>{{ optional($order->user)->name }}</span>
                                                     </p>
                                                 </td>
@@ -139,22 +139,22 @@
                         </div>
                     </div>
                     <div class="col-xl-4">
-                        <div class="card card-flush py-4  flex-row-fluid">
-                            <div class="card-body pt-0 mb-0 pb-0">
-                                <h4 class="mb-0 pt-4">ডেলিভারি ঠিকানা</h4>
-                                <div class="table-responsive pt-2">
-                                    <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5">
-                                        <tbody class="fw-semibold text-gray-600">
+                        <div class="py-4 card card-flush flex-row-fluid">
+                            <div class="pt-0 pb-0 mb-0 card-body">
+                                <h4 class="pt-4 mb-0">ডেলিভারি ঠিকানা</h4>
+                                <div class="pt-2 table-responsive">
+                                    <table class="table mb-0 align-middle table-row-bordered fs-6 gy-5">
+                                        <tbody class="text-gray-600 fw-semibold">
                                             <tr>
                                                 <td class="text-muted">
-                                                    <p class="d-flex justify-content-between align-items-center mb-0">
+                                                    <p class="mb-0 d-flex justify-content-between align-items-center">
                                                         ইনভয়েস <span># {{ $order->order_number }}</span>
                                                     </p>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted w-100">
-                                                    <p class="d-flex justify-content-between text-end mb-0">
+                                                    <p class="mb-0 d-flex justify-content-between text-end">
                                                         জেলা:
                                                         <span>{{ $order->district }}</span>
                                                     </p>
@@ -162,7 +162,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted w-100">
-                                                    <p class="d-flex justify-content-between text-end mb-0">
+                                                    <p class="mb-0 d-flex justify-content-between text-end">
                                                         থানা:
                                                         <span>{{ $order->thana }}</span>
                                                     </p>
@@ -170,7 +170,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted w-100">
-                                                    <p class="d-flex justify-content-between text-end mb-0">
+                                                    <p class="mb-0 d-flex justify-content-between text-end">
                                                         সম্পূর্ণ ঠিকানা:
                                                         <span>{{ $order->address }}</span>
                                                     </p>
@@ -186,18 +186,18 @@
                 <div class="d-flex flex-column gap-7 gap-lg-10">
                     <div class="d-flex flex-column gap-7 gap-lg-10">
 
-                        <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
+                        <div class="py-4 overflow-hidden card card-flush flex-row-fluid">
                             <div class="card-header">
                                 <div class="card-title">
                                     <h2>Order #{{ $order->order_number }}</h2>
                                 </div>
 
                             </div>
-                            <div class="card-body pt-0">
+                            <div class="pt-0 card-body">
                                 <div class="table-responsive">
-                                    <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                                    <table class="table mb-0 align-middle table-row-dashed fs-6 gy-5">
                                         <thead>
-                                            <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                                            <tr class="text-gray-500 text-start fw-bold fs-7 text-uppercase gs-0">
                                                 <th width="5%" class="ps-5">সিরিয়াল</th>
                                                 <th width="10" class="">ছবি</th>
                                                 <th width="45" class="">প্রোডাক্ট বিবরন</th>
@@ -207,7 +207,7 @@
                                                 <th width="10%" class="text-end pe-5">মোট টাকা</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="fw-semibold text-gray-600">
+                                        <tbody class="text-gray-600 fw-semibold">
                                             @foreach ($order->orderItems as $item)
                                                 <tr>
                                                     <td class="ps-5">1</td>
@@ -263,7 +263,7 @@
                                                 </td>
                                             </tr>
                                             <tr style="background-color: #eee;">
-                                                <td colspan="6" class="fs-3 text-gray-900 text-end">
+                                                <td colspan="6" class="text-gray-900 fs-3 text-end">
                                                     সর্ব মোট
                                                 </td>
                                                 <td class="text-gray-900 fs-3 fw-bolder text-end pe-5">
@@ -288,7 +288,7 @@
     <!-- Modal -->
     <div class="modal fade" id="vieworderInovice" tabindex="-1" aria-labelledby="vieworderInoviceLabel"
         aria-hidden="true">
-        <div class="modal-dialog        ">
+        <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">View Worder</h5>

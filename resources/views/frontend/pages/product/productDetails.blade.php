@@ -227,7 +227,7 @@
         }
 
         .product-details-juta .title {
-            height: 60px;
+            height: 65px;
         }
     </style>
     <section>
