@@ -155,7 +155,7 @@
                                 <i class="fa-solid fa-eye" title="Order Details"></i>
                             </a>
                             <a href="{{ route('admin.order.destroy', $order->id) }}"
-                                class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px delete">
+                                class="btn btn-sm btn-icon btn-danger btn-active-light-danger toggle h-25px w-25px delete">
                                 <i class="fa-solid fa-trash-alt" title="Order Delete"></i>
                             </a>
                             <button type="button"
