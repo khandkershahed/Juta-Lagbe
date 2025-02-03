@@ -257,10 +257,10 @@
                                 @if (!empty($product->video_link))
                                     <div class="swiper-slide">
                                         <div style="position: relative; width: 100%; height: 100%;">
-                                            {{-- <iframe width="100%" height="100%"
+                                            <iframe width="100%" height="100%"
                                                 src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
                                                 title="YouTube video player" frameborder="0"
-                                                referrerpolicy="strict-origin-when-cross-origin"></iframe> --}}
+                                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
                                                 <div class="player" data-plyr-provider="youtube"
                                                 data-plyr-embed-id="{{ $product->video_link }}">
                                             </div>

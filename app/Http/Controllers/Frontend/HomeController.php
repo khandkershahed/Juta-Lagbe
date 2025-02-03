@@ -39,8 +39,7 @@ class HomeController extends Controller
         $latestProductIds = $latestproducts->pluck('id')->toArray();
         $randomproducts = Product::inRandomOrder()
             ->whereNotIn('id', $latestProductIds)
-            ->take(12)
-            ->get();
+            ->get(); // Remove take(12) to fetch all products
 
         $special_offer = SpecialOffer::latest()->first();
         $specialproducts = $special_offer ? $special_offer->products() : null;
@@ -55,8 +54,6 @@ class HomeController extends Controller
         ];
         return view('frontend.pages.home', $data);
     }
-
-
 
 
     public function contact()

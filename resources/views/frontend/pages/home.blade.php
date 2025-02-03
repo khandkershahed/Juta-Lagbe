@@ -2,7 +2,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
     <section class="ps-section--banner">
         <div class="main-banner">
-            <img src="{{ !empty($slider->bg_image) && public_path('storage/' . $slider->bg_image) ? asset('storage/' . $slider->bg_image) : asset('images/jutalagbe-main-banner.jpg')}}" alt="">
+            <img src="{{ !empty($slider->bg_image) && public_path('storage/' . $slider->bg_image) ? asset('storage/' . $slider->bg_image) : asset('images/jutalagbe-main-banner.jpg') }}"
+                alt="">
         </div>
     </section>
     <div class="bg-white ps-home ps-home--14">
@@ -60,8 +61,8 @@
                                                                     ? asset($logoPath)
                                                                     : asset('frontend/img/no-category.png');
                                                             @endphp
-                                                            <img class="p-3 border shadow-sm"
-                                                                src="{{ $logoSrc }}" alt="{{ $category->name }}"
+                                                            <img class="p-3 border shadow-sm" src="{{ $logoSrc }}"
+                                                                alt="{{ $category->name }}"
                                                                 onerror="this.onerror=null; this.src='frontend/img/no-category.png';">
                                                         </div>
                                                     </div>
@@ -87,7 +88,7 @@
                             <div class="">
                                 <h3 class="mb-0 text-white ps-section__title d-flex align-items-center text-uppercase"
                                     style="font-size: 30px;">
-                                    Surprise <br> Offer <img width="30px" class="img-fluid"
+                                    Surprise  Offer <img width="30px" class="img-fluid pl-2"
                                         src="{{ asset('images/hour.png') }}" alt=""></h3>
                             </div>
                             <div style="width: 600px" class="px-3">
@@ -96,8 +97,8 @@
                             @if (!empty(optional($special_offer)->slug))
                                 <div class="pt-3 ps-delivery--info pt-lg-0">
                                     <a class="px-4 py-2 text-end"
-                                        style="background-color: #BD0909 !important;border-radius: 50px;color: white;"
-                                        href="{{ route('special.products', optional($special_offer)->slug) }}">Live Now
+                                        style="background-color: #fff !important;border-radius: 50px;color: #252525;"
+                                        href="{{ route('special.products', optional($special_offer)->slug) }}">Show All
                                         <i class="fa-solid fa-"></i></a>
                                 </div>
                             @endif
@@ -142,14 +143,14 @@
                                             </a>
                                             {{-- Review End --}}
                                             <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
-                                                    title="Wishlist">
+                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                    data-placement="left" title="Wishlist">
                                                     <a class="add_to_wishlist"
                                                         href="{{ route('wishlist.store', $specialproduct->id) }}"><i
                                                             class="fa-solid fa-heart"></i></a>
                                                 </div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
-                                                    title="Quick view">
+                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                    data-placement="left" title="Quick view">
                                                     <a href="#" data-toggle="modal"
                                                         data-target="#popupQuickview{{ $specialproduct->id }}">
                                                         <i class="fa fa-eye"></i>
@@ -216,8 +217,8 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
-                                                    title="Wishlist"><a class="add_to_wishlist"
+                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                    data-placement="left" title="Wishlist"><a class="add_to_wishlist"
                                                         href="{{ route('wishlist.store', $specialproduct->id) }}"><i
                                                             class="fa-solid fa-heart"></i></a>
                                                 </div>
@@ -255,129 +256,165 @@
                     </div>
                 </div>
                 {{-- Category Product --}}
-                <div class="row">
-                    @foreach ($latestproducts as $latestproduct)
-                        <div class="pl-0 pr-0 my-3 col-6 col-md-4 col-lg-3 dot4 pr-lg-3">
-                            <div class="border ps-section__product">
-                                <div class="ps-product ps-product--standard">
-                                    <div class="ps-product__thumbnail">
-                                        <a class="ps-product__image"
-                                            href="{{ route('product.details', $latestproduct->slug) }}">
-                                            <figure>
-                                                @if (!empty($latestproduct->thumbnail))
-                                                    @php
-                                                        $thumbnailPath = 'storage/' . $latestproduct->thumbnail;
-                                                        $thumbnailSrc = file_exists(public_path($thumbnailPath))
-                                                            ? asset($thumbnailPath)
-                                                            : asset('frontend/img/no-product.jpg');
-                                                    @endphp
-                                                    <img src="{{ $thumbnailSrc }}"
-                                                        alt="{{ $latestproduct->meta_title }}" width="210"
-                                                        height="210" />
-                                                @else
-                                                    @foreach ($latestproduct->multiImages->slice(0, 2) as $image)
-                                                        @php
-                                                            $imagePath = 'storage/' . $image->photo;
-                                                            $imageSrc = file_exists(public_path($imagePath))
-                                                                ? asset($imagePath)
-                                                                : asset('frontend/img/no-product.jpg');
-                                                        @endphp
-                                                        <img src="{{ $imageSrc }}"
-                                                            alt="{{ $latestproduct->meta_title }}" width="210"
-                                                            height="210" />
-                                                    @endforeach
-                                                @endif
-                                            </figure>
-                                        </a>
-                                        {{-- Review End --}}
-                                        <div class="ps-product__actions">
-                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
-                                                title="Wishlist">
-                                                <a class="add_to_wishlist"
-                                                    href="{{ route('wishlist.store', $latestproduct->id) }}"><i
-                                                        class="fa-solid fa-heart"></i></a>
-                                            </div>
-                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
-                                                title="Quick view">
-                                                <a href="#" data-toggle="modal"
-                                                    data-target="#popupQuickview{{ $latestproduct->id }}">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </div>
+                <div class="container px-0">
+                    <section class="ps-section--deals pb-4">
+                        <div class="ps-section__carousel">
+                            <div class="trending-products owl-carousel">
+                                @foreach ($latestproducts as $latestproduct)
+                                    <div class="border ps-section__product">
+                                        <div class="border ps-section__product">
+                                            <div class="ps-product ps-product--standard">
+                                                <div class="ps-product__thumbnail">
+                                                    <a class="ps-product__image"
+                                                        href="{{ route('product.details', $latestproduct->slug) }}">
+                                                        <figure>
+                                                            @if (!empty($latestproduct->thumbnail))
+                                                                @php
+                                                                    $thumbnailPath =
+                                                                        'storage/' . $latestproduct->thumbnail;
+                                                                    $thumbnailSrc = file_exists(
+                                                                        public_path($thumbnailPath),
+                                                                    )
+                                                                        ? asset($thumbnailPath)
+                                                                        : asset('frontend/img/no-product.jpg');
+                                                                @endphp
+                                                                <img src="{{ $thumbnailSrc }}"
+                                                                    alt="{{ $latestproduct->meta_title }}"
+                                                                    width="210" height="210" />
+                                                            @else
+                                                                @foreach ($latestproduct->multiImages->slice(0, 2) as $image)
+                                                                    @php
+                                                                        $imagePath = 'storage/' . $image->photo;
+                                                                        $imageSrc = file_exists(public_path($imagePath))
+                                                                            ? asset($imagePath)
+                                                                            : asset('frontend/img/no-product.jpg');
+                                                                    @endphp
+                                                                    <img src="{{ $imageSrc }}"
+                                                                        alt="{{ $latestproduct->meta_title }}"
+                                                                        width="210" height="210" />
+                                                                @endforeach
+                                                            @endif
+                                                        </figure>
+                                                    </a>
+                                                    {{-- Review End --}}
+                                                    <div class="ps-product__actions">
+                                                        <div class="ps-product__item" data-toggle="tooltip"
+                                                            data-placement="left" title="Wishlist">
+                                                            <a class="add_to_wishlist"
+                                                                href="{{ route('wishlist.store', $latestproduct->id) }}"><i
+                                                                    class="fa-solid fa-heart"></i></a>
+                                                        </div>
+                                                        <div class="ps-product__item" data-toggle="tooltip"
+                                                            data-placement="left" title="Quick view">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#popupQuickview{{ $latestproduct->id }}">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div>
 
-                                        </div>
-                                        @if (!empty($latestproduct->unit_discount_price))
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">
-                                                    -
-                                                    {{ !empty($latestproduct->unit_discount_price) && $latestproduct->unit_discount_price > 0 ? number_format((($latestproduct->unit_price - $latestproduct->unit_discount_price) / $latestproduct->unit_price) * 100, 1) : 0 }}
-                                                    % অফ
+                                                    </div>
+                                                    @if (!empty($latestproduct->unit_discount_price))
+                                                        <div class="ps-product__badge">
+                                                            <div class="ps-badge ps-badge--sale">
+                                                                -
+                                                                {{ !empty($latestproduct->unit_discount_price) && $latestproduct->unit_discount_price > 0 ? number_format((($latestproduct->unit_price - $latestproduct->unit_discount_price) / $latestproduct->unit_price) * 100, 1) : 0 }}
+                                                                % অফ
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="ps-product__content">
+                                                    <h5 class="ps-product__title">
+                                                        <a
+                                                            href="{{ route('product.details', $latestproduct->slug) }}">
+                                                            {{ implode(' ', array_slice(explode(' ', $latestproduct->name), 0, 5)) }}
+                                                        </a>
+                                                    </h5>
+                                                    <div class="pb-3">
+                                                        @if (!empty($latestproduct->unit_discount_price))
+                                                            <div class="ps-product__meta">
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $latestproduct->unit_discount_price }}
+                                                                    টাকা</span>
+                                                                <span
+                                                                    class="ps-product__del text-danger">{{ $latestproduct->unit_price }}
+                                                                    টাকা</span>
+                                                            </div>
+                                                        @else
+                                                            <div class="ps-product__meta">
+                                                                <span class="ps-product__price sale fw-bold"
+                                                                    style="font-weight:600;">দাম
+                                                                    {{ $latestproduct->unit_price }}
+                                                                    টাকা</span>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="d-flex align-items-center card-cart-btn">
+                                                        <a href="{{ route('product.details', $latestproduct->slug) }}"
+                                                            class="btn btn-primary rounded-0 w-100">
+                                                            <i class="pr-2 fa-solid fa-basket-shopping"></i>
+                                                            অর্ডার
+                                                            করুন
+                                                        </a>
+                                                    </div>
+                                                    <div class="ps-product__actions ps-product__group-mobile">
+                                                        <div class="ps-product__quantity">
+                                                            <div class="def-number-input number-input safari_only">
+                                                                <button class="minus"
+                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
+                                                                        class="icon-minus"></i>
+                                                                </button>
+                                                                <input class="quantity" min="0"
+                                                                    name="quantity" value="1" type="number" />
+                                                                <button class="plus"
+                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
+                                                                        class="icon-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ps-product__item" data-toggle="tooltip"
+                                                            data-placement="left" title="Wishlist"><a
+                                                                class="add_to_wishlist"
+                                                                href="{{ route('wishlist.store', $latestproduct->id) }}"><i
+                                                                    class="fa-solid fa-heart"></i></a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        @endif
+                                        </div>
                                     </div>
-                                    <div class="ps-product__content">
-                                        <h5 class="ps-product__title">
-                                            <a href="{{ route('product.details', $latestproduct->slug) }}">
-                                                {{ implode(' ', array_slice(explode(' ', $latestproduct->name), 0, 5)) }}
-                                            </a>
-                                        </h5>
-                                        <div class="pb-3">
-                                            @if (!empty($latestproduct->unit_discount_price))
-                                                <div class="ps-product__meta">
-                                                    <span class="ps-product__price sale fw-bold"
-                                                        style="font-weight:600;">দাম
-                                                        {{ $latestproduct->unit_discount_price }}
-                                                        টাকা</span>
-                                                    <span
-                                                        class="ps-product__del text-danger">{{ $latestproduct->unit_price }}
-                                                        টাকা</span>
-                                                </div>
-                                            @else
-                                                <div class="ps-product__meta">
-                                                    <span class="ps-product__price sale fw-bold"
-                                                        style="font-weight:600;">দাম
-                                                        {{ $latestproduct->unit_price }}
-                                                        টাকা</span>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="d-flex align-items-center card-cart-btn">
-                                            <a href="{{ route('product.details', $latestproduct->slug) }}"
-                                                class="btn btn-primary rounded-0 w-100">
-                                                <i class="pr-2 fa-solid fa-basket-shopping"></i>
-                                                অর্ডার
-                                                করুন
-                                            </a>
-                                        </div>
-                                        <div class="ps-product__actions ps-product__group-mobile">
-                                            <div class="ps-product__quantity">
-                                                <div class="def-number-input number-input safari_only">
-                                                    <button class="minus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                            class="icon-minus"></i>
-                                                    </button>
-                                                    <input class="quantity" min="0" name="quantity"
-                                                        value="1" type="number" />
-                                                    <button class="plus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                            class="icon-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
-                                                title="Wishlist"><a class="add_to_wishlist"
-                                                    href="{{ route('wishlist.store', $latestproduct->id) }}"><i
-                                                        class="fa-solid fa-heart"></i></a>
-                                            </div>
-                                        </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                {{-- Category Product End --}}
+            </div>
+            <div class="container-fluid"
+                style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
+                <div class="container juta-delivery">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <div class="ps-delivery ps-delivery--info">
+                                <div class="ps-delivery__content">
+                                    <div class="text-white ps-delivery__text">
+                                        <i class="icon-shield-check"></i>
+                                        <span>
+                                            <strong>100% Secure Delivery</strong> Without Courier Communication.
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        <div class="col-lg-4">
+                            <div class="delivery-icons">
+                                <img class="img-fluid" src="{{ asset('images/delivery-icons.png') }}"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {{-- Category Product End --}}
             </div>
             <div class="container px-3 pb-4 mt-0 mt-lg-5 px-lg-5 third-section">
                 <div class="row">
@@ -527,35 +564,9 @@
                 </div>
                 {{-- Category Product End --}}
             </div>
-
-            <div class="container-fluid"
-                style="background-image: linear-gradient(to right, #020024,#090979,#009DBD);">
-                <div class="container juta-delivery">
-                    <div class="row align-items-center">
-                        <div class="col-lg-8">
-                            <div class="ps-delivery ps-delivery--info">
-                                <div class="ps-delivery__content">
-                                    <div class="text-white ps-delivery__text">
-                                        <i class="icon-shield-check"></i>
-                                        <span>
-                                            <strong>100% Secure Delivery</strong> Without Courier Communication.
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="delivery-icons">
-                                <img class="img-fluid" src="{{ asset('images/delivery-icons.png') }}"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        @if ($deal_products->count() > 0)
+        {{-- @if ($deal_products->count() > 0)
             <div class="container px-0">
                 @if ($deal_products->count() > 0)
                     <section class="ps-section--deals">
@@ -598,7 +609,6 @@
                                                     </figure>
                                                 </a>
 
-                                                {{-- Review End --}}
                                                 <div class="ps-product__actions">
                                                     <div class="ps-product__item" data-toggle="tooltip"
                                                         data-placement="left" title="Wishlist">
@@ -689,7 +699,7 @@
                     </section>
                 @endif
             </div>
-        @endif
+        @endif --}}
     </div>
 
     @include('frontend.layouts.HomeQuickViewModal')
@@ -697,38 +707,60 @@
         <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-
                 const players = Plyr.setup('.player', {
-                    muted: false,
+                    muted: true, // Ensures autoplay works in all browsers
                     controls: [],
+                    autoplay: true,
+                    loop: {
+                        active: true
+                    }, // Enable looping
                     youtube: {
+                        muted: true,
                         rel: 0,
                         showinfo: 0,
                         modestbranding: 1, // Reduce YouTube branding
                     },
                 });
 
-                // Add hover event listeners for each player
+                // Ensure autoplay, muted, and looping work as intended
                 players.forEach(player => {
-                    const container = player.elements.container;
-
-                    // Play the video on hover
-                    container.addEventListener('mouseenter', () => {
-                        player.play();
-                    });
-
-                    // Ensure autoplay and muted work as intended
-                    players.forEach(player => {
-                        player.muted = false; // Enforce muted autoplay
-                    });
-                    // Pause the video when hover ends
-                    container.addEventListener('mouseleave', () => {
-                        player.pause();
-                    });
+                    player.muted = true; // Keep the video muted
+                    player.autoplay = true;
+                    player.loop = true;
+                    player.play(); // Start playback immediately
                 });
             });
         </script>
 
+        <script>
+            $(document).ready(function() {
+                $('.trending-products').owlCarousel({
+                    items: 4,
+                    loop: true,
+                    autoplay: true,
+                    autoplayTimeout: 4000,
+                    autoplaySpeed: 4000,
+                    smartSpeed: 2000,
+                    autoplayHoverPause: true,
+                    nav: false,
+                    dots: true,
+                    responsive: {
+                        0: {
+                            items: 2,
+                        },
+                        576: {
+                            items: 2,
+                        },
+                        768: {
+                            items: 2,
+                        },
+                        1024: {
+                            items: 4,
+                        },
+                    },
+                });
+            });
+        </script>
         <script>
             $(document).ready(function() {
                 $('.ps-categories__list').owlCarousel({

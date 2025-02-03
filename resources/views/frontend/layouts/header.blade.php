@@ -285,7 +285,7 @@
                                                             </a>
                                                         </div>
                                                     </div>
-                                                @endguest
+                                            @endguest
                                                 @auth
                                                     <div>
                                                         <p>Welcome! Choose an option:</p>

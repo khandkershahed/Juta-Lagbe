@@ -14,6 +14,8 @@ class DistrictSeeder extends Seeder
     public function run()
     {
         $districts = [
+            ['id' => '65', 'division_id' => '6', 'name' => 'Dhaka Metro', 'bn_name' => 'ঢাকা মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
+            ['id' => '47', 'division_id' => '6', 'name' => 'Dhaka Metro Outside', 'bn_name' => 'ঢাকা সিটির বাইরে', 'lat' => '23.7115253', 'lon' => '90.4111451', 'url' => 'www.dhaka.gov.bd'],
             ['id' => '1', 'division_id' => '1', 'name' => 'Comilla', 'bn_name' => 'কুমিল্লা', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.comilla.gov.bd'],
             ['id' => '2', 'division_id' => '1', 'name' => 'Feni', 'bn_name' => 'ফেনী', 'lat' => '23.023231', 'lon' => '91.3840844', 'url' => 'www.feni.gov.bd'],
             ['id' => '3', 'division_id' => '1', 'name' => 'Brahmanbaria', 'bn_name' => 'ব্রাহ্মণবাড়িয়া', 'lat' => '23.9570904', 'lon' => '91.1119286', 'url' => 'www.brahmanbaria.gov.bd'],
@@ -60,7 +62,6 @@ class DistrictSeeder extends Seeder
             ['id' => '44', 'division_id' => '6', 'name' => 'Tangail', 'bn_name' => 'টাঙ্গাইল', 'lat' => NULL, 'lon' => NULL, 'url' => 'www.tangail.gov.bd'],
             ['id' => '45', 'division_id' => '6', 'name' => 'Kishoreganj', 'bn_name' => 'কিশোরগঞ্জ', 'lat' => '24.444937', 'lon' => '90.776575', 'url' => 'www.kishoreganj.gov.bd'],
             ['id' => '46', 'division_id' => '6', 'name' => 'Manikganj', 'bn_name' => 'মানিকগঞ্জ', 'lat' => NULL, 'lon' => NULL, 'url' => 'www.manikganj.gov.bd'],
-            ['id' => '47', 'division_id' => '6', 'name' => 'Dhaka Metro Outside', 'bn_name' => 'ঢাকা সিটির বাইরে', 'lat' => '23.7115253', 'lon' => '90.4111451', 'url' => 'www.dhaka.gov.bd'],
             ['id' => '48', 'division_id' => '6', 'name' => 'Munshiganj', 'bn_name' => 'মুন্সিগঞ্জ', 'lat' => NULL, 'lon' => NULL, 'url' => 'www.munshiganj.gov.bd'],
             ['id' => '49', 'division_id' => '6', 'name' => 'Rajbari', 'bn_name' => 'রাজবাড়ী', 'lat' => '23.7574305', 'lon' => '89.6444665', 'url' => 'www.rajbari.gov.bd'],
             ['id' => '50', 'division_id' => '6', 'name' => 'Madaripur', 'bn_name' => 'মাদারীপুর', 'lat' => '23.164102', 'lon' => '90.1896805', 'url' => 'www.madaripur.gov.bd'],
@@ -78,7 +79,6 @@ class DistrictSeeder extends Seeder
             ['id' => '62', 'division_id' => '8', 'name' => 'Mymensingh', 'bn_name' => 'ময়মনসিংহ', 'lat' => NULL, 'lon' => NULL, 'url' => 'www.mymensingh.gov.bd'],
             ['id' => '63', 'division_id' => '8', 'name' => 'Jamalpur', 'bn_name' => 'জামালপুর', 'lat' => '24.937533', 'lon' => '89.937775', 'url' => 'www.jamalpur.gov.bd'],
             ['id' => '64', 'division_id' => '8', 'name' => 'Netrokona', 'bn_name' => 'নেত্রকোণা', 'lat' => '24.870955', 'lon' => '90.727887', 'url' => 'www.netrokona.gov.bd'],
-            ['id' => '65', 'division_id' => '6', 'name' => 'Dhaka Metro', 'bn_name' => 'ঢাকা মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
             ['id' => '66', 'division_id' => '1', 'name' => 'Chittagang Metro', 'bn_name' => 'চট্রগ্রাম মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
             ['id' => '67', 'division_id' => '2', 'name' => 'Rajshahi Metro', 'bn_name' => 'রাজশাহী মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
             ['id' => '68', 'division_id' => '3', 'name' => 'Khulna Metro', 'bn_name' => 'খুলনা মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
