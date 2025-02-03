@@ -162,6 +162,10 @@
                                     class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px">
                                     <i class="fa-solid fa-eye" title="Order Details"></i>
                                 </a>
+                                <a href="{{ route('admin.order.destroy', $order->id) }}"
+                                    class="btn btn-sm btn-icon btn-light btn-active-light-danger toggle h-25px w-25px delete">
+                                    <i class="fa-solid fa-trash-alt text-danger" title="Order Delete"></i>
+                                </a>
                                 <a data-bs-toggle="modal" data-bs-target="#changeDeliveryStatus-{{ $order->id }}"
                                     class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px">
                                     <i class="fa-solid fa-cog" title="Order Details"></i>
@@ -244,15 +248,15 @@
                                     <div class="d-flex align-items-center gap-3">
                                         <a href="#"
                                             class="symbol symbol-50px bg-secondary bg-opacity-25 rounded">
-                                            <img src="{{ asset('storage/' . $item->product->thumbnail) }}"
+                                            <img src="{{ asset('storage/' . optional($item->product)->thumbnail) }}"
                                                 alt="" data-kt-docs-datatable-subtable="template_image" />
                                         </a>
                                         <div class="d-flex flex-column text-muted">
                                             <a href="#" class="text-gray-900 text-hover-primary fw-bold"
-                                                data-kt-docs-datatable-subtable="template_name">{{ $item->product->name }}</a>
+                                                data-kt-docs-datatable-subtable="template_name">{{ optional($item->product)->name }}</a>
                                             <div class="fs-7"
                                                 data-kt-docs-datatable-subtable="template_description">
-                                                {{ $item->product->name }}</div>
+                                                {{ optional($item->product)->name }}</div>
                                         </div>
                                     </div>
                                 </td>

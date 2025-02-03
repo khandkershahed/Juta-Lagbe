@@ -25,12 +25,12 @@
             <table class="table my-datatable align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                 <thead>
                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                        <th class="ps-3">SL</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th class="text-end min-w-100px pe-5">Actions</th>
+                        <th width="10%">SL</th>
+                        <th width="15%">Image</th>
+                        <th width="25%">Name</th>
+                        <th width="15%">Phone</th>
+                        <th width="15%">Status</th>
+                        <th width="15%" class="text-end min-w-100px pe-5">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-600 fw-bold">
@@ -59,12 +59,11 @@
                             <td>
                                 <div class="d-flex flex-column">
                                     <a href="javascript:void(0)"
-                                        class="text-gray-800 text-hover-primary mb-1">{{ $user->first_name }}
-                                        {{ $user->last_name }}</a>
+                                        class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
                                 </div>
                             </td>
                             <td>
-                                <span>{{ $user->email }}</span>
+                                <span>{{ $user->phone }}</span>
                             </td>
                             <td>
                                 <div class="form-check form-switch form-check-custom form-check-solid">
