@@ -2055,7 +2055,7 @@ textarea.form-control {
 }
 
 .main-banner img {
-    height: 550px;
+    height: 100%;
     width: 100%;
     object-fit: cover;
     display: block;
@@ -5864,7 +5864,7 @@ textarea.form-control {
 }
 
 .ps-section--banner {
-    min-height: 500px;
+    min-height: 100%;
     position: relative;
 }
 
@@ -5937,13 +5937,13 @@ textarea.form-control {
 
 @media (min-width: 768px) {
     .ps-section--banner {
-        min-height: 320px;
+        min-height: 100%;
     }
 }
 
 @media (min-width: 1280px) {
     .ps-section--banner {
-        min-height: 500px;
+        min-height: 100%;
     }
 
     .ps-section--banner .owl-nav {
@@ -14803,9 +14803,9 @@ textarea.form-control {
     background-color: #ffffff;
     color: #004d7a;
     position: relative;
-    top: -10px;
+    top: -14px;
     border-radius: 100%;
-    left: -15px;
+    left: -5px;
     border: 1px solid;
 }
 .ps-header .ps-header__icons .ps-header__item i {

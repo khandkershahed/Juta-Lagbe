@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header bg-dark align-items-center d-flex justify-content-between">
             <div>
-                <h1 class="mb-0 text-center w-100 text-white">Manage Your Page Banner</h1>
+                <h1 class="mb-0 text-center text-white w-100">Manage Your Page Banner</h1>
             </div>
             <div>
                 <a href="{{ route('admin.banner.create') }}" class="btn btn-white rounded-2">
@@ -21,10 +21,10 @@
                 </a>
             </div>
         </div>
-        <div class="card-body py-0">
+        <div class="py-0 card-body">
             <table class="table my-datatable table-striped table-row-bordered gy-5 gs-7">
-                <thead class="bg-light-danger">
-                    <tr class=" text-white fw-bolder fs-7 text-uppercase gs-0">
+                <thead class="bg-dark">
+                    <tr class="text-white fw-bolder fs-7 text-uppercase gs-0">
                         <th width="5%">Sl</th>
                         {{-- <th width="15%" class="text-center">Thumbnail Image</th> --}}
                         <th width="15%" class="text-center">Background Image</th>
@@ -47,7 +47,7 @@
                                         alt="{{ $banner->page_name }}">
                                 </td> --}}
                                 <td class="text-center">
-                                    <img class="w-50px h-50px"
+                                    <img class="img-fluid"
                                         src="{{ !empty(optional($banner)->bg_image) ? asset('storage/' . optional($banner)->bg_image) : asset('images/no_image.jpg') }}"
                                         alt="{{ $banner->page_name }}">
                                 </td>
