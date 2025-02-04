@@ -3625,17 +3625,13 @@ textarea.form-control {
 .owl-prev span {
     color: #00728a;
     position: relative;
-    left: -2px;
     font-size: 30px;
-    top: -1px;
 }
 
 .owl-next span {
     color: #00728a;
     position: relative;
-    right: -2px;
     font-size: 30px;
-    top: -1px;
 }
 .section-category {
     padding-top: 50px;
@@ -20944,11 +20940,6 @@ table.dataTable tbody td:last-child {
     .shop-pr-price{
         text-align: center !important;
     }
-    .plyr--video {
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        height: 170px !important;
-    }
     .video-category-info {
         display: flex ;
         justify-content: center;
@@ -21676,11 +21667,6 @@ table.dataTable tbody td:last-child {
 /* New End */
 .video-box-pr {
     border-radius: 15px;
-}
-.plyr--video {
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    height: 390px;
 }
 .video-category-info {
     display: flex;

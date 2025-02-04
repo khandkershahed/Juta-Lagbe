@@ -1,91 +1,5 @@
 <x-frontend-app-layout :title="'Home Page'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
-    <style>
-        /* Black overlay */
-        .plyr__video-wrapper {
-            height: 544px;
-            border-radius: 24px;
-        }
-
-        .player-info-box {
-            background: #00000081;
-            position: relative;
-            margin-top: -101px;
-            border-bottom-right-radius: 24px;
-            border-bottom-left-radius: 24px;
-            color: white;
-            display: flex;
-            justify-content: center;
-        }
-
-        .plyr__video-wrapper::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 544px;
-            border-radius: 24px;
-            z-index: 2;
-        }
-
-        .video-card-ct {
-            border-radius: 24px;
-            position: relative;
-        }
-
-        .video-card-ct::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 24px;
-            background-size: cover;
-            z-index: 3;
-            opacity: 1;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        /* Hide image when video plays */
-        .video-card-ct.playing::before {
-            opacity: 0;
-        }
-
-        .logo-cat {
-            background-color: white;
-            border-radius: 8px;
-            margin-right: 10px;
-            height: 70px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .video-card-ct {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .video-thumbnail {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            border-radius: 24px;
-            z-index: 3;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        /* Hide thumbnail when video starts playing */
-        .video-card-ct.playing .video-thumbnail {
-            opacity: 0;
-        }
-    </style>
     <section class="ps-section--banner">
         <div class="main-banner">
             <img src="{{ !empty($slider->bg_image) && public_path('storage/' . $slider->bg_image) ? asset('storage/' . $slider->bg_image) : asset('images/jutalagbe-main-banner.jpg') }}"
@@ -132,25 +46,29 @@
                                 @foreach ($categorys as $category)
                                     <div class="py-4 ps-categories__item">
                                         <a href="{{ route('category.products', $category->slug) }}">
-                                            <div class="p-0 card video-card-ct">
-                                                <div class="p-0 card-body">
-                                                    <div class="player main-video-plr" muted="true" data-plyr-provider="youtube"
+                                            <div class="p-0 card video-box-pr">
+                                                <div class="p-0 card-header">
+                                                    <div class="player" data-plyr-provider="youtube"
                                                         data-plyr-embed-id="{{ $category->video_link }}">
                                                     </div>
                                                 </div>
-                                                <div class="p-3 d-flex align-items-center player-info-box">
-                                                    <span class="logo-cat">
-                                                        @php
-                                                            $logoPath = 'storage/' . $category->logo;
-                                                            $logoSrc = file_exists(public_path($logoPath))
-                                                                ? asset($logoPath)
-                                                                : asset('frontend/img/no-category.png');
-                                                        @endphp
-                                                        <img style="width: 80px" src="{{ $logoSrc }}"
-                                                            onerror="this.onerror=null; this.src='frontend/img/no-category.png';"
-                                                            alt="{{ $category->name }}">
-                                                    </span>
-                                                    <span class="ps-3">{{ $category->name }}</span>
+                                                <div class="category-box card-body">
+                                                    <div class="video-category-info">
+                                                        <div class="">
+                                                            @php
+                                                                $logoPath = 'storage/' . $category->logo;
+                                                                $logoSrc = file_exists(public_path($logoPath))
+                                                                    ? asset($logoPath)
+                                                                    : asset('frontend/img/no-category.png');
+                                                            @endphp
+                                                            <img class="p-3 border shadow-sm" src="{{ $logoSrc }}"
+                                                                alt="{{ $category->name }}"
+                                                                onerror="this.onerror=null; this.src='frontend/img/no-category.png';">
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <h6 class="video-pr-title">{{ $category->name }}</h6>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </a>
@@ -162,7 +80,6 @@
                 </div>
             </section>
         @endif
-
         <div class="ps-home__content">
             <div class="container px-3 pb-4 mt-5 px-lg-5 first-section">
                 <div class="row">
@@ -171,9 +88,8 @@
                             <div class="">
                                 <h3 class="mb-0 text-white ps-section__title d-flex align-items-center text-uppercase"
                                     style="font-size: 30px;">
-                                    Surprise Offer <img width="30px" class="pl-2 img-fluid"
+                                    Surprise  Offer <img width="30px" class="pl-2 img-fluid"
                                         src="{{ asset('images/hour.png') }}" alt=""></h3>
-                                <p class="text-white">Limited Time Deals on Top Products</p>
                             </div>
                             <div style="width: 600px" class="px-3">
                                 <span style="height: 1px; background-color:transparent; display: block"></span>
@@ -286,7 +202,7 @@
                                                     করুন
                                                 </a>
                                             </div>
-                                            <div class="ps-product_actions ps-product_group-mobile">
+                                            <div class="ps-product__actions ps-product__group-mobile">
                                                 <div class="ps-product__quantity">
                                                     <div class="def-number-input number-input safari_only">
                                                         <button class="minus"
@@ -301,11 +217,11 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                                {{-- <div class="ps-product__item" data-toggle="tooltip"
+                                                <div class="ps-product__item" data-toggle="tooltip"
                                                     data-placement="left" title="Wishlist"><a class="add_to_wishlist"
                                                         href="{{ route('wishlist.store', $specialproduct->id) }}"><i
                                                             class="fa-solid fa-heart"></i></a>
-                                                </div> --}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -442,7 +358,7 @@
                                                             করুন
                                                         </a>
                                                     </div>
-                                                    <div class="ps-product_actions ps-product_group-mobile">
+                                                    <div class="ps-product__actions ps-product__group-mobile">
                                                         <div class="ps-product__quantity">
                                                             <div class="def-number-input number-input safari_only">
                                                                 <button class="minus"
@@ -457,12 +373,12 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        {{-- <div class="ps-product__item" data-toggle="tooltip"
+                                                        <div class="ps-product__item" data-toggle="tooltip"
                                                             data-placement="left" title="Wishlist"><a
                                                                 class="add_to_wishlist"
                                                                 href="{{ route('wishlist.store', $latestproduct->id) }}"><i
                                                                     class="fa-solid fa-heart"></i></a>
-                                                        </div> --}}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -619,7 +535,7 @@
                                                 করুন
                                             </a>
                                         </div>
-                                        <div class="ps-product_actions ps-product_group-mobile">
+                                        <div class="ps-product__actions ps-product__group-mobile">
                                             <div class="ps-product__quantity">
                                                 <div class="def-number-input number-input safari_only">
                                                     <button class="minus"
@@ -634,11 +550,11 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            {{-- <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
+                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left"
                                                 title="Wishlist"><a class="add_to_wishlist"
                                                     href="{{ route('wishlist.store', $randomproduct->id) }}"><i
                                                         class="fa-solid fa-heart"></i></a>
-                                            </div> --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -649,6 +565,141 @@
                 {{-- Category Product End --}}
             </div>
         </div>
+
+        {{-- @if ($deal_products->count() > 0)
+            <div class="container px-0">
+                @if ($deal_products->count() > 0)
+                    <section class="ps-section--deals">
+                        <div class="ps-section__header">
+                            <h3 class="mb-0 ps-section__title" style="font-size: 30px;">Best Deals of the
+                                week!</h3>
+                        </div>
+                        <div class="ps-section__carousel">
+                            <div class="dealCarousel owl-carousel">
+                                @foreach ($deal_products as $deal_product)
+                                    <div class="border ps-section__product">
+                                        <div class="ps-product ps-product--standard">
+                                            <div class="ps-product__thumbnail">
+                                                <a class="ps-product__image"
+                                                    href="{{ route('product.details', $deal_product->slug) }}">
+                                                    <figure>
+                                                        @if (!empty($deal_product->thumbnail))
+                                                            @php
+                                                                $thumbnailPath = 'storage/' . $deal_product->thumbnail;
+                                                                $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                                    ? asset($thumbnailPath)
+                                                                    : asset('frontend/img/no-product.jpg');
+                                                            @endphp
+                                                            <img src="{{ $thumbnailSrc }}"
+                                                                alt="{{ $deal_product->meta_title }}" width="210"
+                                                                height="210" />
+                                                        @else
+                                                            @foreach ($deal_product->multiImages->slice(0, 2) as $image)
+                                                                @php
+                                                                    $imagePath = 'storage/' . $image->photo;
+                                                                    $imageSrc = file_exists(public_path($imagePath))
+                                                                        ? asset($imagePath)
+                                                                        : asset('frontend/img/no-product.jpg');
+                                                                @endphp
+                                                                <img src="{{ $imageSrc }}"
+                                                                    alt="{{ $deal_product->meta_title }}"
+                                                                    width="210" height="210" />
+                                                            @endforeach
+                                                        @endif
+                                                    </figure>
+                                                </a>
+
+                                                <div class="ps-product__actions">
+                                                    <div class="ps-product__item" data-toggle="tooltip"
+                                                        data-placement="left" title="Wishlist">
+                                                        <a class="add_to_wishlist"
+                                                            href="{{ route('wishlist.store', $deal_product->id) }}"><i
+                                                                class="fa-solid fa-heart"></i></a>
+                                                    </div>
+                                                    <div class="ps-product__item" data-toggle="tooltip"
+                                                        data-placement="left" title="Quick view">
+                                                        <a href="#" data-toggle="modal"
+                                                            data-target="#popupQuickview{{ $deal_product->id }}">
+                                                            <i class="fa fa-eye"></i>
+                                                        </a>
+                                                    </div>
+
+
+                                                </div>
+                                                @if (!empty($deal_product->unit_discount_price))
+                                                    <div class="ps-product__badge">
+                                                        <div class="ps-badge ps-badge--sale">
+                                                            -
+                                                            {{ !empty($deal_product->unit_discount_price) && $deal_product->unit_discount_price > 0 ? number_format((($deal_product->unit_price - $deal_product->unit_discount_price) / $deal_product->unit_price) * 100, 1) : 0 }}
+                                                            % অফ
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="ps-product__content">
+                                                <h5 class="ps-product__title">
+                                                    <a href="{{ route('product.details', $deal_product->slug) }}">
+                                                        {{ implode(' ', array_slice(explode(' ', $deal_product->name), 0, 5)) }}
+                                                    </a>
+                                                </h5>
+                                                <div class="pb-3">
+                                                    @if (!empty($deal_product->unit_discount_price))
+                                                        <div class="ps-product__meta">
+                                                            <span
+                                                                class="ps-product__price sale">{{ $deal_product->unit_discount_price }}
+                                                                টাকা</span>
+                                                            <span
+                                                                class="ps-product__del text-danger">{{ $deal_product->unit_price }}
+                                                                টাকা</span>
+                                                        </div>
+                                                    @else
+                                                        <div class="ps-product__meta">
+                                                            <span
+                                                                class="ps-product__price sale">{{ $deal_product->unit_price }}
+                                                                টাকা</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="d-flex align-items-center card-cart-btn">
+                                                    <a href="{{ route('product.details', $deal_product->slug) }}"
+                                                        class="btn btn-primary rounded-0 w-100">
+                                                        <i class="pr-2 fa-solid fa-basket-shopping"></i>
+                                                        অর্ডার
+                                                        করুন
+                                                    </a>
+                                                </div>
+                                                <div class="ps-product__actions ps-product__group-mobile">
+                                                    <div class="ps-product__quantity">
+                                                        <div class="def-number-input number-input safari_only">
+                                                            <button class="minus"
+                                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
+                                                                    class="icon-minus"></i>
+                                                            </button>
+                                                            <input class="quantity" min="0" name="quantity"
+                                                                value="1" type="number" />
+                                                            <button class="plus"
+                                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
+                                                                    class="icon-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ps-product__item" data-toggle="tooltip"
+                                                        data-placement="left" title="Wishlist"><a
+                                                            class="add_to_wishlist"
+                                                            href="{{ route('wishlist.store', $deal_product->id) }}"><i
+                                                                class="fa-solid fa-heart"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </section>
+                @endif
+            </div>
+        @endif --}}
     </div>
 
     @include('frontend.layouts.HomeQuickViewModal')
@@ -680,7 +731,6 @@
                 });
             });
         </script>
-
 
         <script>
             $(document).ready(function() {
@@ -721,11 +771,8 @@
                     autoplaySpeed: 4000,
                     smartSpeed: 2000,
                     autoplayHoverPause: true,
-                    nav: true, // Enable navigation arrows
-                    dots: true, // Keep dots for navigation
-                    mouseDrag: false, // Disable mouse dragging
-                    touchDrag: false, // Disable touch dragging
-                    navText: ["<span class='owl-prev'>&#10094;</span>", "<span class='owl-next'>&#10095;</span>"], // Custom navigation arrows
+                    nav: false,
+                    dots: true,
                     responsive: {
                         0: {
                             items: 2,
@@ -743,16 +790,13 @@
                 });
             });
         </script>
-
         <script>
             const text = document.querySelector(".text-rounde");
             text.innerHTML = text.innerText
                 .split("")
                 .map((char, i) => {
                     const character = char === " " ? "&nbsp;" : char; // Replace spaces with non-breaking spaces
-                    return < span style = "transform:rotate(${i * 10.3}deg)" > $ {
-                        character
-                    } < /span>;
+                    return `<span style="transform:rotate(${i * 10.3}deg)">${character}</span>`;
                 })
                 .join("");
         </script>
