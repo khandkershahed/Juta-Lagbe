@@ -87,7 +87,7 @@ class BkashTokenizePaymentController extends Controller
                 return redirect()->away($response['bkashURL']);
             } else {
                 Session::forget('pending_order');
-                Session::flash('error', 'Payment initiation failed.'.$response);
+                Session::flash('error', 'Payment initiation failed.' . json_encode($response));
                 return redirect()->back();
             }
         } catch (\Exception $e) {
