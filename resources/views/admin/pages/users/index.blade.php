@@ -1,8 +1,8 @@
 <x-admin-app-layout :title="'Users List'">
     <div class="card">
-        <div class="card-header border-0 align-items-center bg-dark">
+        <div class="border-0 card-header align-items-center bg-dark">
             <div>
-                <div class="card-title text-white">Manage Your Users</div>
+                <div class="text-white card-title">Manage Your Users</div>
             </div>
             <div class="card-toolbar">
                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
@@ -21,11 +21,11 @@
                 </div>
             </div>
         </div>
-        <div class="card-body py-4">
-            <table class="table my-datatable align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+        <div class="py-4 card-body">
+            <table class="table align-middle my-datatable table-row-dashed fs-6 gy-5" id="kt_table_users">
                 <thead>
                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                        <th width="10%">SL</th>
+                        <th width="10%" class="ps-3">SL</th>
                         <th width="15%">Image</th>
                         <th width="25%">Name</th>
                         <th width="15%">Phone</th>
@@ -36,30 +36,35 @@
                 <tbody class="text-gray-600 fw-bold">
                     @foreach ($users as $user)
                         <tr>
-                            <td>
+                            <td class="ps-3">
                                 {{ $loop->iteration }}
                             </td>
                             <td class="d-flex align-items-center">
-                                <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                <div class="overflow-hidden symbol symbol-circle symbol-50px me-3">
                                     <a href="javascript:void(0)">
                                         <div class="symbol-label"
-                                            style="background-color: {{ $user->profile_image ? 'transparent' : '#d3d3d3' }};">
+                                            style="background-color: {{ $user->profile_image ? 'transparent' : '#d3d3d3' }}; display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 50%; overflow: hidden;">
+
                                             @if ($user->profile_image)
-                                                <img src="{{ asset('storage/' . $user->profile_image) }}"
-                                                    alt="{{ $user->name }}" class="w-100" />
+                                                <img src="{{ asset('storage/' . $user->profile_image) }}" alt="{{ $user->name }}" class="w-100 h-100" />
                                             @else
-                                                <span class="text-gray-800 text-hover-primary mb-1">
+                                                <img src="https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg"
+                                                    alt="Default Profile" class="p-2 border w-100 h-100 rounded-circle" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                                                <span class="mb-1 text-gray-800 text-hover-primary"
+                                                    style="display: none; font-size: 18px; font-weight: bold;">
                                                     {{ strtoupper(substr($user->first_name, 0, 1)) }}{{ strtoupper(substr($user->last_name, 0, 1)) }}
                                                 </span>
                                             @endif
                                         </div>
                                     </a>
+
                                 </div>
                             </td>
                             <td>
                                 <div class="d-flex flex-column">
                                     <a href="javascript:void(0)"
-                                        class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
+                                        class="mb-1 text-gray-800 text-hover-primary">{{ $user->name }}</a>
                                 </div>
                             </td>
                             <td>

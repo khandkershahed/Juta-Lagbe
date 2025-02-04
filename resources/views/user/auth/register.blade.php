@@ -24,7 +24,7 @@
             padding: 9px;
         }
     </style>
-    <div class=" register-bg">
+    <div class="pb-4 register-bg">
         <div class="container">
             <div class="bg-white row align-items-center gx-0 my-lg-5">
                 <div class="px-0 col-lg-6">
