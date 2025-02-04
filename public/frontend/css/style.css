@@ -757,10 +757,11 @@ body {
 .active-menu {
     display: block;
     content: "";
-    border-bottom: solid 3px #fff;
+    border-bottom: solid 3px var(--site-primary);
     transition: transform 250ms ease-in-out;
     margin: 0;
-    color: #f9d03a !important;
+    color: var(--site-primary) !important;
+    font-weight: 600;
 }
 .menu-toggle,
 .ps-btn--hamburger {
@@ -8011,8 +8012,8 @@ textarea.form-control {
     background-color: white;
     width: 420px;
     position: absolute;
-    top: 120px;
-    right: 340px;
+    top: 65px;
+    right: 30px;
     z-index: 10;
     border-radius: 3px;
     padding: 35px 30px 30px 30px;
@@ -8405,8 +8406,8 @@ textarea.form-control {
     opacity: 0;
     transform-origin: right top 0;
     transform: scale(0);
-    top: 100px;
-    margin-left: -100px;
+    top: 50px;
+    margin-left: -270px;
 }
 
 .ps-login--modal.active {
@@ -13949,8 +13950,7 @@ textarea.form-control {
     font-size: 14px;
     font-weight: 500;
     line-height: 24px;
-    color: #fff;
-    /* color: var(--site-primary); */
+    color: #252525;
     text-transform: capitalize;
     transform-style: preserve-3d;
 }
@@ -14614,11 +14614,8 @@ textarea.form-control {
 }
 
 .ps-header .ps-header__middle {
-    padding-top: 10px;
-    padding-bottom: 10px;
     position: relative;
     transition: all 0.5s;
-    background-color: var(--site-primary);
 }
 
 .ps-header .ps-header__middle .container {
@@ -14799,12 +14796,13 @@ textarea.form-control {
     color: var(--site-primary);
 }
 .top-badge {
-    background-color: #004d7a;
-    color: white;
+    background-color: #ffffff;
+    color: #004d7a;
     position: relative;
     top: -10px;
     border-radius: 100%;
-    left: -3px;
+    left: -15px;
+    border: 1px solid;
 }
 .ps-header .ps-header__icons .ps-header__item i {
     font-weight: 500;
@@ -15136,7 +15134,15 @@ textarea.form-control {
     /* background-color: #eee; */
     padding: 20px;
 }
-
+.header-tops p {
+    font-weight: 200;
+}
+.header-tops a {
+    font-weight: 600;
+}
+.text-underline{
+    text-decoration: underline;
+}
 @media (min-width: 1279px) {
     .ps-search--result .ps-result__content {
         max-width: 1270px;
@@ -15146,7 +15152,7 @@ textarea.form-control {
 .ps-header--2 .ps-header__top {
     display: block;
     padding: 0;
-    background-color: #f0f2f5;
+    background-color: var(--site-primary);
 }
 
 .ps-header--2 .ps-header__top .container {
@@ -15187,8 +15193,9 @@ textarea.form-control {
     padding-right: 0;
 }
 
-.ps-header--2 .ps-header__middle {
+.ps-header--2 {
     padding: 0;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 
 .ps-header--2 .ps-header__middle .container {
@@ -15631,7 +15638,7 @@ textarea.form-control {
 }
 
 .ps-header--5 .menu > li > a {
-    color: white;
+    color: #252525;
 }
 
 .ps-header--5 .ps-header__icons > li:first-child {
@@ -21370,7 +21377,7 @@ table.dataTable tbody td:last-child {
     gap: 6px;
     position: relative;
     width: 100%;
-    color: #004d7a;
+    color: #fff;
     display: inline-flex;
     align-items: center;
     justify-content: center;
