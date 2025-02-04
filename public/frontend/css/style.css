@@ -2055,7 +2055,7 @@ textarea.form-control {
 }
 
 .main-banner img {
-    height: 550px;
+    height: 100%;
     width: 100%;
     object-fit: cover;
     display: block;
@@ -5864,7 +5864,7 @@ textarea.form-control {
 }
 
 .ps-section--banner {
-    min-height: 500px;
+    min-height: 100%;
     position: relative;
 }
 
@@ -5937,13 +5937,13 @@ textarea.form-control {
 
 @media (min-width: 768px) {
     .ps-section--banner {
-        min-height: 320px;
+        min-height: 100%;
     }
 }
 
 @media (min-width: 1280px) {
     .ps-section--banner {
-        min-height: 500px;
+        min-height: 100%;
     }
 
     .ps-section--banner .owl-nav {
@@ -14616,8 +14616,6 @@ textarea.form-control {
 }
 
 .ps-header .ps-header__middle {
-    padding-top: 10px;
-    padding-bottom: 10px;
     position: relative;
     transition: all 0.5s;
     /* background-color: var(--site-primary); */
@@ -14802,12 +14800,13 @@ textarea.form-control {
     color: var(--site-primary);
 }
 .top-badge {
-    background-color: #004d7a;
-    color: white;
+    background-color: #ffffff;
+    color: #004d7a;
     position: relative;
-    top: -10px;
+    top: -14px;
     border-radius: 100%;
-    left: -3px;
+    left: -5px;
+    border: 1px solid;
 }
 .ps-header .ps-header__icons .ps-header__item i {
     font-weight: 500;
@@ -15139,7 +15138,15 @@ textarea.form-control {
     /* background-color: #eee; */
     padding: 20px;
 }
-
+.header-tops p {
+    font-weight: 200;
+}
+.header-tops a {
+    font-weight: 600;
+}
+.text-underline{
+    text-decoration: underline;
+}
 @media (min-width: 1279px) {
     .ps-search--result .ps-result__content {
         max-width: 1270px;
@@ -15149,7 +15156,7 @@ textarea.form-control {
 .ps-header--2 .ps-header__top {
     display: block;
     padding: 0;
-    background-color: #f0f2f5;
+    background-color: var(--site-primary);
 }
 
 .ps-header--2 .ps-header__top .container {
@@ -15190,8 +15197,9 @@ textarea.form-control {
     padding-right: 0;
 }
 
-.ps-header--2 .ps-header__middle {
+.ps-header--2 {
     padding: 0;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 
 .ps-header--2 .ps-header__middle .container {
@@ -15634,7 +15642,7 @@ textarea.form-control {
 }
 
 .ps-header--5 .menu > li > a {
-    color: white;
+    color: #252525;
 }
 
 .ps-header--5 .ps-header__icons > li:first-child {
@@ -21407,7 +21415,7 @@ table.dataTable tbody td:last-child {
     gap: 6px;
     position: relative;
     width: 100%;
-    color: #004d7a;
+    color: #fff;
     display: inline-flex;
     align-items: center;
     justify-content: center;
