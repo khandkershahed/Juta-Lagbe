@@ -69,8 +69,12 @@ class BkashTokenizePaymentController extends Controller
             return redirect()->back();
         }
 
-        $amount = $pendingOrder['total_amount'];
-
+        // $amount = $pendingOrder['total_amount'];
+        if ($pendingOrder['payment_status'] == 'completely_paid') {
+            $amount = $pendingOrder['total_amount'];
+        } else {
+            $amount = $pendingOrder['shipping_charge'];
+        }
         try {
             $inv = uniqid();
             $request['intent'] = 'sale';
