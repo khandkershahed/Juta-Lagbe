@@ -57,7 +57,7 @@ Route::post('cart/update', [CartController::class, 'updateCart'])->name('cart.up
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('/bkash/payment', [App\Http\Controllers\BkashTokenizePaymentController::class,'index'])->name('bkash.payment');
+    // Route::get('/bkash/payment', [App\Http\Controllers\BkashTokenizePaymentController::class,'index'])->name('bkash.payment');
     Route::get('/bkash/create-payment/{order_number}', [App\Http\Controllers\BkashTokenizePaymentController::class,'createPayment'])->name('bkash.payment');
     Route::get('/bkash/callback', [App\Http\Controllers\BkashTokenizePaymentController::class,'callBack'])->name('bkash-callBack');
 
