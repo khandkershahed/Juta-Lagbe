@@ -362,7 +362,14 @@ class CartController extends Controller
             ->first();
         $newNumber = $lastCode ? (int) substr($lastCode->order_number, strlen($typePrefix . '-' . $year)) + 1 : 1;
         $orderNumber = $typePrefix . '-' . $year . $newNumber;
-
+        $shipping_method = ShippingMethod::find($request->input('shipping_id'));
+        if ($shipping_method) {
+            $shipping_method_id = $shipping_method->id;
+            $shipping_charge = $shipping_method->price;
+        } else {
+            $shipping_charge = "0";
+            $shipping_method_id = null;
+        }
         // Store cart items in session (to be saved after successful payment)
         $cartItems = [];
         foreach (Cart::instance('cart')->content() as $item) {
@@ -381,23 +388,27 @@ class CartController extends Controller
 
         // Store order details temporarily in session
         $request->session()->put('pending_order', [
-            'order_number' => $orderNumber,
-            'user_id' => $user_id,
-            'sub_total' => $request->input('sub_total'),
-            'quantity' => Cart::instance('cart')->count(),
-            'total_amount' => $totalAmount,
-            'payment_status' => 'pending',
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'thana' => $request->input('thana'),
-            'district' => $request->input('district'),
-            'address' => $request->input('address'),
-            'order_note' => $request->input('order_note'),
-            'created_by' => $user_id,
-            'order_created_at' => Carbon::now(),
-            'created_at' => Carbon::now(),
-            'cart_items' => $cartItems, // Store cart items in session
+
+            'order_number'       => $orderNumber,
+            'user_id'            => $user_id,
+            'shipping_method_id' => $shipping_method_id,
+            'sub_total'          => $request->input('sub_total'),
+            'quantity'           => Cart::instance('cart')->count(),
+            'shipping_charge'    => $shipping_charge,
+            'total_amount'       => $totalAmount,
+            'payment_status'     => $request->input('payment_status'),
+            'status'             => 'pending',
+            'name'               => $request->input('name'),
+            'email'              => $request->input('email'),
+            'phone'              => $request->input('phone'),
+            'thana'              => $request->input('thana'),
+            'district'           => $request->input('district'),
+            'address'            => $request->input('address'),
+            'order_note'         => $request->input('order_note'),
+            'created_by'         => $user_id,
+            'order_created_at'   => Carbon::now(),
+            'created_at'         => Carbon::now(),
+            'cart_items'         => $cartItems, // Store cart items in session
         ]);
 
         // Redirect to bKash payment
