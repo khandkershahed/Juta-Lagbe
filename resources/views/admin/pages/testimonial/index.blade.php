@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card card-flush mt-10">
-                    <div class="card-header bg-primary align-items-center">
-                        <h3 class="card-title text-white">Testimonials List</h3>
+                <div class="mt-10 card card-flush">
+                    <div class="card-header bg-dark align-items-center">
+                        <h3 class="text-white card-title">Testimonials List</h3>
                         <div>
                             <a class="btn btn-sm btn-light-primary rounded-0"
                                 href="{{ route('admin.testimonial.create') }}">
@@ -13,9 +13,9 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table my-datatable table-striped table-row-bordered gy-5 gs-7 border rounded">
+                        <table class="table border rounded my-datatable table-striped table-row-bordered gy-5 gs-7">
                             <thead>
-                                <tr class="fw-bold fs-6 text-gray-800 px-7">
+                                <tr class="text-gray-800 fw-bold fs-6 px-7">
                                     <th width="5%" class="text-center">SL.</th>
                                     <th width="10%">Image</th>
                                     <th width="15%">Name</th>

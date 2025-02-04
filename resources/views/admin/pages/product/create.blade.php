@@ -243,7 +243,7 @@
                                                             <i class="bi bi-pencil-fill fs-7"></i>
 
                                                             <input type="file" name="thumbnail"
-                                                                accept=".png, .jpg, .jpeg" />
+                                                                accept=".png, .jpg, .jpeg, .webp, .gif, .bmp, .svg" />
                                                             <input type="hidden" name="avatar_remove" />
                                                         </label>
 
