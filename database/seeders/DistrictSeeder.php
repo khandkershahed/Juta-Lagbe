@@ -71,18 +71,6 @@ class DistrictSeeder extends Seeder
             ['id' => '37', 'division_id' => '5', 'name' => 'Moulvibazar', 'bn_name' => 'মৌলভীবাজার', 'lat' => '24.482934', 'lon' => '91.777417', 'url' => 'www.moulvibazar.gov.bd'],
             ['id' => '38', 'division_id' => '5', 'name' => 'Habiganj', 'bn_name' => 'হবিগঞ্জ', 'lat' => '24.374945', 'lon' => '91.41553', 'url' => 'www.habiganj.gov.bd'],
             ['id' => '39', 'division_id' => '5', 'name' => 'Sunamganj', 'bn_name' => 'সুনামগঞ্জ', 'lat' => '25.0658042', 'lon' => '91.3950115', 'url' => 'www.sunamganj.gov.bd'],
-
-
-
-
-
-
-
-
-
-
-
-
             ['id' => '53', 'division_id' => '7', 'name' => 'Panchagarh', 'bn_name' => 'পঞ্চগড়', 'lat' => '26.3411', 'lon' => '88.5541606', 'url' => 'www.panchagarh.gov.bd'],
             ['id' => '54', 'division_id' => '7', 'name' => 'Dinajpur', 'bn_name' => 'দিনাজপুর', 'lat' => '25.6217061', 'lon' => '88.6354504', 'url' => 'www.dinajpur.gov.bd'],
             ['id' => '55', 'division_id' => '7', 'name' => 'Lalmonirhat', 'bn_name' => 'লালমনিরহাট', 'lat' => NULL, 'lon' => NULL, 'url' => 'www.lalmonirhat.gov.bd'],
@@ -95,7 +83,7 @@ class DistrictSeeder extends Seeder
             ['id' => '62', 'division_id' => '8', 'name' => 'Mymensingh', 'bn_name' => 'ময়মনসিংহ', 'lat' => NULL, 'lon' => NULL, 'url' => 'www.mymensingh.gov.bd'],
             ['id' => '63', 'division_id' => '8', 'name' => 'Jamalpur', 'bn_name' => 'জামালপুর', 'lat' => '24.937533', 'lon' => '89.937775', 'url' => 'www.jamalpur.gov.bd'],
             ['id' => '64', 'division_id' => '8', 'name' => 'Netrokona', 'bn_name' => 'নেত্রকোণা', 'lat' => '24.870955', 'lon' => '90.727887', 'url' => 'www.netrokona.gov.bd'],
-            ['id' => '66', 'division_id' => 'c6', 'name' => 'Chittagang Metro', 'bn_name' => 'চট্রগ্রাম মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
+            ['id' => '66', 'division_id' => '6', 'name' => 'Chittagang Metro', 'bn_name' => 'চট্রগ্রাম মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
             ['id' => '67', 'division_id' => '2', 'name' => 'Rajshahi Metro', 'bn_name' => 'রাজশাহী মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
             ['id' => '68', 'division_id' => '3', 'name' => 'Khulna Metro', 'bn_name' => 'খুলনা মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
             ['id' => '69', 'division_id' => '4', 'name' => 'Barishal Metro', 'bn_name' => 'বরিশাল মেট্রো', 'lat' => '23.4682747', 'lon' => '91.1788135', 'url' => 'www.aa.gov.bd'],
