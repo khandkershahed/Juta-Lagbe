@@ -51,17 +51,7 @@ class AppServiceProvider extends ServiceProvider
             if (Schema::hasTable('special_offers')) {
                 View::share('special_offer', SpecialOffer::active()->latest()->first());
             }
-            if (Schema::hasTable('visitors')) {
-                $fiveMinutesAgo = Carbon::now()->subMinutes(5);
-                View::share('getOnlineVisitorCount', Visitor::where('created_at', '>=', $fiveMinutesAgo)->count());
-            }
-            if (Schema::hasTable('visitors')) {
-                View::share('getTodayVisitorCount', Visitor::whereDate('created_at', Carbon::today())->count());
-            }
-
-            // $randomNumber = rand(15, 30);
-            $randomNumber = rand(10, 15);
-            View::share('online', $randomNumber);
+            
         } catch (Exception $e) {
             // Log the exception if needed
         }

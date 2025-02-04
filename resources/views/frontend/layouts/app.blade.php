@@ -7,7 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <link href="{{ asset('storage/' . optional($setting)->site_favicon) }}" rel="apple-touch-icon-precomposed">
     <link href="{{ asset('storage/' . optional($setting)->site_favicon) }}" rel="shortcut icon" type="image/png">
 
@@ -187,11 +186,11 @@
     <script src="{{ asset('frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}"></script>
     <script src="{{ asset('frontend/plugins/slick/slick/slick.min.js') }}"></script>
     <script src="{{ asset('frontend/plugins/noUiSlider/nouislider.min.js') }}"></script>
-    <script src="https://kit.fontawesome.com/69b7156a94.js" crossorigin="anonymous"></script>
+
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://kit.fontawesome.com/69b7156a94.js" crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
@@ -199,6 +198,34 @@
     <script src="{{ asset('frontend/js/sidebar.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     @stack('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.dealCarousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                dots: true,
+                autoplay: false,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                navText: [
+                    '<div class="dealCarousel-prev">←</div>',
+                    '<div class="dealCarousel-next">→</div>'
+                ],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            });
+        });
+    </script>
     <script>
         const backToTopButton = document.getElementById("backToTop");
 
@@ -228,19 +255,20 @@
                 if (divisionName) {
                     $.ajax({
                         url: '{{ url('get-districts-by-division') }}/' +
-                        divisionName, // Call the controller method
+                            divisionName, // Call the controller method
                         type: 'GET',
                         success: function(data) {
                             $('#district').empty(); // Clear current district options
                             $('#district').append(
                                 '<option value="" disabled selected>জেলা</option>'
-                                ); // Add default option
+                            ); // Add default option
 
                             // Loop through the received districts and append them to the district dropdown
                             $.each(data, function(index, district) {
                                 $('#district').append('<option value="' + district
-                                    .bn_name + '">' + district.bn_name +'-'+ district.name + '</option>'
-                                    );
+                                    .bn_name + '">' + district.bn_name + '-' +
+                                    district.name + '</option>'
+                                );
                             });
                         }
                     });
@@ -261,18 +289,19 @@
                 if (districtName) {
                     $.ajax({
                         url: '{{ url('get-thanas-by-district') }}/' +
-                        districtName, // Call the controller method
+                            districtName, // Call the controller method
                         type: 'GET',
                         success: function(data) {
                             $('#thana').empty(); // Clear current thana options
                             $('#thana').append(
                                 '<option value="" disabled selected>থানা</option>'
-                                ); // Add default option
+                            ); // Add default option
 
                             // Loop through the received thanas and append them to the thana dropdown
                             $.each(data, function(index, thana) {
                                 $('#thana').append('<option value="' + thana.bn_name +
-                                    '">' + thana.bn_name +'-'+ thana.name + '</option>');
+                                    '">' + thana.bn_name + '-' + thana.name +
+                                    '</option>');
                             });
                         }
                     });
@@ -400,7 +429,7 @@
                 document.getElementById('preloader').style.display = 'none';
                 // Show the main content
                 document.getElementById('main-content').style.display = 'block';
-            }, 700); // 2000 milliseconds = 2 seconds
+            }, 500); // 2000 milliseconds = 2 seconds
         });
     </script>
     {{-- Preloader End --}}

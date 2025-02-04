@@ -1,6 +1,6 @@
 <x-admin-app-layout :title="'Category Add'">
     <div class="card card-flash">
-        <div class="card-header mt-6">
+        <div class="mt-6 card-header">
             <div class="card-title"></div>
             <div class="card-toolbar">
                 <a href="{{ route('admin.categories.index') }}" class="btn btn-light-info">
@@ -19,7 +19,7 @@
                 </a>
             </div>
         </div>
-        <div class="card-body pt-0">
+        <div class="pt-0 card-body">
             <form method="POST" action="{{ route('admin.categories.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
@@ -60,22 +60,28 @@
                         <x-metronic.file-input id="banner_image" :value="old('banner_image')" name="banner_image"></x-metronic.file-input>
                     </div>
                     <div class="col-lg-8 mb-7">
-                        <x-metronic.label for="description" class="col-form-label fw-bold fs-6 ">{{ __('Description') }}
+                        <x-metronic.label for="video_link" class="col-form-label fw-bold fs-6 ">{{ __('Video ID') }}
                         </x-metronic.label>
 
-                        <x-metronic.textarea id="description" name="description"></x-metronic.textarea>
+                        <x-metronic.textarea id="video_link" name="video_link"></x-metronic.textarea>
                     </div>
 
                     <div class="col-lg-4 mb-7">
                         <x-metronic.label for="status" class="col-form-label required fw-bold fs-6">
                             {{ __('Select a Status ') }}</x-metronic.label>
-                        <x-metronic.select-option id="status" name="status" data-hide-search="true"
+                            <x-metronic.select-option id="status" name="status" data-hide-search="true"
                             data-placeholder="Select an option">
                             <option></option>
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
                         </x-metronic.select-option>
                     </div>
+                    {{-- <div class="col-lg-12 mb-7">
+                        <x-metronic.label for="description" class="col-form-label fw-bold fs-6 ">{{ __('Description') }}
+                        </x-metronic.label>
+
+                        <x-metronic.textarea id="description" name="description"></x-metronic.textarea>
+                    </div> --}}
                 </div>
                 <div class="text-center pt-15">
                     <x-metronic.button type="submit" class="primary">

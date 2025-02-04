@@ -5,8 +5,10 @@
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <a href="{{ route('dashboard') }}">
             <img alt="Logo"
-                src="{{ !empty(optional($setting)->site_logo_white) && file_exists(public_path('storage/' . optional($setting)->site_logo_white)) ? asset('storage/' . optional($setting)->site_logo_white) : asset('frontend/img/logo.png') }}"
-                class="w-100">
+    src="{{ !empty(optional($setting)->site_logo_white) && file_exists(public_path('storage/' . optional($setting)->site_logo_white))
+            ? asset('storage/' . optional($setting)->site_logo_white)
+            : asset('images/logo_white.png') }}"
+    class="w-100">
         </a>
         <div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-dark aside-toggle active"
             data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body"
@@ -380,11 +382,11 @@
                                     'routes' => ['admin.settings.index'],
                                     'route' => 'admin.settings.index',
                                 ],
-                                [
-                                    'title' => 'Admin Management',
-                                    'routes' => ['admin.admin-managemnet.index'],
-                                    'route' => 'admin.admin-managemnet.index',
-                                ],
+                                // [
+                                //     'title' => 'Admin Management',
+                                //     'routes' => ['admin.admin-managemnet.index'],
+                                //     'route' => 'admin.admin-managemnet.index',
+                                // ],
                                 // [
                                 //     'title' => 'Email Setting',
                                 //     'routes' => ['admin.email-settings.index'],

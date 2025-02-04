@@ -61,29 +61,29 @@
 <footer class="ps-footer ps-footer--13 ps-footer--14">
     <div class="ps-footer--top">
         <div class="container px-0" style="background-color: #fff;">
-            <div class="row m-0">
-                <div class="col-12 col-sm-3 p-0">
+            <div class="m-0 row">
+                <div class="p-0 col-12 col-sm-3">
                     <p class="text-center">
                         <span class="ps-footer__link site-text">
                             <i class="icon-wallet site-text"></i>Easy To Order Place
                         </span>
                     </p>
                 </div>
-                <div class="col-12 col-sm-2 p-0">
+                <div class="p-0 col-12 col-sm-2">
                     <p class="text-center">
                         <span class="ps-footer__link site-text">
                             <i class="icon-truck site-text"></i>In Dhaka- 70 TK
                         </span>
                     </p>
                 </div>
-                <div class="col-12 col-sm-3 p-0">
+                <div class="p-0 col-12 col-sm-3">
                     <p class="text-center">
                         <span class="ps-footer__link site-text">
                             <i class="icon-truck site-text"></i>Outside Dhaka- 150 TK
                         </span>
                     </p>
                 </div>
-                <div class="col-12 col-sm-4 p-0">
+                <div class="p-0 col-12 col-sm-4">
                     <p class="text-center">
                         <span class="ps-footer__link site-text">
                             <i class="icon-check site-text"></i>Check Product In Front Of Delivery Man
@@ -101,12 +101,12 @@
                         <div class="ps-logo">
                             <a href="{{ route('home') }}">
                                 <img width="250px"
-                                    src="{{ !empty(optional($setting)->site_logo_white) ? asset('storage/' . optional($setting)->site_logo_white) : asset('frontend/img/logo.png') }}"
+                                    src="{{ !empty(optional($setting)->site_logo_white) ? asset('storage/' . optional($setting)->site_logo_white) : asset('images/logo_white.png') }}"
                                     alt=""
-                                    onerror="this.onerror=null; this.src='{{ asset('frontend/img/logo.png') }}';">
+                                    onerror="this.onerror=null; this.src='{{ asset('images/logo_white.png') }}';">
                             </a>
                         </div>
-                        <div class="ps-footer--contact pt-3">
+                        <div class="pt-3 ps-footer--contact">
                             <p class="ps-footer__work">Style Meets Comfort At JutaLagbe Shop.</p>
                         </div>
                         <img width="300px" class="payment-light" src="{{ asset('frontend/img/payment-light.png') }}"
@@ -119,19 +119,19 @@
                         <h5 class="ps-footer__title border-bottom-black">Need help</h5>
                         <div class="ps-footer__fax">
                             <div class="d-flex align-items-center">
-                                <i class="fa-brands fa-whatsapp pl-3 text-white fa-bounce"></i>
+                                <i class="pl-3 text-white fa-brands fa-whatsapp fa-bounce"></i>
                                 <a href="tel:{{ optional($setting)->primary_phone }}" style="font-size: 20px">
                                     {{ optional($setting)->primary_phone }}
                                 </a>
                             </div>
                         </div>
-                        <p class="ps-footer__work pt-2">
+                        <p class="pt-2 ps-footer__work">
                             Saturday to Friday: 11 AM - 09PM
                         </p>
-                        <p class="ps-footer__work pt-2"><a
+                        <p class="pt-2 ps-footer__work"><a
                                 href="mailto:{{ optional($setting)->contact_email }}">{{ optional($setting)->contact_email }}</a>
                         </p>
-                        <p class="ps-footer__work pt-2"><i class="fa-solid fa-store"></i>
+                        <p class="pt-2 ps-footer__work"><i class="fa-solid fa-store"></i>
                             {{ optional($setting)->address_line_one }} {{ optional($setting)->address_line_two }}
                         </p>
                     </div>
@@ -181,7 +181,7 @@
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="pl-3 d-flex justify-content-end align-items-center footer-social">
-                            <ul class="ps-social my-0">
+                            <ul class="my-0 ps-social">
                                 @if (optional($setting)->facebook_url)
                                     <li class="my-0">
                                         <a class="ps-social__link extra-color facebook"

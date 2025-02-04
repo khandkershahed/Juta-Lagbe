@@ -16,7 +16,7 @@
     </div> --}}
     @if (Auth::user()->status == 'active')
         <div class="ps-account">
-            <section class="user-dashboard py-5">
+            <section class="user-dashboard pb-10 pt-0">
                 <div class="container">
                     <div class="row g-3 g-xl-4 tab-wrap">
                         <div class="col-lg-4 col-xl-3 sticky">

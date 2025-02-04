@@ -26,21 +26,21 @@
     </style>
     <div class=" register-bg">
         <div class="container">
-            <div class="row align-items-center gx-0 bg-white my-lg-5">
-                <div class="col-lg-6 px-0">
+            <div class="bg-white row align-items-center gx-0 my-lg-5">
+                <div class="px-0 col-lg-6">
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-12 pl-5">
+                            <div class="pl-5 col-lg-12">
                                 <div class="p-3">
-                                    <div class="d-flex justify-content-center align-items-center mb-4">
+                                    <div class="mb-4 d-flex justify-content-center align-items-center">
                                         <a href="{{ route('home') }}" class="">
                                             <img class="img-fluid" width="200px"
                                                 src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
                                                 alt="">
                                         </a>
                                     </div>
-                                    <div class="text-lg-start text-center">
-                                        <h2 class="ps-form__title mb-0">Welcome</h2>
+                                    <div class="text-center text-lg-start">
+                                        <h2 class="mb-0 ps-form__title">Welcome</h2>
                                         <p>Register To Get Unlimited Access & Data</p>
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
                         <form method="POST" action="{{ route('register') }}" id="customerForm">
                             @csrf
                             <div class="p-5">
-                                <div class="ps-form--review row mb-3">
+                                <div class="mb-3 ps-form--review row">
                                     <!-- First Name -->
                                     <div class="ps-form__group col-12 col-xl-12">
                                         <x-input-label class="ps-form__label" for="name">আপনার নাম<span
@@ -63,7 +63,7 @@
                                     </div>
 
                                     <!-- Email -->
-                                    {{-- <div class="ps-form__group col-12 col-xl-4 mt-3">
+                                    {{-- <div class="mt-3 ps-form__group col-12 col-xl-4">
                                         <label class="ps-form__label" for="email">ইমেইল<span
                                                 class="text-danger">*</span></label>
                                         <input id="email" class="form-control ps-form__input" type="email"
@@ -74,7 +74,7 @@
 
                                     <!-- Confirm Email -->
                                     <!-- Phone -->
-                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
+                                    <div class="mt-3 ps-form__group col-12 col-xl-6">
                                         <x-input-label class="ps-form__label" for="phone" :value="__('ফোন নাম্বার')" />
                                         <div class="input-group">
                                             <input id="phone" class="form-control ps-form__input" type="tel"
@@ -85,7 +85,7 @@
                                     </div>
                                     <!-- Password -->
 
-                                    <div class="ps-form__group col-12 col-xl-6 mt-3">
+                                    <div class="mt-3 ps-form__group col-12 col-xl-6">
                                         <x-input-label class="ps-form__label" for="password" :value="__('Password')" />
                                         <div class="input-group">
                                             <input id="password" class="form-control ps-form__input" type="password"
@@ -99,9 +99,9 @@
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
                                     <!-- Title -->
-                                    <div class="col-12 col-xl-6 mb-3">
-                                        <div class="ps-form__group pt-2">
-                                            <label class="block font-medium text-sm site-text ps-form__label" for="division">
+                                    <div class="mb-3 col-12 col-xl-4">
+                                        <div class="pt-2 ps-form__group">
+                                            <label class="block text-sm font-medium site-text ps-form__label" for="division">
                                                 বিভাগ
                                                 <span class="text-danger">*</span>
                                             </label>
@@ -114,9 +114,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-xl-6 mb-3">
-                                        <div class="ps-form__group pt-2">
-                                            <label class="block font-medium text-sm site-text ps-form__label" for="district">
+                                    <div class="mb-3 col-12 col-xl-4">
+                                        <div class="pt-2 ps-form__group">
+                                            <label class="block text-sm font-medium site-text ps-form__label" for="district">
                                                 জেলা
                                                 <span class="text-danger">*</span>
                                             </label>
@@ -126,9 +126,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-xl-6 mb-3">
-                                        <div class="ps-form__group pt-2">
-                                            <label class="block font-medium text-sm site-text ps-form__label" for="thana">
+                                    <div class="mb-3 col-12 col-xl-4">
+                                        <div class="pt-2 ps-form__group">
+                                            <label class="block text-sm font-medium site-text ps-form__label" for="thana">
                                                 থানা
                                                 <span class="text-danger">*</span>
                                             </label>
@@ -138,7 +138,7 @@
                                         </div>
                                     </div>
                                     <!-- House/Block/Road -->
-                                    <div class="ps-form__group col-12 col-xl-12 mt-3">
+                                    <div class="mt-3 ps-form__group col-12 col-xl-12">
                                         <label class="ps-form__label" for="House/Block/Road">ঠিকানা<span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group">
@@ -154,7 +154,7 @@
                                                 class="text-danger">*</span></p>
                                     </div>
                                     <div class="col-12 col-xl-12">
-                                        <div class="form-check ml-0">
+                                        <div class="ml-0 form-check">
                                             <input type="checkbox" class="form-check-input" id="terms_condition"
                                                 name="terms_condition" value="yes" required checked>
                                             <label class="form-check-label" for="terms_condition">I accept the
@@ -171,16 +171,16 @@
                                             In Now</a>
                                     </h6>
                                 </div>
-                                <div class="ps-form__submit pt-4">
+                                <div class="pt-4 ps-form__submit">
                                     <x-primary-button class="btn btn-primary register-btns" type="submit">
-                                        <i class="fa-regular fa-id-badge pr-2"></i> {{ __('Register') }}
+                                        <i class="pr-2 fa-regular fa-id-badge"></i> {{ __('Register') }}
                                     </x-primary-button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-6 px-0">
+                <div class="px-0 col-lg-6">
                     <div>
                         <img class="img-fluid" src="{{ asset('images/login-banner.jpg') }}" alt="">
                     </div>

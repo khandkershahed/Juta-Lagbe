@@ -133,7 +133,7 @@ class CartController extends Controller
         }
     }
 
- 
+
     public function removeFromCart(Request $request)
     {
         $rowId = $request->input('rowId');
@@ -160,34 +160,41 @@ class CartController extends Controller
     }
     public function checkoutStore(Request $request)
     {
-        if (Auth::check()) {
-            $user_id = auth()->id();
-        } else {
-            $user = User::where('phone', $request->input('phone'))->first();
 
-            if ($user) {
-                Auth::login($user);
-                $request->session()->regenerate();
+        try {
+            if (Auth::check()) {
+                $user_id = auth()->id();
             } else {
-                $password = Str::random(8); // or you can change 8 to any desired length
-                $hashedPassword = Hash::make($password);
-                $user = User::create([
-                    'phone' => $request->input('phone'),
-                    'name' => $request->input('name'),
-                    'thana' => $request->input('thana'),
-                    'district' => $request->input('district'),
-                    'status' => 'active',
-                    'password' => $hashedPassword,
-                ]);
+                $user = User::where('phone', $request->input('phone'))->first();
 
-                // Log the user in after registration
-                Auth::login($user);
-                $request->session()->regenerate();
+                if ($user) {
+                    Auth::login($user);
+                    $request->session()->regenerate();
+                } else {
+                    $password = Str::random(8); // or you can change 8 to any desired length
+                    $hashedPassword = Hash::make($password);
+                    $user = User::create([
+                        'phone' => $request->input('phone'),
+                        'name' => $request->input('name'),
+                        'thana' => $request->input('thana'),
+                        'district' => $request->input('district'),
+                        'status' => 'active',
+                        'password' => $hashedPassword,
+                    ]);
+
+                    // Log the user in after registration
+                    Auth::login($user);
+                    $request->session()->regenerate();
+                }
+
+                // Get the user ID to track their order
+                $user_id = auth()->id();
             }
-
-            // Get the user ID to track their order
-            $user_id = auth()->id();
+        } catch (\Exception $e) {
+            Session::flash('error', 'Check Your Mobile Number Correctly.');
+            return redirect()->back()->withInput();
         }
+
 
 
 

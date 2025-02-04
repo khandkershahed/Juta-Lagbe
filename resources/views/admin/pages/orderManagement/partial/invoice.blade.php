@@ -96,7 +96,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <div class="d-flex align-items-center">
-                                                                        <a href="{{ route('product.details', optional($item->product)->slug) }}"
+                                                                        <a href="javascript:void(0)"
                                                                             class="symbol symbol-50px">
                                                                             <span class="symbol-label"
                                                                                 style="background-image:url({{ asset('storage/' . optional($item->product)->thumbnail) }});"></span>

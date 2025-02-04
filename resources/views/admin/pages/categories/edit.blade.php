@@ -66,14 +66,19 @@
 
                         <x-metronic.file-input id="banner_image" :source="asset('storage/'.$category->banner_image)" :value="old('banner_image', $category->banner_image)" name="banner_image"></x-metronic.file-input>
                     </div>
-                    <div class="col-lg-8 mb-7">
+                    {{-- <div class="col-lg-8 mb-7">
                         <x-metronic.label for="description" class="col-form-label fw-bold fs-6 ">{{ __('Description') }}
                         </x-metronic.label>
 
                         <x-metronic.textarea id="description" :value="old('description', $category->description)"
                             name="description">{{ old('description', $category->description) }}</x-metronic.textarea>
-                    </div>
+                    </div> --}}
+                    <div class="col-lg-8 mb-7">
+                        <x-metronic.label for="video_link" class="col-form-label fw-bold fs-6 ">{{ __('Video Link') }}
+                        </x-metronic.label>
 
+                        <x-metronic.textarea id="video_link" name="video_link">{{ old('video_link', $category->video_link) }}</x-metronic.textarea>
+                    </div>
                     <div class="col-lg-4 mb-7">
                         <label for="status" class="col-form-label required fw-bold fs-6">
                             {{ __('Select a Status') }}

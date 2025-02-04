@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         $data = [
-            'products'     => DB::table('products')->latest('id')->get(),
+            'products' => Product::latest('id')->get(),
         ];
         return view('admin.pages.product.index', $data);
     }
@@ -36,6 +36,7 @@ class ProductController extends Controller
         $categoriesOptions = $this->buildCategoriesOptions($categories);
         $data = [
             'brands'            => DB::table('brands')->select('id', 'name')->latest('id')->get(),
+            'categories'        => DB::table('categories')->select('id', 'name')->latest('id')->get(),
             'categoriesOptions' => $categoriesOptions,
         ];
         return view('admin.pages.product.create', $data);
@@ -52,9 +53,6 @@ class ProductController extends Controller
         $thumbnailFilePath = null;
         try {
             // Handle the file upload for the thumbnail
-
-
-
             if ($thumbnailFile) {
                 $thumbnailUpload = customUpload($thumbnailFile, 'products/thumbnail');
                 if ($thumbnailUpload['status'] === 0) {
@@ -65,48 +63,45 @@ class ProductController extends Controller
 
             $is_refurbished = $request->has('is_refurbished') ? 1 : 0;
 
-            // dd($is_refurbished);
-            // Create a new product record
             $product = Product::create([
-                'name'                      => $request->input('name'),
-                'sku_code'                  => $request->input('sku_code'),
-                'mf_code'                   => $request->input('mf_code'),
-                'product_code'              => $request->input('barcode_id'),
-                'barcode_id'                => $request->input('barcode_id'),
-                'tags'                      => is_array($request->input('tags')) ? json_encode($request->input('tags')) : null,
-                'color'                     => is_array($request->input('color')) ? json_encode($request->input('color')) : null,
-                'size'                      => is_array($request->input('size')) ? json_encode($request->input('size')) : null,
-                'video_link'                => $request->input('video_link'),
-                'short_description'         => $request->input('short_description'),
-                'overview'                  => $request->input('overview'),
-                'description'               => $request->input('description'),
-                'specification'             => $request->input('specification'),
-                'warranty'                  => $request->input('warranty'),
-                'thumbnail'                 => $thumbnailFilePath,
-                'box_stock'                 => $request->input('box_stock', 1),
-                'stock'                     => $request->input('stock'),
-                'box_contains'              => $request->input('box_contains'),
-                'box_price'                 => $request->input('box_price'),
-                'box_discount_price'        => $request->input('box_discount_price'),
-                'unit_price'                => $request->input('unit_price'),
-                'unit_discount_price'       => $request->input('unit_discount_price'),
-                'is_refurbished'            => $is_refurbished,
-                'product_type'              => $request->input('product_type'),
-                'category_id'               => is_array($request->input('category_id')) ? json_encode($request->input('category_id')) : null,
-                'vat'                       => $request->input('vat'),
-                'tax'                       => $request->input('tax'),
-                'length'                    => $request->input('length'),
-                'width'                     => $request->input('width'),
-                'height'                    => $request->input('height'),
-                'brand_id'                  => $request->input('brand_id'),
-                'create_date'               => Carbon::now(),
-                'meta_title'                => $request->input('meta_title'),
-                'meta_description'          => $request->input('meta_description'),
-                'meta_keywords'             => $request->input('meta_keywords'),
-                'added_by'                  => Auth::guard('admin')->user()->id,
-                'status'                    => $request->input('status'),
+                'name' => $request->input('name'),
+                'sku_code' => $request->input('sku_code'),
+                'mf_code' => $request->input('mf_code'),
+                'product_code' => $request->input('barcode_id'),
+                'barcode_id' => $request->input('barcode_id'),
+                'tags' => is_array($request->input('tags')) ? json_encode($request->input('tags')) : null,
+                'color' => is_array($request->input('color')) ? json_encode($request->input('color')) : null,
+                'size' => is_array($request->input('size')) ? json_encode($request->input('size')) : null,
+                'category_id' => is_array($request->input('category_id')) ? json_encode($request->input('category_id')) : null,
+                'video_link' => $request->input('video_link'),
+                'short_description' => $request->input('short_description'),
+                'overview' => $request->input('overview'),
+                'description' => $request->input('description'),
+                'specification' => $request->input('specification'),
+                'warranty' => $request->input('warranty'),
+                'thumbnail' => $thumbnailFilePath,
+                'box_stock' => $request->input('box_stock', 1),
+                'stock' => $request->input('stock'),
+                'box_contains' => $request->input('box_contains'),
+                'box_price' => $request->input('box_price'),
+                'box_discount_price' => $request->input('box_discount_price'),
+                'unit_price' => $request->input('unit_price'),
+                'unit_discount_price' => $request->input('unit_discount_price'),
+                'is_refurbished' => $is_refurbished,
+                'product_type' => $request->input('product_type'),
+                'vat' => $request->input('vat'),
+                'tax' => $request->input('tax'),
+                'length' => $request->input('length'),
+                'width' => $request->input('width'),
+                'height' => $request->input('height'),
+                'brand_id' => $request->input('brand_id'),
+                'create_date' => Carbon::now(),
+                'meta_title' => $request->input('meta_title'),
+                'meta_description' => $request->input('meta_description'),
+                'meta_keywords' => $request->input('meta_keywords'),
+                'added_by' => Auth::guard('admin')->user()->id,
+                'status' => $request->input('status'),
             ]);
-
 
             // Handle multiple image uploads
             if ($request->hasFile('multi_images')) {
@@ -128,7 +123,6 @@ class ProductController extends Controller
 
             DB::commit();
 
-            // Redirect with success message
             return redirect()->route('admin.product.index')->with('success', 'Product has been created successfully!');
         } catch (\Exception $e) {
             DB::rollback();
@@ -194,44 +188,45 @@ class ProductController extends Controller
             $is_refurbished = $request->has('is_refurbished') ? 1 : 0;
             // Update the product record
             $product->update([
-                'name'                      => $request->input('name'),
-                'sku_code'                  => $request->input('sku_code'),
-                'mf_code'                   => $request->input('mf_code'),
-                'product_code'              => $request->input('barcode_id'),
-                'barcode_id'                => $request->input('barcode_id'),
-                'tags'                      => is_array($request->input('tags')) ? json_encode($request->input('tags')) : $request->input('tags'),
-                'color'                     => is_array($request->input('color')) ? json_encode($request->input('color')) : $request->input('color'),
-                'size'                      => is_array($request->input('size')) ? json_encode($request->input('size')) : $request->input('size'),
-                'video_link'                => $request->input('video_link'),
-                'short_description'         => $request->input('short_description'),
-                'overview'                  => $request->input('overview'),
-                'description'               => $request->input('description'),
-                'specification'             => $request->input('specification'),
-                'warranty'                  => $request->input('warranty'),
-                'thumbnail'                 => $thumbnailFilePath,
-                'box_stock'                 => $request->input('box_stock', 1),
-                'stock'                     => $request->input('stock'),
-                'box_contains'              => $request->input('box_contains'),
-                'box_price'                 => $request->input('box_price'),
-                'box_discount_price'        => $request->input('box_discount_price'),
-                'unit_price'                => $request->input('unit_price'),
-                'unit_discount_price'       => $request->input('unit_discount_price'),
-                'is_refurbished'            => $is_refurbished,
-                'product_type'              => $request->input('product_type'),
-                'category_id'               => is_array($request->input('category_id')) ? json_encode($request->input('category_id')) : $request->input('category_id'),
-                'vat'                       => $request->input('vat'),
-                'tax'                       => $request->input('tax'),
-                'length'                    => $request->input('length'),
-                'width'                     => $request->input('width'),
-                'height'                    => $request->input('height'),
-                'brand_id'                  => $request->input('brand_id'),
-                'create_date'               => $product->create_date, // Keep the original create_date
-                'meta_title'                => $request->input('meta_title'),
-                'meta_description'          => $request->input('meta_description'),
-                'meta_keywords'             => $request->input('meta_keywords'),
-                // 'added_by'                  => Auth::guard('admin')->user()->id, // You may or may not want to update this
-                'status'                    => $request->input('status'),
+                'name' => $request->input('name'),
+                'sku_code' => $request->input('sku_code'),
+                'mf_code' => $request->input('mf_code'),
+                'product_code' => $request->input('barcode_id'),
+                'barcode_id' => $request->input('barcode_id'),
+                'tags' => is_array($request->input('tags')) ? json_encode($request->input('tags')) : ($product->tags ? json_encode($product->tags) : null),
+                'color' => is_array($request->input('color')) ? json_encode($request->input('color')) : ($product->color ? json_encode($product->color) : null),
+                'size' => is_array($request->input('size')) ? json_encode($request->input('size')) : ($product->size ? json_encode($product->size) : null),
+                'video_link' => $request->input('video_link'),
+                'short_description' => $request->input('short_description'),
+                'overview' => $request->input('overview'),
+                'description' => $request->input('description'),
+                'specification' => $request->input('specification'),
+                'warranty' => $request->input('warranty'),
+                'thumbnail' => $thumbnailFilePath ?? $product->thumbnail,  // Keep existing thumbnail if not provided
+                'box_stock' => $request->input('box_stock', 1),
+                'stock' => $request->input('stock'),
+                'box_contains' => $request->input('box_contains'),
+                'box_price' => $request->input('box_price'),
+                'box_discount_price' => $request->input('box_discount_price'),
+                'unit_price' => $request->input('unit_price'),
+                'unit_discount_price' => $request->input('unit_discount_price'),
+                'is_refurbished' => $is_refurbished,
+                'product_type' => $request->input('product_type'),
+                'category_id' => is_array($request->input('category_id')) ? $request->input('category_id') : ($product->category_id ? $product->category_id : null),
+                'vat' => $request->input('vat'),
+                'tax' => $request->input('tax'),
+                'length' => $request->input('length'),
+                'width' => $request->input('width'),
+                'height' => $request->input('height'),
+                'brand_id' => $request->input('brand_id'),
+                'create_date' => $product->create_date,  // Keep the original create_date
+                'meta_title' => $request->input('meta_title'),
+                'meta_description' => $request->input('meta_description'),
+                'meta_keywords' => is_array($request->input('meta_keywords')) ? json_encode($request->input('meta_keywords')) : $product->meta_keywords,
+                // 'added_by' => Auth::guard('admin')->user()->id,  // Leave as is or update if needed
+                'status' => $request->input('status'),
             ]);
+
 
             // Handle multiple image uploads
             if ($request->hasFile('multi_img')) {

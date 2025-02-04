@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use App\Traits\HasSlug;
@@ -21,10 +22,23 @@ class Product extends Model
         'category_id' => 'array', // Cast category_id as an array
     ];
 
-    // If products can belong to multiple categories, consider a different approach
+
     public function categories()
     {
-        return Category::whereIn('id', $this->category_id)->get();
+         if (empty($this->category_id)) {
+            return collect();
+        }
+
+        // Decode the category_id if it's a JSON string, or use it directly if it's an array
+        $categoryIds = is_string($this->category_id)
+            ? json_decode($this->category_id, true)
+            : $this->category_id;
+
+         if (!is_array($categoryIds)) {
+            $categoryIds = [];
+        }
+
+        return Category::whereIn('id', $categoryIds)->get();
     }
 
     // Correct `belongsTo` relationship should be used for single category or brand
@@ -34,16 +48,16 @@ class Product extends Model
     }
     public function orderItem()
     {
-        return $this->belongsTo(OrderItem::class,'product_id');
+        return $this->belongsTo(OrderItem::class, 'product_id');
     }
 
     public function multiImages()
     {
-        return $this->hasMany(ProductImage::class,'product_id');
+        return $this->hasMany(ProductImage::class, 'product_id');
     }
     public function reviews()
     {
-        return $this->hasMany(ProductReview::class,'product_id');
+        return $this->hasMany(ProductReview::class, 'product_id');
     }
     public function scopeActive($query)
     {

@@ -1,23 +1,23 @@
 <x-admin-app-layout :title="'Product List'">
     {{-- <div class="row">
-        <div class="col-xl-4 mx-auto">
-            <div class="card card-flush shadow-sm">
-                <div class="card-body p-0">
+        <div class="mx-auto col-xl-4">
+            <div class="shadow-sm card card-flush">
+                <div class="p-0 card-body">
                     <div class="d-flex flex-stack justify-content-between">
-                        <div class="d-flex align-items-center me-3 p-8 rounded-3 bg-dark">
+                        <div class="p-8 d-flex align-items-center me-3 rounded-3 bg-dark">
                             <a href="javascript:void(0)">
-                                <span class="bg-black rounded-3 p-3 me-3"><i
-                                        class="fa-product text-white fa-product-hunt fs-3" aria-hidden="true"></i></span>
+                                <span class="p-3 bg-black rounded-3 me-3"><i
+                                        class="text-white fa-product fa-product-hunt fs-3" aria-hidden="true"></i></span>
                             </a>
                             <div class="flex-grow-1">
                                 <a href="#" class="text-white fs-5 fw-bold lh-0">Total Product
-                                    <span class="text-white fw-semibold d-block fs-6 pt-4">{{ date('d-M-Y') }}</span>
+                                    <span class="pt-4 text-white fw-semibold d-block fs-6">{{ date('d-M-Y') }}</span>
                                 </a>
                             </div>
                         </div>
                         <div class="d-flex flex-column align-items-center pe-4">
                             <div>
-                                <span class="fs-3x fw-bold text-gray-800 me-2 lh-1 ls-n2">8,55</span>
+                                <span class="text-gray-800 fs-3x fw-bold me-2 lh-1 ls-n2">8,55</span>
                             </div>
                         </div>
                     </div>
@@ -26,9 +26,9 @@
         </div>
     </div> --}}
 
-    <div class="card card-flush mt-10">
+    <div class="mt-10 card card-flush">
         <div class="card-header bg-dark align-items-center">
-            <h3 class="card-title text-white">Product List</h3>
+            <h3 class="text-white card-title">Product List</h3>
             <div>
                 <a type="button" href="{{ route('admin.product.create') }}" class="btn btn-light-primary">
                     <i class="fa-solid fa-plus"></i> Create
@@ -37,9 +37,9 @@
         </div>
 
         <div class="card-body table-responsive">
-            <table class="table my-datatable table-striped table-row-bordered gy-5 gs-7 border rounded">
+            <table class="table border rounded my-datatable table-striped table-row-bordered gy-5 gs-7">
                 <thead>
-                    <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                    <tr class="text-gray-400 text-start fw-bolder fs-7 text-uppercase gs-0">
                         {{-- <th width="10%">
                             <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                 <input class="form-check-input" type="checkbox" data-kt-check="true"
@@ -48,9 +48,10 @@
                         </th> --}}
                         <th width="5%">{{ __('Sl') }}</th>
                         <th width="10%">{{ __('Product Image') }}</th>
-                        <th width="25%">{{ __('Product Name') }}</th>
-                        <th width="15%" class="text-center">{{ __('Stock') }}</th>
-                        <th width="15%" class="text-center">{{ __('Price') }}</th>
+                        <th width="32%">{{ __('Product Name') }}</th>
+                        <th width="13%">Category</th>
+                        <th width="10%" class="text-center">{{ __('Stock') }}</th>
+                        <th width="10%" class="text-center">{{ __('Price') }}</th>
                         <th width="10%">{{ __('Product Status') }}</th>
                         <th width="10%" class="text-center">{{ __('Action') }}</th>
                     </tr>
@@ -71,6 +72,12 @@
                                     onerror="this.onerror=null; this.src='{{ asset('frontend/img/no-blogs.jpg') }}';">
                             </td>
                             <td>{{ $product->name }}</td>
+                            <td class="text-center">
+                                @foreach ($product->categories() as $category)
+                                    <span>{{ $category->name }}</span>@if (!$loop->last), @endif
+                                @endforeach
+                            </td>
+
                             <td class="text-center">
                                 @if ($product->box_stock > 0)
                                     <span>

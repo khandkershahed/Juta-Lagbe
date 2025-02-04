@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image', 220)->nullable();
             $table->string('banner_image', 220)->nullable();
             $table->text('description')->nullable();
+            $table->text('video_link')->nullable();
             $table->string('status')->default('active')->comment('inactive,active');
             $table->timestamps();
         });

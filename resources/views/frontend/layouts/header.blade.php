@@ -113,6 +113,7 @@
         border: none;
         outline: none;
         padding: 10px 7px;
+        border: 1px solid #004d7a;
     }
 
     .button-new::before,
@@ -234,119 +235,22 @@
         padding: 0 0 0 16px;
     }
 </style>
-{{-- <div class="container">
-    <div class="ps-header__text">
-        <i class="fa-solid fa-location-dot"></i>
-        {{ optional($setting)->address_line_one }},{{ optional($setting)->address_line_two }}
-    </div>
-    <div class="ps-top__right">
-        <ul class="menu-top">
-            <li class="nav-item px-1">
-                <a class="nav-link cust-link" href="javascript:void(0)" id="login-modal">
-                    <i class="fa-solid fa-user header-icons"></i>
-                </a>
-                @auth
-                    <div class="ps-login--modal">
-                        <div>
-                            <p>Welcome! Choose an option:</p>
-                            <div class="d-flex align-items-center">
-                                <a class="btn btn-primary rounded-0 mr-2"
-                                    href="{{ route('dashboard') }}">Dashboard</a>
-                                <a class="btn btn-primary rounded-0" href="#"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    {{ __('Log Out') }}
-                                </a>
-                                <form id="logout-form" method="POST" action="{{ route('logout') }}"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <div class="ps-login--modal">
-                        @guest
-                            <div>
-                                <p>Welcome! Choose an option:</p>
-                                <div class="d-flex align-items-center">
-                                    <a class="btn btn-primary rounded-0 mr-2" href="{{ route('login') }}">
-                                        Log in
-                                    </a>
-                                    <a class="btn btn-primary rounded-0" href="{{ route('register') }}">
-                                        Register
-                                    </a>
-                                </div>
-                            </div>
-                        @endguest
-                        @auth
-                            <div>
-                                <p>Welcome! Choose an option:</p>
-                                <div class="d-flex align-items-center">
-                                    <a class="btn btn-primary rounded-0 mr-2" href="{{ route('dashboard') }}">
-                                        Dashboard
-                                    </a>
-                                    <a class="btn btn-primary rounded-0" href="#"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Log Out
-                                    </a>
-                                    <form id="logout-form" method="POST" action="{{ route('logout') }}"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </div>
-                        @endauth
-                    </div>
-                @endauth
-            </li>
-            <li class="nav-item">
-                <a class="nav-link cust-link px-1" href="{{ route('user.wishlist') }}">
-                    <i class="fa-solid fa-heart header-icons"></i>
-                    @php
-                        $wishlistCount = 0;
-                        if (Auth::check()) {
-                            $userId = Auth::id();
-                            $wishlistCount = App\Models\Wishlist::where('user_id', $userId)->count();
-                        }
-                    @endphp
-                    <span class="top-badge badge wishlistCount">{{ $wishlistCount }}</span>
 
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link cust-link px-1" href="#" id="cart-mini">
-                    <i class="fa-solid fa-shopping-cart header-icons"></i>
-                    <span class="top-badge badge cartCount">{{ Cart::instance('cart')->count() }}</span>
-                </a>
-                <div class="ps-cart--mini miniCart">
-                    @include('frontend.pages.cart.partials.minicart')
+<div id="promo-banner" style="background-color: var(--primary-color)">
+    <div class="container py-2">
+        <div class="row">
+            <div class="col-11">
+                <div class="d-flex align-items-center justify-content-center">
+                    <p class="mb-0 text-white pe-2">Sign up and get 20% off to your first order.</p>
+                    <a href="{{ route('register') }}" class="pl-2 text-white fw-bold"
+                        style="font-weight: 600; text-decoration: underline">Sign Up Now</a>
                 </div>
-            </li>
-        </ul>
-        @if (!empty(optional($setting)->primary_phone))
-            <div class="ps-header__text">Need help? <strong>{{ optional($setting)->primary_phone }}</strong>
             </div>
-        @endif
-    </div>
-</div> --}}
-<div class="ps-header ps-header--2" id="headerBanner">
-    <div class="ps-header__top">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-11">
-                    <div class="header-tops">
-                        <p class="mb-0 text-white text-center py-2 fw-normal">
-                            Sign up and get 20% off your first order.
-                            <a class="text-white fw-bold text-underline" href="{{ route('register') }}">Sign Up Now</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-1 d-flex jutify-content-end">
-                    <div class="">
-                        <button class="border-0 text-white bg-transparent p-0" id="closeBanner">
-                            <i class="fa-solid fa-close"></i>
-                        </button>
-                    </div>
+            <div class="col-1">
+                <div class="d-flex justify-content-end">
+                    <a href="javascript:void(0)" id="close-banner">
+                        <i class="text-white fa-solid fa-close"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -359,10 +263,10 @@
                 <div class="ps-logo">
                     <a href="{{ route('home') }}">
                         <img class="rounded-2"
-                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
                             alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
                         <img class="sticky-logo rounded-2"
-                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                            src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
                             alt="" onerror="this.onerror=null; this.src='/images/default_logo-2.png';">
                     </a>
                 </div>
@@ -371,7 +275,7 @@
                 </a>
                 <div class="ps-header__right">
                     <div class="row align-items-center">
-                        <div class="col-lg-8 pr-0">
+                        <div class="pr-0 col-lg-8">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div class="ps-navigation__left">
                                     <nav class="ps-main-menu">
@@ -404,30 +308,42 @@
                                 </div>
                             </div>
                         </div>
-                        @if (!empty(optional($special_offer)->slug))
-                            <div class="col-lg-4">
-                                <div class="d-flex align-items-center justify-content-end pt-1">
-
-                                    <div class="search-container">
-                                        <form action="/search" method="get">
-                                            <input class="search expandright" id="searchright" type="search"
-                                                name="q" placeholder="Search">
-                                            <label class="button-search searchbutton" for="searchright"><span
-                                                    class="mglass">&#9906;</span></label>
-                                        </form>
-                                    </div>
-                                    <div>
-                                        <a class="nav-link cust-link pl-3" href="#" id="cart-mini">
-                                            <i class="fa-solid fa-shopping-cart header-icons"></i>
-                                            <span
-                                                class="top-badge badge cartCount">{{ Cart::instance('cart')->count() }}</span>
-                                        </a>
-                                        <div class="ps-cart--mini miniCart">
-                                            @include('frontend.pages.cart.partials.minicart')
+                        {{-- @if (!empty(optional($special_offer)->slug))
+                            <div class="col-lg-3">
+                                <div class="text-right">
+                                    <a href="{{ route('special.products', optional($special_offer)->slug) }}"
+                                        class="button-new">
+                                        <span class="fold"></span>
+                                        <div class="points_wrapper">
+                                            <i class="point"></i>
+                                            <i class="point"></i>
+                                            <i class="point"></i>
+                                            <i class="point"></i>
+                                            <i class="point"></i>
+                                            <i class="point"></i>
+                                            <i class="point"></i>
+                                            <i class="point"></i>
+                                            <i class="point"></i>
+                                            <i class="point"></i>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <a class="nav-link cust-link mr-2" href="javascript:void(0)" id="login-modal">
+
+                                        <span class="inner"><svg class="icon" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
+                                                <polyline
+                                                    points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
+                                                </polyline>
+                                            </svg>{{ optional($special_offer)->button_name }}
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        @endif --}}
+                        <div class="col-lg-4">
+                            <div class="d-flex justify-content-end">
+                                <ul class="menu-top">
+                                    <li class="px-1 nav-item">
+                                        <a class="nav-link cust-link" href="javascript:void(0)" id="login-modal">
                                             <i class="fa-solid fa-user header-icons"></i>
                                         </a>
                                         @auth
@@ -435,7 +351,7 @@
                                                 <div>
                                                     <p>Welcome! Choose an option:</p>
                                                     <div class="d-flex align-items-center">
-                                                        <a class="btn btn-primary rounded-0 mr-2"
+                                                        <a class="mr-2 btn btn-primary rounded-0"
                                                             href="{{ route('dashboard') }}">Dashboard</a>
                                                         <a class="btn btn-primary rounded-0" href="#"
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -454,7 +370,7 @@
                                                     <div>
                                                         <p>Welcome! Choose an option:</p>
                                                         <div class="d-flex align-items-center">
-                                                            <a class="btn btn-primary rounded-0 mr-2"
+                                                            <a class="mr-2 btn btn-primary rounded-0"
                                                                 href="{{ route('login') }}">
                                                                 Log in
                                                             </a>
@@ -464,12 +380,12 @@
                                                             </a>
                                                         </div>
                                                     </div>
-                                                @endguest
+                                            @endguest
                                                 @auth
                                                     <div>
                                                         <p>Welcome! Choose an option:</p>
                                                         <div class="d-flex align-items-center">
-                                                            <a class="btn btn-primary rounded-0 mr-2"
+                                                            <a class="mr-2 btn btn-primary rounded-0"
                                                                 href="{{ route('dashboard') }}">
                                                                 Dashboard
                                                             </a>
@@ -486,56 +402,56 @@
                                                 @endauth
                                             </div>
                                         @endauth
-                                    </div>
-                                    {{-- <div class="text-right">
-                                        <a href="{{ route('special.products', optional($special_offer)->slug) }}"
-                                            class="button-new">
-                                            <span class="fold"></span>
-                                            <div class="points_wrapper">
-                                                <i class="point"></i>
-                                                <i class="point"></i>
-                                                <i class="point"></i>
-                                                <i class="point"></i>
-                                                <i class="point"></i>
-                                                <i class="point"></i>
-                                                <i class="point"></i>
-                                                <i class="point"></i>
-                                                <i class="point"></i>
-                                                <i class="point"></i>
-                                            </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="px-1 nav-link cust-link heart-icons"
+                                            href="{{ route('user.wishlist') }}">
+                                            <i class="fa-solid fa-heart header-icons"></i>
+                                            @php
+                                                $wishlistCount = 0;
+                                                if (Auth::check()) {
+                                                    $userId = Auth::id();
+                                                    $wishlistCount = App\Models\Wishlist::where(
+                                                        'user_id',
+                                                        $userId,
+                                                    )->count();
+                                                }
+                                            @endphp
+                                            <span class="top-badge badge wishlistCount">{{ $wishlistCount }}</span>
 
-                                            <span class="inner"><svg class="icon" fill="none"
-                                                    stroke="currentColor" viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2.5">
-                                                    <polyline
-                                                        points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
-                                                    </polyline>
-                                                </svg>{{ optional($special_offer)->button_name }}
-                                            </span>
                                         </a>
-                                    </div> --}}
-                                </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="px-1 nav-link cust-link" href="#" id="cart-mini">
+                                            <i class="fa-solid fa-shopping-cart header-icons"></i>
+                                            <span
+                                                class="top-badge badge cartCount">{{ Cart::instance('cart')->count() }}</span>
+                                        </a>
+                                        <div class="ps-cart--mini miniCart">
+                                            @include('frontend.pages.cart.partials.minicart')
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 </div>
-<div class="ps-header ps-header--13 ps-header--mobile">
-    <div class="ps-noti">
-        @if (!empty(optional($special_offer)->slug) || !empty(optional($special_offer)->header_slogan))
+<div class="shadow-sm ps-header ps-header--13 ps-header--mobile">
+    @if (!empty(optional($special_offer)->slug) || !empty(optional($special_offer)->header_slogan))
+        <div class="ps-noti">
             <section>
                 <div class="marquee marquee--hover-pause">
                     <ul class="marquee__content">
                         @for ($i = 0; $i < 8; $i++)
                             <li>
                                 <a href="{{ route('special.products', optional($special_offer)->slug) }}">
-                                    <p class="text-white marquee-text mb-0 d-flex align-items-center">
-                                        <span><i class="fa-solid fa-cart-shopping pr-3"></i></span>
-                                        <span>{{ optional($special_offer)->header_slogan }}</span>
+                                    <p class="mb-0 text-white marquee-text d-flex align-items-center">
+                                        <span><i class="pr-3 fa-solid fa-cart-shopping"></i></span>
+                                        <span>{{ optional($special_offer)->header_slogan ?? 'Step Into Style' }}</span>
                                     </p>
                                 </a>
                             </li>
@@ -546,9 +462,9 @@
                         @for ($i = 0; $i < 8; $i++)
                             <li>
                                 <a href="{{ route('special.products', optional($special_offer)->slug) }}">
-                                    <p class="text-white marquee-text mb-0 d-flex align-items-center">
-                                        <span><i class="fa-solid fa-cart-shopping pr-3"></i></span>
-                                        <span>{{ optional($special_offer)->header_slogan }}</span>
+                                    <p class="mb-0 text-white marquee-text d-flex align-items-center">
+                                        <span><i class="pr-3 fa-solid fa-cart-shopping"></i></span>
+                                        <span>{{ optional($special_offer)->header_slogan ?? 'Step Into Style' }}</span>
                                     </p>
                                 </a>
                             </li>
@@ -556,8 +472,9 @@
                     </ul>
                 </div>
             </section>
-        @endif
-    </div>
+        </div>
+    @endif
+
     <div class="ps-header__middle">
         <div class="container">
             <div class="ps-header__left">
@@ -572,7 +489,7 @@
             </div>
             <div class="ps-logo">
                 <a href="{{ route('home') }}">
-                    <img src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('frontend/img/logo.png') }}"
+                    <img src="{{ !empty(optional($setting)->site_logo_black) ? asset('storage/' . optional($setting)->site_logo_black) : asset('images/default_logo-2.png') }}"
                         alt="">
                 </a>
             </div>
@@ -594,14 +511,9 @@
         </div>
     </div>
 </div>
+
 <script>
-    document.getElementById("closeBanner").addEventListener("click", function() {
-        document.getElementById("headerBanner").style.display = "none";
-    });
-</script>
-<script>
-    document.getElementById("searchIcon").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent default link behavior
-        document.getElementById("searchInput").classList.toggle("show");
+    document.getElementById("close-banner").addEventListener("click", function() {
+        document.getElementById("promo-banner").style.display = "none";
     });
 </script>

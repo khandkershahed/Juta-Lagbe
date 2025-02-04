@@ -22,162 +22,142 @@
         }
     </style>
 
-    <div class="ps-categogy ps-categogy--dark bg-white">
+    <div class="bg-white ps-categogy ps-categogy--dark">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12 px-0">
+                <div class="px-0 col-lg-12">
                     <div class="category-banner">
                         {{-- <img class="img-fluid" src="{{ asset('storage/' . $category->banner_image) }}" alt=""> --}}
-                        <img class="img-fluid w-100" src="{{ asset('images/special-banner.jpg') }}" alt="">
+                        <img class="img-fluid" style="object-fit: cover;height: 200px;width: 100%;"
+                            src="{{ asset('storage/' . $category->banner_image) }}"
+                            onerror="this.onerror=null; this.src='{{ asset('images/no-preview2.png') }}';" alt="">
                         <!-- Fallback for missing image -->
                     </div>
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="ps-categogy__content pt-2">
-                <div class="row row-reverse pb-0 pb-lg-5">
+            <div class="pt-2 ps-categogy__content">
+                <div class="pb-0 row row-reverse pb-lg-5">
                     <!-- Products Section -->
-                    <div class="col-md-9 col-12 order-12 order-lg-1">
-                        @foreach ($categories as $allcategory)
-                            @if ($allcategory->id == $category->id)
-                                <!-- Display individual product data -->
-                                <div class="products">
-                                    @php
-                                        $catProducts = $allcategory->products()->get(); // Fetch all products for this category
-                                    @endphp
-                                    @if ($catProducts->isEmpty())
-                                        <p>No products available in this category.</p>
-                                    @else
-                                        {{-- <ul>
-                                        @foreach ($catProducts as $product)
-                                            <li>
-                                                <strong>{{ $product->name }}</strong> - SKU: {{ $product->sku }}
-                                            </li>
-                                        @endforeach
-                                    </ul> --}}
-                                        <div class="ps-categogy--grid mt-0">
-                                            <div class="row m-0">
-                                                @forelse ($catProducts as $key => $category_product)
-                                                    <div
-                                                        class="col-12 col-lg-4 p-0 product-item {{ $key >= 4 ? 'd-none' : '' }}">
-                                                        <div class="ps-section__product pr-2">
-                                                            <div class="ps-product ps-product--standard">
-                                                                <div class="ps-product__thumbnail">
-                                                                    <a class="ps-product__image"
-                                                                        href="{{ route('product.details', $category_product->slug) }}">
-                                                                        <figure>
-                                                                            @if (!empty($category_product->thumbnail))
-                                                                                @php
-                                                                                    $thumbnailPath =
-                                                                                        'storage/' .
-                                                                                        $category_product->thumbnail;
-                                                                                    $thumbnailSrc = file_exists(
-                                                                                        public_path($thumbnailPath),
-                                                                                    )
-                                                                                        ? asset($thumbnailPath)
-                                                                                        : asset(
-                                                                                            'frontend/img/no-product.jpg',
-                                                                                        );
-                                                                                @endphp
-                                                                                <img src="{{ $thumbnailSrc }}"
-                                                                                    alt="{{ $category_product->meta_title }}"
-                                                                                    width="210" height="210" />
-                                                                            @else
-                                                                                @foreach ($category_product->multiImages->slice(0, 2) as $image)
-                                                                                    @php
-                                                                                        $imagePath =
-                                                                                            'storage/' . $image->photo;
-                                                                                        $imageSrc = file_exists(
-                                                                                            public_path($imagePath),
-                                                                                        )
-                                                                                            ? asset($imagePath)
-                                                                                            : asset(
-                                                                                                'frontend/img/no-product.jpg',
-                                                                                            );
-                                                                                    @endphp
-                                                                                    <img src="{{ $imageSrc }}"
-                                                                                        alt="{{ $category_product->meta_title }}"
-                                                                                        width="210" height="210" />
-                                                                                @endforeach
-                                                                            @endif
-                                                                        </figure>
-                                                                    </a>
-                                                                    {{-- Review --}}
-                                                                    @if (count($category_product->reviews) > 0)
-                                                                        <div>
-                                                                            @php
-                                                                                $review =
-                                                                                    count($category_product->reviews) >
-                                                                                    0
-                                                                                        ? optional(
-                                                                                                $category_product->reviews,
-                                                                                            )->sum('rating') /
-                                                                                            count(
-                                                                                                $category_product->reviews,
-                                                                                            )
-                                                                                        : 0;
-                                                                            @endphp
-                                                                            <div
-                                                                                class="d-flex justify-content-between align-items-center my-2 rating-area px-3">
-                                                                                <div style="color: var(--site-primary)">
-                                                                                    Reviews
-                                                                                    ({{ count($category_product->reviews) }})
-                                                                                </div>
-                                                                                <div class="ps-product__rating">
-                                                                                    @if ($review > 0)
-                                                                                        <div
-                                                                                            class="br-wrapper br-theme-fontawesome-stars">
-                                                                                            <select class="ps-rating"
-                                                                                                data-read-only="true"
-                                                                                                style="display: none;">
-                                                                                                @php
-                                                                                                    $maxRating = min(
-                                                                                                        5,
-                                                                                                        max(
-                                                                                                            1,
-                                                                                                            floor(
-                                                                                                                $review,
-                                                                                                            ),
-                                                                                                        ),
-                                                                                                    ); // Get the highest full rating value
-                                                                                                @endphp
-                                                                                                @for ($i = 1; $i <= $maxRating; $i++)
-                                                                                                    <option
-                                                                                                        value="{{ $i }}">
-                                                                                                        {{ $i }}
-                                                                                                    </option>
-                                                                                                @endfor
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    @else
-                                                                                        <span
-                                                                                            class="no-found">N/A</span>
-                                                                                    @endif
-                                                                                </div>
-                                                                            </div>
-                                                                            <hr class="my-0">
-                                                                        </div>
-                                                                    @endif
+                    <div class="order-12 col-md-9 col-12 order-lg-1">
+                        <!-- Display individual product data -->
+                        <div class="products">
 
-                                                                    {{-- Review End --}}
-                                                                    <div class="ps-product__actions">
-                                                                        <div class="ps-product__item"
-                                                                            data-toggle="tooltip" data-placement="left"
-                                                                            title="Wishlist">
-                                                                            <a class="add_to_wishlist"
-                                                                                href="{{ route('wishlist.store', $category_product->id) }}"><i
-                                                                                    class="fa-solid fa-heart"></i></a>
+                            @if ($catProducts->isEmpty())
+                                <div class="text-center bg-white col-12 if-show-img">
+                                    <img class="" style="width: 320px;"
+                                        src="{{ asset('frontend/img/no-products-category.jpg') }}" alt="">
+                                </div>
+                            @else
+                                <div class="mt-0 ps-categogy--grid">
+                                    <div class="m-0 row">
+                                        @foreach ($catProducts as $key => $category_product)
+                                            <div
+                                                class="col-12 col-lg-4 p-0 product-item {{ $key >= 4 ? 'd-none' : '' }}">
+                                                <div class="pr-2 ps-section__product">
+                                                    <div class="ps-product ps-product--standard">
+                                                        <div class="ps-product__thumbnail">
+                                                            <a class="ps-product__image"
+                                                                href="{{ route('product.details', $category_product->slug) }}">
+                                                                <figure>
+                                                                    @if (!empty($category_product->thumbnail))
+                                                                        @php
+                                                                            $thumbnailPath =
+                                                                                'storage/' .
+                                                                                $category_product->thumbnail;
+                                                                            $thumbnailSrc = file_exists(
+                                                                                public_path($thumbnailPath),
+                                                                            )
+                                                                                ? asset($thumbnailPath)
+                                                                                : asset('frontend/img/no-product.jpg');
+                                                                        @endphp
+                                                                        <img src="{{ $thumbnailSrc }}"
+                                                                            alt="{{ $category_product->meta_title }}"
+                                                                            width="210" height="210" />
+                                                                    @else
+                                                                        @foreach ($category_product->multiImages->slice(0, 2) as $image)
+                                                                            @php
+                                                                                $imagePath = 'storage/' . $image->photo;
+                                                                                $imageSrc = file_exists(
+                                                                                    public_path($imagePath),
+                                                                                )
+                                                                                    ? asset($imagePath)
+                                                                                    : asset(
+                                                                                        'frontend/img/no-product.jpg',
+                                                                                    );
+                                                                            @endphp
+                                                                            <img src="{{ $imageSrc }}"
+                                                                                alt="{{ $category_product->meta_title }}"
+                                                                                width="210" height="210" />
+                                                                        @endforeach
+                                                                    @endif
+                                                                </figure>
+                                                            </a>
+                                                            {{-- Review --}}
+                                                            @if (count($category_product->reviews) > 0)
+                                                                <div>
+                                                                    @php
+                                                                        $review =
+                                                                            count($category_product->reviews) > 0
+                                                                                ? optional(
+                                                                                        $category_product->reviews,
+                                                                                    )->sum('rating') /
+                                                                                    count($category_product->reviews)
+                                                                                : 0;
+                                                                    @endphp
+                                                                    <div
+                                                                        class="px-3 my-2 d-flex justify-content-between align-items-center rating-area">
+                                                                        <div style="color: var(--site-primary)">
+                                                                            Reviews
+                                                                            ({{ count($category_product->reviews) }})
                                                                         </div>
-                                                                        <div class="ps-product__item"
-                                                                            data-toggle="tooltip" data-placement="left"
-                                                                            title="Quick view">
-                                                                            <a href="#" data-toggle="modal"
-                                                                                data-target="#popupQuickview{{ $category_product->id }}">
-                                                                                <i class="fa fa-eye"></i>
-                                                                            </a>
+                                                                        <div class="ps-product__rating">
+                                                                            @if ($review > 0)
+                                                                                <div
+                                                                                    class="br-wrapper br-theme-fontawesome-stars">
+                                                                                    <select class="ps-rating"
+                                                                                        data-read-only="true"
+                                                                                        style="display: none;">
+                                                                                        @php
+                                                                                            $maxRating = min(
+                                                                                                5,
+                                                                                                max(1, floor($review)),
+                                                                                            ); // Get the highest full rating value
+                                                                                        @endphp
+                                                                                        @for ($i = 1; $i <= $maxRating; $i++)
+                                                                                            <option
+                                                                                                value="{{ $i }}">
+                                                                                                {{ $i }}
+                                                                                            </option>
+                                                                                        @endfor
+                                                                                    </select>
+                                                                                </div>
+                                                                            @else
+                                                                                <span class="no-found">N/A</span>
+                                                                            @endif
                                                                         </div>
-                                                                        {{-- <div class="ps-product__item"
+                                                                    </div>
+                                                                    <hr class="my-0">
+                                                                </div>
+                                                            @endif
+
+                                                            {{-- Review End --}}
+                                                            <div class="ps-product__actions">
+                                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                                    data-placement="left" title="Wishlist">
+                                                                    <a class="add_to_wishlist"
+                                                                        href="{{ route('wishlist.store', $category_product->id) }}"><i
+                                                                            class="fa-solid fa-heart"></i></a>
+                                                                </div>
+                                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                                    data-placement="left" title="Quick view">
+                                                                    <a href="#" data-toggle="modal"
+                                                                        data-target="#popupQuickview{{ $category_product->id }}">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                </div>
+                                                                {{-- <div class="ps-product__item"
                                                                             data-toggle="tooltip" data-placement="left"
                                                                             title="Add To Cart">
                                                                             <a class="add_to_cart"
@@ -188,113 +168,102 @@
                                                                             </a>
                                                                         </div> --}}
 
+                                                            </div>
+                                                            @if (!empty($category_product->unit_discount_price))
+                                                                <div class="ps-product__badge">
+                                                                    <div class="ps-badge ps-badge--sale">
+                                                                        -
+                                                                        {{ !empty($category_product->unit_discount_price) && $category_product->unit_discount_price > 0 ? number_format((($category_product->unit_price - $category_product->unit_discount_price) / $category_product->unit_price) * 100, 1) : 0 }}
+                                                                        % অফ
                                                                     </div>
-                                                                    @if (!empty($category_product->unit_discount_price))
-                                                                        <div class="ps-product__badge">
-                                                                            <div class="ps-badge ps-badge--sale">
-                                                                                -
-                                                                                {{ !empty($category_product->unit_discount_price) && $category_product->unit_discount_price > 0 ? number_format((($category_product->unit_price - $category_product->unit_discount_price) / $category_product->unit_price) * 100, 1) : 0 }}
-                                                                                % অফ
-                                                                            </div>
-                                                                        </div>
-                                                                    @endif
                                                                 </div>
-                                                                <div class="ps-product__content">
-                                                                    <h5 class="ps-product__title">
-                                                                        <a
-                                                                            href="{{ route('product.details', $category_product->slug) }}">
-                                                                            {{ implode(' ', array_slice(explode(' ', $category_product->name), 0, 5)) }}
-                                                                        </a>
-                                                                    </h5>
-                                                                    <div class="pb-3">
-                                                                        @if (!empty($category_product->unit_discount_price))
-                                                                            <div class="ps-product__meta">
-                                                                                <span
-                                                                                    class="ps-product__price sale">{{ $category_product->unit_discount_price }}
-                                                                                    টাকা</span>
-                                                                                <span
-                                                                                    class="ps-product__del text-danger">{{ $category_product->unit_price }}
-                                                                                    টাকা</span>
-                                                                            </div>
-                                                                        @else
-                                                                            <div class="ps-product__meta">
-                                                                                <span
-                                                                                    class="ps-product__price sale">{{ $category_product->unit_price }}
-                                                                                    টাকা</span>
-                                                                            </div>
-                                                                        @endif
+                                                            @endif
+                                                        </div>
+                                                        <div class="ps-product__content">
+                                                            <h5 class="ps-product__title">
+                                                                <a
+                                                                    href="{{ route('product.details', $category_product->slug) }}">
+                                                                    {{ implode(' ', array_slice(explode(' ', $category_product->name), 0, 5)) }}
+                                                                </a>
+                                                            </h5>
+                                                            <div class="pb-3">
+                                                                @if (!empty($category_product->unit_discount_price))
+                                                                    <div class="ps-product__meta">
+                                                                        <span
+                                                                            class="ps-product__price sale">{{ $category_product->unit_discount_price }}
+                                                                            টাকা</span>
+                                                                        <span
+                                                                            class="ps-product__del text-danger">{{ $category_product->unit_price }}
+                                                                            টাকা</span>
                                                                     </div>
-                                                                    <div
-                                                                        class="d-flex align-items-center card-cart-btn">
-                                                                        <a href="{{ route('product.details', $category_product->slug) }}"
-                                                                            class="btn btn-primary rounded-0 w-100">
-                                                                            <i
-                                                                                class="fa-solid fa-basket-shopping pr-2"></i>
-                                                                            অর্ডার
-                                                                            করুন
-                                                                        </a>
+                                                                @else
+                                                                    <div class="ps-product__meta">
+                                                                        <span
+                                                                            class="ps-product__price sale">{{ $category_product->unit_price }}
+                                                                            টাকা</span>
                                                                     </div>
+                                                                @endif
+                                                            </div>
+                                                            <div class="d-flex align-items-center card-cart-btn">
+                                                                <a href="{{ route('product.details', $category_product->slug) }}"
+                                                                    class="btn btn-primary rounded-0 w-100">
+                                                                    <i class="pr-2 fa-solid fa-basket-shopping"></i>
+                                                                    অর্ডার
+                                                                    করুন
+                                                                </a>
+                                                            </div>
+                                                            <div class="ps-product__actions ps-product__group-mobile">
+                                                                <div class="ps-product__quantity">
                                                                     <div
-                                                                        class="ps-product__actions ps-product__group-mobile">
-                                                                        <div class="ps-product__quantity">
-                                                                            <div
-                                                                                class="def-number-input number-input safari_only">
-                                                                                <button class="minus"
-                                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
-                                                                                        class="icon-minus"></i>
-                                                                                </button>
-                                                                                <input class="quantity" min="0"
-                                                                                    name="quantity" value="1"
-                                                                                    type="number" />
-                                                                                <button class="plus"
-                                                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
-                                                                                        class="icon-plus"></i>
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="ps-product__item"
-                                                                            data-toggle="tooltip" data-placement="left"
-                                                                            title="Wishlist"><a class="add_to_wishlist"
-                                                                                href="{{ route('wishlist.store', $category_product->id) }}"><i
-                                                                                    class="fa-solid fa-heart"></i></a>
-                                                                        </div>
+                                                                        class="def-number-input number-input safari_only">
+                                                                        <button class="minus"
+                                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
+                                                                                class="icon-minus"></i>
+                                                                        </button>
+                                                                        <input class="quantity" min="0"
+                                                                            name="quantity" value="1"
+                                                                            type="number" />
+                                                                        <button class="plus"
+                                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
+                                                                                class="icon-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="ps-product__item" data-toggle="tooltip"
+                                                                    data-placement="left" title="Wishlist"><a
+                                                                        class="add_to_wishlist"
+                                                                        href="{{ route('wishlist.store', $category_product->id) }}"><i
+                                                                            class="fa-solid fa-heart"></i></a>
+                                                                </div>
 
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                @empty
-                                                    <div class="col-12 text-center bg-white if-show-img">
-                                                        <img class="" style="width: 320px;"
-                                                            src="{{ asset('frontend/img/no-products-category.jpg') }}"
-                                                            alt="">
-                                                    </div>
-                                                @endforelse
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endif
+                                        @endforeach
+                                    </div>
                                 </div>
                             @endif
-                        @endforeach
+                        </div>
                     </div>
 
                     <!-- Sidebar Widgets -->
-                    <div class="col-md-3 col-12 order-1 order-lg-12 px-0 ps-widget ps-widget--product">
-                        <div class="border mb-lg-0 mb-4">
+                    <div class="order-1 px-0 col-md-3 col-12 order-lg-12 ps-widget ps-widget--product">
+                        <div class="mb-4 border mb-lg-0">
                             <!-- Categories Filter -->
-                            <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
-                                <h4 class="ps-widget__title shadow-sm p-3">
+                            <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
+                                <h4 class="p-3 shadow-sm ps-widget__title">
                                     <div class="d-flex align-items-center">
                                         <div>Categories</div>
                                         <div class="title-line"></div>
                                     </div>
                                 </h4>
                                 <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
-                                <div class="ps-widget__content ps-widget__category border-0">
-                                    <ul class="menu--mobile nav nav-tabs border-0" id="myTab" role="tablist">
+                                <div class="border-0 ps-widget__content ps-widget__category">
+                                    <ul class="border-0 menu--mobile nav nav-tabs" id="myTab" role="tablist">
                                         @foreach ($categories as $allcategory)
-                                            <li class="nav-item col-12 py-0 mb-0">
+                                            <li class="py-0 mb-0 nav-item col-12">
                                                 <a class="nav-link cat-tabs-triger pl-3 py-3 category-menus {{ $allcategory->id == $category->id ? 'active-cat' : '' }}"
                                                     href="{{ route('category.products', $allcategory->slug) }}"
                                                     aria-selected="{{ $allcategory->id == $category->id ? 'true' : 'false' }}">
@@ -308,15 +277,15 @@
 
                             <!-- Price Filter -->
                             {{-- <div class="mt-3">
-                                <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
-                                    <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
+                                    <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                         <div class="d-flex align-items-center">
                                             <div>By Price</div>
                                             <div class="title-line"></div>
                                         </div>
                                     </h4>
                                     <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
-                                    <div class="ps-widget__content priceing-filter px-4 py-4">
+                                    <div class="px-4 py-4 ps-widget__content priceing-filter">
                                         <div class="ps-widget__price">
                                             <div id="slide-price" class="noUi-target noUi-ltr noUi-horizontal"></div>
                                         </div>
@@ -331,26 +300,26 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- Size Filter -->
                             <div class="mt-3">
-                                <div class="ps-widget__block ps-widget__block-shop bg-white p-0 mt-0">
-                                    <h4 class="ps-widget__title shadow-sm p-3 bg-light">
+                                <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
+                                    <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                         <div class="d-flex align-items-center">
                                             <div>By Size</div>
                                             <div class="title-line"></div>
                                         </div>
                                     </h4>
                                     <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
-                                    <div class="ps-widget__content priceing-filter px-4 py-4">
+                                    <div class="px-4 py-4 ps-widget__content priceing-filter">
                                         @foreach ($sizes as $size)
                                             <div class="btn-group" role="group" aria-label="Size filter">
                                                 <input type="radio" class="btn-check" name="size"
                                                     id="size-{{ $size }}" value="{{ $size }}"
                                                     autocomplete="off" onchange="updateFilters()"
                                                     {{ $size == $selected_size ? 'checked' : '' }}>
-                                                <label class="btn btn-outline-primary w-auto rounded-0 my-2 mb-0 mr-2"
+                                                <label class="w-auto my-2 mb-0 mr-2 btn btn-outline-primary rounded-0"
                                                     for="size-{{ $size }}">
                                                     {{ $size }}
                                                 </label>
@@ -358,7 +327,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
 
@@ -369,9 +338,9 @@
             <div class="container juta-delivery">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
-                        <div class="ps-delivery ps-delivery--info mb-0">
+                        <div class="mb-0 ps-delivery ps-delivery--info">
                             <div class="ps-delivery__content">
-                                <div class="ps-delivery__text text-white">
+                                <div class="text-white ps-delivery__text">
                                     <i class="icon-shield-check"></i>
                                     <span>
                                         <strong>100% Secure Delivery</strong> Without
@@ -396,42 +365,42 @@
         <script>
             $(document).ready(function() {
                 var priceSlider = document.getElementById('slide-price');
-                noUiSlider.create(priceSlider, {
-                    start: [1, 10000], // Default values
-                    connect: true,
-                    range: {
-                        'min': [0],
-                        'max': [10000]
-                    },
-                    step: 1,
-                    format: {
-                        to: function(value) {
-                            return '৳' + value.toFixed(2);
-                        },
-                        from: function(value) {
-                            return Number(value.replace('৳', ''));
-                        }
-                    }
-                });
+                // noUiSlider.create(priceSlider, {
+                //     start: [1, 10000], // Default values
+                //     connect: true,
+                //     range: {
+                //         'min': [0],
+                //         'max': [10000]
+                //     },
+                //     step: 1,
+                //     format: {
+                //         to: function(value) {
+                //             return '৳' + value.toFixed(2);
+                //         },
+                //         from: function(value) {
+                //             return Number(value.replace('৳', ''));
+                //         }
+                //     }
+                // });
 
-                // Update hidden inputs and displayed values, and trigger filtering
-                priceSlider.noUiSlider.on('update', function(values, handle) {
-                    $('#slide-price-min').text(values[0]);
-                    $('#slide-price-max').text(values[1]);
-                    $('#price-min').val(values[0].replace('৳', ''));
-                    $('#price-max').val(values[1].replace('৳', ''));
+                // // Update hidden inputs and displayed values, and trigger filtering
+                // priceSlider.noUiSlider.on('update', function(values, handle) {
+                //     $('#slide-price-min').text(values[0]);
+                //     $('#slide-price-max').text(values[1]);
+                //     $('#price-min').val(values[0].replace('৳', ''));
+                //     $('#price-max').val(values[1].replace('৳', ''));
 
-                    // Trigger filtering when slider values change
-                    fetchProducts();
-                });
+                //     // Trigger filtering when slider values change
+                //     fetchProducts();
+                // });
 
                 function fetchProducts(page = 1) {
                     // Collect filter data
                     let categories = [];
                     let subcategories = [];
                     let brands = [];
-                    let priceMin = $('#price-min').val();
-                    let priceMax = $('#price-max').val();
+                    // let priceMin = $('#price-min').val();
+                    // let priceMax = $('#price-max').val();
                     let sortBy = $('#sort-by').val();
                     let showPage = $('#show-per-page').val();
 
@@ -608,8 +577,8 @@
                 url.searchParams.delete('size'); // Only one size, no []
 
                 // Add price filters
-                url.searchParams.set('price_min', priceMin);
-                url.searchParams.set('price_max', priceMax);
+                // url.searchParams.set('price_min', priceMin);
+                // url.searchParams.set('price_max', priceMax);
 
                 // Add selected size as query parameter
                 if (selectedSizes.length) {
@@ -624,7 +593,8 @@
                 var priceSlider = document.getElementById('slide-price');
                 noUiSlider.create(priceSlider, {
                     start: [{{ $price_min }},
-                    {{ $price_max }}], // Set initial values from the controller
+                        {{ $price_max }}
+                    ], // Set initial values from the controller
                     connect: true,
                     range: {
                         'min': [0],

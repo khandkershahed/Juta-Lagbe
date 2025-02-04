@@ -119,7 +119,7 @@
                     <tr class="text-center">
                         <td>{{ $loop->iteration }}</td>
                         <td><a href="javascript:void(0)">{{ $order->order_number }}</a></td>
-                        <td>{{ $order->user->first_name }} {{ $order->user->last_name }}</td>
+                        <td>{{ optional($order->user)->first_name }} {{ optional($order->user)->last_name }}</td>
                         <td>{{ $order->created_at->format('Y-m-d') }}</td>
                         <td><span class="text-info fw-bold">৳</span>{{ $order->total_amount }}</td>
                         <td>{{ $order->quantity }}</td>
@@ -153,6 +153,10 @@
                             <a href="{{ route('admin.orderDetails', $order->id) }}"
                                 class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px">
                                 <i class="fa-solid fa-eye" title="Order Details"></i>
+                            </a>
+                            <a href="{{ route('admin.order.destroy', $order->id) }}"
+                                class="btn btn-sm btn-icon btn-light btn-active-light-danger toggle h-25px w-25px delete">
+                                <i class="fa-solid fa-trash-alt text-danger" title="Order Delete"></i>
                             </a>
                             <button type="button"
                                 class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px"

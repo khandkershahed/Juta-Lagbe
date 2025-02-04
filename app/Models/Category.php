@@ -28,14 +28,13 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
+    public function products()
+    {
+        return Product::whereJsonContains('category_id', json_encode($this->id));
+    }
     public function deals()
     {
         return $this->hasMany(DealBanner::class, 'brand_id');
-    }
-    public function products()
-    {
-        // return Product::whereJsonContains('category_id', (string) $this->id);
-        return Product::whereJsonContains('category_id', json_encode($this->id));
     }
 
     public function scopeActive($query)
