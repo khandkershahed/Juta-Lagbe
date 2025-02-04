@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header bg-dark align-items-center d-flex justify-content-between">
             <div>
-                <h1 class="mb-0 text-center w-100 text-white">Manage Your Deal Banner</h1>
+                <h1 class="mb-0 text-center text-white w-100">Manage Your Deal Banner</h1>
             </div>
             <div>
                 <a href="{{ route('admin.deal-banner.create') }}" class="btn btn-white rounded-2">
@@ -21,10 +21,10 @@
                 </a>
             </div>
         </div>
-        <div class="card-body py-0">
+        <div class="py-0 card-body">
             <table class="table my-datatable table-striped table-row-bordered gy-5 gs-7">
-                <thead class="bg-light-danger">
-                    <tr class=" text-white fw-bolder fs-7 text-uppercase gs-0">
+                <thead class="bg-dark">
+                    <tr class="text-white fw-bolder fs-7 text-uppercase gs-0">
                         <th width="5%">Sl</th>
                         <th width="10%" class="text-center">Deal Image</th>
                         {{-- <th width="10%" class="text-center">Background Image</th> --}}

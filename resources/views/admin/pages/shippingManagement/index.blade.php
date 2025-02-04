@@ -1,22 +1,22 @@
 <x-admin-app-layout :title="'Shipping Methods'">
-    <div class="card card-flush mt-10">
-        <div class="card-header bg-primary align-items-center">
-            <h3 class="card-title text-white">Manage Your Shipping</h3>
+    <div class="mt-10 card card-flush">
+        <div class="card-header bg-dark align-items-center">
+            <h3 class="text-white card-title">Manage Your Shipping</h3>
             <div>
                 <!-- Button trigger modal -->
-                <a href="{{ route('admin.shipping-management.create') }}" class="btn btn-white btn btn-sm">
+                <a href="{{ route('admin.shipping-management.create') }}" class="btn btn-white btn-sm">
                     <i class="fa-solid fa-plus"></i> Create
                 </a>
-                {{-- <button type="button" class="btn btn-white btn btn-sm" data-bs-toggle="modal"
+                {{-- <button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal"
                     data-bs-target="#shipping_methodsAdd">
                     <i class="fa-solid fa-plus"></i> Create
                 </button> --}}
             </div>
         </div>
         <div class="card-body table-responsive">
-            <table class="table my-datatable table-striped table-row-bordered gy-5 gs-7 border rounded">
+            <table class="table border rounded my-datatable table-striped table-row-bordered gy-5 gs-7">
                 <thead>
-                    <tr class="fw-bold fs-6 text-gray-800 px-7">
+                    <tr class="text-gray-800 fw-bold fs-6 px-7">
                         <th>ID</th>
                         <th>Title</th>
                         <th>Location</th>
@@ -25,22 +25,22 @@
                         <th>Max Weight</th>
                         <th>Price</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th class="text-end">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($shipping_methods as $method)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $method->title }}</td>
-                            <td>{{ $method->location }}</td>
-                            <td>{{ $method->duration }}</td>
-                            <td>{{ $method->min_weight }}</td>
-                            <td>{{ $method->max_weight }}</td>
-                            <td>৳{{ $method->price }}</td>
+                            <td>{{ $loop->iteration ?? "n/a"}}</td>
+                            <td class="text-center">{{ $method->title ?? "n/a"}}</td>
+                            <td class="text-center">{{ $method->location ?? "n/a"}}</td>
+                            <td class="text-center">{{ $method->duration ?? "n/a"}}</td>
+                            <td class="text-center">{{ $method->min_weight ?? "n/a"}}</td>
+                            <td class="text-center">{{ $method->max_weight ?? "n/a" }}</td>
+                            <td class="text-center">৳{{ $method->price }}</td>
                             <td><span class="badge {{ $method->status == 'active' ? 'bg-success' : 'bg-danger' }}">
                                     {{ $method->status == 'active' ? 'Active' : 'InActive' }}</span></td>
-                            <td class="text-start">
+                            <td class="text-end">
                                 <a href="{{ route('admin.shipping-management.edit', $method->id) }}"
                                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <i class="fa-solid fa-pen"></i>

@@ -19,10 +19,10 @@
     <div class="profile-box">
         <div class="img-box">
             @if (Auth::user()->profile_image)
-                <img class="img-fluid" src="{{ asset('storage/' . Auth::user()->profile_image) }}"
-                    alt="{{ Auth::user()->name }}">
+                <img class="img-fluid" src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="{{ Auth::user()->name }}">
             @else
-                <img class="img-fluid" src="{{ asset('images/default-profile.jpeg') }}" alt="Default Profile">
+                <img class="img-fluid" src="https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg"
+                    alt="Default Profile">
             @endif
 
             <div class="edit-btn" data-toggle="modal" data-target="#editProfileImage">
@@ -32,7 +32,6 @@
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                 </svg>
-                <!-- Hidden input for updating the profile image -->
                 <input class="updateimg" type="file" name="img" id="profileImageUpload" style="display: none;">
             </div>
         </div>
@@ -43,14 +42,15 @@
     </div>
 
 
+
     <!-- Modal -->
     <div class="modal fade" id="editProfileImage" tabindex="-1" role="dialog" aria-labelledby="editProfileImageLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title text-white" id="editImageModalLabel">Update Profile Image</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <h5 class="text-white modal-title" id="editImageModalLabel">Update Profile Image</h5>
+                    <button type="button" class="text-white close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -128,7 +128,7 @@
         <a href="javascript:void(0)"
             onclick="event.preventDefault(); document.getElementById('user-logout-form').submit();"
             class="btn btn-outline-primary btn-logins w-100">
-            <i class="fa-solid fa-arrow-right-from-bracket pr-2"></i> {{ __('Log Out') }}
+            <i class="pr-2 fa-solid fa-arrow-right-from-bracket"></i> {{ __('Log Out') }}
         </a>
         <!-- Hidden logout form -->
         <form id="user-logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">

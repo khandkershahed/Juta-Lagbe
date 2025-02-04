@@ -40,7 +40,7 @@ Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewP
     Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::get('checkout', [HomeController::class, 'checkout'])->name('checkout');
-Route::post('checkout/store', [CartController::class, 'checkoutStore'])->name('checkout.store');
+
 
 require __DIR__ . '/frontend.php';
 require __DIR__ . '/auth.php';
