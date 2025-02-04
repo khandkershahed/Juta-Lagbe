@@ -37,9 +37,10 @@ class HomeController extends Controller
             ->take(8)
             ->get();
         $latestProductIds = $latestproducts->pluck('id')->toArray();
-        $randomproducts = Product::inRandomOrder()
-            ->whereNotIn('id', $latestProductIds)
-            ->get(); // Remove take(12) to fetch all products
+        $randomproducts = Product::inRandomOrder()->take(12)->get(); // Remove take(12) to fetch all products
+        // $randomproducts = Product::inRandomOrder()
+        //     ->whereNotIn('id', $latestProductIds)
+        //     ->get(); // Remove take(12) to fetch all products
 
         $special_offer = SpecialOffer::latest()->first();
         $specialproducts = $special_offer ? $special_offer->products() : null;
