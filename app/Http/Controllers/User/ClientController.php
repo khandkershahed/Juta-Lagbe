@@ -27,68 +27,95 @@ class ClientController extends Controller
         ];
         return view('user.pages.orderHistory', $data);
     }
-    public function paymentSuccess()
+    public function paymentSuccess(Request $request)
     {
+        // dd($request->status);
         $pendingOrder = session('pending_order');
-        DB::beginTransaction();
-        try {
-            // $order = Order::create($pendingOrder);
-            $order = Order::create([
-                'order_number'       => $pendingOrder['order_number'],
-                'user_id'            => $pendingOrder['user_id'],
-                'shipping_method_id' => $pendingOrder['shipping_method_id'],
-                'sub_total'          => $pendingOrder['sub_total'],
-                'quantity'           => $pendingOrder['quantity'],
-                'shipping_charge'    => $pendingOrder['shipping_charge'],
-                'total_amount'       => $pendingOrder['total_amount'],
-                'payment_status'     => $pendingOrder['payment_status'],
-                'status'             => $pendingOrder['status'],
-                'name'               => $pendingOrder['name'],
-                'email'              => $pendingOrder['email'],
-                'phone'              => $pendingOrder['phone'],
-                'thana'              => $pendingOrder['thana'],
-                'district'           => $pendingOrder['district'],
-                'address'            => $pendingOrder['address'],
-                'order_note'         => $pendingOrder['order_note'],
-                'created_by'         => $pendingOrder['created_by'],
-                'order_created_at'   => $pendingOrder['order_created_at'],
-                'created_at'         => $pendingOrder['created_at'],
-            ]);
-            foreach ($pendingOrder['cart_items'] as $item) {
-                OrderItem::create([
-                    'order_id'      => $order->id,
-                    'product_id'    => $item->id,
-                    'user_id'       => $pendingOrder['user_id'],
-                    'product_name'  => $item->name,
-                    'product_color' => $item->model->color ?? null,
-                    'product_sku'   => $item->model->sku ?? null,
-                    'size'          => $item->options->size ?? null,
-                    'price'         => $item->price,
-                    'tax'           => $item->tax ?? 0,
-                    'quantity'      => $item->qty,
-                    'subtotal'      => $item->qty * $item->price,
+        if ($request->status == 'success') {
+            DB::beginTransaction();
+            try {
+                // Check if pending order exists
+                if (empty($pendingOrder)) {
+                    throw new \Exception('No pending order found.');
+                }
+
+                // Create the order
+                $order = Order::create([
+                    'order_number'       => $pendingOrder['order_number'],
+                    'user_id'            => $pendingOrder['user_id'],
+                    'shipping_method_id' => $pendingOrder['shipping_method_id'],
+                    'sub_total'          => (float) $pendingOrder['sub_total'],  // Type casting
+                    'quantity'           => (int) $pendingOrder['quantity'],    // Ensure quantity is an integer
+                    'shipping_charge'    => (float) $pendingOrder['shipping_charge'],  // Type casting
+                    'total_amount'       => (float) $pendingOrder['total_amount'],   // Type casting
+                    'payment_status'     => $pendingOrder['payment_status'],
+                    'status'             => $pendingOrder['status'],
+                    'name'               => $pendingOrder['name'],
+                    'email'              => $pendingOrder['email'],
+                    'phone'              => $pendingOrder['phone'],
+                    'thana'              => $pendingOrder['thana'],
+                    'district'           => $pendingOrder['district'],
+                    'address'            => $pendingOrder['address'],
+                    'order_note'         => $pendingOrder['order_note'],
+                    'created_by'         => $pendingOrder['created_by'],
+                    'order_created_at'   => $pendingOrder['order_created_at'],
+                    'created_at'         => $pendingOrder['created_at'],
                 ]);
 
-                // Update product stock
-                $product = Product::find($item->id);
-                $product->update([
-                    'stock' => $product->stock - $item->qty,
-                ]);
+                foreach ($pendingOrder['cart_items'] as $item) {
+
+                    $orderItem = OrderItem::create([
+                        'order_id'      => $order->id,  // Accessing order's ID, which is correct
+                        'product_id'    => $item['product_id'],  // Correct array access
+                        'user_id'       => $pendingOrder['user_id'],
+                        'product_name'  => $item['product_name'],
+                        'product_color' => $item['product_color'] ?? null,
+                        'product_sku'   => $item['product_sku'] ?? null,
+                        'size'          => $item['size'] ?? null,
+                        'price'         => (float) $item['price'],  // Type casting to float
+                        'tax'           => (float) $item['tax'],    // Type casting to float
+                        'quantity'      => (int) $item['quantity'],  // Ensure quantity is an integer
+                        'subtotal'      => (float) $item['subtotal'], // Type casting to float
+                    ]);
+
+                    // Update product stock
+                    $product = Product::find($item['product_id']);
+                    if ($product) {
+                        $product->update([
+                            'stock' => $product->stock - (int) $item['quantity'],  // Update stock
+                        ]);
+                    }
+                }
+
+                // Commit the transaction
+                DB::commit();
+
+                // Clear the cart and session data
+                Cart::instance('cart')->destroy();
+                session()->forget('pending_order');
+            } catch (\Exception $e) {
+                // Rollback in case of any error
+                DB::rollback();
+                // Flash error message
+                Session::flash('error', 'Order processing failed: ' . $e->getMessage());
             }
-            DB::commit();
-            Cart::instance('cart')->destroy();
-            session()->forget('pending_order');
-        } catch (\Exception $e) {
-            DB::rollback();
-            Session::flash('error', 'Order processing failed: ' . $e->getMessage());
+
+            // Prepare data to be sent to the view
+            $data = [
+                'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
+                'deliveredOrdersCount' => Order::latest('id')->where('status', 'delivered')->count(),
+                'orders'               => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->get(),
+            ];
+
+            // Return the view with order history
+            return view('user.pages.orderHistory', $data);
+        } else {
+            Session::flash('error', 'Payment Unsuccessful');
+            return redirect()->route('checkout');
         }
-        $data = [
-            'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
-            'deliveredOrdersCount' => Order::latest('id')->where('status', 'delivered')->count(),
-            'orders'               => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->get(),
-        ];
-        return view('user.pages.orderHistory', $data);
     }
+
+
     public function accountDetails()
     {
         return view('user.pages.accountDetails');

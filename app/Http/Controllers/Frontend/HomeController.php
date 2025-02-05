@@ -289,9 +289,8 @@ class HomeController extends Controller
             ));
         } else {
             // Redirect back with error message
-            Session::flash('error', "'The added product price must be greater than'. $minimumOrderAmount . 'to proceed to check out.'");
-            // Session::flush();
-            return redirect()->back();
+            Session::flash('error', "Order Process Failed. Try Again.");
+            return redirect()->back()->withInput();
         }
     }
     public function buyNow($id)
