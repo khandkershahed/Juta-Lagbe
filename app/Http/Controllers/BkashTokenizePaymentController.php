@@ -36,6 +36,21 @@ class BkashTokenizePaymentController extends Controller
         }
 
         $inv = uniqid();
+
+        // "statusCode" => "0000"
+        // "statusMessage" => "Successful"
+        // "paymentID" => "TR0011WQ1674418613025"
+        // "bkashURL" => "https://sandbox.payment.bkash.com/redirect/tokenized/?paymentID=TR0011WQ1674418613025&hash=t1-54Dtkmi*wr1KeWV55Z8fl5_DqsaW2q.zQWAQrPtpMsg*5zhuy3w17ZbXEvQ)qU7IT_ ▶"
+        // "callbackURL" => "base_url/bkash/callback"
+        // "successCallbackURL" => "base_url/bkash/callback?paymentID=TR0011WQ1674418613025&status=success"
+        // "failureCallbackURL" => "base_url/bkash/callback?paymentID=TR0011WQ1674418613025&status=failure"
+        // "cancelledCallbackURL" => "base_url/bkash/callback?paymentID=TR0011WQ1674418613025&status=cancel"
+        // "amount" => "100"
+        // "intent" => "sale"
+        // "currency" => "BDT"
+        // "paymentCreateTime" => "2023-01-23T02:16:57:784 GMT+0600"
+        // "transactionStatus" => "Initiated"
+        // "merchantInvoiceNumber" => "63cd99abe6bae"
         $request['intent'] = 'sale';
         $request['mode'] = '0011';
         $request['payerReference'] = $inv;
@@ -43,6 +58,11 @@ class BkashTokenizePaymentController extends Controller
         $request['amount'] = $amount;
         $request['merchantInvoiceNumber'] = $inv;
         $request['callbackURL'] = config("bkash.callbackURL");
+        $request['successCallbackURL'] = config("bkash.callbackURL");
+        $request['failureCallbackURL'] = config("bkash.callbackURL");
+        $request['cancelledCallbackURL'] = config("bkash.callbackURL");
+        $request['cancelledCallbackURL'] = config("bkash.callbackURL");
+        $request['cancelledCallbackURL'] = config("bkash.callbackURL");
         $request_data_json = json_encode($request->all());
         $response = BkashPaymentTokenize::cPayment($request_data_json);
 
@@ -50,7 +70,8 @@ class BkashTokenizePaymentController extends Controller
             session()->put('pending_order.bkash', 'success');
             return redirect()->away($response['bkashURL']);
         } else {
-            return redirect()->back()->with('error', $response['statusMessage']);
+            return redirect()->back();
+            // return redirect()->back()->with('error', $response['statusMessage']);
         }
     }
 
