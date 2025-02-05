@@ -141,24 +141,22 @@ class BkashTokenizePaymentController extends Controller
             if (isset($response['statusCode']) && $response['statusCode'] == "0000" && $response['transactionStatus'] == "Completed") {
                 $pendingOrder = session('pending_order');
                 $order = Order::create($pendingOrder);
-
                 DB::beginTransaction();
                 try {
                     $order = Order::create($pendingOrder);
-
                     foreach ($pendingOrder['cart_items'] as $item) {
                         OrderItem::create([
-                            'order_id' => $order->id,
-                            'product_id' => $item->id,
-                            'user_id' => $pendingOrder['user_id'],
-                            'product_name' => $item->name,
+                            'order_id'      => $order->id,
+                            'product_id'    => $item->id,
+                            'user_id'       => $pendingOrder['user_id'],
+                            'product_name'  => $item->name,
                             'product_color' => $item->model->color ?? null,
-                            'product_sku' => $item->model->sku ?? null,
-                            'size' => $item->options->size ?? null,
-                            'price' => $item->price,
-                            'tax' => $item->tax ?? 0,
-                            'quantity' => $item->qty,
-                            'subtotal' => $item->qty * $item->price,
+                            'product_sku'   => $item->model->sku ?? null,
+                            'size'          => $item->options->size ?? null,
+                            'price'         => $item->price,
+                            'tax'           => $item->tax ?? 0,
+                            'quantity'      => $item->qty,
+                            'subtotal'      => $item->qty * $item->price,
                         ]);
 
                         // Update product stock
@@ -173,23 +171,26 @@ class BkashTokenizePaymentController extends Controller
                     // Clear cart and session
                     Cart::instance('cart')->destroy();
                     session()->forget('pending_order');
-
-                    return $bkashPaymentTokenize->success('Thank you for your payment', $response['trxID']);
+                    Session::flash('Thank you for your payment', $response['trxID']);
+                    return redirect()->route('user.order.history');
+                    // return $bkashPaymentTokenize->success('Thank you for your payment', $response['trxID']);
                 } catch (\Exception $e) {
                     DB::rollback();
-                    Session::flash('error','Order processing failed: ' . $e->getMessage());
+                    Session::flash('error', 'Order processing failed: ' . $e->getMessage());
                     return $bkashPaymentTokenize->failure('Order processing failed: ' . $e->getMessage());
                 }
-
-                return $bkashPaymentTokenize->success('Thank you for your payment', $response['trxID']);
+                Session::flash('Thank you for your payment', $response['trxID']);
+                return redirect()->route('user.order.history');
+                // return $bkashPaymentTokenize->success('Thank you for your payment', $response['trxID']);
             }
 
             return $bkashPaymentTokenize->failure($response['statusMessage']);
         } else if ($request->status == 'cancel') {
-            Session::flash('error','Order processing failed');
+            Session::flash('error', 'Order processing failed');
+            // return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
             return $bkashPaymentTokenize->cancel('Your payment is canceled');
         } else {
-            Session::flash('error','Order processing failed');
+            Session::flash('error', 'Order processing failed');
             return $bkashPaymentTokenize->failure('Your transaction is failed');
         }
     }
