@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Karim007\LaravelBkashTokenize\Facade\BkashRefundTokenize;
 use Karim007\LaravelBkashTokenize\Facade\BkashPaymentTokenize;
-use Gloudemans\Shoppingcart\Facades\Cart;
 
 class BkashTokenizePaymentController extends Controller
 {
@@ -126,65 +128,112 @@ class BkashTokenizePaymentController extends Controller
     // }
     public function callBack(Request $request)
     {
+
         if ($request->status == 'success') {
             $response = BkashPaymentTokenize::executePayment($request->paymentID);
-            if (!$response) {
-                $response = BkashPaymentTokenize::queryPayment($request->paymentID);
-            }
 
+            if (!$response) {
+                $response =  BkashPaymentTokenize::queryPayment($request->paymentID);
+            }
             if (isset($response['statusCode']) && $response['statusCode'] == "0000" && $response['transactionStatus'] == "Completed") {
                 $pendingOrder = session('pending_order');
+                $order = Order::create($pendingOrder);
 
-                if (!$pendingOrder) {
-                    return BkashPaymentTokenize::failure('Order session expired.');
+                foreach ($pendingOrder['cart_items'] as $item) {
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'product_id' => $item->id,
+                        'user_id' => $pendingOrder['user_id'],
+                        'product_name' => $item->name,
+                        'product_color' => $item->model->color ?? null,
+                        'product_sku' => $item->model->sku ?? null,
+                        'size' => $item->options->size ?? null,
+                        'price' => $item->price,
+                        'tax' => $item->tax ?? 0,
+                        'quantity' => $item->qty,
+                        'subtotal' => $item->qty * $item->price,
+                    ]);
+
+                    // Update product stock
+                    $product = Product::find($item->id);
+                    $product->update([
+                        'box_stock' => $product->stock - $item->qty,
+                    ]);
                 }
 
-                // Store the order in the database
-                DB::beginTransaction();
-                try {
-                    $order = Order::create($pendingOrder);
+                Cart::instance('cart')->destroy();
+                session()->forget('pending_order');
 
-                    foreach ($pendingOrder['cart_items'] as $item) {
-                        OrderItem::create([
-                            'order_id' => $order->id,
-                            'product_id' => $item->id,
-                            'user_id' => $pendingOrder['user_id'],
-                            'product_name' => $item->name,
-                            'product_color' => $item->model->color ?? null,
-                            'product_sku' => $item->model->sku ?? null,
-                            'size' => $item->options->size ?? null,
-                            'price' => $item->price,
-                            'tax' => $item->tax ?? 0,
-                            'quantity' => $item->qty,
-                            'subtotal' => $item->qty * $item->price,
-                        ]);
-
-                        // Update product stock
-                        $product = Product::find($item->id);
-                        $product->update([
-                            'box_stock' => $product->box_stock - $item->qty,
-                        ]);
-                    }
-
-                    DB::commit();
-
-                    // Clear cart and session
-                    Cart::instance('cart')->destroy();
-                    session()->forget('pending_order');
-
-                    return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
-                } catch (\Exception $e) {
-                    DB::rollback();
-                    return BkashPaymentTokenize::failure('Order processing failed: ' . $e->getMessage());
-                }
+                return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
             }
             return BkashPaymentTokenize::failure($response['statusMessage']);
         } else if ($request->status == 'cancel') {
             return BkashPaymentTokenize::cancel('Your payment is canceled');
         } else {
-            return BkashPaymentTokenize::failure('Your transaction failed');
+            return BkashPaymentTokenize::failure('Your transaction is failed');
         }
     }
+    // public function callBack(Request $request)
+    // {
+    //     if ($request->status == 'success') {
+    //         $response = BkashPaymentTokenize::executePayment($request->paymentID);
+    //         if (!$response) {
+    //             $response = BkashPaymentTokenize::queryPayment($request->paymentID);
+    //         }
+
+    //         if (isset($response['statusCode']) && $response['statusCode'] == "0000" && $response['transactionStatus'] == "Completed") {
+    //             $pendingOrder = session('pending_order');
+
+    //             if (!$pendingOrder) {
+    //                 return BkashPaymentTokenize::failure('Order session expired.');
+    //             }
+
+    //             // Store the order in the database
+    //             DB::beginTransaction();
+    //             try {
+    //                 $order = Order::create($pendingOrder);
+
+    //                 foreach ($pendingOrder['cart_items'] as $item) {
+    //                     OrderItem::create([
+    //                         'order_id' => $order->id,
+    //                         'product_id' => $item->id,
+    //                         'user_id' => $pendingOrder['user_id'],
+    //                         'product_name' => $item->name,
+    //                         'product_color' => $item->model->color ?? null,
+    //                         'product_sku' => $item->model->sku ?? null,
+    //                         'size' => $item->options->size ?? null,
+    //                         'price' => $item->price,
+    //                         'tax' => $item->tax ?? 0,
+    //                         'quantity' => $item->qty,
+    //                         'subtotal' => $item->qty * $item->price,
+    //                     ]);
+
+    //                     // Update product stock
+    //                     $product = Product::find($item->id);
+    //                     $product->update([
+    //                         'box_stock' => $product->box_stock - $item->qty,
+    //                     ]);
+    //                 }
+
+    //                 DB::commit();
+
+    //                 // Clear cart and session
+    //                 Cart::instance('cart')->destroy();
+    //                 session()->forget('pending_order');
+
+    //                 return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
+    //             } catch (\Exception $e) {
+    //                 DB::rollback();
+    //                 return BkashPaymentTokenize::failure('Order processing failed: ' . $e->getMessage());
+    //             }
+    //         }
+    //         return BkashPaymentTokenize::failure($response['statusMessage']);
+    //     } else if ($request->status == 'cancel') {
+    //         return BkashPaymentTokenize::cancel('Your payment is canceled');
+    //     } else {
+    //         return BkashPaymentTokenize::failure('Your transaction failed');
+    //     }
+    // }
 
     // public function callBack(Request $request)
     // {
