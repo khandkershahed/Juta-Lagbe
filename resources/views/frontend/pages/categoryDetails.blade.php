@@ -528,39 +528,39 @@
             });
             // Listen for clicks on all "Show All" buttons
             // Listen for clicks on all "Show All" / "Show Less" buttons
-            document.querySelectorAll('.show-all-btn').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const categoryId = this.dataset.categoryId;
-                    const hiddenItems = document.querySelectorAll('#home' + categoryId +
-                        ' .product-item.d-none');
+            // document.querySelectorAll('.show-all-btn').forEach(function(button) {
+            //     button.addEventListener('click', function() {
+            //         const categoryId = this.dataset.categoryId;
+            //         const hiddenItems = document.querySelectorAll('#home' + categoryId +
+            //             ' .product-item.d-none');
 
-                    hiddenItems.forEach(function(item) {
-                        item.classList.remove('d-none'); // Show hidden items
-                    });
+            //         hiddenItems.forEach(function(item) {
+            //             item.classList.remove('d-none'); // Show hidden items
+            //         });
 
-                    // Hide the "Show All" button and show the "Show Less" button
-                    this.classList.add('d-none');
-                    document.querySelector('#showLessBtn' + categoryId).classList.remove('d-none');
-                });
-            });
+            //         // Hide the "Show All" button and show the "Show Less" button
+            //         this.classList.add('d-none');
+            //         document.querySelector('#showLessBtn' + categoryId).classList.remove('d-none');
+            //     });
+            // });
 
-            // Add functionality for "Show Less" button
-            document.querySelectorAll('.show-less-btn').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const categoryId = this.dataset.categoryId;
-                    const items = document.querySelectorAll('#home' + categoryId + ' .product-item');
+            // // Add functionality for "Show Less" button
+            // document.querySelectorAll('.show-less-btn').forEach(function(button) {
+            //     button.addEventListener('click', function() {
+            //         const categoryId = this.dataset.categoryId;
+            //         const items = document.querySelectorAll('#home' + categoryId + ' .product-item');
 
-                    items.forEach(function(item, index) {
-                        if (index >= 4) {
-                            item.classList.add('d-none'); // Hide items after the first 4
-                        }
-                    });
+            //         items.forEach(function(item, index) {
+            //             if (index >= 4) {
+            //                 item.classList.add('d-none'); // Hide items after the first 4
+            //             }
+            //         });
 
-                    // Show the "Show All" button and hide the "Show Less" button
-                    document.querySelector('#showAllBtn' + categoryId).classList.remove('d-none');
-                    this.classList.add('d-none');
-                });
-            });
+            //         // Show the "Show All" button and hide the "Show Less" button
+            //         document.querySelector('#showAllBtn' + categoryId).classList.remove('d-none');
+            //         this.classList.add('d-none');
+            //     });
+            // });
         </script>
         <script>
             function updateFilters() {
