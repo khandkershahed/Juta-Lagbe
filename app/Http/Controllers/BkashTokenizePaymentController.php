@@ -51,7 +51,7 @@ class BkashTokenizePaymentController extends Controller
         // "paymentCreateTime" => "2023-01-23T02:16:57:784 GMT+0600"
         // "transactionStatus" => "Initiated"
         // "merchantInvoiceNumber" => "63cd99abe6bae"
-        $request['intent'] = 'sale';
+        $request['intent'] = 'authorization';
         $request['mode'] = '0011';
         $request['payerReference'] = $inv;
         $request['currency'] = 'BDT';
@@ -70,6 +70,7 @@ class BkashTokenizePaymentController extends Controller
             session()->put('pending_order.bkash', 'success');
             return redirect()->away($response['bkashURL']);
         } else {
+            Session::flash('error', 'Payment initiation failed.' . json_encode($response));
             return redirect()->back();
             // return redirect()->back()->with('error', $response['statusMessage']);
         }
