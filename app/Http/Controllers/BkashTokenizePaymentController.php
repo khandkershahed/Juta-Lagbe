@@ -50,7 +50,7 @@ class BkashTokenizePaymentController extends Controller
             session()->put('pending_order.bkash', 'success');
             return redirect()->away($response['bkashURL']);
         } else {
-            return redirect()->back()->with('error-alert2', $response['statusMessage']);
+            return redirect()->back()->with('error', $response['statusMessage']);
         }
     }
 
