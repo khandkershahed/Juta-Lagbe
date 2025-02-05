@@ -290,6 +290,7 @@ class HomeController extends Controller
         } else {
             // Redirect back with error message
             Session::flash('error', "Order Process Failed. Try Again.");
+            // Session::flush();
             return redirect()->back()->withInput();
         }
     }

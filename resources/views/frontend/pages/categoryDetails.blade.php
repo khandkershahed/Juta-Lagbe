@@ -54,7 +54,7 @@
                                     <div class="m-0 row">
                                         @foreach ($catProducts as $key => $category_product)
                                             <div
-                                                class="col-12 col-lg-4 p-0 product-item {{ $key >= 4 ? 'd-none' : '' }}">
+                                                class="col-12 col-lg-4 p-0 product-item">
                                                 <div class="pr-2 ps-section__product">
                                                     <div class="ps-product ps-product--standard">
                                                         <div class="ps-product__thumbnail">
