@@ -33,7 +33,28 @@ class ClientController extends Controller
         $order = Order::create($pendingOrder);
         DB::beginTransaction();
         try {
-            $order = Order::create($pendingOrder);
+            // $order = Order::create($pendingOrder);
+            $order = Order::create([
+                'order_number'       => $pendingOrder['order_number'],
+                'user_id'            => $pendingOrder['user_id'],
+                'shipping_method_id' => $pendingOrder['shipping_method_id'],
+                'sub_total'          => $pendingOrder['sub_total'],
+                'quantity'           => $pendingOrder['quantity'],
+                'shipping_charge'    => $pendingOrder['shipping_charge'],
+                'total_amount'       => $pendingOrder['total_amount'],
+                'payment_status'     => $pendingOrder['payment_status'],
+                'status'             => $pendingOrder['status'],
+                'name'               => $pendingOrder['name'],
+                'email'              => $pendingOrder['email'],
+                'phone'              => $pendingOrder['phone'],
+                'thana'              => $pendingOrder['thana'],
+                'district'           => $pendingOrder['district'],
+                'address'            => $pendingOrder['address'],
+                'order_note'         => $pendingOrder['order_note'],
+                'created_by'         => $pendingOrder['created_by'],
+                'order_created_at'   => $pendingOrder['order_created_at'],
+                'created_at'         => $pendingOrder['created_at'],
+            ]);
             foreach ($pendingOrder['cart_items'] as $item) {
                 OrderItem::create([
                     'order_id'      => $order->id,
