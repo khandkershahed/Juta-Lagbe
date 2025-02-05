@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
+    Route::get('payment/successful/', [ClientController::class, 'paymentSuccess'])->name('payment.successful');
     Route::get('order/history/', [ClientController::class, 'orderHistory'])->name('order.history');
     Route::get('order/tracking/', [ClientController::class, 'orderTracking'])->name('order.tracking');
     Route::get('account/details/', [ClientController::class, 'accountDetails'])->name('account.details');
