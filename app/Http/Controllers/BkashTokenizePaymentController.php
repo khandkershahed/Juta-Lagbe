@@ -186,8 +186,10 @@ class BkashTokenizePaymentController extends Controller
 
             return $bkashPaymentTokenize->failure($response['statusMessage']);
         } else if ($request->status == 'cancel') {
+            Session::flash('error','Order processing failed');
             return $bkashPaymentTokenize->cancel('Your payment is canceled');
         } else {
+            Session::flash('error','Order processing failed');
             return $bkashPaymentTokenize->failure('Your transaction is failed');
         }
     }
