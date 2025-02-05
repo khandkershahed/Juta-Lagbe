@@ -30,7 +30,6 @@ class ClientController extends Controller
     public function paymentSuccess()
     {
         $pendingOrder = session('pending_order');
-        $order = Order::create($pendingOrder);
         DB::beginTransaction();
         try {
             // $order = Order::create($pendingOrder);
