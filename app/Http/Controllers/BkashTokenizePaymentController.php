@@ -128,49 +128,67 @@ class BkashTokenizePaymentController extends Controller
     // }
     public function callBack(Request $request)
     {
+        // Assuming BkashPaymentTokenize is a class that needs to be instantiated
+        $bkashPaymentTokenize = new BkashPaymentTokenize();
 
         if ($request->status == 'success') {
-            $response = BkashPaymentTokenize::executePayment($request->paymentID);
+            $response = $bkashPaymentTokenize->executePayment($request->paymentID);
 
             if (!$response) {
-                $response =  BkashPaymentTokenize::queryPayment($request->paymentID);
+                $response = $bkashPaymentTokenize->queryPayment($request->paymentID);
             }
+
             if (isset($response['statusCode']) && $response['statusCode'] == "0000" && $response['transactionStatus'] == "Completed") {
                 $pendingOrder = session('pending_order');
                 $order = Order::create($pendingOrder);
 
-                foreach ($pendingOrder['cart_items'] as $item) {
-                    OrderItem::create([
-                        'order_id' => $order->id,
-                        'product_id' => $item->id,
-                        'user_id' => $pendingOrder['user_id'],
-                        'product_name' => $item->name,
-                        'product_color' => $item->model->color ?? null,
-                        'product_sku' => $item->model->sku ?? null,
-                        'size' => $item->options->size ?? null,
-                        'price' => $item->price,
-                        'tax' => $item->tax ?? 0,
-                        'quantity' => $item->qty,
-                        'subtotal' => $item->qty * $item->price,
-                    ]);
+                DB::beginTransaction();
+                try {
+                    $order = Order::create($pendingOrder);
 
-                    // Update product stock
-                    $product = Product::find($item->id);
-                    $product->update([
-                        'box_stock' => $product->stock - $item->qty,
-                    ]);
+                    foreach ($pendingOrder['cart_items'] as $item) {
+                        OrderItem::create([
+                            'order_id' => $order->id,
+                            'product_id' => $item->id,
+                            'user_id' => $pendingOrder['user_id'],
+                            'product_name' => $item->name,
+                            'product_color' => $item->model->color ?? null,
+                            'product_sku' => $item->model->sku ?? null,
+                            'size' => $item->options->size ?? null,
+                            'price' => $item->price,
+                            'tax' => $item->tax ?? 0,
+                            'quantity' => $item->qty,
+                            'subtotal' => $item->qty * $item->price,
+                        ]);
+
+                        // Update product stock
+                        $product = Product::find($item->id);
+                        $product->update([
+                            'stock' => $product->stock - $item->qty,
+                        ]);
+                    }
+
+                    DB::commit();
+
+                    // Clear cart and session
+                    Cart::instance('cart')->destroy();
+                    session()->forget('pending_order');
+
+                    return $bkashPaymentTokenize->success('Thank you for your payment', $response['trxID']);
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    Session::flash('error','Order processing failed: ' . $e->getMessage());
+                    return $bkashPaymentTokenize->failure('Order processing failed: ' . $e->getMessage());
                 }
 
-                Cart::instance('cart')->destroy();
-                session()->forget('pending_order');
-
-                return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
+                return $bkashPaymentTokenize->success('Thank you for your payment', $response['trxID']);
             }
-            return BkashPaymentTokenize::failure($response['statusMessage']);
+
+            return $bkashPaymentTokenize->failure($response['statusMessage']);
         } else if ($request->status == 'cancel') {
-            return BkashPaymentTokenize::cancel('Your payment is canceled');
+            return $bkashPaymentTokenize->cancel('Your payment is canceled');
         } else {
-            return BkashPaymentTokenize::failure('Your transaction is failed');
+            return $bkashPaymentTokenize->failure('Your transaction is failed');
         }
     }
     // public function callBack(Request $request)
