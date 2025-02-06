@@ -112,7 +112,7 @@
                                                 </div>
                                             @endif
 
-                                            <div class="ps-product__quantity">
+                                            {{-- <div class="ps-product__quantity">
                                                 <h6>Quantity</h6>
                                                 <div class="def-number-input number-input safari_only">
                                                     <button class="minus"
@@ -125,7 +125,7 @@
                                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
                                                             class="icon-plus"></i></button>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="d-flex align-items-center card-cart-btn">
                                                 <a href="{{ route('product.details', $latest_product->slug) }}"
                                                     class="btn btn-primary rounded-0 w-100">
