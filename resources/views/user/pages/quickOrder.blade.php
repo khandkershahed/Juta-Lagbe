@@ -185,11 +185,14 @@
                                                                 class="ps-product__price sale">৳{{ $related_product->unit_price }}</span>
                                                         </div>
                                                     @endif
-                                                    <a href="{{ route('cart.store', $related_product->id) }}"
-                                                        class="btn ps-btn--warning my-3 btn-block add_to_cart"
-                                                        data-product_id="{{ $related_product->id }}"
-                                                        data-product_qty="1">Add To
-                                                        Cart</a>
+                                                    <div class="d-flex align-items-center card-cart-btn">
+                                                        <a href="{{ route('product.details', $related_product->slug) }}"
+                                                            class="btn btn-primary rounded-0 w-100">
+                                                            <i class="pr-2 fa-solid fa-basket-shopping"></i>
+                                                            অর্ডার
+                                                            করুন
+                                                        </a>
+                                                    </div>
 
                                                     <div class="ps-product__actions ps-product__group-mobile">
                                                         <div class="ps-product__quantity">
