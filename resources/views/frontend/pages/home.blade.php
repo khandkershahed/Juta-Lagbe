@@ -349,7 +349,7 @@
                 <div class="container px-0">
                     <section class="pb-4 ps-section--deals">
                         <div class="ps-section__carousel">
-                            <div class="trending-products owl-carousel">
+                            <div class="trending-products owl-carousel surprice-row">
                                 @foreach ($latestproducts as $latestproduct)
                                 <div class="border ps-section__product latest-products">
                                     <div class="ps-product ps-product--standard">
@@ -508,7 +508,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="pt-4 d-flex justify-content-between align-items-center pt-lg-5 home-header-title">
-                            <div class="">
+                            <div class="spcial-product-box">
                                 <h3 class="mb-0 text-black ps-section__title d-flex align-items-center text-uppercase"
                                     style="font-size: 30px;">
                                     All Products
@@ -528,7 +528,7 @@
                     </div>
                 </div>
                 {{-- Category Product --}}
-                <div class="row">
+                <div class="row surprice-row">
                     @foreach ($randomproducts as $randomproduct)
                         <div class="pl-0 pr-0 my-3 col-6 col-md-4 col-lg-3 dot4 pr-lg-3 product-grids">
                             <div class="border ps-section__product">

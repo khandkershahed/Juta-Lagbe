@@ -16858,7 +16858,7 @@ textarea.form-control {
     }
 
     .ps-breadcrumb {
-        padding: 40px 0px 15px !important;
+        padding: 40px 15px 15px !important;
         margin-top: 80px !important;
     }
 
@@ -16940,6 +16940,15 @@ textarea.form-control {
     }
     .product-details-img{
         height: 100% !important;
+    }
+    .checkout-field{
+        padding-left: 0;
+    }
+    .mobile-none{
+        display: none;
+    }
+    .checkout-title{
+        text-align: center;
     }
 }
 
