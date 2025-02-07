@@ -504,7 +504,7 @@
                                                 </div>
                                             @endif
 
-                                            <div class="ps-product__quantity">
+                                            {{-- <div class="ps-product__quantity">
                                                 <h6>Quantity</h6>
                                                 <div class="def-number-input number-input safari_only">
                                                     <button class="minus"
@@ -517,7 +517,7 @@
                                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
                                                             class="icon-plus"></i></button>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                             <a class="ps-btn ps-btn--warning add_to_cart_btn_product_single"
                                                 data-product_id="{{ $product->id }}" href="#">Add to

@@ -13,8 +13,8 @@
                     <div class="border-0 card">
                         <div class="border-0 card-header">
                             <div class="py-2 d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 site-text">অর্ডার সম্পূর্ণ করতে আপনার তথ্য দিন</h3>
-                                <h3 class="mb-0 site-text">আপনার অর্ডার</h3>
+                                <h3 class="mb-0 site-text checkout-title">অর্ডার সম্পূর্ণ করতে আপনার তথ্য দিন</h3>
+                                <h3 class="mb-0 site-text mobile-none">আপনার অর্ডার</h3>
                             </div>
                         </div>
                         <div class="py-0 pr-0 card-body">
@@ -22,7 +22,7 @@
                                 <div class="col-12 col-lg-5">
                                     <div class="pb-0 mb-0 border-0 ps-checkout__form">
                                         <div class="row">
-                                            <div class="mb-3 col-12 col-xl-6">
+                                            <div class="mb-3 col-12 col-xl-6 checkout-field">
                                                 <div class="pt-2 ps-form__group">
                                                     <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="name">নাম<span class="text-danger">*</span>
@@ -34,7 +34,7 @@
                                                         required>
                                                 </div>
                                             </div>
-                                            <div class="mb-3 col-12 col-xl-6">
+                                            <div class="mb-3 col-12 col-xl-6 checkout-field">
                                                 <div class="pt-2 ps-form__group">
                                                     <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="phone">মোবাইল নম্বার<span class="text-danger">*</span>
@@ -47,7 +47,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mb-3 col-12 col-xl-12">
+                                            <div class="mb-3 col-12 col-xl-12 checkout-field">
                                                 <div class="pt-2 ps-form__group">
                                                     <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="division">
@@ -67,7 +67,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mb-3 col-12 col-xl-6">
+                                            <div class="mb-3 col-12 col-xl-6 checkout-field">
                                                 <div class="pt-2 ps-form__group">
                                                     <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="district">
@@ -81,7 +81,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mb-3 col-12 col-xl-6">
+                                            <div class="mb-3 col-12 col-xl-6 checkout-field">
                                                 <div class="pt-2 ps-form__group">
                                                     <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="thana">
@@ -95,7 +95,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mb-3 col-12 col-xl-12">
+                                            <div class="mb-3 col-12 col-xl-12 checkout-field">
                                                 <div class="pt-2 ps-form__group">
                                                     <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="address">সম্পূর্ণ ঠিকানা
@@ -140,7 +140,7 @@
                                                 </div>
                                             </div> --}}
 
-                                            <div class="mb-3 col-12 col-xl-12">
+                                            <div class="mb-3 col-12 col-xl-12 checkout-field">
                                                 <div class="pt-4 ps-form__group">
                                                     <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="payment_status">পেমেন্ট অপশন
@@ -174,12 +174,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-1">
+                                <div class="col-lg-1 checkout-field">
                                     <div class="d-flex align-items-center justify-content-center h-100">
                                         <span class="middle-line"></span>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12 col-lg-6 checkout-field">
                                     <div class="mb-0 border-0 ps-checkout__order rounded-0 pb-lg-4">
                                         <div class="ps-checkout__row bg-light" style="border-top: 1px solid #f0f2f5">
                                             <div class="pl-2 ps-title">প্রোডাক্ট</div>
@@ -198,7 +198,7 @@
                                                         <img class="cart-img" src="{{ $thumbnailSrc }}"
                                                             alt="{{ $cartItem->model->name }}">
                                                     </div>
-                                                    <div class="">
+                                                    <div class="pl-4 pl-lg-0">
                                                         <a
                                                             href="{{ route('product.details', $cartItem->model->slug) }}">{{ $cartItem->model->name }}
                                                         </a>

@@ -158,7 +158,8 @@
             .mySwiperDesktop {
                 height: 250px;
             }
-            .releted-order{
+
+            .releted-order {
                 font-size: 14px !important;
             }
         }
@@ -249,14 +250,14 @@
                         <div thumbsSlider="" class="swiper mySwiperDesktop">
                             <div class="bg-white swiper-wrapper">
                                 {{-- Add Video at the End --}}
-                                @if (!empty($product->video_link))
+                                @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
                                     <div class="swiper-slide">
                                         <div style="position: relative; width: 100%; height: 100%;">
                                             <iframe width="100%" height="100%"
                                                 src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
                                                 title="YouTube video player" frameborder="0"
                                                 referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                                                <div class="player" data-plyr-provider="youtube"
+                                            <div class="player" data-plyr-provider="youtube"
                                                 data-plyr-embed-id="{{ $product->video_link }}">
                                             </div>
                                             <div class="overlay-iframe"></div>
@@ -276,7 +277,7 @@
                             <div class="swiper-wrapper">
 
                                 {{-- Add Video at the End --}}
-                                @if (!empty($product->video_link))
+                                @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
                                     <div class="swiper-slide">
                                         <iframe width="100%" height="100%"
                                             src="{{ $product->video_link }}&autoplay=1&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
@@ -287,7 +288,7 @@
                                 @endif
                                 {{-- Loop through images --}}
                                 @foreach ($product->multiImages as $image)
-                                    <div class="swiper-slide magnifier-container">
+                                    <div class="swiper-slide magnifier-container product-details-img">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
@@ -298,7 +299,7 @@
                         <div thumbsSlider="" class="swiper mySwiper">
                             <div class="swiper-wrapper">
                                 {{-- Add Video at the End --}}
-                                @if (!empty($product->video_link))
+                                @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
                                     <div class="swiper-slide">
                                         <div style="position: relative; width: 100%; height: 100%;">
                                             <iframe width="100%" height="100%"
@@ -615,20 +616,19 @@
                         <div class="border ps-section__product">
                             <div class="ps-product ps-product--standard">
                                 <div class="ps-product__thumbnail">
-                                    <a class="ps-product__image"
+                                    <a class="ps-product__image releted-product"
                                         href="{{ route('product.details', $related_product->slug) }}">
                                         <figure>
                                             @if (!empty($related_product->thumbnail))
                                                 @php
-                                                    $thumbnailPath =
-                                                        'storage/' . $related_product->thumbnail;
+                                                    $thumbnailPath = 'storage/' . $related_product->thumbnail;
                                                     $thumbnailSrc = file_exists(public_path($thumbnailPath))
                                                         ? asset($thumbnailPath)
                                                         : asset('frontend/img/no-product.jpg');
                                                 @endphp
                                                 <img src="{{ $thumbnailSrc }}"
-                                                    alt="{{ $related_product->meta_title }}"
-                                                    width="210" height="210" />
+                                                    alt="{{ $related_product->meta_title }}" width="210"
+                                                    height="210" />
                                             @else
                                                 @foreach ($related_product->multiImages->slice(0, 2) as $image)
                                                     @php
@@ -638,8 +638,8 @@
                                                             : asset('frontend/img/no-product.jpg');
                                                     @endphp
                                                     <img src="{{ $imageSrc }}"
-                                                        alt="{{ $related_product->meta_title }}"
-                                                        width="210" height="210" />
+                                                        alt="{{ $related_product->meta_title }}" width="210"
+                                                        height="210" />
                                                 @endforeach
                                             @endif
                                         </figure>
@@ -785,25 +785,25 @@
                                             </div>
                                             <div class="ps-product__feature">
                                                 @if (!empty($related_product->unit_discount_price))
-                                                            <div class="ps-product__meta">
-                                                                <span class="ps-product__price sale fw-bold"
-                                                                    style="font-weight:600;">দাম
-                                                                    {{ $related_product->unit_discount_price }}
-                                                                    টাকা</span>
-                                                                <span
-                                                                    class="ps-product__del text-danger">{{ $related_product->unit_price }}
-                                                                    টাকা</span>
-                                                            </div>
-                                                        @else
-                                                            <div class="ps-product__meta">
-                                                                <span class="ps-product__price sale fw-bold"
-                                                                    style="font-weight:600;">দাম
-                                                                    {{ $related_product->unit_price }}
-                                                                    টাকা</span>
-                                                            </div>
-                                                        @endif
+                                                    <div class="ps-product__meta">
+                                                        <span class="ps-product__price sale fw-bold"
+                                                            style="font-weight:600;">দাম
+                                                            {{ $related_product->unit_discount_price }}
+                                                            টাকা</span>
+                                                        <span
+                                                            class="ps-product__del text-danger">{{ $related_product->unit_price }}
+                                                            টাকা</span>
+                                                    </div>
+                                                @else
+                                                    <div class="ps-product__meta">
+                                                        <span class="ps-product__price sale fw-bold"
+                                                            style="font-weight:600;">দাম
+                                                            {{ $related_product->unit_price }}
+                                                            টাকা</span>
+                                                    </div>
+                                                @endif
 
-                                                <div class="ps-product__quantity">
+                                                {{-- <div class="ps-product__quantity">
                                                     <h6>Quantity</h6>
                                                     <div class="def-number-input number-input safari_only">
                                                         <button class="minus"
@@ -816,7 +816,7 @@
                                                             onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
                                                                 class="icon-plus"></i></button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <a class="ps-btn ps-btn--warning add_to_cart_btn_product_single"
                                                     data-product_id="{{ $related_product->id }}" href="#">Add
@@ -942,11 +942,6 @@
                             freeMode: false,
                             watchSlidesProgress: true,
                             loop: true,
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                                pauseOnMouseEnter: true, // Pause autoplay on hover
-                            },
                             breakpoints: {
                                 768: {
                                     slidesPerView: 4,
@@ -974,11 +969,6 @@
                                 swiper: galleryTop,
                             },
                             loop: true,
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                                pauseOnMouseEnter: true, // Pause autoplay on hover
-                            },
                         });
                     } else {
                         // Initialize Swiper for mobile
@@ -988,11 +978,6 @@
                             freeMode: false,
                             watchSlidesProgress: true,
                             loop: true,
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                                pauseOnMouseEnter: true, // Pause autoplay on hover
-                            },
                         });
 
                         galleryThumbs = new Swiper(".mySwiper2", {
@@ -1009,11 +994,6 @@
                                 swiper: galleryTop,
                             },
                             loop: true,
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                                pauseOnMouseEnter: true, // Pause autoplay on hover
-                            },
                         });
                     }
 
