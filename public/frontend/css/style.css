@@ -3986,7 +3986,9 @@ textarea.form-control {
     }
 
     .login-content {
-        margin-top: 100px !important;
+        margin-top: 85px !important;
+        margin: 4px;
+        padding: 8px;
     }
 }
 
@@ -16922,32 +16924,32 @@ textarea.form-control {
         height: 602px;
         border-radius: 24px;
     }
-    .main-banner{
+    .main-banner {
         display: none;
     }
-    .main-banner-mobile{
+    .main-banner-mobile {
         display: block !important;
     }
-    .releted-product figure img{
+    .releted-product figure img {
         height: 100% !important;
     }
-    .ps-product--detail .ps-product__quantity .number-input button{
+    .ps-product--detail .ps-product__quantity .number-input button {
         width: 50px;
     }
-    .menu--mobile > li > a{
+    .menu--mobile > li > a {
         width: 50%;
         margin: auto;
     }
-    .product-details-img{
+    .product-details-img {
         height: 100% !important;
     }
-    .checkout-field{
+    .checkout-field {
         padding-left: 0;
     }
-    .mobile-none{
+    .mobile-none {
         display: none;
     }
-    .checkout-title{
+    .checkout-title {
         text-align: center;
     }
 }
@@ -21174,10 +21176,10 @@ table.dataTable tbody td:last-child {
     opacity: 1;
     transition: all 0.3s ease;
 }
-.main-banner-mobile{
+.main-banner-mobile {
     display: none;
 }
-.main-banner{
+.main-banner {
     display: block;
 }
 @media (max-width: 768px) {
