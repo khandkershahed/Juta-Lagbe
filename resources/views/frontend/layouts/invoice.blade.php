@@ -14,7 +14,7 @@
             <div class="col-lg-4">
                 <div
                     style="background-color: #004d7a; clip-path: polygon(90% 0, 100% 50%, 90% 99%, 0% 100%, 0 53%, 0% 0%);">
-                    <p class="mb-0 p-3 text-white"><span class="text-white">Invoice:</span>
+                    <p class="mb-0 p-3 text-white" style="font-size: 12px;"><span class="text-white">Invoice:</span>
                         #{{ optional($order)->order_number }}</p>
                 </div>
             </div>
@@ -75,8 +75,8 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <span>{{ Str::limit(optional($item->product)->name, 30) }}</span>
-                                        {{-- <span>{{ optional($item)->name }}</span> --}}
+                                        {{-- <span>{{ Str::limit(optional($item->product)->name, 30) }}</span> --}}
+                                        <span>{{ optional($item)->name }}</span>
                                     </td>
                                     <td>
                                         <span><span
@@ -142,7 +142,7 @@
                     <i class="fa-solid fa-file"></i> <strong>NOTE:</strong> This is a
                     computer-generated receipt and does not require a physical signature.
                 </p>
-            </div> 
+            </div>
         </div>
     </div>
     <div class="card-footer p-4 text-white text-center border-0" style="background-color: #004d7a;">
