@@ -24,7 +24,7 @@
                         @include('user.layouts.sidebar')
                     </div>
                     <div class="col-lg-8 col-xl-9">
-                        <div class="row bg-white py-3">
+                        <div class="row bg-white py-3 mb-5">
                             <div class="col-lg-12">
                                 <div class="mb-4">
                                     <h4>Order History & Track Order</h4>
@@ -36,12 +36,12 @@
                                     <table class="table table-striped order-history-table">
                                         <thead>
                                             <tr>
-                                                <th>অর্ডার নাম্বার</th>
-                                                <th>তারিখ</th>
-                                                <th>মোট টাকা (কুরিয়ার চার্জ সহ)</th>
-                                                <th>পরিশোধ</th>
-                                                <th>বকেয়া</th>
-                                                <th class="text-center">ইনভয়েস</th>
+                                                <th style="width: 20%;">অর্ডার নাম্বার</th>
+                                                <th style="width: 15%;">তারিখ</th>
+                                                <th style="width: 20%;">মোট টাকা</th>
+                                                <th style="width: 15%;">পরিশোধ</th>
+                                                <th style="width: 15%;">বকেয়া</th>
+                                                <th class="text-center" style="width: 10%;">ইনভয়েস</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -101,7 +101,7 @@
     @foreach ($orders as $order)
         <div class="modal fade" id="showInvoice-{{ $order->id }}" data-backdrop="static" data-keyboard="false"
             tabindex="-1" aria-labelledby="showInvoiceLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg invoice-mobile">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="showInvoiceLabel">Order Invoice</h5>

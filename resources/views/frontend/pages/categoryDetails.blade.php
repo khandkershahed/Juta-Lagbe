@@ -358,7 +358,163 @@
                 </div>
             </div>
         </div>
+
     </div>
+    @foreach ($catProducts as $category_product)
+    <div class="modal fade" id="popupQuickview{{ $category_product->id }}" data-backdrop="static"
+        data-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered ps-quickview">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="wrap-modal-slider container-fluid ps-quickview__body">
+                        <button class="close ps-quickview__close" type="button" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="ps-product--detail">
+                            <div class="row">
+                                <div class="col-12 col-xl-6 pl-0">
+                                    <div class="ps-product--gallery">
+                                        <div class="ps-product__thumbnail">
+                                            @if ($category_product->multiImages->isNotEmpty())
+                                                @foreach ($category_product->multiImages->slice(0, 5) as $image)
+                                                    @php
+                                                        $imagePath = 'storage/' . $image->photo;
+                                                        $imageSrc = file_exists(public_path($imagePath))
+                                                            ? asset($imagePath)
+                                                            : asset('frontend/img/no-product.jpg');
+                                                    @endphp
+                                                    <div class="slide">
+                                                        <img src="{{ $imageSrc }}"
+                                                            alt="{{ $category_product->name }}" />
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                @php
+                                                    $thumbnailPath = 'storage/' . $category_product->thumbnail;
+                                                    $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                        ? asset($thumbnailPath)
+                                                        : asset('frontend/img/no-product.jpg');
+                                                @endphp
+                                                <div class="slide">
+                                                    <img src="{{ $thumbnailSrc }}"
+                                                        alt="{{ $category_product->name }}" />
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="ps-gallery--image">
+                                            @if ($category_product->multiImages->isNotEmpty())
+                                                @foreach ($category_product->multiImages->slice(0, 5) as $image)
+                                                    @php
+                                                        $imagePath = 'storage/' . $image->photo;
+                                                        $imageSrc = file_exists(public_path($imagePath))
+                                                            ? asset($imagePath)
+                                                            : asset('frontend/img/no-product.jpg');
+                                                    @endphp
+                                                    <div class="slide">
+                                                        <div class="ps-gallery__item">
+                                                            <img src="{{ $imageSrc }}"
+                                                                alt="{{ $category_product->name }}" />
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                @php
+                                                    $thumbnailPath = 'storage/' . $category_product->thumbnail;
+                                                    $thumbnailSrc = file_exists(public_path($thumbnailPath))
+                                                        ? asset($thumbnailPath)
+                                                        : asset('frontend/img/no-product.jpg');
+                                                @endphp
+                                                <div class="slide">
+                                                    <div class="ps-gallery__item">
+                                                        <img src="{{ $thumbnailSrc }}"
+                                                            alt="{{ $category_product->name }}" />
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-6 pr-0">
+                                    <div class="ps-product__info mb-0">
+                                        <div class="ps-product__badges">
+                                            <span
+                                                class="ps-badge ps-badge--instock">{{ $category_product->box_stock > 0 ? 'IN STOCK' : 'OUT OF STOCK' }}</span>
+                                        </div>
+                                        <div class="ps-product__branch pt-2">
+                                            <a href="#"
+                                                style="text-transform: uppercase;">{{ optional($category_product->brand)->name }}</a>
+                                        </div>
+                                        <h5 class="ps-product__title">
+                                            <a href="{{ route('product.details', $category_product->slug) }}">
+                                                {{ $category_product->name }}
+                                            </a>
+                                        </h5>
+                                        <div class="ps-product__desc">
+                                            <p>{!! $category_product->short_description !!}</p>
+                                        </div>
+                                        @if (!empty($category_product->unit_discount_price))
+                                            <div class="ps-product__meta">
+                                                <span class="ps-product__price sale fw-bold"
+                                                    style="font-weight:600;">দাম
+                                                    {{ $category_product->unit_discount_price }}
+                                                    টাকা</span>
+                                                <span
+                                                    class="ps-product__del text-danger">{{ $category_product->unit_price }}
+                                                    টাকা</span>
+                                            </div>
+                                        @else
+                                            <div class="ps-product__meta">
+                                                <span class="ps-product__price sale fw-bold"
+                                                    style="font-weight:600;">দাম
+                                                    {{ $category_product->unit_price }}
+                                                    টাকা</span>
+                                            </div>
+                                        @endif
+
+                                        <div class="ps-product__feature">
+                                            @if (!empty($category_product->unit_discount_price))
+                                                <div class="ps-product__meta pb-3 pr-details-price">
+                                                    <span
+                                                        class="ps-product__price sale">৳{{ $category_product->unit_discount_price }}</span>
+                                                    <span
+                                                        class="ps-product__del">৳{{ $category_product->unit_price }}</span>
+                                                </div>
+                                            @else
+                                                <div class="ps-product__meta pb-3 pr-details-price">
+                                                    <span
+                                                        class="ps-product__price sale">৳{{ $category_product->unit_price }}</span>
+                                                </div>
+                                            @endif
+
+                                            {{-- <div class="ps-product__quantity">
+                                                <h6>Quantity</h6>
+                                                <div class="def-number-input number-input safari_only">
+                                                    <button class="minus"
+                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i
+                                                            class="icon-minus"></i></button>
+                                                    <input class="quantity" min="1" name="quantity"
+                                                        value="1" type="number"
+                                                        data-product_id="{{ $category_product->id }}" />
+                                                    <button class="plus"
+                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i
+                                                            class="icon-plus"></i></button>
+                                                </div>
+                                            </div> --}}
+
+                                            <a class="btn btn-primary rounded-0 w-100"
+                                                data-product_id="{{ $category_product->id }}" href="#">Add
+                                                to cart</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
     <!-- Delivery Info -->
     @push('scripts')
         <!-- JavaScript Code -->
