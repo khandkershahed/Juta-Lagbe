@@ -140,7 +140,7 @@
                                                 </div>
                                             </div> --}}
 
-                                            <div class="mb-3 col-12 col-xl-12 checkout-field">
+                                            {{-- <div class="mb-3 col-12 col-xl-12 checkout-field">
                                                 <div class="pt-4 ps-form__group">
                                                     <label class="block text-sm font-medium site-text ps-form__label"
                                                         for="payment_status">পেমেন্ট অপশন
@@ -170,7 +170,7 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
