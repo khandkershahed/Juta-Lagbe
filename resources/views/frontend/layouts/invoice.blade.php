@@ -75,8 +75,8 @@
                                         </span>
                                     </td>
                                     <td>
-                                        {{-- <span>{{ Str::limit(optional($item->product)->name, 30) }}</span> --}}
-                                        <span>{{ optional($item)->name }}</span>
+                                        <span>{{ Str::limit(optional($item->product)->name, 30) }}</span>
+                                        {{-- <span>{{ optional($item)->name }}</span> --}}
                                     </td>
                                     <td>
                                         <span><span
