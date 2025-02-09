@@ -84,7 +84,6 @@
 
                                     </td>
                                     <td class="text-center">
-                                        <span>{{ optional($item->product)->name }}</span>
                                         <span>{{ optional($item)->quantity }}</span>
                                     </td>
                                     <td class="text-right">
