@@ -501,7 +501,7 @@
                                             </div> --}}
 
                                                 <div class="d-flex align-items-center card-cart-btn">
-                                                    <a href="{{ route('product.details', $specialproduct->slug) }}"
+                                                    <a href="{{ route('product.details', $category_product->slug) }}"
                                                         class="btn btn-primary rounded-0 w-100">
                                                         <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                                         অর্ডার
