@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="card-footer p-4 text-center border-0" style="background-color: #e1ecff;">
-                                © {{ optional($setting)->website_name }}, LTD 2024.
+                                © {{ optional($setting)->website_name }}
                             </div>
                         </div>
                     </div>
