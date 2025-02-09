@@ -1061,10 +1061,11 @@
     }
     .user-dashboard .tab-wrap .side-bar {
         position: relative;
-        left: 15px;
-        margin-top: 40px;
+        left: 85px;
+        margin-top: -48px;
         box-shadow: none;
-        background: #f2f2f0;
+        background: #ffffff;
+        margin-bottom: 3px;
     }
     .user-dashboard .tab-wrap .side-bar .profile-box .img-box {
         width: 100px;

@@ -1,5 +1,5 @@
 <div class="card bg-white p-0 card-print">
-    <div class="card-header bg-white border-0 p-5">
+    <div class="card-header bg-white border-0 p-0 p-lg-5">
         <div class="row">
             <div class="col-lg-6">
                 <div class="pb-5 text-m-center">
@@ -12,7 +12,7 @@
                 <h1 class="text-right mb-0 text-m-center pb-2 pb-lg-0">Invoice</h1>
             </div>
             <div class="col-lg-4">
-                <div
+                <div class="mobile-invoice-num"
                     style="background-color: #004d7a; clip-path: polygon(90% 0, 100% 50%, 90% 99%, 0% 100%, 0 53%, 0% 0%);">
                     <p class="mb-0 p-3 text-white" style="font-size: 12px;"><span class="text-white">Invoice:</span>
                         #{{ optional($order)->order_number }}</p>
@@ -84,7 +84,7 @@
 
                                     </td>
                                     <td class="text-center">
-                                        <span>{{ optional($item)->name }}</span>
+                                        <span>{{ optional($item->product)->name }}</span>
                                         <span>{{ optional($item)->quantity }}</span>
                                     </td>
                                     <td class="text-right">
