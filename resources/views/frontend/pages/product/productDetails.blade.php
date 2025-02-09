@@ -1,6 +1,6 @@
 <x-frontend-app-layout :title="'Product Details'" :product="$product">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
     <style>
         /* Target the first child inside the video wrapper */
         .thumbnail-container .plyr__video-wrapper {
@@ -261,7 +261,7 @@
                     <div class="kovi-product-slider-wrapper">
                         <div thumbsSlider="" class="swiper mySwiperDesktop">
                             <div class="bg-white swiper-wrapper">
-                                @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
+                                @if (!empty($product->video_link))
                                     <div class="swiper-slide thumbnail-container">
                                         <div style="position: relative;">
                                             <div class="player" data-plyr-provider="youtube"
@@ -283,7 +283,7 @@
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
-                                @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
+                                @if (!empty($product->video_link))
                                     <div class="swiper-slide main-video-container">
                                         <div class="player main-cover-video" data-plyr-provider="youtube"
                                             data-plyr-embed-id="{{ $product->video_link }}">
@@ -321,7 +321,6 @@
                             </div>
                         @endif
                     </div>
-
                 </div>
                 <div class="pl-0 col-lg-5">
                     <div class="product-details-juta">
@@ -839,7 +838,7 @@
 
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
