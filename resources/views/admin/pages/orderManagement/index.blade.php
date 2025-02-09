@@ -111,7 +111,7 @@
                             <td>{{ optional($order->user)->name }}</td>
                             <td>{{ $order->created_at->format('d M , Y') }}</td>
                             <td>
-                                <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                <span class="text-info fw-bold">৳</span>{{ $order->total_amount - $order->shipping_charge }}
                                 + {{ $order->shipping_charge }}
                             </td>
                             <td>
@@ -119,14 +119,20 @@
                                     <span class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
                                 @elseif ($order->payment_status == 'completely_paid')
                                     <span
-                                        class="text-info fw-bold">৳</span>{{ $order->total_amount + $order->shipping_charge }}
+                                        class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                @elseif ($order->payment_status == 'cod')
+                                    <span
+                                        class="text-info fw-bold">৳</span>0.00
                                 @endif
                             </td>
                             <td>
                                 @if ($order->payment_status == 'delivery_charge_paid')
-                                    <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                    <span class="text-info fw-bold">৳</span>{{ $order->total_amount - $order->shipping_charge }}
                                 @elseif ($order->payment_status == 'completely_paid')
                                     <span class="text-info fw-bold">৳</span>0
+                                    @elseif ($order->payment_status == 'cod')
+                                    <span
+                                        class="text-info fw-bold">৳</span>{{ $order->total_amount }}
                                 @endif
                             </td>
                             {{-- <td>

@@ -142,7 +142,7 @@
                     <i class="fa-solid fa-file"></i> <strong>NOTE:</strong> This is a
                     computer-generated receipt and does not require a physical signature.
                 </p>
-            </div>
+            </div> 
         </div>
     </div>
     <div class="card-footer p-4 text-white text-center border-0" style="background-color: #004d7a;">

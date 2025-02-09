@@ -107,9 +107,9 @@
                     <th>Order Number</th>
                     <th>Customer</th>
                     <th>Created At</th>
-                    <th>Price</th>
-                    <th>QTY</th>
-                    <th>Payment Status</th>
+                    <th>Total Price</th>
+                    <th>Paid</th>
+                    <th>Due</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -121,13 +121,28 @@
                         <td><a href="javascript:void(0)">{{ $order->order_number }}</a></td>
                         <td>{{ optional($order->user)->first_name }} {{ optional($order->user)->last_name }}</td>
                         <td>{{ $order->created_at->format('Y-m-d') }}</td>
-                        <td><span class="text-info fw-bold">৳</span>{{ $order->total_amount }}</td>
-                        <td>{{ $order->quantity }}</td>
                         <td>
-                            @if ($order->payment_status == 'unpaid')
-                                <span class="badge py-3 px-4 fs-7 badge-danger">Unpaid</span>
-                            @elseif ($order->payment_status == 'paid')
-                                <span class="badge py-3 px-4 fs-7 badge-light-success">Paid</span>
+                            <span
+                                class="text-info fw-bold">৳</span>{{ $order->total_amount - $order->shipping_charge }}
+                            + {{ $order->shipping_charge }}
+                        </td>
+                        <td>
+                            @if ($order->payment_status == 'delivery_charge_paid')
+                                <span class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
+                            @elseif ($order->payment_status == 'completely_paid')
+                                <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                            @elseif ($order->payment_status == 'cod')
+                                <span class="text-info fw-bold">৳</span>0.00
+                            @endif
+                        </td>
+                        <td>
+                            @if ($order->payment_status == 'delivery_charge_paid')
+                                <span
+                                    class="text-info fw-bold">৳</span>{{ $order->total_amount - $order->shipping_charge }}
+                            @elseif ($order->payment_status == 'completely_paid')
+                                <span class="text-info fw-bold">৳</span>0
+                            @elseif ($order->payment_status == 'cod')
+                                <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
                             @endif
                         </td>
                         <td>
