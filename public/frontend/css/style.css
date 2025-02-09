@@ -20704,7 +20704,6 @@ table.dataTable tbody td:last-child {
         width: 100%;
         flex-basis: 100%;
         margin: auto;
-        padding: 35px;
     }
     .section-category {
         padding-top: 30px;
@@ -21829,3 +21828,9 @@ table.dataTable tbody td:last-child {
     border-radius: 16px;
     background: #f4f2ff;
 }
+
+@media (max-width: 991.98px) { /* Targets devices smaller than lg */
+    .shadow-none-sm {
+      box-shadow: none !important;
+    }
+  }

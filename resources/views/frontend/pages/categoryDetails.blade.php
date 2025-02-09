@@ -37,8 +37,8 @@
             </div>
         </div>
         <div class="container">
-            <div class="pt-2 ps-categogy__content">
-                <div class="pb-0 row row-reverse pb-lg-5">
+            <div class="pt-2 ps-categogy__content mt-0 pt-0 pt-lg-3 mt-lg-3 ">
+                <div class="pb-0 row row-reverse pb-lg-5 pt-0 pt-lg-3">
                     <!-- Products Section -->
                     <div class="order-12 col-md-9 col-12 order-lg-1">
                         <!-- Display individual product data -->
@@ -50,11 +50,11 @@
                                         src="{{ asset('frontend/img/no-products-category.jpg') }}" alt="">
                                 </div>
                             @else
-                                <div class="mt-0 ps-categogy--grid">
+                                <div class="mt-0 ps-categogy--grid border-0">
                                     <div class="m-0 row">
                                         @foreach ($catProducts as $key => $category_product)
                                             <div
-                                                class="col-12 col-lg-4 p-0 product-item">
+                                                class="col-6 col-lg-4 p-0 product-item">
                                                 <div class="pr-2 ps-section__product">
                                                     <div class="ps-product ps-product--standard">
                                                         <div class="ps-product__thumbnail">
@@ -250,7 +250,7 @@
 
                     <!-- Sidebar Widgets -->
                     <div class="order-1 px-0 col-md-3 col-12 order-lg-12 ps-widget ps-widget--product">
-                        <div class="mb-4 border mb-lg-0">
+                        <div class="mb-4 shadow-sm shadow-none-sm mb-lg-0">
                             <!-- Categories Filter -->
                             <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
                                 <h4 class="p-3 shadow-sm ps-widget__title">

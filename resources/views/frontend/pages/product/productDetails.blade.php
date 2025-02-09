@@ -1,5 +1,17 @@
 <x-frontend-app-layout :title="'Product Details'" :product="$product">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <style>
+        /* Target the first child inside the video wrapper */
+        .thumbnail-container .plyr__video-wrapper {
+            height: 173px;
+        }
+
+        .main-video-container .plyr__video-wrapper {
+            width: 554px;
+            height: 720px;
+        }
+    </style>
     @push('heads')
         @php
             $isProductPage = true; // Flag to indicate this is a product details page
@@ -249,14 +261,9 @@
                     <div class="kovi-product-slider-wrapper">
                         <div thumbsSlider="" class="swiper mySwiperDesktop">
                             <div class="bg-white swiper-wrapper">
-                                {{-- Add Video at the End --}}
                                 @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
-                                    <div class="swiper-slide">
-                                        <div style="position: relative; width: 100%; height: 100%;">
-                                            <iframe width="100%" height="100%"
-                                                src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
-                                                title="YouTube video player" frameborder="0"
-                                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                    <div class="swiper-slide thumbnail-container">
+                                        <div style="position: relative;">
                                             <div class="player" data-plyr-provider="youtube"
                                                 data-plyr-embed-id="{{ $product->video_link }}">
                                             </div>
@@ -271,22 +278,18 @@
                                 @endforeach
                             </div>
                         </div>
-                        <!-- Swiper -->
+
+                        <!-- Swiper (Main Video Slider) -->
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
-
-                                {{-- Add Video at the End --}}
                                 @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
-                                    <div class="swiper-slide">
-                                        <iframe width="100%" height="100%"
-                                            src="{{ $product->video_link }}&autoplay=1&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
-                                            title="YouTube video player" frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    <div class="swiper-slide main-video-container">
+                                        <div class="player main-cover-video" data-plyr-provider="youtube"
+                                            data-plyr-embed-id="{{ $product->video_link }}">
+                                        </div>
                                     </div>
                                 @endif
-                                {{-- Loop through images --}}
                                 @foreach ($product->multiImages as $image)
                                     <div class="swiper-slide magnifier-container product-details-img">
                                         <img src="{{ asset('storage/' . $image->photo) }}" />
@@ -296,27 +299,27 @@
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
-                        <div thumbsSlider="" class="swiper mySwiper">
-                            <div class="swiper-wrapper">
-                                {{-- Add Video at the End --}}
-                                @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
+
+                        <!-- Thumbnail Video Slider -->
+                        @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
+                            <div thumbsSlider="" class="swiper mySwiper">
+                                <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <div style="position: relative; width: 100%; height: 100%;">
-                                            <iframe width="100%" height="100%"
-                                                src="{{ $product->video_link }}&autoplay=0&controls=0&mute=1&modestbranding=0&rel=0&showinfo=0"
-                                                title="YouTube video player" frameborder="0"
-                                                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                        <div style="position: relative;">
+                                            <div class="player thumbnail-video" data-plyr-provider="youtube"
+                                                data-plyr-embed-id="{{ $product->video_link }}">
+                                            </div>
                                             <div class="overlay-iframe"></div>
                                         </div>
                                     </div>
-                                @endif
-                                @foreach ($product->multiImages as $image)
-                                    <div class="swiper-slide">
-                                        <img src="{{ asset('storage/' . $image->photo) }}" />
-                                    </div>
-                                @endforeach
+                                    @foreach ($product->multiImages as $image)
+                                        <div class="swiper-slide">
+                                            <img src="{{ asset('storage/' . $image->photo) }}" />
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
 
                 </div>
@@ -836,6 +839,34 @@
 
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    const players = Plyr.setup('.player', {
+                        muted: true,
+                        controls: [],
+                        autoplay: true,
+                        loop: {
+                            active: true
+                        },
+                        youtube: {
+                            muted: true,
+                            rel: 0,
+                            showinfo: 0,
+                            modestbranding: 1,
+                        },
+                    });
+
+                    players.forEach(player => {
+                        player.muted = true;
+                        player.autoplay = true;
+                        player.loop = true;
+                        player.play();
+                    });
+                }, 500);
+            });
+        </script>
         <script>
             document.querySelectorAll('.magnifier-container').forEach(container => {
                 const img = container.querySelector('img');
