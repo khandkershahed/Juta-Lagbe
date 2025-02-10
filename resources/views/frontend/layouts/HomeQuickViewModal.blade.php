@@ -77,7 +77,7 @@
                                     <div class="ps-product__info mb-0">
                                         <div class="">
                                             <span
-                                                class="ps-badge ps-badge--instock ps-badge-2">{{ $latest_product->box_stock > 0 ? 'IN STOCK' : 'OUT OF STOCK' }}</span>
+                                                class="ps-badge ps-badge--instock ps-badge-2">{{ $latest_product->stock > 0 ? 'IN STOCK' : 'OUT OF STOCK' }}</span>
                                         </div>
                                         <div class="ps-product__branch pt-2">
                                             <a href="#"

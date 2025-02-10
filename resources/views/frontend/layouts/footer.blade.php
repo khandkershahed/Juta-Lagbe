@@ -69,27 +69,22 @@
                         </span>
                     </p>
                 </div>
-                <div class="p-0 col-12 col-sm-2">
-                    <p class="text-center">
-                        <span class="ps-footer__link site-text">
-                            <i class="icon-truck site-text"></i>In Dhaka- 70 TK
-                        </span>
-                    </p>
-                </div>
-                <div class="p-0 col-12 col-sm-3">
-                    <p class="text-center">
-                        <span class="ps-footer__link site-text">
-                            <i class="icon-truck site-text"></i>Outside Dhaka- 150 TK
-                        </span>
-                    </p>
-                </div>
-                <div class="p-0 col-12 col-sm-4">
+                @foreach ($shippingmethods as $shippingmethod)
+                    <div class="p-0 col-12 col-sm-3">
+                        <p class="text-center">
+                            <span class="ps-footer__link site-text">
+                                <i class="icon-truck site-text"></i>{{ $shippingmethod->title }} - {{ $shippingmethod->price }} TK
+                            </span>
+                        </p>
+                    </div>
+                @endforeach
+                {{-- <div class="p-0 col-12 col-sm-4">
                     <p class="text-center">
                         <span class="ps-footer__link site-text">
                             <i class="icon-check site-text"></i>Check Product In Front Of Delivery Man
                         </span>
                     </p>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
