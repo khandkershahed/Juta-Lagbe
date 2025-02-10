@@ -1,5 +1,5 @@
-<div class="card bg-white p-0 card-print mt-5">
-    <div class="card-header bg-white border-0 p-5">
+<div class="card bg-white p-0 card-print">
+    <div class="card-header bg-white border-0 p-0 p-lg-5">
         <div class="row">
             <div class="col-lg-6">
                 <div class="pb-5 text-m-center">
@@ -12,15 +12,16 @@
                 <h1 class="text-right mb-0 text-m-center pb-2 pb-lg-0">Invoice</h1>
             </div>
             <div class="col-lg-4">
-                <div
-                    style="background-color: var(--site-green); clip-path: polygon(90% 0, 100% 50%, 90% 99%, 0% 100%, 0 53%, 0% 0%);">
-                    <p class="mb-0 p-3 text-white"><span class="text-white">Invoice No:</span>
+                <div class="mobile-invoice-num"
+                    style="background-color: #004d7a; clip-path: polygon(90% 0, 100% 50%, 90% 99%, 0% 100%, 0 53%, 0% 0%);">
+                    <p class="mb-0 p-3 text-white" style="font-size: 12px;"><span class="text-white">Invoice:</span>
                         #{{ optional($order)->order_number }}</p>
                 </div>
             </div>
             <div class="col-lg-8">
                 {{-- <p class="mb-0 p-3 text-right">Date: {{ optional($order)->created_at->format('d/m/Y') }}</p> --}}
-                <p class="mb-0 p-3 text-right text-m-center">Date: {{ optional($order)->created_at->format('d M, Y') }}</p>
+                <p class="mb-0 p-3 text-right text-m-center">Date: {{ optional($order)->created_at->format('d M, Y') }}
+                </p>
             </div>
         </div>
         <div class="row mt-2 mt-lg-5">
@@ -44,13 +45,13 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3 pt-3 mt-lg-5 pt-lg-5">
+        <div class="row pt-3 pt-lg-5">
             <div class="col-lg-12">
                 <h4 class="text-m-center">Order Information:</h4>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <tr style="background-color: var(--site-green);">
+                            <tr style="background-color: #004d7a;">
                                 <th width="5%" class="text-white">Sl.</th>
                                 <th width="10%" class="text-white">Img</th>
                                 <th width="35%" class="text-white">Product Description</th>
@@ -74,11 +75,13 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <span>{{ Str::limit(optional($item->product)->name, 30) }}</span>
+                                        <span>{{ optional($item->product)->name }}</span>
+                                        {{-- <span>{{ optional($item)->name }}</span> --}}
                                     </td>
                                     <td>
                                         <span><span
                                                 class="text-info">৳</span>{{ optional($item)->quantity * optional($item)->price }}</span>
+
                                     </td>
                                     <td class="text-center">
                                         <span>{{ optional($item)->quantity }}</span>
@@ -141,7 +144,7 @@
             </div>
         </div>
     </div>
-    <div class="card-footer p-4 text-white text-center border-0" style="background-color: var(--site-green);">
+    <div class="card-footer p-4 text-white text-center border-0" style="background-color: #004d7a;">
         © {{ optional($setting)->website_name }} 2024.
     </div>
 </div>

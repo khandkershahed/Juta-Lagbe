@@ -20704,7 +20704,6 @@ table.dataTable tbody td:last-child {
         width: 100%;
         flex-basis: 100%;
         margin: auto;
-        padding: 35px;
     }
     .section-category {
         padding-top: 30px;
@@ -21329,6 +21328,18 @@ table.dataTable tbody td:last-child {
         );
         border-radius: 24px !important;
     }
+    .invoice-mobile {
+        margin-top: 10rem;
+    }
+    .mobile-invoice-num {
+        background-color: #004d7a;
+        clip-path: polygon(90% 0, 100% 50%, 90% 99%, 0% 100%, 0 53%, 0% 0%);
+        margin-left: 90px;
+        margin-right: 60px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
 }
 
 /* New */
@@ -21828,4 +21839,11 @@ table.dataTable tbody td:last-child {
 .third-section {
     border-radius: 16px;
     background: #f4f2ff;
+}
+
+@media (max-width: 991.98px) {
+    /* Targets devices smaller than lg */
+    .shadow-none-sm {
+        box-shadow: none !important;
+    }
 }

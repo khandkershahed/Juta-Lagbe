@@ -48,9 +48,9 @@
                                             </div>
                                             <div class="ps-product__thumbnail">
                                                 <a class="ps-product__image"
-                                                    href="{{ route('product.details', $wishlist->product->slug) }}">
+                                                    href="{{ route('product.details', optional($wishlist->product)->slug) }}">
                                                     <div>
-                                                        <img src="{{ asset('storage/' . $wishlist->product->thumbnail) }}"
+                                                        <img src="{{ asset('storage/' . optional($wishlist->product)->thumbnail) }}"
                                                             alt="alt" class="wishlist-img">
                                                     </div>
                                                 </a>
@@ -86,7 +86,7 @@
                                                     <div class="ps-product__label">Stock:</div>
                                                     <div class="ps-product__value">
                                                         <span class="ps-product__out-stock">
-                                                            @if ($wishlist->product->stock > 0)
+                                                            @if (optional($wishlist->product)->box_stock > 0)
                                                                 In Stock
                                                             @else
                                                                 Out of Stock
@@ -101,14 +101,13 @@
                                                         data-product_qty="1">Add To Cart</a>
                                                 </div> --}}
                                                 <div class="d-flex align-items-center card-cart-btn">
-                                                    <a href="{{ route('buy.now', $wishlist->id) }}"
+                                                    {{-- <a href="{{ route('buy.now', $wishlist->id) }}"
                                                         class="btn btn-primary mr-1 mr-lg-3">
                                                         Buy Now
-                                                    </a>
-                                                    <a href="{{ route('cart.store', $wishlist->id) }}"
-                                                        class="btn btn-outline-primary add_to_cart"
-                                                        data-product_id="{{ $wishlist->id }}" data-product_qty="1">
-                                                        Add To Cart
+                                                    </a> --}}
+                                                    <a href="{{ route('product.details', optional($wishlist->product)->slug) }}"
+                                                        class="btn btn-outline-primary">
+                                                        Details
                                                     </a>
                                                 </div>
                                             </div>
@@ -134,41 +133,41 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>
                                                         <a class="ps-product__image"
-                                                            href="{{ route('product.details', $wishlist->product->slug) }}">
-                                                            <img src="{{ asset('storage/' . $wishlist->product->thumbnail) }}"
+                                                            href="{{ route('product.details', optional($wishlist->product)->slug) }}">
+                                                            <img src="{{ asset('storage/' . optional($wishlist->product)->thumbnail) }}"
                                                                 alt="alt" class="wishlist-img-td rounded-2">
                                                         </a>
                                                     </td>
                                                     <td>
                                                         <a
-                                                            href="{{ route('product.details', $wishlist->product->slug) }}">
-                                                            {{ $wishlist->product->name }}
+                                                            href="{{ route('product.details', optional($wishlist->product)->slug) }}">
+                                                            {{ optional($wishlist->product)->name }}
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        @if (!empty($wishlist->product->unit_discount_price))
+                                                        @if (!empty(optional($wishlist->product)->unit_discount_price))
                                                             <div class="ps-product__row">
                                                                 <div class="ps-product__value">
                                                                     <span
-                                                                        class="ps-product__price sale">৳{{ $wishlist->product->unit_discount_price }}</span>
+                                                                        class="ps-product__price sale">৳{{ optional($wishlist->product)->unit_discount_price }}</span>
                                                                     <span
-                                                                        class="ps-product__del">৳{{ $wishlist->product->unit_price }}</span>
+                                                                        class="ps-product__del">৳{{ optional($wishlist->product)->unit_price }}</span>
                                                                 </div>
                                                             </div>
                                                         @else
                                                             <div class="ps-product__row">
                                                                 <div class="ps-product__value">
                                                                     <span
-                                                                        class="ps-product__price sale">৳{{ $wishlist->product->unit_price }}
+                                                                        class="ps-product__price sale">৳{{ optional($wishlist->product)->unit_price }}
                                                                 </div>
                                                             </div>
                                                         @endif
                                                         {{-- <span
-                                                                class="ps-product__price">{{ $wishlist->product->unit_price }}</span> --}}
+                                                                class="ps-product__price">{{ optional($wishlist->product)->unit_price }}</span> --}}
                                                     </td>
                                                     <td class="ps-product__status">
                                                         <span>
-                                                            @if ($wishlist->product->stock > 0)
+                                                            @if (optional($wishlist->product)->box_stock > 0)
                                                                 In Stock
                                                             @else
                                                                 Out of Stock
@@ -177,15 +176,13 @@
                                                     </td>
                                                     <td class="ps-product__cart">
                                                         <div class="d-flex">
-                                                            <a href="{{ route('cart.store', $wishlist->product->id) }}"
-                                                                class="btn btn-sm btn-outline-primary add_to_cart mr-2"
-                                                                data-product_id="{{ $wishlist->product->id }}"
-                                                                data-product_qty="1">
+                                                            <a href="{{ route('product.details', optional($wishlist->product)->slug) }}"
+                                                                class="btn btn-sm btn-outline-primary mr-2">
                                                                 <i class="fa-solid fa-cart-shopping"></i>
                                                             </a>
                                                             <a class="delete btn btn-sm btn-outline-primary mr-2"
                                                                 href="{{ route('wishlist.destroy', $wishlist->id) }}">
-                                                                <i class="icon-trash"></i>
+                                                                <i class="fa-solid fa-trash-alt text-danger"></i>
                                                             </a>
                                                         </div>
                                                     </td>

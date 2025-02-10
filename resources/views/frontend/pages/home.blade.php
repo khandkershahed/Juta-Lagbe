@@ -64,6 +64,11 @@
             align-items: center;
             border: 1px solid black;
             padding: 12px;
+            margin-top: 18px;
+        }
+
+        .title-cat {
+            margin-top: 18px;
         }
 
         .video-card-ct {
@@ -95,7 +100,7 @@
                 alt="">
         </div>
         <div class="main-banner-mobile">
-            <img src="{{ asset('images/original-c72d1471416244026cc7f3b23f9d000b.webp') }}" alt="">
+            <img src="{{ asset('images/Carousel-Banner_Juta-Lagbe(Mobile) Low.jpg') }}" alt="">
         </div>
     </section>
     <div class="bg-white ps-home ps-home--14">
@@ -157,7 +162,8 @@
                                                             onerror="this.onerror=null; this.src='frontend/img/no-category.png';"
                                                             alt="{{ $category->name }}">
                                                     </span>
-                                                    <span class="ps-3 text-muted">{{ $category->name }}</span>
+                                                    <span
+                                                        class="ps-3 text-muted title-cat">{{ $category->name }}</span>
                                                 </div>
                                             </div>
                                         </a>
@@ -726,19 +732,19 @@
                     dots: true,
                     responsive: {
                         0: {
-                            items: 1,
+                            items: 2,
                             mouseDrag: true,
                             touchDrag: true,
                             nav: false, // Ensure navigation is disabled on small devices
                         },
                         576: {
-                            items: 1,
+                            items: 2,
                             mouseDrag: true,
                             touchDrag: true,
                             nav: false,
                         },
                         768: {
-                            items: 1,
+                            items: 2,
                             mouseDrag: true,
                             touchDrag: true,
                             nav: false,
