@@ -1,17 +1,6 @@
 <x-frontend-app-layout :title="'Product Details'" :product="$product">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
-    <style>
-        /* Target the first child inside the video wrapper */
-        .thumbnail-container .plyr__video-wrapper {
-            height: 173px;
-        }
-
-        .main-video-container .plyr__video-wrapper {
-            width: 554px;
-            height: 720px;
-        }
-    </style>
     @push('heads')
         @php
             $isProductPage = true; // Flag to indicate this is a product details page
@@ -20,6 +9,39 @@
             $metaImage = $product->thumbnail ?? ''; // Default image
         @endphp
     @endpush
+    <style>
+        .thumbnail-container .plyr__video-wrapper {
+            height: 173px;
+        }
+
+        .main-video-container .plyr__video-wrapper {
+            width: 554px;
+            height: 720px;
+        }
+
+        @media (max-width: 768px) {
+            .thumbnail-container .plyr__video-wrapper {
+                width: 90px;
+                height: 100px;
+            }
+
+            .main-video-container .plyr__video-wrapper {
+                width: 100%;
+                height: 720px;
+            }
+
+            .overlay-iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 90px !important;
+                height: 100px !important;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1;
+                cursor: not-allowed;
+            }
+        }
+    </style>
     <style>
         .magnifier-container {
             position: relative;
@@ -301,10 +323,10 @@
                         </div>
 
                         <!-- Thumbnail Video Slider -->
-                        @if (!empty($product->video_link) && filter_var($product->video_link, FILTER_VALIDATE_URL))
-                            <div thumbsSlider="" class="swiper mySwiper">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
+                        <div thumbsSlider="" class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                @if (!empty($product->video_link))
+                                    <div class="swiper-slide thumbnail-container">
                                         <div style="position: relative;">
                                             <div class="player thumbnail-video" data-plyr-provider="youtube"
                                                 data-plyr-embed-id="{{ $product->video_link }}">
@@ -312,14 +334,14 @@
                                             <div class="overlay-iframe"></div>
                                         </div>
                                     </div>
-                                    @foreach ($product->multiImages as $image)
-                                        <div class="swiper-slide">
-                                            <img src="{{ asset('storage/' . $image->photo) }}" />
-                                        </div>
-                                    @endforeach
-                                </div>
+                                @endif
+                                @foreach ($product->multiImages as $image)
+                                    <div class="swiper-slide">
+                                        <img src="{{ asset('storage/' . $image->photo) }}" />
+                                    </div>
+                                @endforeach
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
                 <div class="pl-0 col-lg-5">
