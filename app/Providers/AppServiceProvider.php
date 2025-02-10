@@ -9,6 +9,7 @@ use App\Models\Visitor;
 use App\Models\Category;
 use App\Models\Wishlist;
 use App\Models\SpecialOffer;
+use App\Models\ShippingMethod;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -32,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Set default values
         View::share('setting', null);
+        View::share('shippingmethods', null);
         View::share('categories', null);
         View::share('online', null);
         View::share('special_offer', null);
@@ -51,7 +53,10 @@ class AppServiceProvider extends ServiceProvider
             if (Schema::hasTable('special_offers')) {
                 View::share('special_offer', SpecialOffer::active()->latest()->first());
             }
-            
+            if (Schema::hasTable('shipping_methods')) {
+                View::share('shippingmethods', ShippingMethod::active()->get(),);
+            }
+
         } catch (Exception $e) {
             // Log the exception if needed
         }

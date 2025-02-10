@@ -87,16 +87,16 @@
                                                                 </td>
                                                                 <td>{{ $catProduct->name }}</td>
                                                                 <td>
-                                                                    @if (!empty($catProduct->box_stock) && $catProduct->box_stock > 0)
+                                                                    @if (!empty($catProduct->stock) && $catProduct->stock > 0)
                                                                         <span class="ps-badge bg-success">
-                                                                            {{ $catProduct->box_stock }} In
+                                                                            {{ $catProduct->stock }} In
                                                                             Stock</span>
                                                                     @else
                                                                         <span class="ps-badge ps-badge--outstock">Out Of
                                                                             Stock</span>
                                                                     @endif
                                                                 </td>
-                                                                <td>{{ $catProduct->box_stock }}</td>
+                                                                <td>{{ $catProduct->stock }}</td>
                                                                 {{-- <td>105</td> --}}
                                                             </tr>
                                                         @endforeach

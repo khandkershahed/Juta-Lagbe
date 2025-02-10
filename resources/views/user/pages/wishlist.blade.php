@@ -86,7 +86,7 @@
                                                     <div class="ps-product__label">Stock:</div>
                                                     <div class="ps-product__value">
                                                         <span class="ps-product__out-stock">
-                                                            @if ($wishlist->product->box_stock > 0)
+                                                            @if ($wishlist->product->stock > 0)
                                                                 In Stock
                                                             @else
                                                                 Out of Stock
@@ -168,7 +168,7 @@
                                                     </td>
                                                     <td class="ps-product__status">
                                                         <span>
-                                                            @if ($wishlist->product->box_stock > 0)
+                                                            @if ($wishlist->product->stock > 0)
                                                                 In Stock
                                                             @else
                                                                 Out of Stock

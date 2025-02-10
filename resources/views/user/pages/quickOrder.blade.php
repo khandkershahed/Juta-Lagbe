@@ -56,9 +56,9 @@
                                                         </td>
                                                         <td>{{ $product->name }}</td>
                                                         <td>
-                                                            @if (!empty($product->box_stock) && $product->box_stock > 0)
+                                                            @if (!empty($product->stock) && $product->stock > 0)
                                                                 <span class="ps-badge bg-success">
-                                                                    {{ $product->box_stock }} In Stock</span>
+                                                                    {{ $product->stock }} In Stock</span>
                                                             @else
                                                                 <span class="ps-badge ps-badge--outstock">Out Of
                                                                     Stock</span>

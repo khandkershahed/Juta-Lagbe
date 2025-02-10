@@ -31,9 +31,9 @@
                             <div class="ps-product__row ps-product__stock">
 
                                 <div class="ps-product__label">Stock:</div>
-                                @if (!empty($item->box_stock) && $item->box_stock > 0)
+                                @if (!empty($item->stock) && $item->stock > 0)
                                     <div class="ps-product__value">
-                                        <span class="ps-product__in-stock">{{ $item->box_stock }} In Stock</span>
+                                        <span class="ps-product__in-stock">{{ $item->stock }} In Stock</span>
                                     </div>
                                 @else
                                     <div class="ps-product__badge"><span class="ps-badge ps-badge--outstock">Out Of
