@@ -254,7 +254,7 @@
                                         </div>
                                         <div class="pt-5 mt-2">
                                             <button type="submit"
-                                                class="py-3 mt-5 btn btn-primary w-100 register-btns">
+                                                class="py-3 mt-5 btn btn-primary w-100 register-btns fa-bounce">
                                                 <i class="pr-2 fa-solid fa-clipboard-check"></i> আপনার অর্ডার কনফার্ম
                                                 করতে ক্লিক করুন
                                             </button>
