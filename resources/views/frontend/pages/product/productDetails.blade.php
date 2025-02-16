@@ -32,13 +32,27 @@
 
             .overlay-iframe {
                 position: absolute;
-                top: 0;
+                top: 40px;
                 left: 0;
-                width: 90px !important;
-                height: 100px !important;
+                width: 100%;
+                height: 85px;
                 background: rgba(0, 0, 0, 0.5);
                 z-index: 1;
                 cursor: not-allowed;
+            }
+
+            .mobile-youtube iframe {
+                width: 100%;
+                height: 60px;
+                cursor: none;
+                position: relative;
+                top: 5px;
+            }
+
+            .thumbnail-mobile img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
             }
         }
     </style>
@@ -86,7 +100,7 @@
             display: block;
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
         }
 
         .swiper {
@@ -132,7 +146,11 @@
             display: block;
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
+        }
+
+        .product-details-img img {
+            object-fit: contain !important;
         }
 
         .swiper-button-next,
@@ -158,7 +176,7 @@
 
             .swiper {
                 width: 100%;
-                height: 720px;
+                height: 700px;
             }
 
             .mySwiperDesktop .swiper-slide {
@@ -284,11 +302,27 @@
                         <div thumbsSlider="" class="swiper mySwiperDesktop">
                             <div class="bg-white swiper-wrapper">
                                 @if (!empty($product->video_link))
-                                    <div class="swiper-slide thumbnail-container">
+                                    <div class="mb-0 swiper-slide thumbnail-container">
                                         <div style="position: relative;">
-                                            <div class="player" data-plyr-provider="youtube"
-                                                data-plyr-embed-id="{{ $product->video_link }}">
-                                            </div>
+                                            @php
+                                                // Get the full embed URL from $product->video_link
+                                                $videoUrl = $product->video_link; // Example: "https://www.youtube.com/embed/864B4rzoPog?si=xKvdPGM-wLAwLP4B"
+
+                                                // Extract the video ID from the embed URL
+                                                preg_match('/embed\/([a-zA-Z0-9_-]+)/', $videoUrl, $matches);
+                                                $videoId = $matches[1] ?? null;
+                                            @endphp
+
+                                            @if ($videoId)
+                                                <iframe width="100%" height="100%"
+                                                    src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&loop=1&mute=1&modestbranding=1&controls=0&rel=0&playlist={{ $videoId }}"
+                                                    title="YouTube video player" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                                </iframe>
+                                            @endif
+
+
                                             <div class="overlay-iframe"></div>
                                         </div>
                                     </div>
@@ -307,9 +341,24 @@
                             <div class="swiper-wrapper">
                                 @if (!empty($product->video_link))
                                     <div class="swiper-slide main-video-container">
-                                        <div class="player main-cover-video" data-plyr-provider="youtube"
-                                            data-plyr-embed-id="{{ $product->video_link }}">
-                                        </div>
+                                        @php
+                                            // Get the full embed URL from $product->video_link
+                                            $videoUrl = $product->video_link; // Example: "https://www.youtube.com/embed/864B4rzoPog?si=xKvdPGM-wLAwLP4B"
+
+                                            // Extract the video ID from the embed URL
+                                            preg_match('/embed\/([a-zA-Z0-9_-]+)/', $videoUrl, $matches);
+                                            $videoId = $matches[1] ?? null;
+                                        @endphp
+
+                                        @if ($videoId)
+                                            <iframe width="100%" height="100%"
+                                                src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&loop=1&mute=1&modestbranding=1&controls=0&rel=0&playlist={{ $videoId }}"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                            </iframe>
+                                        @endif
+
                                     </div>
                                 @endif
                                 @foreach ($product->multiImages as $image)
@@ -326,18 +375,32 @@
                         <div thumbsSlider="" class="swiper mySwiper">
                             <div class="swiper-wrapper">
                                 @if (!empty($product->video_link))
-                                    <div class="swiper-slide thumbnail-container">
+                                    <div class="swiper-slide thumbnail-container mobile-youtube">
                                         <div style="position: relative;">
-                                            <div class="player thumbnail-video" data-plyr-provider="youtube"
-                                                data-plyr-embed-id="{{ $product->video_link }}">
-                                            </div>
+                                            @php
+                                                // Get the full embed URL from $product->video_link
+                                                $videoUrl = $product->video_link; // Example: "https://www.youtube.com/embed/864B4rzoPog?si=xKvdPGM-wLAwLP4B"
+
+                                                // Extract the video ID from the embed URL
+                                                preg_match('/embed\/([a-zA-Z0-9_-]+)/', $videoUrl, $matches);
+                                                $videoId = $matches[1] ?? null;
+                                            @endphp
+
+                                            @if ($videoId)
+                                                <iframe width="100%" height="100%"
+                                                    src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&loop=1&mute=1&modestbranding=1&controls=0&rel=0&playlist={{ $videoId }}"
+                                                    title="YouTube video player" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                                </iframe>
+                                            @endif
                                             <div class="overlay-iframe"></div>
                                         </div>
                                     </div>
                                 @endif
                                 @foreach ($product->multiImages as $image)
-                                    <div class="swiper-slide">
-                                        <img src="{{ asset('storage/' . $image->photo) }}" />
+                                    <div class="swiper-slide thumbnail-mobile">
+                                        <img class="img-fluid" src="{{ asset('storage/' . $image->photo) }}" />
                                     </div>
                                 @endforeach
                             </div>
@@ -403,8 +466,8 @@
                                     @if (!empty($sizes))
                                         @foreach ($sizes as $size)
                                             <div class="mr-1 radio-wrapper-46 mr-lg-3">
-                                                <input class="inp-radio" id="radio-{{ $size }}" name="size"
-                                                    type="radio" value="{{ $size }}" />
+                                                <input class="inp-radio" id="radio-{{ $size }}"
+                                                    name="size" type="radio" value="{{ $size }}" />
                                                 <label class="radio" for="radio-{{ $size }}">
                                                     <span>
                                                         <svg width="12px" height="10px" viewbox="0 0 12 10">

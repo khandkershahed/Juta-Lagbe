@@ -133,15 +133,17 @@
                                 <x-metronic.label for="size" class="col-form-label required fw-bold fs-6">
                                     {{ __('Size') }}
                                 </x-metronic.label>
-                                <select name="size[]" id="size" class="form-select form-select-solid" data-control="select2" data-close-on-select="false" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
+                                <select name="size[]" id="size" class="form-select form-select-solid"
+                                    data-control="select2" data-close-on-select="false"
+                                    data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
                                     <option>Choose Size</option>
-                                    <option value="39" @selected(old('size') == '39' )>39</option>
-                                    <option value="40" @selected(old('size') == '40' )>40</option>
-                                    <option value="41" @selected(old('size') == '41' )>41</option>
-                                    <option value="42" @selected(old('size') == '42' )>42</option>
-                                    <option value="43" @selected(old('size') == '43' )>43</option>
-                                    <option value="44" @selected(old('size') == '44' )>44</option>
-                                    <option value="45" @selected(old('size') == '45' )>45</option>
+                                    <option value="39" @selected(old('size') == '39')>39</option>
+                                    <option value="40" @selected(old('size') == '40')>40</option>
+                                    <option value="41" @selected(old('size') == '41')>41</option>
+                                    <option value="42" @selected(old('size') == '42')>42</option>
+                                    <option value="43" @selected(old('size') == '43')>43</option>
+                                    <option value="44" @selected(old('size') == '44')>44</option>
+                                    <option value="45" @selected(old('size') == '45')>45</option>
                                 </select>
                             </div>
                         </div>
@@ -184,7 +186,8 @@
                                     </div>
                                     <div class="pt-0 card-body">
                                         <div class="mb-5 fv-row">
-                                            <x-metronic.label class="form-label">Product Name <span class="text-danger">*</span></x-metronic.label>
+                                            <x-metronic.label class="form-label">Product Name <span
+                                                    class="text-danger">*</span></x-metronic.label>
                                             <x-metronic.input type="text" name="name" class="mb-2 form-control"
                                                 placeholder="Product name recommended" :value="old('name')">
                                             </x-metronic.input>
@@ -291,9 +294,13 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="pt-5 fv-row">
-                                                    <x-metronic.label for="video_link" class="form-label">
-                                                        Product Video Link <br>
-                                                        <small class="text-info">Demo(https://www.youtube.com/embed/sT6yhobrNf4?si=1_3f-zt-L6nQmCaV)</small>
+                                                    <x-metronic.label for="video_link" class="form-label">Product
+                                                        Video Link <br>
+                                                        <small class="text-danger">use the source only</small>
+                                                        <div class="border">
+                                                            <img src="{{ asset('images/video_upload_demo.png') }}"
+                                                                alt="">
+                                                        </div>
                                                     </x-metronic.label>
                                                     <input type="text" name="video_link" class="mb-2 form-control"
                                                         placeholder="Product Video Link" id="video_link"
@@ -375,7 +382,8 @@
                                                 <div class="text-muted fs-7">How much box discount price.</div>
                                         </div> --}}
                                         <div class="mb-5 fv-row col-4">
-                                            <x-metronic.label class="form-label">Price <span class="text-danger">*</span></x-metronic.label>
+                                            <x-metronic.label class="form-label">Price <span
+                                                    class="text-danger">*</span></x-metronic.label>
                                             <x-metronic.input type="number" name="unit_price" id="unit_price"
                                                 class="mb-2 form-control" placeholder="how much the unit price"
                                                 :value="old('unit_price')" readonly required></x-metronic.file-input>
