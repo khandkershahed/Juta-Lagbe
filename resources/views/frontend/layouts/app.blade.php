@@ -85,7 +85,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
-
+    {!! optional($setting)->google_analytics !!}
+    {!! optional($setting)->google_adsense !!}
     <style>
         /* Preloader styles */
         #preloader {
@@ -935,8 +936,7 @@
             }
         @endif
     </script>
-    {!! optional($setting)->google_analytics !!}
-    {!! optional($setting)->google_adsense !!}
+
 </body>
 
 </html>

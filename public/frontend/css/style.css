@@ -3132,7 +3132,8 @@ textarea.form-control {
 .ps-product__image img {
     width: 320px;
     height: 320px;
-    object-fit: cover;
+    object-fit: contain;
+    /* object-fit: cover; */
     display: block;
 }
 
