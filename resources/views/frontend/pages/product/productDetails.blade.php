@@ -8,18 +8,21 @@
             $rawDesc = $product->meta_description ?? substr($product->description, 0, 150);
             $metaDescription = htmlspecialchars(strip_tags($rawDesc));
             $metaImage = $product->thumbnail ?? ''; // Default image
-            $productID = $product->id ?? ''; // Default image
+            $productID = $product->sku_code  ?? $product->id; // Default image
             $productPrice = $product->unit_discount_price ?? $product->unit_price; // Default image
             $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock' ; // Default image
         @endphp
-        <meta property="og:availability" content="{{ $productAvailability }}" />
-        <meta property="og:id" content="{{ $productID }}" />
-        <meta property="og:price" content="{{ $productPrice }}" />
-        <meta property="id" content="{{ $productID }}" />
-        <meta property="price" content="{{ $productPrice }}" />
-        <meta property="product:id" content="{{ $productID }}" />
-        <meta property="product:price:amount" content="{{ $productPrice }}" />
-        <meta property="product:price:currency" content="BDT" />
+        <meta property="og:title" content="{{ $product->name }}">
+        <meta property="og:description" content="{{ $metaDescription }}">
+        <meta property="og:url" content="{{ request()->fullUrl() }}">
+        <meta property="og:image" content="{{ $metaImage ? asset('storage/' . $metaImage) : '' }}">
+        <meta property="product:brand" content="{{ $product->brand->name ?? 'JutaLagbe' }}">
+        <meta property="product:availability" content="{{ $productAvailability }}">
+        <meta property="product:condition" content="new">
+        <meta property="product:price:amount" content="{{ $productPrice }}">
+        <meta property="product:price:currency" content="BDT">
+        <meta property="product:retailer_item_id" content="{{ $productID }}">
+        <meta property="product:item_group_id" content="{{ $productID }}">
 
     @endpush
     <style>
