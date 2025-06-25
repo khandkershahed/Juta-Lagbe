@@ -85,6 +85,23 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+    <!-- Meta Pixel Code -->
+        <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '680603071634353');
+        fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=680603071634353&ev=PageView&noscript=1"
+        /></noscript>
+<!-- End Meta Pixel Code -->
     {!! optional($setting)->google_analytics !!}
     {!! optional($setting)->google_adsense !!}
     <style>
@@ -324,7 +341,10 @@
             var product_id = button.getAttribute('data-product_id');
             var qty = button.getAttribute('data-product_qty'); // Get the quantity value
             var cartHeader = document.querySelector('.miniCart');
-            fbq('track', 'Purchase', {currency: "BDT", value: cartPrice});
+            fbq('track', 'Purchase', {
+                currency: "BDT",
+                value: cartPrice
+            });
             // Check if quantity is valid
             if (qty <= 0) {
                 Swal.fire({
@@ -478,10 +498,14 @@
                 var $quantityInput = $("input[name='quantity']");
                 var qty = $quantityInput.val(); // Get the quantity value
                 // alert(qty);
-                var size = $("input[name='size']:checked").val(); // Get the selected size from the radio buttons
+                var size = $("input[name='size']:checked")
+            .val(); // Get the selected size from the radio buttons
                 var price = $(this).data('product_price');
                 // alert(price);
-                fbq('track', 'Purchase', {currency: "BDT", value: price});
+                fbq('track', 'Purchase', {
+                    currency: "BDT",
+                    value: price
+                });
                 // alert(size);
 
                 // Check if size is selected and if quantity is valid
