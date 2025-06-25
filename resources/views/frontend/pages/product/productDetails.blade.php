@@ -8,6 +8,34 @@
             $metaDescription = $product->meta_description ?? substr($product->description, 0, 150);
             $metaImage = $product->thumbnail ?? ''; // Default image
         @endphp
+
+        <script type="application/ld+json">
+            {"@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "{{ $product->name }}",
+            "image": [
+                @foreach ($product->multiImages as $image)
+                "{{ asset('storage/' . $image->photo) }}"{{ !$loop->last ? ',' : '' }}
+                @endforeach
+            ],
+            "description": {!! json_encode(strip_tags($product->description)) !!},
+            "sku": "{{ $product->sku_code }}",
+            "mpn": "{{ $product->sku_code }}",  // Optional, you can use SKU here too
+            "brand": {
+                "@type": "Brand",
+                "name": "JutaLagbe"
+            },
+            "offers": {
+                "@type": "Offer",
+                "url": "{{ url()->current() }}",
+                "priceCurrency": "BDT",
+                "price": "{{ $product->unit_discount_price ?? $product->unit_price }}",
+                "availability": "{{ $product->stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' }}",
+                "itemCondition": "https://schema.org/NewCondition"
+            },
+            "productID": "{{ $product->id }}"  // This will act as your unique 'id'
+            }
+        </script>
     @endpush
     <style>
         .thumbnail-container .plyr__video-wrapper {
@@ -494,7 +522,8 @@
 
                             @endphp
                             @if (count($sizes) > 0)
-                                <a href="#" data-product_id="{{ $product->id }}" data-product_price="{{ $cart_price }}"
+                                <a href="#" data-product_id="{{ $product->id }}"
+                                    data-product_price="{{ $cart_price }}"
                                     class="py-3 btn btn-primary rounded-0 fa-bounce w-100 add_to_cart_btn_product_single">
                                     <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                     অর্ডার করুন
@@ -797,7 +826,11 @@
         <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
         <script>
             // fbq('track', 'ViewContent', {currency: "BDT", value: {{ $cart_price }}});
-            fbq('trackCustom', 'ProductVisit', {content_name: '{{ $product->name }}', value: {{ $cart_price }}, currency: 'BDT'});
+            fbq('trackCustom', 'ProductVisit', {
+                content_name: '{{ $product->name }}',
+                value: {{ $cart_price }},
+                currency: 'BDT'
+            });
         </script>
 
         <script>
