@@ -8,7 +8,9 @@
             $metaDescription = $product->meta_description ?? substr($product->description, 0, 150);
             $metaImage = $product->thumbnail ?? ''; // Default image
         @endphp
-
+        <meta property="og:id" content="{{ $product->id }}" />
+        <meta property="og:price" content="{{ $product->unit_discount_price ?? $product->unit_price }}" />
+        <meta property="og:availability" content="{{ $product->stock > 0 ? 'in stock' : 'out of stock' }}" />
         <script type="application/ld+json">
             {"@context": "https://schema.org/",
             "@type": "Product",
@@ -33,7 +35,7 @@
                 "availability": "{{ $product->stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' }}",
                 "itemCondition": "https://schema.org/NewCondition"
             },
-            "productID": "{{ $product->id }}"  // This will act as your unique 'id'
+            "id": "{{ $product->id }}"  // This will act as your unique 'id'
             }
         </script>
     @endpush
