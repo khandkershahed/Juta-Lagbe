@@ -802,6 +802,14 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
         <script>
+            fbq('track', 'ViewContent', {
+                content_ids: ['{{ $product->id }}'],
+                content_type: 'product',
+                value: {{ $cart_price }},
+                currency: 'BDT'
+            });
+        </script>
+        <script>
             // fbq('track', 'ViewContent', {currency: "BDT", value: {{ $cart_price }}});
             fbq('trackCustom', 'ProductVisit', {
                 content_name: '{{ $product->name }}',
