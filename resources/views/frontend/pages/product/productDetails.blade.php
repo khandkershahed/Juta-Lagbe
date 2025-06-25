@@ -8,6 +8,12 @@
             $metaDescription = $product->meta_description ?? substr($product->description, 0, 150);
             $metaImage = $product->thumbnail ?? ''; // Default image
         @endphp
+        <meta property="id" content="{{ $product->id }}" />
+        <meta property="price" content="{{ $product->id }}" />
+        <meta property="product:id" content="{{ $product->id }}" />
+        <meta property="product:price:amount" content="{{ $product->unit_discount_price ?? $product->unit_price }}" />
+        <meta property="product:price:currency" content="BDT" />
+        <meta property="product:availability" content="{{ $availability }}" />
         <meta property="og:id" content="{{ $product->id }}" />
         <meta property="og:price" content="{{ $product->unit_discount_price ?? $product->unit_price }}" />
         <meta property="og:availability" content="{{ $product->stock > 0 ? 'in stock' : 'out of stock' }}" />

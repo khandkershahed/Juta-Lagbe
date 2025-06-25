@@ -16,9 +16,9 @@
     @if (Route::currentRouteName() === 'product.details')
         @php
             $metaTitle = $product->meta_title ?? $product->name;
-            $metaDescription = strip_tags(
-                $product->meta_description ?? substr(htmlspecialchars($product->description), 0, 150),
-            );
+            $rawDesc = $product->meta_description ?? substr($product->description, 0, 150);
+            $metaDescription = htmlspecialchars(strip_tags($rawDesc));
+
             $metaImage = $product->thumbnail ?? ''; // Default image
         @endphp
 
@@ -86,22 +86,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
     <!-- Meta Pixel Code -->
-        <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '680603071634353');
         fbq('track', 'PageView');
-        </script>
-        <noscript><img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=680603071634353&ev=PageView&noscript=1"
-        /></noscript>
-<!-- End Meta Pixel Code -->
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=680603071634353&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
     {!! optional($setting)->google_analytics !!}
     {!! optional($setting)->google_adsense !!}
     <style>
@@ -499,7 +508,7 @@
                 var qty = $quantityInput.val(); // Get the quantity value
                 // alert(qty);
                 var size = $("input[name='size']:checked")
-            .val(); // Get the selected size from the radio buttons
+                    .val(); // Get the selected size from the radio buttons
                 var price = $(this).data('product_price');
                 // alert(price);
                 fbq('trackCustom', 'AddToCart', {
