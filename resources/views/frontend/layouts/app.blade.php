@@ -86,7 +86,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
     {!! optional($setting)->google_analytics !!}
-    {!! optional($setting)->google_adsense !!} 
+    {!! optional($setting)->google_adsense !!}
     <style>
         /* Preloader styles */
         #preloader {
@@ -317,14 +317,14 @@
     </script>
 
     <script>
-        function addToCart(e, csrfToken, cartUrl) {
+        function addToCart(e, csrfToken, cartUrl, cartPrice) {
             e.preventDefault(); // Prevent the default action of the link
 
             var button = e.currentTarget; // Get the button that triggered the event
             var product_id = button.getAttribute('data-product_id');
             var qty = button.getAttribute('data-product_qty'); // Get the quantity value
             var cartHeader = document.querySelector('.miniCart');
-
+            fbq('track', 'Purchase', {currency: "BDT", value: cartPrice});
             // Check if quantity is valid
             if (qty <= 0) {
                 Swal.fire({
@@ -478,8 +478,10 @@
                 var $quantityInput = $("input[name='quantity']");
                 var qty = $quantityInput.val(); // Get the quantity value
                 // alert(qty);
-                var size = $("input[name='size']:checked")
-                    .val(); // Get the selected size from the radio buttons
+                var size = $("input[name='size']:checked").val(); // Get the selected size from the radio buttons
+                var price = $(this).data('product_price');
+                alert(price);
+                fbq('track', 'Purchase', {currency: "BDT", value: price});
                 // alert(size);
 
                 // Check if size is selected and if quantity is valid

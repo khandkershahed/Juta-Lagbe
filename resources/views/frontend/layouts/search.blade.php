@@ -73,10 +73,18 @@
                                             class="btn btn-primary mr-1 mr-lg-3">
                                             Buy Now
                                         </a>
+                                        @php
+                                            if (!empty($search_product->unit_discount_price)) {
+                                                $cart_price = $search_product->unit_discount_price;
+                                            } else {
+                                                $cart_price = $search_product->unit_price;
+                                            }
+
+                                        @endphp
                                         <a href="{{ route('cart.store', $search_product->id) }}"
                                             class="btn btn-outline-primary add_to_cart"
                                             data-product_id="{{ $search_product->id }}" data-product_qty="1"
-                                            onclick="addToCart(event, '{{ csrf_token() }}', '{{ route('cart.store', $search_product->id) }}')">
+                                            onclick="addToCart(event, '{{ csrf_token() }}', '{{ route('cart.store', $search_product->id) }}', '{{ $cart_price }}')">
                                             Add To Cart
                                         </a>
                                     </div>
