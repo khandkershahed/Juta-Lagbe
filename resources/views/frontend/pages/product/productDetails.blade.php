@@ -5,24 +5,15 @@
         @php
             $isProductPage = true; // Flag to indicate this is a product details page
             $metaTitle = $product->meta_title ?? $product->name;
-            $rawDesc = $product->meta_description ?? substr($product->description, 0, 150);
+            $rawDesc = $product->meta_description ?? substr($product->description, 0, 250);
             $metaDescription = htmlspecialchars(strip_tags($rawDesc));
             $metaImage = $product->thumbnail ?? ''; // Default image
+            $productBrand = $product->brand->name ?? 'JutaLagbe' ; // Default image
             $productID = $product->sku_code  ?? $product->id; // Default image
             $productPrice = $product->unit_discount_price ?? $product->unit_price; // Default image
             $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock' ; // Default image
         @endphp
-        <meta property="og:title" content="{{ $product->name }}">
-        <meta property="og:description" content="{{ $metaDescription }}">
-        <meta property="og:url" content="{{ request()->fullUrl() }}">
-        <meta property="og:image" content="{{ $metaImage ? asset('storage/' . $metaImage) : '' }}">
-        <meta property="product:brand" content="{{ $product->brand->name ?? 'JutaLagbe' }}">
-        <meta property="product:availability" content="{{ $productAvailability }}">
-        <meta property="product:condition" content="new">
-        <meta property="product:price:amount" content="{{ $productPrice }}">
-        <meta property="product:price:currency" content="BDT">
-        <meta property="product:retailer_item_id" content="{{ $productID }}">
-        <meta property="product:item_group_id" content="{{ $productID }}">
+
 
     @endpush
     <style>

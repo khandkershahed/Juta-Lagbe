@@ -15,10 +15,10 @@
 
     @if (Route::currentRouteName() === 'product.details')
         @php
-            $metaTitle = $product->meta_title ?? $product->name;
-            $rawDesc = $product->meta_description ?? substr($product->description, 0, 150);
-            $metaDescription = htmlspecialchars(strip_tags($rawDesc));
-            $metaImage = $product->thumbnail ?? ''; // Default image
+            // $metaTitle = $product->meta_title ?? $product->name;
+            // $rawDesc = $product->meta_description ?? substr($product->description, 0, 150);
+            // $metaDescription = htmlspecialchars(strip_tags($rawDesc));
+            // $metaImage = $product->thumbnail ?? ''; // Default image
         @endphp
 
         <meta name="title" content="{{ $metaTitle }}" />
@@ -27,12 +27,16 @@
         <meta property="og:description" content="{{ $metaDescription }}" />
         <meta property="og:image" content="{{ $metaImage ? asset('storage/' . $metaImage) : '' }}" />
         <meta property="og:type" content="product" />
-        <meta property="og:availability" content="{{ $productAvailability }}" />
-        <meta property="og:id" content="{{ $productID }}" />
-        <meta property="og:price" content="{{ $productPrice }}" />
         <meta property="og:url" content="{{ request()->fullUrl() }}" />
         <meta property="og:site_name" content="{{ optional($setting)->site_title ?: config('app.name') }}" />
         <meta property="og:locale" content="en_US" />
+        <meta property="product:brand" content="{{ $productBrand }}">
+        <meta property="product:availability" content="{{ $productAvailability }}">
+        <meta property="product:condition" content="new">
+        <meta property="product:price:amount" content="{{ $productPrice }}">
+        <meta property="product:price:currency" content="BDT">
+        <meta property="product:retailer_item_id" content="{{ $productID }}">
+        <meta property="product:item_group_id" content="{{ $productID }}">
 
         <meta property="twitter:title" content="{{ $metaTitle }}" />
         <meta property="twitter:description" content="{{ $metaDescription }}" />
@@ -74,7 +78,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/plugins/owl-carousel/assets/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/slick/slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('frontend/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/noUiSlider/nouislider.css') }}">
