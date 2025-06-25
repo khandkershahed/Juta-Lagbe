@@ -42,7 +42,9 @@
                             <p>Your order has been successfully placed, and we’re preparing it for delivery.To keep a
                                 record, you can download
                                 your invoice using the button below. Need help? Contact our support team anytime at <a
-                                    href="mailto:info.জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।@gmail.com" class="text-muted">info.জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।@gmail.com</a>.</p>
+                                    href="mailto:info.জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।@gmail.com"
+                                    class="text-muted">info.জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে
+                                    ।@gmail.com</a>.</p>
                         </div>
                         <div class="">
                             @include('frontend.layouts.invoice')
@@ -54,5 +56,11 @@
     </section>
     @push('scripts')
         <script src="https://cdn.sheetjs.com/xlsx-0.19.1/xlsx.full.min.js"></script>
+        <script>
+            fbq('track', 'Purchase', {
+                currency: "BDT",
+                value: {{ optional($order)->total_amount ?? 0 }}
+            });
+        </script>
     @endpush
 </x-frontend-app-layout>

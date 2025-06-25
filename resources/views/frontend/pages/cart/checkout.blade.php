@@ -8,7 +8,8 @@
                 </li>
             </ul>
             <div class="ps-checkout__content">
-                <form action="{{ route('checkout.store') }}" method="post" enctype="multipart/form-data">
+                <form id="checkoutForm" action="{{ route('checkout.store') }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="border-0 card">
                         <div class="border-0 card-header">
@@ -210,7 +211,7 @@
                                                         </span>
                                                         <br>
                                                         <span>
-                                                            <strong>Size :  {{ $cartItem->options->size }}</strong>
+                                                            <strong>Size : {{ $cartItem->options->size }}</strong>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -271,6 +272,23 @@
         </div>
     </div>
     @push('scripts')
+        {{-- <script>
+            $(document).ready(function() {
+                $('.register-btns').click(function() {
+                    $(this).html('<i class="fa fa-spinner fa-spin"></i> অর্ডার কনফার্ম হচ্ছে...');
+
+                    // Facebook Pixel event
+                    fbq('track', 'Purchase', {
+                        currency: "BDT",
+                        value: parseFloat('{{ $subTotal }}')
+                    });
+
+                    // Submit the form directly
+                    $('#checkoutForm').submit();
+                });
+            });
+        </script> --}}
+
         <script>
             $(document).ready(function() {
                 $('#division').select2({
