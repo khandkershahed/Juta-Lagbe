@@ -796,7 +796,7 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
         <script>
-            fbq('track', 'ViewContent', {currency: "BDT", value: {{ $cart_price }}});
+            // fbq('track', 'ViewContent', {currency: "BDT", value: {{ $cart_price }}});
             fbq('trackCustom', 'ProductVisit', {content_name: '{{ $product->name }}', value: {{ $cart_price }}, currency: 'BDT'});
         </script>
 
