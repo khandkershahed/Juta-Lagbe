@@ -480,7 +480,7 @@
                 // alert(qty);
                 var size = $("input[name='size']:checked").val(); // Get the selected size from the radio buttons
                 var price = $(this).data('product_price');
-                alert(price);
+                // alert(price);
                 fbq('track', 'Purchase', {currency: "BDT", value: price});
                 // alert(size);
 
