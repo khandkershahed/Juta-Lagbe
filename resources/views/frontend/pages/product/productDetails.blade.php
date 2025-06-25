@@ -4,17 +4,15 @@
     @push('heads')
         @php
             $isProductPage = true; // Flag to indicate this is a product details page
-            $metaTitle = $product->meta_title ?? $product->name;
-            $rawDesc = $product->meta_description ?? substr($product->description, 0, 250);
-            $metaDescription = htmlspecialchars(strip_tags($rawDesc));
-            $metaImage = $product->thumbnail ?? ''; // Default image
-            $productBrand = $product->brand->name ?? 'JutaLagbe' ; // Default image
-            $productID = $product->sku_code  ?? $product->id; // Default image
-            $productPrice = $product->unit_discount_price ?? $product->unit_price; // Default image
-            $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock' ; // Default image
+            // $metaTitle = $product->meta_title ?? $product->name;
+            // $rawDesc = $product->meta_description ?? substr($product->description, 0, 250);
+            // $metaDescription = htmlspecialchars(strip_tags($rawDesc));
+            // $metaImage = $product->thumbnail ?? ''; // Default image
+            // $productBrand = $product->brand->name ?? 'JutaLagbe'; // Default image
+            // $productID = $product->sku_code ?? $product->id; // Default image
+            // $productPrice = $product->unit_discount_price ?? $product->unit_price; // Default image
+            // $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock'; // Default image
         @endphp
-
-
     @endpush
     <style>
         .thumbnail-container .plyr__video-wrapper {

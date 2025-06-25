@@ -15,10 +15,14 @@
 
     @if (Route::currentRouteName() === 'product.details')
         @php
-            // $metaTitle = $product->meta_title ?? $product->name;
-            // $rawDesc = $product->meta_description ?? substr($product->description, 0, 150);
-            // $metaDescription = htmlspecialchars(strip_tags($rawDesc));
-            // $metaImage = $product->thumbnail ?? ''; // Default image
+            $metaTitle = $product->meta_title ?? $product->name;
+            $rawDesc = $product->meta_description ?? substr($product->description, 0, 250);
+            $metaDescription = htmlspecialchars(strip_tags($rawDesc));
+            $metaImage = $product->thumbnail ?? ''; // Default image
+            $productBrand = $product->brand->name ?? 'JutaLagbe' ; // Default image
+            $productID = $product->sku_code  ?? $product->id; // Default image
+            $productPrice = $product->unit_discount_price ?? $product->unit_price; // Default image
+            $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock' ; // Default image
         @endphp
 
         <meta name="title" content="{{ $metaTitle }}" />
