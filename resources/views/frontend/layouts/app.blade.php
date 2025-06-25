@@ -18,7 +18,6 @@
             $metaTitle = $product->meta_title ?? $product->name;
             $rawDesc = $product->meta_description ?? substr($product->description, 0, 150);
             $metaDescription = htmlspecialchars(strip_tags($rawDesc));
-
             $metaImage = $product->thumbnail ?? ''; // Default image
         @endphp
 
@@ -28,7 +27,9 @@
         <meta property="og:description" content="{{ $metaDescription }}" />
         <meta property="og:image" content="{{ $metaImage ? asset('storage/' . $metaImage) : '' }}" />
         <meta property="og:type" content="product" />
-
+        <meta property="og:availability" content="{{ $productAvailability }}" />
+        <meta property="og:id" content="{{ $productID }}" />
+        <meta property="og:price" content="{{ $productPrice }}" />
         <meta property="og:url" content="{{ request()->fullUrl() }}" />
         <meta property="og:site_name" content="{{ optional($setting)->site_title ?: config('app.name') }}" />
         <meta property="og:locale" content="en_US" />

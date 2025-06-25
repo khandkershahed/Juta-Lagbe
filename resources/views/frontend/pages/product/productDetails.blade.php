@@ -5,16 +5,20 @@
         @php
             $isProductPage = true; // Flag to indicate this is a product details page
             $metaTitle = $product->meta_title ?? $product->name;
-            $metaDescription = $product->meta_description ?? substr($product->description, 0, 150);
+            $rawDesc = $product->meta_description ?? substr($product->description, 0, 150);
+            $metaDescription = htmlspecialchars(strip_tags($rawDesc));
             $metaImage = $product->thumbnail ?? ''; // Default image
+            $productID = $product->id ?? ''; // Default image
+            $productPrice = $product->unit_discount_price ?? $product->unit_price; // Default image
+            $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock' ; // Default image
         @endphp
-        <meta property="og:availability" content="{{ $product->stock > 0 ? 'in stock' : 'out of stock' }}" />
-        <meta property="og:id" content="{{ $product->id }}" />
-        <meta property="og:price" content="{{ $product->unit_discount_price ?? $product->unit_price }}" />
-        <meta property="id" content="{{ $product->unit_discount_price ?? $product->unit_price }}" />
-        <meta property="price" content="{{ $product->id }}" />
-        <meta property="product:id" content="{{ $product->id }}" />
-        <meta property="product:price:amount" content="{{ $product->unit_discount_price ?? $product->unit_price }}" />
+        <meta property="og:availability" content="{{ $productAvailability }}" />
+        <meta property="og:id" content="{{ $productID }}" />
+        <meta property="og:price" content="{{ $productPrice }}" />
+        <meta property="id" content="{{ $productID }}" />
+        <meta property="price" content="{{ $productPrice }}" />
+        <meta property="product:id" content="{{ $productID }}" />
+        <meta property="product:price:amount" content="{{ $productPrice }}" />
         <meta property="product:price:currency" content="BDT" />
 
     @endpush
