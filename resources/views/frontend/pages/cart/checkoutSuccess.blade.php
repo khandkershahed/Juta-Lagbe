@@ -56,10 +56,26 @@
     </section>
     @push('scripts')
         <script src="https://cdn.sheetjs.com/xlsx-0.19.1/xlsx.full.min.js"></script>
+
         <script>
+            const contents = {!! json_encode(optional($order)->orderItems->map(function ($item) {
+                    return [
+                        'id' => $item->product->id,
+                        'quantity' => $item->quantity,
+                        'item_price' => $item->price,
+                    ];
+                }),
+            ) !!};
+
+            const contentIds = contents.map(item => item.id);
+            const totalValue = {{ optional($order)->total_amount ?? 0 }};
+
             fbq('track', 'Purchase', {
-                currency: "BDT",
-                value: {{ optional($order)->total_amount ?? 0 }}
+                contents: contents,
+                content_ids: contentIds,
+                content_type: 'product',
+                value: totalValue,
+                currency: 'BDT'
             });
         </script>
     @endpush

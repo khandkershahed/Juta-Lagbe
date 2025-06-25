@@ -19,10 +19,10 @@
             $rawDesc = $product->meta_description ?? substr($product->description, 0, 250);
             $metaDescription = htmlspecialchars(strip_tags($rawDesc));
             $metaImage = $product->thumbnail ?? ''; // Default image
-            $productBrand = $product->brand->name ?? 'JutaLagbe' ; // Default image
-            $productID = $product->sku_code  ?? $product->id; // Default image
+            $productBrand = $product->brand->name ?? 'JutaLagbe'; // Default image
+            $productID = $product->sku_code ?? $product->id; // Default image
             $productPrice = $product->unit_discount_price ?? $product->unit_price; // Default image
-            $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock' ; // Default image
+            $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock'; // Default image
         @endphp
 
         <meta name="title" content="{{ $metaTitle }}" />
@@ -82,8 +82,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/plugins/owl-carousel/assets/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/slick/slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('frontend/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/noUiSlider/nouislider.css') }}">
@@ -362,6 +361,8 @@
             var cartHeader = document.querySelector('.miniCart');
             fbq('trackCustom', 'AddToCart', {
                 currency: "BDT",
+                content_ids: product_id, // 'REQUIRED': array of product IDs
+                content_type: 'product',
                 value: cartPrice
             });
             // Check if quantity is valid
