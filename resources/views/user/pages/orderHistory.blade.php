@@ -68,7 +68,7 @@
                                                     <td>
                                                         @if ($order->payment_status == 'delivery_charge_paid')
                                                             <span
-                                                                class="text-info fw-bold">৳</span>{{ $order->total_amount - $order->shipping_charge  }}
+                                                                class="text-info fw-bold">৳</span>{{ $order->total_amount - $order->shipping_charge }}
                                                         @elseif ($order->payment_status == 'completely_paid')
                                                             <span class="text-info fw-bold">৳</span>0
                                                         @elseif ($order->payment_status == 'cod')
@@ -115,4 +115,36 @@
             </div>
         </div>
     @endforeach
+
+    @push('scripts')
+        {{-- <script>
+            const contents = {!! json_encode(
+                optional($order)->orderItems->map(function ($item) {
+                    return [
+                        'id' => $item->product->id,
+                        'quantity' => $item->quantity,
+                        'item_price' => $item->price,
+                    ];
+                }),
+            ) !!};
+
+            const contentIds = contents.map(item => item.id);
+            const totalValue = {{ optional($order)->total_amount ?? 0 }};
+
+            fbq('track', 'Purchase', {
+                contents: contents,
+                content_ids: contentIds,
+                content_type: 'product',
+                value: totalValue,
+                currency: 'BDT'
+            });
+        </script> --}}
+        <script>
+            const totalValue = {{ optional($order)->total_amount ?? 0 }};
+            fbq('track', 'Purchase', {
+                value: totalValue,
+                currency: 'BDT'
+            });
+        </script>
+    @endpush
 </x-frontend-app-layout>
