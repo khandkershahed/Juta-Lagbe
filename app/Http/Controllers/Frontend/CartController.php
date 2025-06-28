@@ -291,7 +291,9 @@ class CartController extends Controller
             // Clear the cart after successful order
             Cart::instance('cart')->destroy();
             Session::flash('success', 'Order placed successfully!');
-            return redirect()->route('user.order.history');
+            // return redirect()->route('user.order.history');
+            return redirect()->route('user.checkout.successful');
+
             // return redirect()->route('bkash.payment', $order->order_number);
         } catch (\Exception $e) {
             DB::rollback();

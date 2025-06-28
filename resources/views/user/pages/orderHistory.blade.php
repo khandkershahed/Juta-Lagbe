@@ -116,35 +116,5 @@
         </div>
     @endforeach
 
-    @push('scripts')
-        {{-- <script>
-            const contents = {!! json_encode(
-                optional($order)->orderItems->map(function ($item) {
-                    return [
-                        'id' => $item->product->id,
-                        'quantity' => $item->quantity,
-                        'item_price' => $item->price,
-                    ];
-                }),
-            ) !!};
 
-            const contentIds = contents.map(item => item.id);
-            const totalValue = {{ optional($order)->total_amount ?? 0 }};
-
-            fbq('track', 'Purchase', {
-                contents: contents,
-                content_ids: contentIds,
-                content_type: 'product',
-                value: totalValue,
-                currency: 'BDT'
-            });
-        </script> --}}
-        <script>
-            const totalValue = {{ optional($order)->total_amount ?? 0 }};
-            fbq('track', 'Purchase', {
-                value: totalValue,
-                currency: 'BDT'
-            });
-        </script>
-    @endpush
 </x-frontend-app-layout>

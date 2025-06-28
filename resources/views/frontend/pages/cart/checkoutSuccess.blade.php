@@ -1,79 +1,125 @@
-<x-frontend-app-layout :title="'Checkout Success'">
-    <style>
-        .table thead th {
-            vertical-align: middle;
-            border: 1px solid #dee2e6a1;
-        }
-
-        .invoice_table td {
-            vertical-align: middle !important;
-        }
-
-        .invoice_table {
-            background-color: #e1ecff89;
-            border-bottom: 0px;
-        }
-
-        .invoice_table td {
-            border-bottom: 0px;
-            border: 1px solid #dee2e6c4;
-        }
-
-        @media print {
-
-            .card-header,
-            .btn {
-                display: none;
-            }
-
-            .table th,
-            .table td {
-                border: 1px solid #dee2e6;
-            }
-        }
-    </style>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1 col-12">
-                    <div class="p-0 p-lg-5 pt-lg-0">
-                        <div class="text-center">
-                            <h1>Thank You for Your Order!</h1>
-                            <p>Your order has been successfully placed, and we’re preparing it for delivery.To keep a
-                                record, you can download
-                                your invoice using the button below. Need help? Contact our support team anytime at <a
-                                    href="mailto:info.জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে ।@gmail.com"
-                                    class="text-muted">info.জুতা লাগবে । প্রিমিয়াম ফুটওয়্যারের সমাহার এখানে
-                                    ।@gmail.com</a>.</p>
-                        </div>
-                        <div class="">
-                            @include('frontend.layouts.invoice')
-                        </div>
+<x-frontend-app-layout :title="'Your Order History'">
+    <div class="breadcrumb-wrap">
+        <div class="banner b-top bg-size bread-img">
+            <img class="bg-img bg-top" src="img/banner-p.jpg" alt="banner" style="display: none;">
+            <div class="container-lg">
+                <div class="breadcrumb-box">
+                    <div class="title-box3 text-center">
+                        <h1>
+                            <span class="text-info">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                            <br>Welcome To Your Dashboard
+                        </h1>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <div class="ps-account">
+        <section class="user-dashboard py-0 py-lg-8">
+            <div class="container">
+                <div class="row g-3 g-xl-4 tab-wrap">
+                    <div class="col-lg-4 col-xl-3 sticky">
+                        <!-- Sidebar here -->
+                        @include('user.layouts.sidebar')
+                    </div>
+                    <div class="col-lg-8 col-xl-9">
+                        <div class="row bg-white py-3 mb-5">
+                            <div class="col-lg-12">
+                                <div class="mb-4">
+                                    <h4>Order History & Track Order</h4>
+                                    <p class="mb-5">
+                                        Click the 'Track' button to check the status of your order delivery.
+                                    </p>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped order-history-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 20%;">অর্ডার নাম্বার</th>
+                                                <th style="width: 15%;">তারিখ</th>
+                                                <th style="width: 20%;">মোট টাকা</th>
+                                                <th style="width: 15%;">পরিশোধ</th>
+                                                <th style="width: 15%;">বকেয়া</th>
+                                                <th class="text-center" style="width: 10%;">ইনভয়েস</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Example Row -->
+                                            @foreach ($orders as $order)
+                                                <tr class="text-start">
+                                                    <td>{{ $order->order_number }}</td>
+                                                    <td>{{ $order->created_at->format('d M, Y') }}</td>
+                                                    <td>
+                                                        <span
+                                                            class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                                    </td>
+                                                    <td>
+                                                        @if ($order->payment_status == 'delivery_charge_paid')
+                                                            <span
+                                                                class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
+                                                        @elseif ($order->payment_status == 'completely_paid')
+                                                            <span
+                                                                class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                                        @elseif ($order->payment_status == 'cod')
+                                                            <span class="text-info fw-bold">৳</span>0
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($order->payment_status == 'delivery_charge_paid')
+                                                            <span
+                                                                class="text-info fw-bold">৳</span>{{ $order->total_amount - $order->shipping_charge }}
+                                                        @elseif ($order->payment_status == 'completely_paid')
+                                                            <span class="text-info fw-bold">৳</span>0
+                                                        @elseif ($order->payment_status == 'cod')
+                                                            <span
+                                                                class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="modal"
+                                                            data-target="#showInvoice-{{ $order->id }}">
+                                                            <i class="fa-solid fa-print"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            <!-- Additional rows go here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    @foreach ($orders as $order)
+        <div class="modal fade" id="showInvoice-{{ $order->id }}" data-backdrop="static" data-keyboard="false"
+            tabindex="-1" aria-labelledby="showInvoiceLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg invoice-mobile">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="showInvoiceLabel">Order Invoice</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-0">
+                        @include('frontend.layouts.invoice')
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
     @push('scripts')
-        <script src="https://cdn.sheetjs.com/xlsx-0.19.1/xlsx.full.min.js"></script>
-
         <script>
-            const contents = {!! json_encode(optional($order)->orderItems->map(function ($item) {
-                    return [
-                        'id' => $item->product->id,
-                        'quantity' => $item->quantity,
-                        'item_price' => $item->price,
-                    ];
-                }),
-            ) !!};
-
-            const contentIds = contents.map(item => item.id);
-            const totalValue = {{ optional($order)->total_amount ?? 0 }};
-
+            const totalValue = {{ optional($latest_order)->total_amount ?? 0 }};
             fbq('track', 'Purchase', {
-                contents: contents,
-                content_ids: contentIds,
-                content_type: 'product',
                 value: totalValue,
                 currency: 'BDT'
             });
