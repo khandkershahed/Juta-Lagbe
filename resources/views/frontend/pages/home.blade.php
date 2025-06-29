@@ -184,9 +184,9 @@
                             <div class="spcial-product-box">
                                 <h3 class="mb-0 text-white ps-section__title d-flex align-items-center text-uppercase"
                                     style="font-size: 30px;">
-                                    Surprise Offer <img width="30px" class="pl-2 img-fluid"
+                                    সারপ্রাইজ অফার <img width="30px" class="pl-2 img-fluid"
                                         src="{{ asset('images/hour.png') }}" alt=""></h3>
-                                <p class="text-white">Limited Time Deals on Top Products</p>
+                                <p class="text-white">সীমিত পণ্যে বিশেষ আকর্ষণীয় অফার</p>
                             </div>
                             <div style="width: 600px" class="px-3">
                                 <span style="height: 1px; background-color:transparent; display: block"></span>
@@ -195,7 +195,7 @@
                                 <div class="pt-3 ps-delivery--info pt-lg-0">
                                     <a class="px-4 py-2 text-end"
                                         style="background-color: #fff !important;border-radius: 50px;color: #252525;"
-                                        href="{{ route('special.products', optional($special_offer)->slug) }}">Show All
+                                        href="{{ route('special.products', optional($special_offer)->slug) }}">আরও দেখুন
                                         <i class="fa-solid fa-"></i></a>
                                 </div>
                             @endif
@@ -336,9 +336,9 @@
                             <div class="">
                                 <h3 class="mb-0 text-black ps-section__title d-flex align-items-center text-uppercase"
                                     style="font-size: 30px;">
-                                    Trending Now Offer
+                                    সর্বশেষ ট্রেন্ডিং অফার
                                 </h3>
-                                <p>Best Selling Products</p>
+                                <p>সেরা বিক্রিত পণ্য গুলো দেখুন</p>
                             </div>
                             <div style="width: 700px" class="px-3">
                                 <span style="height: 1px; background-color:transparent; display: block"></span>
@@ -492,7 +492,7 @@
                                     <div class="text-white ps-delivery__text">
                                         <i class="icon-shield-check"></i>
                                         <span>
-                                            <strong>100% Secure Delivery</strong> Without Courier Communication.
+                                            <strong>১০০% সহজে ডেলিভারি নিন</strong> কুরিয়ারের সঙ্গে যোগাযোগ ছাড়াই।
                                         </span>
                                     </div>
                                 </div>
@@ -514,9 +514,9 @@
                             <div class="spcial-product-box">
                                 <h3 class="mb-0 text-black ps-section__title d-flex align-items-center text-uppercase"
                                     style="font-size: 30px;">
-                                    All Products
+                                    সকল প্রোডাক্ট দেখুন
                                 </h3>
-                                <p>Walk in Style, Pay Less!</p>
+                                <p>স্টাইল দিয়ে হাঁটুন, কম খরচে কিনুন!</p>
                             </div>
                             <div style="width: 700px" class="px-3">
                                 <span style="height: 1px; background-color:transparent; display: block"></span>

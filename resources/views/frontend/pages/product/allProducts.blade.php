@@ -160,12 +160,12 @@
                             <div class="py-0 text-left ps-categogy__sort w-100">
                                 <form>
                                     <select id="sort-by" class="form-select">
-                                        <option value="latest">Latest</option>
-                                        <option value="oldest">Oldest</option>
-                                        <option value="name-asc">Product Name Ascending(A to Z)</option>
-                                        <option value="name-desc">Product Name Descending(Z to A)</option>
-                                        <option value="price-asc">Price: low to high</option>
-                                        <option value="price-desc">Price: high to low</option>
+                                        <option value="latest">সর্বশেষ</option>
+                                        <option value="oldest">আগের</option>
+                                        <option value="name-asc">পণ্যের নাম (A থেকে Z)</option>
+                                        <option value="name-desc">পণ্যের নাম (Z থেকে A)</option>
+                                        <option value="price-asc">মূল্য: কম থেকে বেশি</option>
+                                        <option value="price-desc">মূল্য: বেশি থেকে কম</option>
                                     </select>
                                     {{-- <span>Sort by</span> --}}
                                 </form>
@@ -174,10 +174,10 @@
                                 <form>
                                     {{-- <span>Show</span> --}}
                                     <select id="show-per-page" class="w-auto form-select show_per_page">
-                                        <option value="10" selected>10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
+                                        <option value="10" selected>১০</option>
+                                        <option value="20">২০</option>
+                                        <option value="30">৩০</option>
+                                        <option value="40">৪০</option>
                                     </select>
                                 </form>
                             </div>
@@ -192,9 +192,7 @@
                             data-background="{{ asset('images/delivery_banner.jpg') }}"
                             style="background-image: url({{ asset('images/delivery_banner.jpg') }});">
                             <div class="ps-delivery__content">
-                                <div class="ps-delivery__text"> <i class="icon-shield-check"></i><span> <strong>100%
-                                            Secure
-                                            delivery </strong>without courier communication</span></div><a
+                                <div class="ps-delivery__text"> <i class="icon-shield-check"></i><span> <strong>১০০% সহজে ডেলিভারি নিন</strong> কুরিয়ারের সঙ্গে যোগাযোগ ছাড়াই।</span></div><a
                                     class="ps-delivery__more" href="{{ route('allproducts') }}">Shop</a>
                             </div>
                         </div>
@@ -206,7 +204,7 @@
                                 </a>
                                 <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                     <div class="d-flex align-items-center">
-                                        <div>By Category</div>
+                                        <div>ক্যাটাগরি অনুযায়ী</div>
                                         <div class="title-line"></div>
                                     </div>
                                 </h4>
@@ -280,7 +278,7 @@
                                 </a>
                                 <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                     <div class="d-flex align-items-center">
-                                        <div>By Price</div>
+                                        <div>দাম অনুযায়ী</div>
                                         <div class="title-line"></div>
                                     </div>
                                 </h4>
@@ -303,7 +301,7 @@
                                 </a>
                                 <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                     <div class="d-flex align-items-center">
-                                        <div>By Brands</div>
+                                        <div>ব্র্যান্ড অনুযায়ী </div>
                                         <div class="title-line"></div>
                                     </div>
                                 </h4>
@@ -369,20 +367,30 @@
                             <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
                                 <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                     <div class="d-flex align-items-center">
-                                        <div>By Size</div>
+                                        <div>সাইজ অনুযায়ী </div>
                                         <div class="title-line"></div>
                                     </div>
                                 </h4>
                                 <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
                                 <div class="px-4 py-4 ps-widget__content priceing-filter">
                                     <!-- Bootstrap Button Radios -->
+                                    @php
+                                        function convertToBengaliNumber($number)
+                                        {
+                                            $bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+                                            return str_replace(range(0, 9), $bnDigits, $number);
+                                        }
+                                    @endphp
+
                                     @foreach ($sizes as $size)
                                         <div class="btn-group" role="group" aria-label="Size filter">
                                             <input type="radio" class="btn-check" name="size"
                                                 id="size-{{ $size }}" value="{{ $size }}"
                                                 autocomplete="off">
                                             <label class="w-auto my-2 mb-0 mr-2 btn btn-outline-primary rounded-0"
-                                                for="size-{{ $size }}">{{ $size }}</label>
+                                                for="size-{{ $size }}">
+                                                {{ convertToBengaliNumber($size) }}
+                                            </label>
                                         </div>
                                     @endforeach
                                 </div>

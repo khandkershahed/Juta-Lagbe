@@ -401,7 +401,7 @@
                                     <div class="text-white ps-delivery__text">
                                         <i class="icon-shield-check"></i>
                                         <span>
-                                            <strong>100% Secure Delivery</strong> Without Courier Communication.
+                                            <strong>১০০% সহজে ডেলিভারি নিন</strong> কুরিয়ারের সঙ্গে যোগাযোগ ছাড়াই।
                                         </span>
                                     </div>
                                 </div>

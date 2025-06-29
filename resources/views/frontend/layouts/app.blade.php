@@ -532,8 +532,8 @@
                 if (!size) {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Size not selected',
-                        text: 'Please select a size for the product.'
+                        title: 'সাইজ নির্বাচন করা হয়নি',
+                        text: 'অনুগ্রহ করে পণ্যের একটি সাইজ নির্বাচন করুন।'
                     });
                     return;
                 }
@@ -541,8 +541,8 @@
                 if (qty <= 0) {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Invalid Quantity',
-                        text: 'Please select a valid quantity.'
+                        title: 'পরিমাণ ঠিক হয়নি',
+                        text: 'দয়া করে সঠিক পরিমাণ সিলেক্ট করুন।'
                     });
                     return;
                 }
@@ -625,12 +625,11 @@
                 if (qty <= 0) {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Invalid Quantity',
-                        text: 'Please select a valid quantity.'
+                        title: 'সাইজ নির্বাচন করা হয়নি',
+                        text: 'অনুগ্রহ করে পণ্যের একটি সাইজ নির্বাচন করুন।'
                     });
                     return;
                 }
-
                 $.ajax({
                     type: "POST",
                     data: {

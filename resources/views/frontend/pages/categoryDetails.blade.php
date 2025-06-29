@@ -37,8 +37,8 @@
             </div>
         </div>
         <div class="container">
-            <div class="pt-2 ps-categogy__content mt-0 pt-0 pt-lg-3 mt-lg-3 ">
-                <div class="pb-0 row row-reverse pb-lg-5 pt-0 pt-lg-3">
+            <div class="pt-0 pt-2 mt-0 ps-categogy__content pt-lg-3 mt-lg-3 ">
+                <div class="pt-0 pb-0 row row-reverse pb-lg-5 pt-lg-3">
                     <!-- Products Section -->
                     <div class="order-12 col-md-9 col-12 order-lg-1">
                         <!-- Display individual product data -->
@@ -50,10 +50,10 @@
                                         src="{{ asset('frontend/img/no-products-category.jpg') }}" alt="">
                                 </div>
                             @else
-                                <div class="mt-0 ps-categogy--grid border-0">
+                                <div class="mt-0 border-0 ps-categogy--grid">
                                     <div class="m-0 row">
                                         @foreach ($catProducts as $key => $category_product)
-                                            <div class="col-6 col-lg-4 p-0 product-item">
+                                            <div class="p-0 col-6 col-lg-4 product-item">
                                                 <div class="pr-2 ps-section__product">
                                                     <div class="ps-product ps-product--standard">
                                                         <div class="ps-product__thumbnail">
@@ -254,7 +254,7 @@
                             <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
                                 <h4 class="p-3 shadow-sm ps-widget__title">
                                     <div class="d-flex align-items-center">
-                                        <div>Categories</div>
+                                        <div>ক্যাটাগরি</div>
                                         <div class="title-line"></div>
                                     </div>
                                 </h4>
@@ -306,12 +306,20 @@
                                 <div class="p-0 mt-0 bg-white ps-widget__block ps-widget__block-shop">
                                     <h4 class="p-3 shadow-sm ps-widget__title bg-light">
                                         <div class="d-flex align-items-center">
-                                            <div>By Size</div>
+                                            <div>সাইজ অনুযায়ী</div>
                                             <div class="title-line"></div>
                                         </div>
                                     </h4>
                                     <a class="ps-block-control" href="#"><i class="fa fa-angle-down"></i></a>
                                     <div class="px-4 py-4 ps-widget__content priceing-filter">
+                                        @php
+                                            function convertToBengaliNumber($number)
+                                            {
+                                                $bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+                                                return str_replace(range(0, 9), $bnDigits, $number);
+                                            }
+                                        @endphp
+
                                         @foreach ($sizes as $size)
                                             <div class="btn-group" role="group" aria-label="Size filter">
                                                 <input type="radio" class="btn-check" name="size"
@@ -320,10 +328,11 @@
                                                     {{ $size == $selected_size ? 'checked' : '' }}>
                                                 <label class="w-auto my-2 mb-0 mr-2 btn btn-outline-primary rounded-0"
                                                     for="size-{{ $size }}">
-                                                    {{ $size }}
+                                                    {{ convertToBengaliNumber($size) }}
                                                 </label>
                                             </div>
                                         @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -370,7 +379,7 @@
                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <div class="ps-product--detail">
                                 <div class="row">
-                                    <div class="col-12 col-xl-6 pl-0">
+                                    <div class="pl-0 col-12 col-xl-6">
                                         <div class="ps-product--gallery">
                                             <div class="ps-product__thumbnail">
                                                 @if ($category_product->multiImages->isNotEmpty())
@@ -432,13 +441,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-xl-6 pr-0">
-                                        <div class="ps-product__info mb-0">
+                                    <div class="pr-0 col-12 col-xl-6">
+                                        <div class="mb-0 ps-product__info">
                                             <div class="ps-product__badges">
                                                 <span
                                                     class="ps-badge ps-badge--instock">{{ $category_product->box_stock > 0 ? 'IN STOCK' : 'OUT OF STOCK' }}</span>
                                             </div>
-                                            <div class="ps-product__branch pt-2">
+                                            <div class="pt-2 ps-product__branch">
                                                 <a href="#"
                                                     style="text-transform: uppercase;">{{ optional($category_product->brand)->name }}</a>
                                             </div>
@@ -471,7 +480,7 @@
 
                                             <div class="ps-product__feature">
                                                 @if (!empty($category_product->unit_discount_price))
-                                                    <div class="ps-product__meta pb-3 pr-details-price">
+                                                    <div class="pb-3 ps-product__meta pr-details-price">
                                                         <span class="ps-product__price sale">দাম
                                                             {{ $category_product->unit_discount_price }} টাকা</span>
                                                         <span
@@ -479,7 +488,7 @@
                                                             টাকা</span>
                                                     </div>
                                                 @else
-                                                    <div class="ps-product__meta pb-3 pr-details-price">
+                                                    <div class="pb-3 ps-product__meta pr-details-price">
                                                         <span class="ps-product__price sale">দাম
                                                             {{ $category_product->unit_price }} টাকা</span>
                                                     </div>
