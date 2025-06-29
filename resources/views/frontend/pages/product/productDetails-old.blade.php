@@ -575,7 +575,7 @@
                 style="background-image: url({{ asset('images/delivery_banner.jpg') }});">
                 <div class="ps-delivery__content">
                     <div class="ps-delivery__text"> <i class="icon-shield-check"></i><span> <strong>১০০% সহজে ডেলিভারি নিন</strong> কুরিয়ারের সঙ্গে যোগাযোগ ছাড়াই।</span></div><a
-                        class="ps-delivery__more" href="{{ route('allproducts') }}">Shop</a>
+                        class="ps-delivery__more" href="{{ route('allproducts') }}">শপ</a>
                 </div>
             </div>
         </div>
@@ -722,8 +722,7 @@
                                                 </div> --}}
 
                                                 <a class="ps-btn ps-btn--warning add_to_cart_btn_product_single"
-                                                    data-product_id="{{ $related_product->id }}" href="#">Add
-                                                    to cart</a>
+                                                    data-product_id="{{ $related_product->id }}" href="#">কার্টে যোগ করুন</a>
 
                                             </div>
                                         </div>
@@ -745,7 +744,7 @@
                 slidesPerView: 1,
                 centeredSlides: true,
                 loop: true,
-                loopedSlides: 6, //スライドの枚数と同じ値を指定
+                loopedSlides: 6,
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
