@@ -8,7 +8,8 @@
                 </li>
             </ul>
             <div class="ps-checkout__content">
-                <form id="checkoutForm" action="{{ route('checkout.store') }}" method="post"
+                {{-- <form id="checkoutForm" action="{{ route('checkout.store') }}" method="post" --}}
+                <form id="checkoutForm" action="{{ route('url-create') }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="border-0 card">
@@ -272,23 +273,6 @@
         </div>
     </div>
     @push('scripts')
-        {{-- <script>
-            $(document).ready(function() {
-                $('.register-btns').click(function() {
-                    $(this).html('<i class="fa fa-spinner fa-spin"></i> অর্ডার কনফার্ম হচ্ছে...');
-
-                    // Facebook Pixel event
-                    fbq('track', 'Purchase', {
-                        currency: "BDT",
-                        value: parseFloat('{{ $subTotal }}')
-                    });
-
-                    // Submit the form directly
-                    $('#checkoutForm').submit();
-                });
-            });
-        </script> --}}
-
         <script>
             $(document).ready(function() {
                 $('#division').select2({
@@ -315,34 +299,46 @@
                     return banglaDigits[englishDigits.indexOf(digit)];
                 });
             }
+
             $(document).ready(function() {
                 $('#thana').change(function() {
-                    var thanaName = $(this).val(); // Get the selected division
+                    var thanaName = $(this).val();
                     var subtotal = parseFloat('{{ $subTotal }}');
                     var totalInput = document.getElementById('total-input');
                     var shippingID = document.getElementById('shippingID');
                     var totalPriceSpan = document.getElementById('total-price');
                     var shippingCharge = document.getElementById('shippingCharge');
+
                     if (thanaName) {
                         $.ajax({
-                            url: '{{ url('get-charge-by-thana') }}/' +
-                                thanaName, // Call the controller method
+                            url: '{{ url('get-charge-by-thana') }}/' + thanaName,
                             type: 'GET',
                             success: function(data) {
-                                // $('#district').empty(); // Clear current district options
-                                var shippingPrice = parseFloat(data.price) || 0;
+                                var shippingPrice = parseFloat(data.price) || 130;
                                 const total = subtotal + shippingPrice;
+
                                 shippingCharge.textContent = convertToBangla(shippingPrice.toFixed(
                                     2));
-                                // alert(data.id);
-                                totalInput.value = total.toFixed(2); // Update hidden field value
-                                shippingID.value = data.id; // Update hidden field value
-                                totalPriceSpan.textContent = convertToBangla(total.toFixed(
-                                    2)); // Update the visible total price
+                                totalInput.value = total.toFixed(2);
+                                shippingID.value = data.id;
+                                totalPriceSpan.textContent = convertToBangla(total.toFixed(2));
+                            },
+                            error: function(xhr, status, error) {
+                                // If AJAX fails, apply fallback shipping charge
+                                var shippingPrice = 130;
+                                const total = subtotal + shippingPrice;
+
+                                shippingCharge.textContent = convertToBangla(shippingPrice.toFixed(
+                                    2));
+                                totalInput.value = total.toFixed(2);
+                                shippingID.value =
+                                ''; // Optional: Clear or set a default shipping ID
+                                totalPriceSpan.textContent = convertToBangla(total.toFixed(2));
+
+                                console.error('AJAX Error:', error); // Debug log
                             }
                         });
                     }
-
                 });
             });
         </script>

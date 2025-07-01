@@ -797,7 +797,6 @@
     </section>
     {{-- @include('frontend.pages.product.partial.productOrder') --}}
 
-
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
@@ -1023,125 +1022,7 @@
                 });
             });
         </script>
-        {{-- <script>
-            $(function() {
-                var galleryTop, galleryThumbs;
-
-                function initSwiper() {
-                    // Destroy existing Swiper instances if they exist
-                    if (galleryTop) {
-                        galleryTop.destroy(true, true);
-                    }
-                    if (galleryThumbs) {
-                        galleryThumbs.destroy(true, true);
-                    }
-
-                    if ($(window).width() > 768) {
-                        // Initialize Swiper for desktop
-                        galleryTop = new Swiper(".product-details-slide", {
-                            spaceBetween: 10,
-                            slidesPerView: 4,
-                            direction: "vertical",
-                            freeMode: false,
-                            watchSlidesProgress: true,
-                            loop: true,
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                            },
-                            breakpoints: {
-                                768: {
-                                    slidesPerView: 4,
-                                },
-                                530: {
-                                    slidesPerView: 3,
-                                },
-                                300: {
-                                    slidesPerView: 2,
-                                },
-                            },
-                        });
-                        galleryThumbs = new Swiper(".mySwiper2", {
-                            spaceBetween: 10,
-                            navigation: {
-                                nextEl: ".swiper-button-next",
-                                prevEl: ".swiper-button-prev",
-                            },
-                            a11y: {
-                                prevSlideMessage: "Previous slide",
-                                nextSlideMessage: "Next slide",
-                            },
-                            thumbs: {
-                                swiper: galleryTop,
-                            },
-                            loop: true,
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                            },
-                        });
-                    } else {
-                        // Initialize Swiper for mobile
-                        galleryTop = new Swiper(".mySwiper", {
-                            spaceBetween: 10,
-                            slidesPerView: 4,
-                            freeMode: false,
-                            watchSlidesProgress: true,
-                            loop: true,
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                            },
-                        });
-                        galleryThumbs = new Swiper(".mySwiper2", {
-                            spaceBetween: 10,
-                            navigation: {
-                                nextEl: ".swiper-button-next",
-                                prevEl: ".swiper-button-prev",
-                            },
-                            a11y: {
-                                prevSlideMessage: "Previous slide",
-                                nextSlideMessage: "Next slide",
-                            },
-                            thumbs: {
-                                swiper: galleryTop,
-                            },
-                            loop: true,
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                            },
-                        });
-                    }
-
-                    // Sync the slide change between galleryTop and galleryThumbs
-                    galleryTop.on("slideChangeTransitionStart", function() {
-                        galleryThumbs.slideTo(galleryTop.activeIndex);
-                    });
-                    galleryThumbs.on("transitionStart", function() {
-                        galleryTop.slideTo(galleryThumbs.activeIndex);
-                    });
-
-                    // Add hover pause functionality
-                    $(".product-details-slide, .mySwiper2").on("mouseenter", function() {
-                        galleryTop.autoplay.stop();
-                        galleryThumbs.autoplay.stop();
-                    });
-
-                    $(".product-details-slide, .mySwiper2").on("mouseleave", function() {
-                        galleryTop.autoplay.start();
-                        galleryThumbs.autoplay.start();
-                    });
-                }
-
-                initSwiper();
-
-                // Reinitialize Swiper on window resize
-                $(window).resize(function() {
-                    initSwiper();
-                });
-            });
-        </script> --}}
+       
 
         <script>
             $(document).ready(function() {

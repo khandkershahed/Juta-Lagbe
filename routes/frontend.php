@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ContactController;
-use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ShopController;
+use App\Http\Controllers\Frontend\BkashController;
 use App\Http\Controllers\Frontend\StripeController;
+use App\Http\Controllers\Admin\NewsletterController;
 
 Route::middleware(['trackVisitor'])->group(function () {
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -41,6 +42,18 @@ Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('ca
 Route::get('/{id}/stripe/payment', [StripeController::class, 'stripePayment'])->name('stripe.payment');
 Route::post('/stripe/pay', [StripeController::class, 'stripePost'])->name('stripe.pay');
 
+
+// Checkout (URL) User Part
+Route::get('/bkash-pay', [BkashController::class, 'payment'])->name('url-pay');
+Route::post('/bkash-create', [BkashController::class, 'createPayment'])->name('url-create');
+Route::get('/bkash-callback', [BkashController::class, 'callback'])->name('url-callback');
+
+// Checkout (URL) Admin Part
+Route::get('/bkash-refund', [BkashController::class, 'getRefund'])->name('url-get-refund');
+Route::post('/bkash-refund', [BkashController::class, 'refundPayment'])->name('url-post-refund');
+Route::get('/bkash-search', [BkashController::class, 'getSearchTransaction'])->name('url-get-search');
+Route::post('/bkash-search', [BkashController::class, 'searchTransaction'])->name('url-post-search');
+Route::get('/bkash-query/{paymentID}', [BkashController::class, 'queryPaymentAPI'])->name('url-get-query');
 
 // Shop
 Route::get('shop', [ShopController::class, 'allproducts'])->name('allproducts');
