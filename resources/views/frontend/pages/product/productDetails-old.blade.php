@@ -117,7 +117,7 @@
                                         <div class="text-22 text-dark" style="height: auto;">
                                             {{ $product->name }}
                                         </div>
-                                        <table class="table ps-table ps-table--oriented m-0">
+                                        <table class="table m-0 ps-table ps-table--oriented">
                                             <tbody>
                                                 @if (!empty($product->sku_code))
                                                     <tr>
@@ -170,8 +170,8 @@
 
                                             </tbody>
                                         </table>
-                                        <div class="ps-product__group mt-20">
-                                            {{-- <table class="table ps-table ps-table--oriented m-0">
+                                        <div class="mt-20 ps-product__group">
+                                            {{-- <table class="table m-0 ps-table ps-table--oriented">
                                                 <tr>
                                                     <th>Carton / Box</th>
                                                     <th>Unit Price</th>
@@ -239,13 +239,13 @@
                                             Stock</span></div>
                                 @endif
                                 @if (!empty($product->unit_discount_price))
-                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
+                                    <div class="py-3 mt-3 ps-product__meta pr-details-price">
                                         <span
                                             class="ps-product__price sale">৳{{ $product->unit_discount_price }}</span>
                                         <span class="ps-product__del">৳{{ $product->unit_price }}</span>
                                     </div>
                                 @else
-                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
+                                    <div class="py-3 mt-3 ps-product__meta pr-details-price">
                                         <span class="ps-product__price sale">৳{{ $product->unit_price }}</span>
                                     </div>
                                 @endif
@@ -270,59 +270,59 @@
                                 <div class="d-flex align-items-center card-cart-btn">
                                     <a href="{{ route('product.details', $product->slug) }}"
                                         class="btn btn-primary rounded-0 w-100">
-                                        <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                        <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                         অর্ডার
                                         করুন
                                     </a>
                                 </div>
 
                                 <ul class="ps-product__bundle">
-                                    <li><i class="icon-bag2"></i>Full cash on delivery</li>
-                                    <li><i class="icon-truck"></i>Inside Dhaka-70 TK (24-48 hrs)</li>
-                                    <li><i class="icon-truck"></i>Outside Dhaka-150 TK (2-4 Days)</li>
+                                    <li><i class="icon-bag2"></i>সম্পুূর্ণ টাকা কাশ অন ডেলিভারি</li>
+                                    <li><i class="icon-truck"></i>ঢাকার ভেতরে - ৭০ টাকা (২৪-৪৮ ঘণ্টা)</li>
+                                    <li><i class="icon-truck"></i>ঢাকার বাইরে - ১৫০ টাকা (২-৪ দিন)</li>
                                     </li>
-                                    <li><i class="icon-truck"></i>Dhaka Sub-area-100 TK </li>
+                                    <li><i class="icon-truck"></i>ঢাকার উপ-শহর - ১০০ টাকা</li>
                                     <li><i class="fa-solid fa-location-dot"></i>
-                                        Sub-areas: <br>
+                                        উপ-শহর: <br>
                                         <span class="pt-2"
                                             style="position: relative;left: 32px;width: 94%;display: inline-block;">Keraniganj,
-                                            Tangi, Savar, Gazipur, Narayanganj, Asulia (2-4 Days)</span>
+                                            কেরানীগঞ্জ, টঙ্গি, সাভার, গাজীপুর, নারায়ণগঞ্জ, আশুলিয়া (২-৪ দিন)</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="ps-product__content">
-                        <ul class="nav nav-tabs ps-tab-list bg-white p-3" id="productContentTabs" role="tablist">
-                            <li class="nav-item ml-3 pr-info-tabs" role="presentation">
+                        <ul class="p-3 bg-white nav nav-tabs ps-tab-list" id="productContentTabs" role="tablist">
+                            <li class="ml-3 nav-item pr-info-tabs" role="presentation">
                                 <a class="nav-link show active" id="information-tab" data-toggle="tab"
                                     href="#information-content" role="tab" aria-controls="information-content"
                                     aria-selected="false">
-                                    Description
+                                    বিবরণ
                                 </a>
                             </li>
-                            <li class="nav-item ml-3 pr-info-tabs" role="presentation">
+                            <li class="ml-3 nav-item pr-info-tabs" role="presentation">
                                 <a class="nav-link" id="description-tab" data-toggle="tab"
                                     href="#description-content" role="tab" aria-controls="description-content"
                                     aria-selected="true">
-                                    Key Features
+                                    মূল বৈশিষ্ট্যসমূহ
                                 </a>
                             </li>
-                            <li class="nav-item ml-3 pr-inf-tabs" role="presentation">
+                            <li class="ml-3 nav-item pr-inf-tabs" role="presentation">
                                 <a class="nav-link" id="specification-tab" data-toggle="tab"
                                     href="#specification-content" role="tab"
                                     aria-controls="specification-content" aria-selected="false">
-                                    Specification
+                                    বিস্তারিত বৈশিষ্ট্য
                                 </a>
                             </li>
-                            <li class="nav-item ml-3" role="presentation">
+                            <li class="ml-3 nav-item" role="presentation">
                                 <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews-content"
                                     role="tab" aria-controls="reviews-content" aria-selected="false">
-                                    Reviews ({{ count($product->reviews) }})
+                                    রিভিউ ({{ count($product->reviews) }})
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content bg-white p-5" id="productContent">
+                        <div class="p-5 bg-white tab-content" id="productContent">
                             <div class="tab-pane fade show active" id="information-content" role="tabpanel"
                                 aria-labelledby="information-tab">
                                 <div class="ps-document">
@@ -398,7 +398,7 @@
                                                 </div>
                                             @endforeach
                                         @else
-                                            <p>No reviews available.</p>
+                                            <p>কোন রিভিউ পাওয়া যায়নি.</p>
                                         @endif
 
                                     </div>
@@ -507,19 +507,19 @@
                                                         @if (count($related_product->reviews) > 0)
                                                             Reviews ({{ count($related_product->reviews) }})
                                                         @else
-                                                            <p class="no-found mb-1 pb-0">N/A</p>
+                                                            <p class="pb-0 mb-1 no-found">N/A</p>
                                                         @endif
                                                     </div>
                                                 </div>
                                                 @if (!empty($related_product->unit_discount_price))
-                                                    <div class="ps-product__meta pb-3">
+                                                    <div class="pb-3 ps-product__meta">
                                                         <span
                                                             class="ps-product__price sale">৳{{ $related_product->unit_discount_price }}</span>
                                                         <span
                                                             class="ps-product__del">৳{{ $related_product->unit_price }}</span>
                                                     </div>
                                                 @else
-                                                    <div class="ps-product__meta pb-3">
+                                                    <div class="pb-3 ps-product__meta">
                                                         <span
                                                             class="ps-product__price sale">৳{{ $related_product->unit_price }}</span>
                                                     </div>
@@ -527,7 +527,7 @@
                                                 <div class="d-flex align-items-center card-cart-btn">
                                                     <a href="{{ route('product.details', $related_product->slug) }}"
                                                         class="btn btn-primary rounded-0 w-100">
-                                                        <i class="fa-solid fa-basket-shopping pr-2"></i>
+                                                        <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                                         অর্ডার
                                                         করুন
                                                     </a>
@@ -570,14 +570,12 @@
                     </section>
                 </div>
             </div>
-            <div class="ps-delivery ps-delivery--info my-5"
+            <div class="my-5 ps-delivery ps-delivery--info"
                 data-background="{{ asset('images/delivery_banner.jpg') }}"
                 style="background-image: url({{ asset('images/delivery_banner.jpg') }});">
                 <div class="ps-delivery__content">
-                    <div class="ps-delivery__text"> <i class="icon-shield-check"></i><span> <strong>100%
-                                Secure
-                                delivery </strong>without courier communication</span></div><a
-                        class="ps-delivery__more" href="{{ route('allproducts') }}">Shop</a>
+                    <div class="ps-delivery__text"> <i class="icon-shield-check"></i><span> <strong>১০০% সহজে ডেলিভারি নিন</strong> কুরিয়ারের সঙ্গে যোগাযোগ ছাড়াই।</span></div><a
+                        class="ps-delivery__more" href="{{ route('allproducts') }}">শপ</a>
                 </div>
             </div>
         </div>
@@ -594,7 +592,7 @@
                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <div class="ps-product--detail">
                                 <div class="row">
-                                    <div class="col-12 col-xl-6 pl-0">
+                                    <div class="pl-0 col-12 col-xl-6">
                                         <div class="ps-product--gallery">
                                             <div class="ps-product__thumbnail">
                                                 @if ($related_product->multiImages->isNotEmpty())
@@ -656,13 +654,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-xl-6 pr-0">
-                                        <div class="ps-product__info mb-0">
+                                    <div class="pr-0 col-12 col-xl-6">
+                                        <div class="mb-0 ps-product__info">
                                             <div class="ps-product__badges">
                                                 <span
                                                     class="ps-badge ps-badge--instock">{{ $related_product->stock > 0 ? 'IN STOCK' : 'OUT OF STOCK' }}</span>
                                             </div>
-                                            <div class="ps-product__branch pt-2">
+                                            <div class="pt-2 ps-product__branch">
                                                 <a href="#"
                                                     style="text-transform: uppercase;">{{ optional($related_product->brand)->name }}</a>
                                             </div>
@@ -695,14 +693,14 @@
 
                                             <div class="ps-product__feature">
                                                 @if (!empty($related_product->unit_discount_price))
-                                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
+                                                    <div class="py-3 mt-3 ps-product__meta pr-details-price">
                                                         <span
                                                             class="ps-product__price sale">৳{{ $related_product->unit_discount_price }}</span>
                                                         <span
                                                             class="ps-product__del">৳{{ $related_product->unit_price }}</span>
                                                     </div>
                                                 @else
-                                                    <div class="ps-product__meta py-3 pr-details-price mt-3">
+                                                    <div class="py-3 mt-3 ps-product__meta pr-details-price">
                                                         <span
                                                             class="ps-product__price sale">৳{{ $related_product->unit_price }}</span>
                                                     </div>
@@ -724,8 +722,7 @@
                                                 </div> --}}
 
                                                 <a class="ps-btn ps-btn--warning add_to_cart_btn_product_single"
-                                                    data-product_id="{{ $related_product->id }}" href="#">Add
-                                                    to cart</a>
+                                                    data-product_id="{{ $related_product->id }}" href="#">কার্টে যোগ করুন</a>
 
                                             </div>
                                         </div>
@@ -747,7 +744,7 @@
                 slidesPerView: 1,
                 centeredSlides: true,
                 loop: true,
-                loopedSlides: 6, //スライドの枚数と同じ値を指定
+                loopedSlides: 6,
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',

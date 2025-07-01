@@ -65,7 +65,7 @@
                 <div class="p-0 col-12 col-sm-3">
                     <p class="text-center">
                         <span class="ps-footer__link site-text">
-                            <i class="icon-wallet site-text"></i>Easy To Order Place
+                            <i class="icon-wallet site-text"></i>সহজে অর্ডার করতে পারবেন
                         </span>
                     </p>
                 </div>
@@ -73,7 +73,7 @@
                     <div class="p-0 col-12 col-sm-3">
                         <p class="text-center">
                             <span class="ps-footer__link site-text">
-                                <i class="icon-truck site-text"></i>{{ $shippingmethod->title }} - {{ $shippingmethod->price }} TK
+                                <i class="icon-truck site-text"></i>{{ $shippingmethod->title }} - {{ $shippingmethod->price }} ৳.
                             </span>
                         </p>
                     </div>
@@ -102,7 +102,7 @@
                             </a>
                         </div>
                         <div class="pt-3 ps-footer--contact">
-                            <p class="ps-footer__work">Style Meets Comfort At JutaLagbe Shop.</p>
+                            <p class="ps-footer__work">স্টাইল আর আরাম একসঙ্গে, JutaLagbe শপে।</p>
                         </div>
                         <img width="300px" class="payment-light" src="{{ asset('frontend/img/payment-light.png') }}"
                             alt>
@@ -121,7 +121,7 @@
                             </div>
                         </div>
                         <p class="pt-2 ps-footer__work">
-                            Saturday to Friday: 11 AM - 09PM
+                            শনিবার থেকে শুক্রবার: সকাল ১১টা থেকে রাত ৯টা পর্যন্ত
                         </p>
                         <p class="pt-2 ps-footer__work"><a
                                 href="mailto:{{ optional($setting)->contact_email }}">{{ optional($setting)->contact_email }}</a>
