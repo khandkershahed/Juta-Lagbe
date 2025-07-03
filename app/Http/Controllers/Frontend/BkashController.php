@@ -355,8 +355,8 @@ class BkashController extends Controller
         $body_data = array(
             'mode' => '0011',
             'payerReference' => $code ? $code : $request->input('phone'), // pass oderId or anything
-            'callbackURL' => $website_url,
-            // 'callbackURL' => $website_url . '/bkash-callback',
+            // 'callbackURL' => $website_url,
+            'callbackURL' => $website_url . '/bkash-callback',
             'amount' => $request->total_amount,
             'currency' => 'BDT',
             'intent' => 'sale',
