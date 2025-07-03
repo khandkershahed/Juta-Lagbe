@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\OrderItem;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ShippingMethod;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Order;
-use App\Models\OrderItem;
+use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use App\Models\Product;
-use App\Models\ShippingMethod;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class BkashController extends Controller
 {
@@ -210,17 +215,152 @@ class BkashController extends Controller
 
         $header = $this->authHeaders();
 
+        try {
+            if (Auth::check()) {
+                $user_id = auth()->id();
+            } else {
+                $user = User::where('phone', $request->input('phone'))->first();
+                if ($user) {
+                    Auth::login($user);
+                    $request->session()->regenerate();
+                } else {
+                    $password = Str::random(8); // or you can change 8 to any desired length
+                    $hashedPassword = Hash::make($password);
+                    $user = User::create([
+                        'phone'    => $request->input('phone'),
+                        'name'     => $request->input('name'),
+                        'thana'    => $request->input('thana'),
+                        'district' => $request->input('district'),
+                        'status'   => 'active',
+                        'password' => $hashedPassword,
+                    ]);
+
+                    // Log the user in after registration
+                    Auth::login($user);
+                    $request->session()->regenerate();
+                }
+                // Get the user ID to track their order
+                $user_id = auth()->id();
+            }
+        } catch (\Exception $e) {
+            Session::flash('error', 'Check Your Mobile Number Correctly.');
+            return redirect()->back()->withInput();
+        }
+
+
+        ini_set('max_execution_time', 300);
+        $totalAmount = preg_replace('/[^0-9.]/', '', $request->input('total_amount'));
+        $validator = Validator::make($request->all(), [
+            'name'           => 'nullable|string|max:255',
+            'address'        => 'nullable|string',
+            'email'          => 'nullable|email',
+            'phone'          => 'required|string|max:20',
+            'thana'          => 'nullable|string',
+            'district'       => 'nullable|string',
+            'order_note'     => 'nullable|string',
+            'sub_total'      => 'nullable',
+            'total_amount'   => 'required|min:0',
+        ], [
+            'order_note.string'     => 'The order note must be a string.',
+            'total_amount.required' => 'The total amount is required.',
+            'total_amount.numeric'  => 'The total amount must be a number.',
+            'total_amount.min'      => 'The total amount must be at least 0.',
+            'shipping_id.required'  => 'The shipping method is required.',
+        ]);
+
+        if ($validator->fails()) {
+            foreach ($validator->messages()->all() as $message) {
+                Session::flash('error', $message);
+            }
+            return redirect()->back()->withInput();
+        }
+
+        try {
+            // Get the next order number
+            $typePrefix = 'JL';
+            $year = date('Y');
+            $lastCode = Order::where('order_number', 'like', $typePrefix . '-' . $year . '%')
+                ->orderBy('id', 'desc')
+                ->first();
+            $newNumber = $lastCode ? (int) substr($lastCode->order_number, strlen($typePrefix . '-' . $year)) + 1 : 1;
+            $code = $typePrefix . '-' . $year . $newNumber;
+            $shipping_method = ShippingMethod::find($request->input('shipping_id'));
+            if ($shipping_method) {
+                $shipping_method_id = $shipping_method->id;
+                $shipping_charge = $shipping_method->price;
+            } else {
+                $shipping_charge = 130;
+                $totalAmount = $totalAmount + $shipping_charge;
+                $shipping_method_id = null;
+            }
+            // $order = Order::create([
+            //     'order_number'       => $code,
+            //     'user_id'            => $user_id,
+            //     'shipping_method_id' => $shipping_method_id,
+            //     'sub_total'          => $request->input('sub_total'),
+            //     'quantity'           => Cart::instance('cart')->count(),
+            //     'shipping_charge'    => $shipping_charge,
+            //     'total_amount'       => $totalAmount,
+            //     'payment_status'     => 'cod',
+            //     // 'payment_status'     => $request->input('payment_status'),
+            //     'status'             => 'pending',
+            //     'name'               => $request->input('name'),
+            //     'email'              => $request->input('email'),
+            //     'phone'              => $request->input('phone'),
+            //     'thana'              => $request->input('thana'),
+            //     'district'           => $request->input('district'),
+            //     'address'            => $request->input('address'),
+            //     'order_note'         => $request->input('order_note'),
+            //     'created_by'         => $user_id,
+            //     'order_created_at'   => Carbon::now(),
+            //     'created_at'         => Carbon::now(),
+            // ]);
+
+            // foreach (Cart::instance('cart')->content() as $item) {
+            //     OrderItem::create([
+            //         'order_id'      => $order->id,
+            //         'product_id'    => $item->id,
+            //         'user_id'       => $user_id,
+            //         'product_name'  => $item->name,
+            //         'product_color' => $item->model->color ?? null,
+            //         'product_sku'   => $item->model->sku ?? null,
+            //         'size'          => $item->options->size ?? null,
+            //         'price'         => $item->price,
+            //         'tax'           => $item->tax ?? 0,
+            //         'quantity'      => $item->qty,
+            //         'subtotal'      => $item->qty * $item->price,
+            //     ]);
+
+            //     // Update product stock
+            //     $product = Product::find($item->id);
+            //     $product->update([
+            //         'box_stock' => $product->box_stock - $item->qty,
+            //     ]);
+            // }
+
+            // Commit the transaction
+            DB::commit();
+
+            // Clear the cart after successful order
+            Cart::instance('cart')->destroy();
+            Session::flash('success', 'Order placed successfully!');
+            // return redirect()->route('bkash.payment', $order->order_number);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withInput();
+        }
+
         $website_url = URL::to("/user/order/history");
 
         $body_data = array(
             'mode' => '0011',
-            'payerReference' => $request->payerReference ? $request->payerReference : '01677444438', // pass oderId or anything
-            'callbackURL' => $website_url ,
+            'payerReference' => $code ? $code : $request->input('phone'), // pass oderId or anything
+            'callbackURL' => $website_url,
             // 'callbackURL' => $website_url . '/bkash-callback',
             'amount' => $request->total_amount,
             'currency' => 'BDT',
             'intent' => 'sale',
-            'merchantInvoiceNumber' => $request->merchantInvoiceNumber ? $request->merchantInvoiceNumber : "Inv_" . Str::random(6)
+            'merchantInvoiceNumber' => $code ? $code : "Inv_" . Str::random(6)
         );
 
         $response = $this->curlWithBody('/tokenized/checkout/create', $header, 'POST', json_encode($body_data));
