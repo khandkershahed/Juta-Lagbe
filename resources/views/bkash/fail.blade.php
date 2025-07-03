@@ -72,12 +72,12 @@
             <div class="container-lg">
                 <div class="breadcrumb-box">
                     <div class="title-box3 text-center">
-                        <h1>Sorry!! Please try again later.</h1>
-                        <p>
+                        <h2>Sorry!! Please try again later.</h2>
+                        <h6>
                             @if (isset($response))
                                 <span class="response">{{ $response }}</span>
                             @endif
-                        </p>
+                        </h6>
                     </div>
                     <div class="d-flex text-center justify-content-center">
                         <a href="{{ route('checkout') }}" class="btn btn-primary w-100"> Go to Checkout</a>
