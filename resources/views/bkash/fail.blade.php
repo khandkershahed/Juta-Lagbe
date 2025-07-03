@@ -57,7 +57,7 @@
         }
 
         .title-box3 h2 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #dc3545;
             /* Bootstrap's danger color */
         }
@@ -73,15 +73,15 @@
                 <div class="breadcrumb-box">
                     <div class="title-box3 text-center">
                         <h2>Sorry!! Please try again later.</h2>
-                        <h6>
+                        <h3>
                             @if (isset($response))
                                 <span class="response">{{ $response }}</span>
                             @endif
-                        </h6>
+                        </h3>
                     </div>
-                    <div class="d-flex text-center justify-content-center">
-                        <a href="{{ route('checkout') }}" class="btn btn-primary w-100"> Go to Checkout</a>
-                    </div>
+                    {{-- <div class="d-flex text-center justify-content-center">
+                        <a href="{{ route('checkout') }}" class="btn btn-primary w-100"> Go to Sho</a>
+                    </div> --}}
                 </div>
             </div>
         </div>
