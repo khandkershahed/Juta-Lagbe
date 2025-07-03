@@ -31,26 +31,22 @@
             margin-bottom: 20px;
         }
 
-        .response {
-            color: #e74c3c;
-            font-weight: bold;
-        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Sorry!! Please try again later.</h1>
-        <p>
-            @if (isset($response))
-                <span class="response">{{ $response }}</span>
-            @endif
-        </p>
+
     </div>
 </body>
 </html> --}}
 
 <x-frontend-app-layout :title="'Payment Failed'">
     <style>
+        .response {
+            color: #e74c3c;
+            font-weight: bold;
+        }
         .breadcrumb-wrap {
             margin-top: 20px;
         }
@@ -76,10 +72,7 @@
             <div class="container-lg">
                 <div class="breadcrumb-box">
                     <div class="title-box3 text-center">
-                        <h2>
-                            <span class="text-danger">Payment Failed</span>
-                            <br>Something went wrong
-                        </h2>
+                        <h1>Sorry!! Please try again later.</h1>
                         <p>
                             @if (isset($response))
                                 <span class="response">{{ $response }}</span>
