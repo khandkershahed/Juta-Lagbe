@@ -355,7 +355,6 @@ class BkashController extends Controller
         $body_data = array(
             'mode' => '0011',
             'payerReference' => $code ? $code : $request->input('phone'), // pass oderId or anything
-            // 'callbackURL' => $website_url,
             'callbackURL' => $website_url . '/bkash-callback',
             'amount' => $request->total_amount,
             'currency' => 'BDT',
@@ -422,9 +421,7 @@ class BkashController extends Controller
                     'response'             => $res_array['trxID']
                 ];
                 return view('user.pages.orderHistory', $data);
-                // return view('bkash.success')->with([
-                //     'response' => $res_array['trxID']
-                // ]);
+
             }
 
             return view('bkash.fail')->with([
