@@ -413,9 +413,18 @@ class BkashController extends Controller
 
             if (array_key_exists("statusCode", $res_array) && $res_array['statusCode'] == '0000' && array_key_exists("transactionStatus", $res_array) && $res_array['transactionStatus'] == 'Completed') {
                 // payment success case
-                return view('bkash.success')->with([
-                    'response' => $res_array['trxID']
-                ]);
+                $data = [
+
+                    'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
+                    'deliveredOrdersCount' => Order::latest('id')->where('status', 'delivered')->count(),
+                    'orders'               => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->get(),
+                    'latest_order'         => Order::where('user_id', Auth::user()->id)->latest('id')->first(['total_amount']),
+                    'response'             => $res_array['trxID']
+                ];
+                return view('user.pages.orderHistory', $data);
+                // return view('bkash.success')->with([
+                //     'response' => $res_array['trxID']
+                // ]);
             }
 
             return view('bkash.fail')->with([
