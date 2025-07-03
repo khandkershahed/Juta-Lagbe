@@ -80,6 +80,11 @@
                             <span class="text-danger">Payment Failed</span>
                             <br>Something went wrong
                         </h2>
+                        <p>
+                            @if (isset($response))
+                                <span class="response">{{ $response }}</span>
+                            @endif
+                        </p>
                     </div>
                     <div class="d-flex text-center justify-content-center">
                         <a href="{{ route('checkout') }}" class="btn btn-primary w-100"> Go to Checkout</a>
