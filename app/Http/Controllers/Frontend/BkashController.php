@@ -350,7 +350,7 @@ class BkashController extends Controller
             return redirect()->back()->withInput();
         }
 
-        $website_url = URL::to("/user/order/history");
+        $website_url = URL::to("/");
 
         $body_data = array(
             'mode' => '0011',
