@@ -453,14 +453,14 @@
                                                 readonly></x-metronic.file-input>
                                                 <div class="text-muted fs-7">How much unit discount price.</div>
                                         </div>
-                                        <div class="mb-5 fv-row col-4">
+                                        {{-- <div class="mb-5 fv-row col-4">
                                             <x-metronic.label class="form-label">Stock</x-metronic.label>
                                             <x-metronic.input type="number" name="stock" id="stock"
                                                 class="mb-2 form-control" placeholder="how much thestock"
                                                 :value="old('stock')">
                                                 </x-metronic.file-input>
                                                 <div class="text-muted fs-7">How much stock. Eg: 50</div>
-                                        </div>
+                                        </div> --}}
                                         <div class="mb-5 fv-row col-6">
                                             <x-metronic.label class="form-label">Vat</x-metronic.label>
                                             <x-metronic.input type="number" name="vat" id="vat"
