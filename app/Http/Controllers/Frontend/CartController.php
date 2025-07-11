@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ShippingMethod;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\ProductSizeStock;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -278,12 +279,16 @@ class CartController extends Controller
                     'quantity'      => $item->qty,
                     'subtotal'      => $item->qty * $item->price,
                 ]);
-
                 // Update product stock
-                $product = Product::find($item->id);
-                $product->update([
-                    'box_stock' => $product->box_stock - $item->qty,
-                ]);
+                if (!is_null($item->options->size)) {
+                    $productSize = ProductSizeStock::where('product_id', $item->id)
+                        ->where('size', $item->options->size)
+                        ->first();
+                    // dd($productSize);
+                    if ($productSize) {
+                        $productSize->update(['stock' => $productSize->stock - $item->qty]);
+                    }
+                }
             }
 
             // Commit the transaction

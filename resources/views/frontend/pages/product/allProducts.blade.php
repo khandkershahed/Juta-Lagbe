@@ -592,7 +592,8 @@
                     let categories = [];
                     let subcategories = [];
                     let brands = [];
-                    let sizes = []; // Collect selected sizes
+                    // let sizes = []; // Collect selected sizes
+                    let size = $('input[name="size"]:checked').val();
                     let priceMin = $('#price-min').val();
                     let priceMax = $('#price-max').val();
                     let sortBy = $('#sort-by').val();
@@ -609,9 +610,9 @@
                     $('.brand-filter:checked').each(function() {
                         brands.push($(this).data('id'));
                     });
-                    $('input[name="size"]:checked').each(function() {
-                        sizes.push($(this).val());
-                    });
+                    // $('input[name="size"]:checked').each(function() {
+                    //     sizes.push($(this).val());
+                    // });
                     // Send AJAX request
                     $.ajax({
                         url: '{{ route('products.filter') }}',
@@ -620,7 +621,7 @@
                             categories: categories,
                             subcategories: subcategories,
                             brands: brands,
-                            sizes: sizes,
+                            sizes: size,
                             price_min: priceMin,
                             price_max: priceMax,
                             sort_by: sortBy,

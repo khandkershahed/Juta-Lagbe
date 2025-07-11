@@ -55,6 +55,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class, 'product_id');
     }
+    public function sizes()
+    {
+        return $this->hasMany(ProductSizeStock::class, 'product_id');
+    }
     public function reviews()
     {
         return $this->hasMany(ProductReview::class, 'product_id');

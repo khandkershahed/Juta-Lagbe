@@ -166,10 +166,21 @@ class HomeController extends Controller
         }
 
         // Apply size filter if present
-        if ($request->has('size')) {
-            $size = $request->input('size');
-            $query->whereJsonContains('size', $size);
+        // if ($request->has('size')) {
+        //     $size = $request->input('size');
+        //     $query->whereJsonContains('size', $size);
+        // }
+
+        if ($request->has('size') && !empty($request->size)) {
+            $size = $request->size;
+            // dd($size);
+            $query->whereHas('sizes', function ($q) use ($size) {
+                $q->where('size', $size);
+            });
         }
+
+
+
 
         // Get the products based on the query
         $catProducts = $query->get();

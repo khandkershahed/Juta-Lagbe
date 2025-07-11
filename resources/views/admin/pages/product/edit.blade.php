@@ -136,7 +136,7 @@
                                     @endforeach
                                 </x-metronic.select-option>
                             </div>
-                            @php
+                            {{-- @php
                                 $sizes = isset($product->size) ? json_decode($product->size, true) : [];
                             @endphp
                             <div class="fv-row">
@@ -155,7 +155,7 @@
                                     <option value="44" @selected(is_array($sizes) && in_array('44', $sizes))>44</option>
                                     <option value="45" @selected(is_array($sizes) && in_array('45', $sizes))>45</option>
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     {{-- Status Card End --}}
@@ -307,7 +307,8 @@
                                                         Video Link <br>
                                                         <small class="text-danger">use the source only</small>
                                                         <div class="border">
-                                                            <img src="{{ asset('images/video_upload_demo.png') }}" alt="">
+                                                            <img src="{{ asset('images/video_upload_demo.png') }}"
+                                                                alt="">
                                                         </div>
                                                     </x-metronic.label>
                                                     <input type="text" name="video_link" class="mb-2 form-control"
@@ -330,21 +331,21 @@
                                         </div>
                                     </div>
                                     <div class="pt-0 card-body row">
-                                        <div class="mb-10 fv-row col-6">
+                                        <div class="mb-10 fv-row col-lg-4 col-6">
                                             <x-metronic.label class="form-label">SKU Code</x-metronic.label>
                                             <x-metronic.input type="text" name="sku_code"
                                                 class="mb-2 form-control" placeholder="SKU Number"
                                                 :value="old('sku_code', $product->sku_code)"></x-metronic.file-input>
                                                 <div class="text-muted fs-7">Enter the product SKU.</div>
                                         </div>
-                                        <div class="mb-10 fv-row col-6">
+                                        <div class="mb-10 fv-row col-lg-4 col-6">
                                             <x-metronic.label class="form-label">MF Code</x-metronic.label>
                                             <x-metronic.input type="text" name="mf_code" class="mb-2 form-control"
                                                 placeholder="MF Number" :value="old('mf_code', $product->mf_code)"></x-metronic.file-input>
                                                 <div class="text-muted fs-7">Enter the product MF.</div>
                                         </div>
 
-                                        <div class="mb-10 fv-row col-12">
+                                        <div class="mb-10 fv-row col-lg-4 col-12">
                                             <x-metronic.label class="form-label">Barcode</x-metronic.label>
                                             <x-metronic.input type="text" name="barcode_id"
                                                 class="mb-2 form-control" placeholder="Barcode Number"
@@ -352,6 +353,148 @@
                                                 <div class="text-muted fs-7">
                                                     Enter the product barcode number.
                                                 </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-12">
+                                            <div class="p-5 mt-5" style="background-color: #eee">
+                                                <p>Product Size wise Stock</p>
+                                                <!--begin::Repeater-->
+                                                <div id="productSizeStock">
+                                                    <!--begin::Form group-->
+                                                    <div class="form-group">
+                                                        <div data-repeater-list="productSizeStock">
+                                                            @if (count($product->sizes) > 0)
+                                                                @foreach ($product->sizes as $size)
+                                                                    <div data-repeater-item>
+                                                                        <div class="form-group row">
+                                                                            <div class="col-md-5">
+                                                                                <x-metronic.label for="product_size"
+                                                                                    class="col-form-label required fw-bold fs-6">
+                                                                                    {{ __('Size') }}
+                                                                                </x-metronic.label>
+                                                                                <select name="product_size"
+                                                                                    id="product_size"
+                                                                                    class="form-select form-select-solid"
+                                                                                    data-control="select2"
+                                                                                    data-close-on-select="false"
+                                                                                    data-placeholder="Select an option"
+                                                                                    data-allow-clear="true">
+                                                                                    <option>Choose Size</option>
+                                                                                    @foreach ([39, 40, 41, 42, 43, 44, 45] as $opt)
+                                                                                        <option
+                                                                                            value="{{ $opt }}"
+                                                                                            @selected(old('product_size', $size->size) == (string) $opt)>
+                                                                                            {{ $opt }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="col-md-4">
+                                                                                <x-metronic.label for="product_stock"
+                                                                                    class="col-form-label fw-bold fs-6 required">{{ __('Stock') }}
+                                                                                </x-metronic.label>
+                                                                                <x-metronic.input
+                                                                                    class="form-control form-control-lg"
+                                                                                    id="product_stock" type="text"
+                                                                                    name="product_stock"
+                                                                                    value="{{ old('product_stock', $size->stock) }}"
+                                                                                    placeholder="Stock Quantity, EG: 10,20,50.."></x-metronic.input>
+                                                                            </div>
+
+                                                                            <div class="col-md-1">
+                                                                                <div class="pt-2 mt-5 text-end">
+                                                                                    <a href="javascript:;"
+                                                                                        data-repeater-delete
+                                                                                        class="mt-5 btn btn-sm btn-danger mt-md-8">
+                                                                                        <i
+                                                                                            class="fas fa-trash fs-5"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            @else
+                                                                <div data-repeater-item>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-md-5">
+                                                                            <x-metronic.label for="product_size"
+                                                                                class="col-form-label required fw-bold fs-6">
+                                                                                {{ __('Size') }}
+                                                                            </x-metronic.label>
+                                                                            <select name="product_size"
+                                                                                id="product_size"
+                                                                                class="form-select form-select-solid"
+                                                                                data-control="select2"
+                                                                                data-close-on-select="false"
+                                                                                data-placeholder="Select an option"
+                                                                                data-allow-clear="true">
+                                                                                <option>Choose Size</option>
+                                                                                <option value="39"
+                                                                                    @selected(old('product_size') == '39')>39
+                                                                                </option>
+                                                                                <option value="40"
+                                                                                    @selected(old('product_size') == '40')>40
+                                                                                </option>
+                                                                                <option value="41"
+                                                                                    @selected(old('product_size') == '41')>41
+                                                                                </option>
+                                                                                <option value="42"
+                                                                                    @selected(old('product_size') == '42')>42
+                                                                                </option>
+                                                                                <option value="43"
+                                                                                    @selected(old('product_size') == '43')>43
+                                                                                </option>
+                                                                                <option value="44"
+                                                                                    @selected(old('product_size') == '44')>44
+                                                                                </option>
+                                                                                <option value="45"
+                                                                                    @selected(old('product_size') == '45')>45
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <x-metronic.label for="product_stock"
+                                                                                class="col-form-label fw-bold fs-6 required">{{ __('Stock') }}
+                                                                            </x-metronic.label>
+                                                                            <x-metronic.input
+                                                                                class="form-control form-control-lg"
+                                                                                id="product_stock" type="text"
+                                                                                name="product_stock"
+                                                                                value="{{ old('product_stock') }}"
+                                                                                placeholder="Stock Quantity, EG: 10,20,50.."></x-metronic.input>
+                                                                        </div>
+
+                                                                        <div class="col-md-1">
+                                                                            <div class="pt-2 mt-5 text-end">
+                                                                                <a href="javascript:;"
+                                                                                    data-repeater-delete
+                                                                                    class="mt-5 btn btn-sm btn-danger mt-md-8">
+                                                                                    <i class="fas fa-trash fs-5"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Form group-->
+
+                                                    <!--begin::Form group-->
+                                                    <div class="mt-5 form-group">
+                                                        <a href="javascript:;" data-repeater-create
+                                                            class="btn btn-primary">
+                                                            <i class="fas fa-plus fs-3"></i>
+                                                            Add
+                                                        </a>
+                                                    </div>
+                                                    <!--end::Form group-->
+                                                </div>
+                                                <!--end::Repeater-->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -367,28 +510,7 @@
                                         </div>
                                     </div>
                                     <div class="pt-0 card-body row">
-                                        {{-- <div class="mb-5 fv-row col-4">
-                                            <x-metronic.label class="form-label">Box Contains</x-metronic.label>
-                                            <x-metronic.input type="number" name="box_contains" id="box_contains"
-                                                class="mb-2 form-control" placeholder="how much in a box"
-                                                :value="old('box_contains', $product->box_contains)"></x-metronic.file-input>
-                                                <div class="text-muted fs-7">How much product in a box.</div>
-                                        </div> --}}
-                                        {{-- <div class="mb-5 fv-row col-4">
-                                            <x-metronic.label class="form-label">Box Price</x-metronic.label>
-                                            <x-metronic.input type="number" name="box_price" id="box_price"
-                                                class="mb-2 form-control" placeholder="how much the box price"
-                                                :value="old('box_price', $product->box_price)"></x-metronic.file-input>
-                                                <div class="text-muted fs-7">How much box price.</div>
-                                        </div> --}}
-                                        {{-- <div class="mb-5 fv-row col-4">
-                                            <x-metronic.label class="form-label">Box Discount Price</x-metronic.label>
-                                            <x-metronic.input type="number" name="box_discount_price"
-                                                id="box_discount_price" class="mb-2 form-control"
-                                                placeholder="how much the box discount price"
-                                                :value="old('box_discount_price', $product->box_discount_price)"></x-metronic.file-input>
-                                                <div class="text-muted fs-7">How much box discount price.</div>
-                                        </div> --}}
+
                                         <div class="mb-5 fv-row col-4">
                                             <x-metronic.label class="form-label">Price</x-metronic.label>
                                             <x-metronic.input type="number" name="unit_price" id="unit_price"
@@ -704,6 +826,20 @@
             // Example usage:
             const ckEditorInitializer = new CKEditorInitializer('.ckeditor');
             ckEditorInitializer.initialize();
+        </script>
+        <script>
+            $('#productSizeStock').repeater({
+                initEmpty: false,
+                defaultValues: {
+                    'text-input': '41'
+                },
+                show: function() {
+                    $(this).slideDown();
+                },
+                hide: function(deleteElement) {
+                    $(this).slideUp(deleteElement);
+                }
+            });
         </script>
     @endpush
 </x-admin-app-layout>

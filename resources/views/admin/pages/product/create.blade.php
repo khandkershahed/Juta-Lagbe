@@ -121,15 +121,8 @@
                                     @endforeach
                                 </x-metronic.select-option>
                             </div>
+
                             {{-- <div class="fv-row">
-                                <x-metronic.label for="color" class="col-form-label required fw-bold fs-6">
-                                    {{ __('Add Color') }}
-                                </x-metronic.label>
-                                <!-- Input element for Tagify -->
-                                <input class="form-control d-flex align-items-center" name="color"
-                                    value="{{ old('color') }}" id="color" />
-                            </div> --}}
-                            <div class="fv-row">
                                 <x-metronic.label for="size" class="col-form-label required fw-bold fs-6">
                                     {{ __('Size') }}
                                 </x-metronic.label>
@@ -145,7 +138,7 @@
                                     <option value="44" @selected(old('size') == '44')>44</option>
                                     <option value="45" @selected(old('size') == '45')>45</option>
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     {{-- Status Card End --}}
@@ -322,21 +315,21 @@
                                         </div>
                                     </div>
                                     <div class="pt-0 card-body row">
-                                        <div class="mb-10 fv-row col-6">
+                                        <div class="mb-10 fv-row col-lg-4 col-6">
                                             <x-metronic.label class="form-label">Product Code</x-metronic.label>
                                             <x-metronic.input type="text" name="sku_code"
                                                 class="mb-2 form-control" placeholder="SKU Number"
                                                 :value="old('sku_code')"></x-metronic.file-input>
                                                 <div class="text-muted fs-7">Enter the product SKU.</div>
                                         </div>
-                                        <div class="mb-10 fv-row col-6">
+                                        <div class="mb-10 fv-row col-lg-4 col-6">
                                             <x-metronic.label class="form-label">MF Code</x-metronic.label>
                                             <x-metronic.input type="text" name="mf_code" class="mb-2 form-control"
                                                 placeholder="MF Number" :value="old('mf_code')"></x-metronic.file-input>
                                                 <div class="text-muted fs-7">Enter the product MF.</div>
                                         </div>
 
-                                        <div class="mb-10 fv-row col-12">
+                                        <div class="mb-10 fv-row col-lg-4 col-12">
                                             <x-metronic.label class="form-label">Barcode</x-metronic.label>
                                             <x-metronic.input type="text" name="barcode_id"
                                                 class="mb-2 form-control" placeholder="Barcode Number"
@@ -345,6 +338,90 @@
                                                     Enter the product barcode number.
                                                 </div>
                                         </div>
+
+                                        <div class="col-lg-12 col-12">
+                                            <div class="p-5 mt-5" style="background-color: #eee">
+                                                <p>Product Size wise Stock</p>
+                                                <!--begin::Repeater-->
+                                                <div id="productSizeStock">
+                                                    <!--begin::Form group-->
+                                                    <div class="form-group">
+                                                        <div data-repeater-list="productSizeStock">
+                                                            <div data-repeater-item>
+                                                                <div class="form-group row">
+                                                                    <div class="col-md-5">
+                                                                        <x-metronic.label for="product_size"
+                                                                            class="col-form-label required fw-bold fs-6">
+                                                                            {{ __('Size') }}
+                                                                        </x-metronic.label>
+                                                                        <select name="product_size" id="product_size"
+                                                                            class="form-select form-select-solid"
+                                                                            data-control="select2"
+                                                                            data-close-on-select="false"
+                                                                            data-placeholder="Select an option"
+                                                                            data-allow-clear="true">
+                                                                            <option>Choose Size</option>
+                                                                            <option value="39"
+                                                                                @selected(old('product_size') == '39')>39</option>
+                                                                            <option value="40"
+                                                                                @selected(old('product_size') == '40')>40</option>
+                                                                            <option value="41"
+                                                                                @selected(old('product_size') == '41')>41</option>
+                                                                            <option value="42"
+                                                                                @selected(old('product_size') == '42')>42
+                                                                            </option>
+                                                                            <option value="43"
+                                                                                @selected(old('product_size') == '43')>43
+                                                                            </option>
+                                                                            <option value="44"
+                                                                                @selected(old('product_size') == '44')>44
+                                                                            </option>
+                                                                            <option value="45"
+                                                                                @selected(old('product_size') == '45')>45
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <x-metronic.label for="product_stock"
+                                                                            class="col-form-label fw-bold fs-6 required">{{ __('Stock') }}
+                                                                        </x-metronic.label>
+                                                                        <x-metronic.input
+                                                                            class="form-control form-control-lg"
+                                                                            id="product_stock" type="text"
+                                                                            name="product_stock"
+                                                                            value="{{ old('product_stock') }}"
+                                                                            placeholder="Stock Quantity, EG: 10,20,50.."></x-metronic.input>
+                                                                    </div>
+
+                                                                    <div class="col-md-1">
+                                                                        <div class="pt-2 mt-5 text-end">
+                                                                            <a href="javascript:;" data-repeater-delete
+                                                                                class="mt-5 btn btn-sm btn-danger mt-md-8">
+                                                                                <i class="fas fa-trash fs-5"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Form group-->
+
+                                                    <!--begin::Form group-->
+                                                    <div class="mt-5 form-group">
+                                                        <a href="javascript:;" data-repeater-create
+                                                            class="btn btn-primary">
+                                                            <i class="fas fa-plus fs-3"></i>
+                                                            Add
+                                                        </a>
+                                                    </div>
+                                                    <!--end::Form group-->
+                                                </div>
+                                                <!--end::Repeater-->
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -359,28 +436,7 @@
                                         </div>
                                     </div>
                                     <div class="pt-0 card-body row">
-                                        {{-- <div class="mb-5 fv-row col-4">
-                                            <x-metronic.label class="form-label">Box Contains</x-metronic.label>
-                                            <x-metronic.input type="number" name="box_contains" id="box_contains"
-                                                class="mb-2 form-control" placeholder="how much in a box"
-                                                :value="old('box_contains')"></x-metronic.file-input>
-                                                <div class="text-muted fs-7">How much product in a box.</div>
-                                        </div>
-                                        <div class="mb-5 fv-row col-4">
-                                            <x-metronic.label class="form-label">Box Price</x-metronic.label>
-                                            <x-metronic.input type="number" name="box_price" id="box_price"
-                                                class="mb-2 form-control" placeholder="how much the box price"
-                                                :value="old('box_price')"></x-metronic.file-input>
-                                                <div class="text-muted fs-7">How much box price.</div>
-                                        </div>
-                                        <div class="mb-5 fv-row col-4">
-                                            <x-metronic.label class="form-label">Box Discount Price</x-metronic.label>
-                                            <x-metronic.input type="number" name="box_discount_price"
-                                                id="box_discount_price" class="mb-2 form-control"
-                                                placeholder="how much the box discount price"
-                                                :value="old('box_discount_price')"></x-metronic.file-input>
-                                                <div class="text-muted fs-7">How much box discount price.</div>
-                                        </div> --}}
+
                                         <div class="mb-5 fv-row col-4">
                                             <x-metronic.label class="form-label">Price <span
                                                     class="text-danger">*</span></x-metronic.label>
@@ -419,15 +475,7 @@
                                                 :value="old('tax')"></x-metronic.file-input>
                                                 <div class="text-muted fs-7">How much tax Eg: 5%</div>
                                         </div>
-                                        {{-- <div class="mt-10 fv-row col-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name="is_refurbished" type="checkbox"
-                                                    value="1" id="is_refurbished" />
-                                                <x-metronic.label class="form-check-label" for="is_refurbished">
-                                                    Is Refurbished
-                                                </x-metronic.label>
-                                            </div>
-                                        </div> --}}
+
                                     </div>
                                 </div>
                             </div>
@@ -700,6 +748,23 @@
             // Example usage:
             const ckEditorInitializer = new CKEditorInitializer('.ckeditor');
             ckEditorInitializer.initialize();
+        </script>
+        <script>
+            $('#productSizeStock').repeater({
+                initEmpty: false,
+
+                defaultValues: {
+                    'text-input': '41'
+                },
+
+                show: function() {
+                    $(this).slideDown();
+                },
+
+                hide: function(deleteElement) {
+                    $(this).slideUp(deleteElement);
+                }
+            });
         </script>
     @endpush
 </x-admin-app-layout>

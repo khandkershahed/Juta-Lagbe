@@ -3,15 +3,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
     @push('heads')
         @php
-            $isProductPage = true; // Flag to indicate this is a product details page
-            // $metaTitle = $product->meta_title ?? $product->name;
-            // $rawDesc = $product->meta_description ?? substr($product->description, 0, 250);
-            // $metaDescription = htmlspecialchars(strip_tags($rawDesc));
-            // $metaImage = $product->thumbnail ?? ''; // Default image
-            // $productBrand = $product->brand->name ?? 'JutaLagbe'; // Default image
-            // $productID = $product->sku_code ?? $product->id; // Default image
-            // $productPrice = $product->unit_discount_price ?? $product->unit_price; // Default image
-            // $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock'; // Default image
+            $isProductPage = true; 
         @endphp
     @endpush
     <style>
@@ -463,24 +455,23 @@
                             </div>
                             <div class="col-12 col-lg-9">
                                 <div class="d-flex size-box">
-                                    @php
-                                        $sizes = isset($product->size) ? json_decode($product->size, true) : [];
-                                    @endphp
 
-                                    @if (!empty($sizes))
-                                        @foreach ($sizes as $size)
-                                            <div class="mr-1 radio-wrapper-46 mr-lg-3">
-                                                <input class="inp-radio" id="radio-{{ $size }}"
-                                                    name="size" type="radio" value="{{ $size }}" />
-                                                <label class="radio" for="radio-{{ $size }}">
-                                                    <span>
-                                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                            <circle cx="6" cy="6" r="4"></circle>
-                                                        </svg>
-                                                    </span>
-                                                    <span>{{ $size }}</span>
-                                                </label>
-                                            </div>
+                                    @if (!empty($product->sizes))
+                                        @foreach ($product->sizes as $size)
+                                            @if ($size->stock > 0)
+                                                <div class="mr-1 radio-wrapper-46 mr-lg-3">
+                                                    <input class="inp-radio" id="radio-{{ $size->size }}"
+                                                        name="size" type="radio" value="{{ $size->size }}" />
+                                                    <label class="radio" for="radio-{{ $size->size }}">
+                                                        <span>
+                                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                                <circle cx="6" cy="6" r="4"></circle>
+                                                            </svg>
+                                                        </span>
+                                                        <span>{{ $size->size }}</span>
+                                                    </label>
+                                                </div>
+                                            @endif
                                         @endforeach
                                     @else
                                         <p class="mb-0 no-sizes-text">No sizes available.</p>
@@ -498,7 +489,7 @@
                                 }
 
                             @endphp
-                            @if (count($sizes) > 0)
+                            @if (count($product->sizes) > 0)
                                 <a href="#" data-product_id="{{ $product->id }}"
                                     data-product_price="{{ $cart_price }}"
                                     class="py-3 btn btn-primary rounded-0 fa-bounce w-100 add_to_cart_btn_product_single">
@@ -1022,7 +1013,7 @@
                 });
             });
         </script>
-       
+
 
         <script>
             $(document).ready(function() {

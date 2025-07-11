@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\ProductRequest;
+use App\Models\ProductSizeStock;
 
 class ProductController extends Controller
 {
@@ -120,7 +121,27 @@ class ProductController extends Controller
                     }
                 }
             }
-
+            if ($request->has('productSizeStock')) {
+                foreach ($request->productSizeStock as $size) {
+                    if (isset($size['product_size']) && isset($size['product_stock']) && $size['product_size'] && $size['product_stock']) {
+                        $productSize = $size['product_size'];
+                        $productStock = $size['product_stock'];
+                        try {
+                            // Create the product image record
+                            ProductSizeStock::create([
+                                'product_id' => $product->id,
+                                'size'       => $productSize,
+                                'stock'      => $productStock,
+                                'created_by' => Auth::guard('admin')->user()->id,
+                                'created_at' => Carbon::now(),
+                            ]);
+                        } catch (\Exception $e) {
+                            DB::rollback();
+                            return redirect()->back()->withInput()->with('error', 'Error uploading stock for size ' . $productSize . ': ' . $e->getMessage());
+                        }
+                    }
+                }
+            }
             DB::commit();
 
             return redirect()->route('admin.product.index')->with('success', 'Product has been created successfully!');
@@ -259,7 +280,18 @@ class ProductController extends Controller
                     }
                 }
             }
+            $product->sizes()->delete(); // Delete existing size records
 
+            if ($request->has('productSizeStock')) {
+                foreach ($request->input('productSizeStock') as $sizeStock) {
+                    if (!empty($sizeStock['product_size']) && !is_null($sizeStock['product_stock'])) {
+                        $product->sizes()->create([
+                            'size' => $sizeStock['product_size'],
+                            'stock' => $sizeStock['product_stock'],
+                        ]);
+                    }
+                }
+            }
             DB::commit();
 
             // Redirect with success message
