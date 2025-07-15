@@ -346,7 +346,7 @@
                             <div class="ps-delivery--info">
                                 <a class="px-4 py-2 text-end"
                                     style="background-color: #fff !important;border-radius: 50px;color: #000;"
-                                    href="{{ route('allproducts') }}">See All <i
+                                    href="{{ route('allproducts') }}">সকল প্রোডাক্ট  <i
                                         class="fa-solid fa-chevron-right"></i></a>
                             </div>
                         </div>
@@ -524,7 +524,7 @@
                             <div class="ps-delivery--info">
                                 <a class="px-4 py-2 text-end"
                                     style="background-color: #fff !important;border-radius: 50px;color: #000;"
-                                    href="{{ route('allproducts') }}">See All <i
+                                    href="{{ route('allproducts') }}">সকল প্রোডাক্ট  <i
                                         class="fa-solid fa-chevron-right"></i></a>
                             </div>
                         </div>
