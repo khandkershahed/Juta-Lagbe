@@ -106,28 +106,161 @@
                                                             </x-metronic.input>
                                                         </div>
 
-                                                        <div class="mt-5 mb-7 col-lg-6">
-                                                            <x-metronic.label class="form-label">
-                                                                Stock</x-metronic.label>
-                                                            <x-metronic.input type="number" name="stock"
-                                                                id="stock" class="mb-2 form-control"
-                                                                placeholder="how much the stock"
-                                                                :value="old('stock', $product->stock)"></x-metronic.file-input>
-                                                                <div class="text-muted fs-7">How much stock. Eg: 50
-                                                                </div>
-                                                        </div>
-                                                    </div>
+                                                        <div class="mt-5 mb-7 col-lg-12">
+                                                            <p>Product Size wise Stock</p>
+                                                            <!--begin::Repeater-->
+                                                            <div id="productSizeStock">
+                                                                <!--begin::Form group-->
+                                                                <div class="form-group">
+                                                                    <div data-repeater-list="productSizeStock">
+                                                                        @if (count($product->sizes) > 0)
+                                                                            @foreach ($product->sizes as $size)
+                                                                                <div data-repeater-item>
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-md-5">
+                                                                                            <x-metronic.label
+                                                                                                for="product_size"
+                                                                                                class="col-form-label required fw-bold fs-6">
+                                                                                                {{ __('Size') }}
+                                                                                            </x-metronic.label>
+                                                                                            <select name="product_size"
+                                                                                                id="product_size"
+                                                                                                class="form-select form-select-solid"
+                                                                                                data-control="select2"
+                                                                                                data-close-on-select="false"
+                                                                                                data-placeholder="Select an option"
+                                                                                                data-allow-clear="true">
+                                                                                                <option>Choose Size
+                                                                                                </option>
+                                                                                                @foreach ([39, 40, 41, 42, 43, 44, 45] as $opt)
+                                                                                                    <option
+                                                                                                        value="{{ $opt }}"
+                                                                                                        @selected(old('product_size', $size->size) == (string) $opt)>
+                                                                                                        {{ $opt }}
+                                                                                                    </option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </div>
 
-                                                    <button id="kt_docs_formvalidation_text_submit" type="submit"
-                                                        class="btn btn-primary">
-                                                        <span class="indicator-label">
-                                                            Update Stock
-                                                        </span>
-                                                        <span class="indicator-progress">
-                                                            Please wait... <span
-                                                                class="align-middle spinner-border spinner-border-sm ms-2"></span>
-                                                        </span>
-                                                    </button>
+                                                                                        <div class="col-md-4">
+                                                                                            <x-metronic.label
+                                                                                                for="product_stock"
+                                                                                                class="col-form-label fw-bold fs-6 required">{{ __('Stock') }}
+                                                                                            </x-metronic.label>
+                                                                                            <x-metronic.input
+                                                                                                class="form-control form-control-lg"
+                                                                                                id="product_stock"
+                                                                                                type="text"
+                                                                                                name="product_stock"
+                                                                                                value="{{ old('product_stock', $size->stock) }}"
+                                                                                                placeholder="Stock Quantity, EG: 10,20,50.."></x-metronic.input>
+                                                                                        </div>
+
+                                                                                        <div class="col-md-1">
+                                                                                            <div
+                                                                                                class="pt-2 mt-5 text-end">
+                                                                                                <a href="javascript:;"
+                                                                                                    data-repeater-delete
+                                                                                                    class="mt-5 btn btn-sm btn-danger mt-md-8">
+                                                                                                    <i
+                                                                                                        class="fas fa-trash fs-5"></i>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        @else
+                                                                            <div data-repeater-item>
+                                                                                <div class="form-group row">
+                                                                                    <div class="col-md-5">
+                                                                                        <x-metronic.label
+                                                                                            for="product_size"
+                                                                                            class="col-form-label required fw-bold fs-6">
+                                                                                            {{ __('Size') }}
+                                                                                        </x-metronic.label>
+                                                                                        <select name="product_size"
+                                                                                            id="product_size"
+                                                                                            class="form-select form-select-solid"
+                                                                                            data-control="select2"
+                                                                                            data-close-on-select="false"
+                                                                                            data-placeholder="Select an option"
+                                                                                            data-allow-clear="true">
+                                                                                            <option>Choose Size</option>
+                                                                                            <option value="39"
+                                                                                                @selected(old('product_size') == '39')>
+                                                                                                39
+                                                                                            </option>
+                                                                                            <option value="40"
+                                                                                                @selected(old('product_size') == '40')>
+                                                                                                40
+                                                                                            </option>
+                                                                                            <option value="41"
+                                                                                                @selected(old('product_size') == '41')>
+                                                                                                41
+                                                                                            </option>
+                                                                                            <option value="42"
+                                                                                                @selected(old('product_size') == '42')>
+                                                                                                42
+                                                                                            </option>
+                                                                                            <option value="43"
+                                                                                                @selected(old('product_size') == '43')>
+                                                                                                43
+                                                                                            </option>
+                                                                                            <option value="44"
+                                                                                                @selected(old('product_size') == '44')>
+                                                                                                44
+                                                                                            </option>
+                                                                                            <option value="45"
+                                                                                                @selected(old('product_size') == '45')>
+                                                                                                45
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-4">
+                                                                                        <x-metronic.label
+                                                                                            for="product_stock"
+                                                                                            class="col-form-label fw-bold fs-6 required">{{ __('Stock') }}
+                                                                                        </x-metronic.label>
+                                                                                        <x-metronic.input
+                                                                                            class="form-control form-control-lg"
+                                                                                            id="product_stock"
+                                                                                            type="text"
+                                                                                            name="product_stock"
+                                                                                            value="{{ old('product_stock') }}"
+                                                                                            placeholder="Stock Quantity, EG: 10,20,50.."></x-metronic.input>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-1">
+                                                                                        <div
+                                                                                            class="pt-2 mt-5 text-end">
+                                                                                            <a href="javascript:;"
+                                                                                                data-repeater-delete
+                                                                                                class="mt-5 btn btn-sm btn-danger mt-md-8">
+                                                                                                <i
+                                                                                                    class="fas fa-trash fs-5"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <button id="kt_docs_formvalidation_text_submit" type="submit"
+                                                            class="btn btn-primary">
+                                                            <span class="indicator-label">
+                                                                Update Stock
+                                                            </span>
+                                                            <span class="indicator-progress">
+                                                                Please wait... <span
+                                                                    class="align-middle spinner-border spinner-border-sm ms-2"></span>
+                                                            </span>
+                                                        </button>
                                                 </form>
                                             </div>
                                         </div>
