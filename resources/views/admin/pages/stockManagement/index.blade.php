@@ -109,7 +109,7 @@
                                                         <div class="mt-5 mb-7 col-lg-12">
                                                             <p>Product Size wise Stock</p>
                                                             <!--begin::Repeater-->
-                                                            <div id="productSizeStock">
+                                                            <div id="productSizeStock" class="text-start">
                                                                 <!--begin::Form group-->
                                                                 <div class="form-group">
                                                                     <div data-repeater-list="productSizeStock">
@@ -248,11 +248,23 @@
                                                                         @endif
                                                                     </div>
                                                                 </div>
+                                                                <!--end::Form group-->
+
+                                                                <!--begin::Form group-->
+                                                                <div class="mt-5 form-group">
+                                                                    <a href="javascript:;" data-repeater-create
+                                                                        class="btn btn-primary">
+                                                                        <i class="fas fa-plus fs-3"></i>
+                                                                        Add
+                                                                    </a>
+                                                                </div>
+                                                                <!--end::Form group-->
                                                             </div>
+                                                            <!--end::Repeater-->
                                                         </div>
 
                                                         <button id="kt_docs_formvalidation_text_submit" type="submit"
-                                                            class="btn btn-primary">
+                                                            class="btn btn-primary w-175px">
                                                             <span class="indicator-label">
                                                                 Update Stock
                                                             </span>
@@ -364,6 +376,20 @@
             document.getElementById('box_contains').addEventListener('input', calculatePrices);
             document.getElementById('unit_price').addEventListener('input', calculatePrices);
             document.getElementById('unit_discount_price').addEventListener('input', calculatePrices);
+        </script>
+        <script>
+            $('#productSizeStock').repeater({
+                initEmpty: false,
+                defaultValues: {
+                    'text-input': '41'
+                },
+                show: function() {
+                    $(this).slideDown();
+                },
+                hide: function(deleteElement) {
+                    $(this).slideUp(deleteElement);
+                }
+            });
         </script>
     @endpush
 </x-admin-app-layout>

@@ -20,7 +20,7 @@ class StockManagementController extends Controller
         $data = [
             'products'     => Product::with('sizes')->where('status', 'published')->latest('id')->get(),
         ];
-       return view('admin.pages.stockManagement.index',$data);
+        return view('admin.pages.stockManagement.index', $data);
     }
 
     /**
@@ -87,18 +87,22 @@ class StockManagementController extends Controller
             // Update the product record
             $product->update([
                 'name'                      => $request->input('name'),
-                'box_stock'                 => $request->input('box_stock', 1),
-                'stock'                     => $request->input('stock'),
                 'thumbnail'                 => $thumbnailFilePath,
-                // 'box_contains'              => $request->input('box_contains'),
-                // 'box_price'                 => $request->input('box_price'),
-                // 'box_discount_price'        => $request->input('box_discount_price'),
-                // 'unit_price'                => $request->input('unit_price'),
-                // 'unit_discount_price'       => $request->input('unit_discount_price'),
                 'updated_at'                => Carbon::now(),
             ]);
 
+            $product->sizes()->delete(); // Delete existing size records
 
+            if ($request->has('productSizeStock')) {
+                foreach ($request->input('productSizeStock') as $sizeStock) {
+                    if (!empty($sizeStock['product_size']) && !is_null($sizeStock['product_stock'])) {
+                        $product->sizes()->create([
+                            'size' => $sizeStock['product_size'],
+                            'stock' => $sizeStock['product_stock'],
+                        ]);
+                    }
+                }
+            }
 
             DB::commit();
 
