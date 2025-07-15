@@ -14,11 +14,9 @@
                 <thead>
                     <tr class="text-center text-gray-800 fw-bold fs-6 px-7">
                         <th width="5%">ID</th>
-                        <th width="8%">Image</th>
-                        <th width="43%">Product Name</th>
-                        <th width="10%">QTY</th>
-                        <th width="12%">Price</th>
-                        <th width="12%">Created</th>
+                        <th width="10%">Image</th>
+                        <th width="40%">Product Name</th>
+                        <th width="35%">Size & QTY</th>
                         <th width="10%" class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -35,27 +33,16 @@
                             <td class="text-start">{{ $product->name }}</td>
 
                             <td class="text-center">
-                            @if (!empty($product->stock) && $product->stock > 0)
-                                    <span class="badge bg-success">
-                                        {{ $product->stock }} In Stock</span>
+                                @if ($product->sizes->count() > 0)
+                                    @foreach ($product->sizes as $item)
+                                        <span class="badge bg-dark">
+                                            {{ $item->size }} = {{ $item->stock }} </span>
+                                    @endforeach
                                 @else
-                                    <span class="badge bg-danger">Out Of
-                                        Stock</span>
+                                    <span class="badge bg-danger">No Sizes Available</span>
                                 @endif
                             </td>
-                            <td>
-                                @if (!empty($product->unit_discount_price))
-                                    <div class="">
-                                        <span class="ps-product__price sale">৳{{ $product->unit_discount_price }}</span>
-                                        <span class="ps-product__del">৳{{ $product->unit_price }}</span>
-                                    </div>
-                                @else
-                                    <div class="">
-                                        <span class="ps-product__price sale">৳{{ $product->unit_price }}</span>
-                                    </div>
-                                @endif
-                            </td>
-                            <td>{{ \Carbon\Carbon::parse($product->created_at)->format('d M, Y') }}</td>
+
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-transparent" data-bs-toggle="modal"
                                     data-bs-target="#stockMethodsEdit-{{ $product->id }}">
@@ -84,7 +71,8 @@
                                                                 <div class="mb-3 image-input image-input-empty image-input-outline image-input-placeholder"
                                                                     data-kt-image-input="true">
                                                                     <div class="image-input-wrapper w-100px h-100px">
-                                                                        <img class="w-100px h-100px" src="{{ asset('storage/' . $product->thumbnail) }}"
+                                                                        <img class="w-100px h-100px"
+                                                                            src="{{ asset('storage/' . $product->thumbnail) }}"
                                                                             alt="">
                                                                     </div>
                                                                     <label
@@ -108,7 +96,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-8 mb-7">
+                                                        <div class="col-lg-9 mb-7">
                                                             <x-metronic.label class="form-label">Product
                                                                 Name</x-metronic.label>
                                                             <x-metronic.input type="text" name="name"

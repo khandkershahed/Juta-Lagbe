@@ -18,7 +18,7 @@ class StockManagementController extends Controller
     public function index()
     {
         $data = [
-            'products'     => DB::table('products')->where('status', 'published')->latest('id')->get(),
+            'products'     => Product::with('sizes')->where('status', 'published')->latest('id')->get(),
         ];
        return view('admin.pages.stockManagement.index',$data);
     }
