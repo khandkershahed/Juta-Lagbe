@@ -255,36 +255,7 @@ class BkashController extends Controller
 
         $header = $this->authHeaders();
 
-        try {
-            if (Auth::check()) {
-                $user_id = auth()->id();
-            } else {
-                $user = User::where('phone', $request->input('phone'))->first();
-                if ($user) {
-                    Auth::login($user);
-                    $request->session()->regenerate();
-                } else {
-                    $password = Str::random(8); // or you can change 8 to any desired length
-                    $hashedPassword = Hash::make($password);
-                    $user = User::create([
-                        'phone'    => $request->input('phone'),
-                        'name'     => $request->input('name'),
-                        'thana'    => $request->input('thana'),
-                        'district' => $request->input('district'),
-                        'status'   => 'active',
-                        'password' => $hashedPassword,
-                    ]);
 
-                    // Log the user in after registration
-
-                }
-                // Get the user ID to track their order
-                $user_id = $user->id;
-            }
-        } catch (\Exception $e) {
-            Session::flash('error', 'Check Your Mobile Number Correctly.');
-            return redirect()->back()->withInput();
-        }
         // Validate and store order-related data in session
         $typePrefix = 'JL';
         $year = date('Y');
@@ -307,7 +278,6 @@ class BkashController extends Controller
         session([
             'bkash_checkout_data' => [
                 'order_number'       => $code,
-                'user_id'            => $user_id,
                 'shipping_method_id' => $shipping_method_id,
                 'sub_total'          => $request->input('sub_total'),
                 'quantity'           => Cart::instance('cart')->count(),
@@ -323,7 +293,6 @@ class BkashController extends Controller
                 'district'           => $request->input('district'),
                 'address'            => $request->input('address'),
                 'order_note'         => $request->input('order_note'),
-                'created_by'         => $user_id,
                 'order_created_at'   => Carbon::now(),
                 'created_at'         => Carbon::now(),
             ]
@@ -404,12 +373,44 @@ class BkashController extends Controller
                 }
 
                 DB::beginTransaction(); // ✅ START TRANSACTION
+                try {
+                    if (Auth::check()) {
+                        $user_id = auth()->id();
+                    } else {
+                        $user = User::where('phone', $request->input('phone'))->first();
+                        if ($user) {
+                            Auth::login($user);
+                            $request->session()->regenerate();
+                        } else {
+                            $password = Str::random(8); // or you can change 8 to any desired length
+                            $hashedPassword = Hash::make($password);
+
+                            $user = User::create([
+                                'phone'    => $request->input('phone'),
+                                'name'     => $request->input('name'),
+                                'thana'    => $request->input('thana'),
+                                'district' => $request->input('district'),
+                                'status'   => 'active',
+                                'password' => $hashedPassword,
+                            ]);
+
+                            // Log the user in after registration
+                            Auth::login($user);
+                            $request->session()->regenerate();
+                        }
+                        // Get the user ID to track their order
+                        $user_id = auth()->id();
+                    }
+                } catch (\Exception $e) {
+                    Session::flash('error', 'Check Your Mobile Number Correctly.');
+                    return redirect()->back()->withInput();
+                }
 
                 try {
                     // Create order
                     $order = Order::create([
                         'order_number'       => $data['order_number'],
-                        'user_id'            => $data['user_id'],
+                        'user_id'            => $user_id,
                         'shipping_method_id' => $data['shipping_method_id'],
                         'sub_total'          => $data['sub_total'],
                         'quantity'           => $data['quantity'], // ✅ Use stored quantity
@@ -424,7 +425,7 @@ class BkashController extends Controller
                         'district'           => $data['district'],
                         'address'            => $data['address'],
                         'order_note'         => $data['order_note'],
-                        'created_by'         => $data['user_id'],
+                        'created_by'         => $user_id,
                         'order_created_at'   => $data['order_created_at'],
                         'created_at'         => $data['created_at'],
                     ]);
@@ -434,7 +435,7 @@ class BkashController extends Controller
                         OrderItem::create([
                             'order_id'      => $order->id,
                             'product_id'    => $item->id,
-                            'user_id'       => $data['user_id'],
+                            'user_id'       => $user_id,
                             'product_name'  => $item->name,
                             'product_color' => $item->model->color ?? null,
                             'product_sku'   => $item->model->sku ?? null,
@@ -460,9 +461,7 @@ class BkashController extends Controller
 
                     Cart::instance('cart')->destroy();
                     session()->forget('bkash_checkout_data'); // ✅ Clear session
-                    $user = User::find($data['user_id']);
-                    Auth::login($user);
-                    $request->session()->regenerate();
+
                     Session::flash('success', 'Order placed successfully!');
 
                     $data = [
