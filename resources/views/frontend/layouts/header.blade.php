@@ -294,6 +294,9 @@
                                                     </a>
                                                 </li>
                                                 @foreach ($categories as $index => $category)
+                                                    @if ($category->name === 'Surprise Hour')
+                                                        @continue
+                                                    @endif
                                                     <li class="menu-item menus-items-head"
                                                         data-index="{{ $index }}">
                                                         <a class="fromCenter {{ request()->is('category/' . $category->slug) ? 'active-menu' : '' }}"
@@ -302,6 +305,12 @@
                                                         </a>
                                                     </li>
                                                 @endforeach
+                                                <li class="menu-item menus-items-head">
+                                                    <a class="fromCenter {{ Route::currentRouteName() === 'special.products' ? 'active-menu' : '' }} mb-0"
+                                                        href="{{ route('special.products', optional($special_offer)->slug) }}">
+                                                        Surprise Hour
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </nav>
@@ -380,7 +389,7 @@
                                                             </a>
                                                         </div>
                                                     </div>
-                                            @endguest
+                                                @endguest
                                                 @auth
                                                     <div>
                                                         <p>Welcome! Choose an option:</p>
