@@ -66,7 +66,7 @@ class ShippingManagementController extends Controller
         }
 
         // Handle the 'thana' field as JSON
-        $thana = $request->has('thana') ? json_encode($request->thana) : null;
+        $thana = $request->has('thana') ? $request->thana : null;
 
         // Create a new shipping method
         ShippingMethod::create([
@@ -133,7 +133,7 @@ class ShippingManagementController extends Controller
         }
 
         // Handle the 'thana' field as JSON
-        $thana = $request->has('thana') ? json_encode($request->thana) : $shippingMethod->thana;
+        $thana = $request->has('thana') ? $request->thana : $shippingMethod->thana;
 
         // Update the shipping method
         $shippingMethod->update([
@@ -149,7 +149,7 @@ class ShippingManagementController extends Controller
             'thana'       => $thana,  // Store 'thana' as JSON
         ]);
         Session::flash('success', 'Shipping method has been updated successfully!');
-        
+
         return redirect()->back()->withInput();
     }
 
