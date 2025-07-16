@@ -79,7 +79,7 @@ class ShippingManagementController extends Controller
             'max_weight' => $request->max_weight,
             'price' => $request->price,
             'status' => $request->status,
-            'thana' => $thana,  // Store 'thana' as JSON
+            'thana' => $thana ? json_encode($thana, JSON_UNESCAPED_UNICODE) : null,
         ]);
 
         // Redirect with success message
@@ -146,7 +146,8 @@ class ShippingManagementController extends Controller
             'max_weight'  => $request->max_weight,
             'price'       => $request->price,
             'status'      => $request->status,
-            'thana'       => $thana,  // Store 'thana' as JSON
+            'thana'       => $request->has('thana') ? json_encode($request->thana, JSON_UNESCAPED_UNICODE) : $shippingMethod->thana,
+
         ]);
         Session::flash('success', 'Shipping method has been updated successfully!');
 
