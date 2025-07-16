@@ -167,11 +167,13 @@
                             {{-- Payment Status: Amount Paid --}}
                             <td>
                                 @if ($order->payment_status == 'delivery_charge_paid')
-                                    <span class="fw-bold text-info">৳</span>{{ $order->shipping_charge }}
+                                    <span class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
                                 @elseif ($order->payment_status == 'completely_paid')
-                                    <span class="fw-bold text-info">৳</span>{{ $order->total_amount }}
+                                    <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                @elseif ($order->payment_status == 'paid')
+                                    <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
                                 @elseif ($order->payment_status == 'cod')
-                                    <span class="fw-bold text-info">৳</span>0.00
+                                    <span class="text-info fw-bold">৳</span>0.00
                                 @endif
                             </td>
 
