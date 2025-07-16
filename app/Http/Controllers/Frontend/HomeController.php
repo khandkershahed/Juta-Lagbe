@@ -336,17 +336,6 @@ class HomeController extends Controller
     }
 
 
-    // public function checkoutSuccess($id)
-    // {
-
-    //     $data = [
-    //         'order'           => Order::with('orderItems')->where('order_number', $id)->first(),
-    //         'user'            => Auth::user(),
-    //     ];
-    //     // dd(Cart::instance('cart'));
-    //     return view('frontend.pages.cart.checkoutSuccess', $data);
-    // }
-
     public function globalSearch(Request $request)
     {
         $query = trim($request->get('term', '')); // Trim leading/trailing spaces

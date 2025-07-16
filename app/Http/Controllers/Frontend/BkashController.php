@@ -352,8 +352,14 @@ class BkashController extends Controller
         $orderNumber = "$typePrefix-$year$newNumber";
 
         $shipping_method = ShippingMethod::find($request->input('shipping_id'));
-        $shipping_charge = $shipping_method ? $shipping_method->price : 130;
-        $totalAmount += $shipping_charge;
+        if ($shipping_method) {
+            $shipping_method_id = $shipping_method->id;
+            $shipping_charge = $shipping_method->price;
+        } else {
+            $shipping_charge = 130;
+            $totalAmount = $totalAmount + $shipping_charge;
+            $shipping_method_id = null;
+        }
 
         session([
             'bkash_checkout_data' => [
