@@ -249,6 +249,7 @@ class HomeController extends Controller
 
         $thana = Thana::where('bn_name', $thanaName)->first();
         $charge = ShippingMethod::whereJsonContains('thana', optional($thana->district)->bn_name)->first();
+        dd($thana, $charge);
 
         if ($thana) {
             $price = $charge->price;
