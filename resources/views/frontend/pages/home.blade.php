@@ -196,7 +196,7 @@
                                     <a class="px-4 py-2 text-end"
                                         style="background-color: #fff !important;border-radius: 50px;color: #252525;"
                                         href="{{ route('special.products', optional($special_offer)->slug) }}">আরও দেখুন
-                                        <i class="fa-solid fa-"></i></a>
+                                        <i class="fa-solid fa-chevron-right"></i></a>
                                 </div>
                             @endif
                         </div>
