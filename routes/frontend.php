@@ -34,7 +34,7 @@ Route::get('buy-now/{id}', [HomeController::class, 'buyNow'])->name('buy.now');
 
 Route::get('compare-list', [HomeController::class, 'compareList'])->name('compare.list');
 Route::get('{slug}/products', [HomeController::class, 'specialproducts'])->name('special.products');
-// Route::get('checkout/success/{id}', [HomeController::class, 'checkoutSuccess'])->name('checkout.success');
+Route::get('checkout/success', [HomeController::class, 'checkoutSuccess'])->name('checkout.success');
 Route::post('/cart/store/{id}', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('/comparelist/store/{id}', [CartController::class, 'compareList'])->name('compare.store');
 Route::post('/wishlist/store/{id}', [CartController::class, 'wishListStore'])->name('wishlist.store');

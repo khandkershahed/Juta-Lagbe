@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Faq;
+use App\Models\User;
 use App\Models\Brand;
 use App\Models\Order;
 use App\Models\BlogTag;
@@ -10,17 +11,22 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\BlogPost;
 use App\Models\Category;
+use App\Models\OrderItem;
 use App\Models\DealBanner;
 use App\Models\PageBanner;
 use App\Models\Testimonial;
+use Illuminate\Support\Str;
 use App\Models\BlogCategory;
 use App\Models\SpecialOffer;
 use Illuminate\Http\Request;
 use App\Models\PrivacyPolicy;
 use App\Models\ShippingMethod;
+use App\Models\ProductSizeStock;
 use App\Models\TermsAndCondition;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -370,4 +376,93 @@ class HomeController extends Controller
 
         return response()->json(view('frontend.layouts.search', $data)->render());
     } // end method
+
+    public function checkoutSuccess(Request $request)
+    {
+        $data = session('bkash_checkout_data');
+
+        if (!$data) {
+            return view('bkash.fail', ['response' => 'Session expired.']);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $user = User::firstOrCreate(
+                ['phone' => $data['phone']],
+                [
+                    'name'     => $data['name'],
+                    'email'    => $data['email'],
+                    'thana'    => $data['thana'],
+                    'district' => $data['district'],
+                    'status'   => 'active',
+                    'password' => Hash::make(Str::random(8)),
+                ]
+            );
+
+            Auth::login($user);
+            $request->session()->regenerate();
+            $user_id = $user->id;
+
+            $order = Order::create([
+                'order_number'       => $data['order_number'],
+                'user_id'            => $user_id,
+                'shipping_method_id' => $data['shipping_method_id'],
+                'sub_total'          => $data['sub_total'],
+                'quantity'           => $data['quantity'],
+                'shipping_charge'    => $data['shipping_charge'],
+                'total_amount'       => $data['total_amount'],
+                'payment_status'     => 'paid',
+                'status'             => 'pending',
+                'name'               => $data['name'],
+                'email'              => $data['email'],
+                'phone'              => $data['phone'],
+                'thana'              => $data['thana'],
+                'district'           => $data['district'],
+                'address'            => $data['address'],
+                'order_note'         => $data['order_note'],
+                'created_by'         => $user_id,
+                'order_created_at'   => $data['order_created_at'],
+                'created_at'         => $data['created_at'],
+            ]);
+
+            foreach (Cart::instance('cart')->content() as $item) {
+                OrderItem::create([
+                    'order_id'      => $order->id,
+                    'product_id'    => $item->id,
+                    'user_id'       => $user_id,
+                    'product_name'  => $item->name,
+                    'product_color' => $item->model->color ?? null,
+                    'product_sku'   => $item->model->sku ?? null,
+                    'size'          => $item->options->size ?? null,
+                    'price'         => $item->price,
+                    'tax'           => $item->tax ?? 0,
+                    'quantity'      => $item->qty,
+                    'subtotal'      => $item->qty * $item->price,
+                ]);
+
+                if (!is_null($item->options->size)) {
+                    ProductSizeStock::where('product_id', $item->id)
+                        ->where('size', $item->options->size)
+                        ->decrement('stock', $item->qty);
+                }
+            }
+
+            DB::commit();
+
+            Cart::instance('cart')->destroy();
+            session()->forget('bkash_checkout_data');
+            Session::flash('success', 'Order placed successfully!');
+
+            return view('user.pages.orderHistory', [
+                'pendingOrdersCount'   => Order::where('status', 'pending')->count(),
+                'deliveredOrdersCount' => Order::where('status', 'delivered')->count(),
+                'orders'               => Order::with('orderItems')->where('user_id', $user_id)->latest()->get(),
+                'latest_order'         => Order::where('user_id', $user_id)->latest()->first(['total_amount']),
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return view('bkash.fail', ['response' => 'Order failed: ' . $e->getMessage()]);
+        }
+    }
 }

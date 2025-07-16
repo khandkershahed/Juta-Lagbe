@@ -206,10 +206,123 @@ class BkashController extends Controller
         return view('bkash.pay');
     }
 
+    // public function createPayment(Request $request)
+    // {
+    //     ini_set('max_execution_time', 300);
+    //     $totalAmount = preg_replace('/[^0-9.]/', '', $request->input('total_amount'));
+    //     $validator = Validator::make($request->all(), [
+    //         'name'           => 'required|string|max:255',
+    //         'address'        => 'required|string',
+    //         'email'          => 'nullable|email',
+    //         'phone'          => 'required|regex:/^\+?[0-9]{11,15}$/',
+    //         'thana'          => 'required|string',
+    //         'district'       => 'nullable|string',
+    //         'order_note'     => 'nullable|string',
+    //         'sub_total'      => 'nullable',
+    //         'total_amount'   => 'required|min:0',
+    //     ], [
+    //         'order_note.string'     => 'The order note must be a string.',
+    //         'phone.required'        => 'The phone number is required.',
+    //         'phone.regex'           => 'Please enter a valid phone number (11–15 digits).',
+    //         'total_amount.required' => 'The total amount is required.',
+    //         'total_amount.numeric'  => 'The total amount must be a number.',
+    //         'total_amount.min'      => 'The total amount must be at least 0.',
+    //         'name.required'         => 'The name is required.',
+    //         'name.string'           => 'The name must be a string.',
+    //         'name.max'              => 'The name may not be greater than 255 characters.',
+    //         'address.required'      => 'The address is required.',
+    //         'address.string'        => 'The address must be a string.',
+    //         'email.email'           => 'The email must be a valid email address.',
+    //         'thana.required'        => 'The thana is required.',
+    //         'thana.string'          => 'The thana must be a string.',
+    //         'district.string'       => 'The district must be a string.',
+    //         'sub_total.numeric'     => 'The sub total must be a number.',
+    //         'sub_total.min'         => 'The sub total must be at least 0.',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         foreach ($validator->messages()->all() as $message) {
+    //             Session::flash('error', $message);
+    //         }
+    //         return redirect()->back()->withInput();
+    //     }
+
+    //     if (!$request->total_amount || $request->total_amount < 1) {
+    //         return response()->json(['error' => 'You should pay greater than 1 TK !!'], 400);
+    //     }
+
+
+
+    //     $header = $this->authHeaders();
+
+
+    //     // Validate and store order-related data in session
+    //     $typePrefix = 'JL';
+    //     $year = date('Y');
+    //     $lastCode = Order::where('order_number', 'like', $typePrefix . '-' . $year . '%')
+    //         ->orderBy('id', 'desc')
+    //         ->first();
+    //     $newNumber = $lastCode ? (int) substr($lastCode->order_number, strlen($typePrefix . '-' . $year)) + 1 : 1;
+    //     $code = $typePrefix . '-' . $year . $newNumber;
+    //     $shipping_method = ShippingMethod::find($request->input('shipping_id'));
+    //     if ($shipping_method) {
+    //         $shipping_method_id = $shipping_method->id;
+    //         $shipping_charge = $shipping_method->price;
+    //     } else {
+    //         $shipping_charge = 130;
+    //         $totalAmount = $totalAmount + $shipping_charge;
+    //         $shipping_method_id = null;
+    //     }
+
+    //     // Store data in session
+    //     session([
+    //         'bkash_checkout_data' => [
+    //             'order_number'       => $code,
+    //             'shipping_method_id' => $shipping_method_id,
+    //             'sub_total'          => $request->input('sub_total'),
+    //             'quantity'           => Cart::instance('cart')->count(),
+    //             'shipping_charge'    => $shipping_charge,
+    //             'total_amount'       => $totalAmount,
+    //             'payment_status'     => 'unpaid',
+    //             // 'payment_status'     => $request->input('payment_status'),
+    //             'status'             => 'pending',
+    //             'name'               => $request->input('name'),
+    //             'email'              => $request->input('email'),
+    //             'phone'              => $request->input('phone'),
+    //             'thana'              => $request->input('thana'),
+    //             'district'           => $request->input('district'),
+    //             'address'            => $request->input('address'),
+    //             'order_note'         => $request->input('order_note'),
+    //             'order_created_at'   => Carbon::now(),
+    //             'created_at'         => Carbon::now(),
+    //         ]
+    //     ]);
+
+    //     $website_url = URL::to("/");
+
+    //     $body_data = array(
+    //         'mode' => '0011',
+    //         'payerReference' => $code ? $code : $request->input('phone'), // pass oderId or anything
+    //         'callbackURL' => $website_url . '/bkash-callback',
+    //         'amount' => $request->total_amount,
+    //         'currency' => 'BDT',
+    //         'intent' => 'sale',
+    //         'merchantInvoiceNumber' => $code ? $code : "Inv_" . Str::random(6)
+    //     );
+
+    //     $response = $this->curlWithBody('/tokenized/checkout/create', $header, 'POST', json_encode($body_data));
+
+    //     // dd($response);
+
+    //     return redirect((json_decode($response)->bkashURL));
+    // }
+
     public function createPayment(Request $request)
     {
         ini_set('max_execution_time', 300);
+
         $totalAmount = preg_replace('/[^0-9.]/', '', $request->input('total_amount'));
+
         $validator = Validator::make($request->all(), [
             'name'           => 'required|string|max:255',
             'address'        => 'required|string',
@@ -218,28 +331,12 @@ class BkashController extends Controller
             'thana'          => 'required|string',
             'district'       => 'nullable|string',
             'order_note'     => 'nullable|string',
-            'sub_total'      => 'nullable',
-            'total_amount'   => 'required|min:0',
-        ], [
-            'order_note.string'     => 'The order note must be a string.',
-            'phone.required'        => 'The phone number is required.',
-            'phone.regex'           => 'Please enter a valid phone number (11–15 digits).',
-            'total_amount.required' => 'The total amount is required.',
-            'total_amount.numeric'  => 'The total amount must be a number.',
-            'total_amount.min'      => 'The total amount must be at least 0.',
-            'name.required'         => 'The name is required.',
-            'name.string'           => 'The name must be a string.',
-            'name.max'              => 'The name may not be greater than 255 characters.',
-            'address.required'      => 'The address is required.',
-            'address.string'        => 'The address must be a string.',
-            'email.email'           => 'The email must be a valid email address.',
-            'thana.required'        => 'The thana is required.',
-            'thana.string'          => 'The thana must be a string.',
-            'district.string'       => 'The district must be a string.',
-            'sub_total.numeric'     => 'The sub total must be a number.',
-            'sub_total.min'         => 'The sub total must be at least 0.',
+            'sub_total'      => 'nullable|numeric|min:0',
+            'total_amount'   => 'required|numeric|min:1',
         ]);
-
+        if (!$request->total_amount || $request->total_amount < 1) {
+            return response()->json(['error' => 'You should pay greater than 1 TK !!'], 400);
+        }
         if ($validator->fails()) {
             foreach ($validator->messages()->all() as $message) {
                 Session::flash('error', $message);
@@ -247,44 +344,26 @@ class BkashController extends Controller
             return redirect()->back()->withInput();
         }
 
-        if (!$request->total_amount || $request->total_amount < 1) {
-            return response()->json(['error' => 'You should pay greater than 1 TK !!'], 400);
-        }
-
-
-
-        $header = $this->authHeaders();
-
-
-        // Validate and store order-related data in session
+        // Order Number Generation
         $typePrefix = 'JL';
         $year = date('Y');
-        $lastCode = Order::where('order_number', 'like', $typePrefix . '-' . $year . '%')
-            ->orderBy('id', 'desc')
-            ->first();
-        $newNumber = $lastCode ? (int) substr($lastCode->order_number, strlen($typePrefix . '-' . $year)) + 1 : 1;
-        $code = $typePrefix . '-' . $year . $newNumber;
-        $shipping_method = ShippingMethod::find($request->input('shipping_id'));
-        if ($shipping_method) {
-            $shipping_method_id = $shipping_method->id;
-            $shipping_charge = $shipping_method->price;
-        } else {
-            $shipping_charge = 130;
-            $totalAmount = $totalAmount + $shipping_charge;
-            $shipping_method_id = null;
-        }
+        $lastCode = Order::where('order_number', 'like', "$typePrefix-$year%")->latest('id')->first();
+        $newNumber = $lastCode ? ((int) substr($lastCode->order_number, strlen("$typePrefix-$year")) + 1) : 1;
+        $orderNumber = "$typePrefix-$year$newNumber";
 
-        // Store data in session
+        $shipping_method = ShippingMethod::find($request->input('shipping_id'));
+        $shipping_charge = $shipping_method ? $shipping_method->price : 130;
+        $totalAmount += $shipping_charge;
+
         session([
             'bkash_checkout_data' => [
-                'order_number'       => $code,
-                'shipping_method_id' => $shipping_method_id,
+                'order_number'       => $orderNumber,
+                'shipping_method_id' => $shipping_method->id ?? null,
                 'sub_total'          => $request->input('sub_total'),
                 'quantity'           => Cart::instance('cart')->count(),
                 'shipping_charge'    => $shipping_charge,
                 'total_amount'       => $totalAmount,
                 'payment_status'     => 'unpaid',
-                // 'payment_status'     => $request->input('payment_status'),
                 'status'             => 'pending',
                 'name'               => $request->input('name'),
                 'email'              => $request->input('email'),
@@ -298,24 +377,21 @@ class BkashController extends Controller
             ]
         ]);
 
-        $website_url = URL::to("/");
-
-        $body_data = array(
-            'mode' => '0011',
-            'payerReference' => $code ? $code : $request->input('phone'), // pass oderId or anything
-            'callbackURL' => $website_url . '/bkash-callback',
-            'amount' => $request->total_amount,
-            'currency' => 'BDT',
-            'intent' => 'sale',
-            'merchantInvoiceNumber' => $code ? $code : "Inv_" . Str::random(6)
-        );
+        $header = $this->authHeaders();
+        $body_data = [
+            'mode'                 => '0011',
+            'payerReference'       => $orderNumber,
+            'callbackURL'          => url('/bkash-callback'),
+            'amount'               => $totalAmount,
+            'currency'             => 'BDT',
+            'intent'               => 'sale',
+            'merchantInvoiceNumber' => $orderNumber
+        ];
 
         $response = $this->curlWithBody('/tokenized/checkout/create', $header, 'POST', json_encode($body_data));
-
-        // dd($response);
-
-        return redirect((json_decode($response)->bkashURL));
+        return redirect(json_decode($response)->bkashURL);
     }
+
 
     public function executePayment($paymentID)
     {
@@ -348,148 +424,26 @@ class BkashController extends Controller
     {
         $allRequest = $request->all();
 
-        if (isset($allRequest['status']) && $allRequest['status'] === 'success') {
-            $response = $this->executePayment($allRequest['paymentID']);
-
-            if (is_null($response)) {
-                sleep(1);
-                $response = $this->queryPayment($allRequest['paymentID']);
-            }
-
+        if ($allRequest['status'] === 'success') {
+            $response = $this->executePayment($allRequest['paymentID']) ?? $this->queryPayment($allRequest['paymentID']);
             $res_array = json_decode($response, true);
 
-            if (
-                isset($res_array['statusCode'], $res_array['transactionStatus']) &&
-                $res_array['statusCode'] === '0000' &&
-                $res_array['transactionStatus'] === 'Completed'
-            ) {
+            if ($res_array['statusCode'] === '0000' && $res_array['transactionStatus'] === 'Completed') {
                 $data = session('bkash_checkout_data');
-                // dd($data);
-                // ✅ Protect against missing session
+
                 if (!$data) {
-                    return view('bkash.fail')->with([
-                        'response' => 'Session expired. Please try again.',
-                    ]);
+                    return view('bkash.fail', ['response' => 'Session expired. Please try again.']);
                 }
 
-                DB::beginTransaction(); // ✅ START TRANSACTION
-                try {
-                    if (Auth::check()) {
-                        $user_id = auth()->id();
-                    } else {
-                        $user = User::where('phone', $request->input('phone'))->first();
-                        if ($user) {
-                            Auth::login($user);
-                            $request->session()->regenerate();
-                        } else {
-                            $password = Str::random(8); // or you can change 8 to any desired length
-                            $hashedPassword = Hash::make($password);
-
-                            $user = User::create([
-                                'phone'    => $request->input('phone'),
-                                'name'     => $request->input('name'),
-                                'thana'    => $request->input('thana'),
-                                'district' => $request->input('district'),
-                                'status'   => 'active',
-                                'password' => $hashedPassword,
-                            ]);
-
-                            // Log the user in after registration
-                            Auth::login($user);
-                            $request->session()->regenerate();
-                        }
-                        // Get the user ID to track their order
-                        $user_id = auth()->id();
-                    }
-                } catch (\Exception $e) {
-                    Session::flash('error', 'Check Your Mobile Number Correctly.');
-                    return redirect()->back()->withInput();
-                }
-
-                try {
-                    // Create order
-                    $order = Order::create([
-                        'order_number'       => $data['order_number'],
-                        'user_id'            => $user_id,
-                        'shipping_method_id' => $data['shipping_method_id'],
-                        'sub_total'          => $data['sub_total'],
-                        'quantity'           => $data['quantity'], // ✅ Use stored quantity
-                        'shipping_charge'    => $data['shipping_charge'],
-                        'total_amount'       => $data['total_amount'],
-                        'payment_status'     => 'paid',
-                        'status'             => 'pending',
-                        'name'               => $data['name'],
-                        'email'              => $data['email'],
-                        'phone'              => $data['phone'],
-                        'thana'              => $data['thana'],
-                        'district'           => $data['district'],
-                        'address'            => $data['address'],
-                        'order_note'         => $data['order_note'],
-                        'created_by'         => $user_id,
-                        'order_created_at'   => $data['order_created_at'],
-                        'created_at'         => $data['created_at'],
-                    ]);
-
-                    // Create order items from current cart
-                    foreach (Cart::instance('cart')->content() as $item) {
-                        OrderItem::create([
-                            'order_id'      => $order->id,
-                            'product_id'    => $item->id,
-                            'user_id'       => $user_id,
-                            'product_name'  => $item->name,
-                            'product_color' => $item->model->color ?? null,
-                            'product_sku'   => $item->model->sku ?? null,
-                            'size'          => $item->options->size ?? null,
-                            'price'         => $item->price,
-                            'tax'           => $item->tax ?? 0,
-                            'quantity'      => $item->qty,
-                            'subtotal'      => $item->qty * $item->price,
-                        ]);
-
-                        if (!is_null($item->options->size)) {
-                            $productSize = ProductSizeStock::where('product_id', $item->id)
-                                ->where('size', $item->options->size)
-                                ->first();
-
-                            if ($productSize) {
-                                $productSize->decrement('stock', $item->qty);
-                            }
-                        }
-                    }
-
-                    DB::commit();
-
-                    Cart::instance('cart')->destroy();
-                    session()->forget('bkash_checkout_data'); // ✅ Clear session
-
-                    Session::flash('success', 'Order placed successfully!');
-
-                    $data = [
-                        'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
-                        'deliveredOrdersCount' => Order::latest('id')->where('status', 'delivered')->count(),
-                        'orders'               => Order::with('orderItems')->where('user_id', Auth::id())->latest('id')->get(),
-                        'latest_order'         => Order::where('user_id', Auth::id())->latest('id')->first(['total_amount']),
-                        'response'             => $res_array['trxID']
-                    ];
-
-                    return view('user.pages.orderHistory', $data);
-                } catch (\Exception $e) {
-                    DB::rollBack();
-                    return view('bkash.fail')->with([
-                        'response' => 'Order creation failed: ' . $e->getMessage(),
-                    ]);
-                }
+                return redirect()->route('checkout.success');
             }
 
-            return view('bkash.fail')->with([
-                'response' => $res_array['statusMessage'] ?? 'Payment error',
-            ]);
+            return view('bkash.fail', ['response' => $res_array['statusMessage'] ?? 'Payment error']);
         }
 
-        return view('bkash.fail')->with([
-            'response' => 'Payment Failed !!',
-        ]);
+        return view('bkash.fail', ['response' => 'Payment Failed !!']);
     }
+
 
 
     // public function callback(Request $request)
