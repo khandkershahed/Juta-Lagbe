@@ -317,10 +317,9 @@ class BkashController extends Controller
             $res_array = json_decode($response, true);
 
             if (array_key_exists("statusCode", $res_array) && $res_array['statusCode'] == '0000' && array_key_exists("transactionStatus", $res_array) && $res_array['transactionStatus'] == 'Completed') {
-                // payment success case
-                dd($request->all());
-                $data = [
 
+                dd(Cart::instance('cart')->content());
+                $data = [
                     'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
                     'deliveredOrdersCount' => Order::latest('id')->where('status', 'delivered')->count(),
                     'orders'               => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->get(),
