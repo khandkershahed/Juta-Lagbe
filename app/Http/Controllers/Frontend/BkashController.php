@@ -247,108 +247,14 @@ class BkashController extends Controller
             return redirect()->back()->withInput();
         }
 
+        $typePrefix = 'JL';
+        $year = date('Y');
+        $lastCode = Order::where('order_number', 'like', $typePrefix . '-' . $year . '%')
+            ->orderBy('id', 'desc')
+            ->first();
+        $newNumber = $lastCode ? (int) substr($lastCode->order_number, strlen($typePrefix . '-' . $year)) + 1 : 1;
+        $code = $typePrefix . '-' . $year . $newNumber;
 
-        ini_set('max_execution_time', 300);
-        $totalAmount = preg_replace('/[^0-9.]/', '', $request->input('total_amount'));
-        $validator = Validator::make($request->all(), [
-            'name'           => 'nullable|string|max:255',
-            'address'        => 'nullable|string',
-            'email'          => 'nullable|email',
-            'phone'          => 'required|string|max:20',
-            'thana'          => 'nullable|string',
-            'district'       => 'nullable|string',
-            'order_note'     => 'nullable|string',
-            'sub_total'      => 'nullable',
-            'total_amount'   => 'required|min:0',
-        ], [
-            'order_note.string'     => 'The order note must be a string.',
-            'total_amount.required' => 'The total amount is required.',
-            'total_amount.numeric'  => 'The total amount must be a number.',
-            'total_amount.min'      => 'The total amount must be at least 0.',
-            'shipping_id.required'  => 'The shipping method is required.',
-        ]);
-
-        if ($validator->fails()) {
-            foreach ($validator->messages()->all() as $message) {
-                Session::flash('error', $message);
-            }
-            return redirect()->back()->withInput();
-        }
-
-        try {
-            // Get the next order number
-            $typePrefix = 'JL';
-            $year = date('Y');
-            $lastCode = Order::where('order_number', 'like', $typePrefix . '-' . $year . '%')
-                ->orderBy('id', 'desc')
-                ->first();
-            $newNumber = $lastCode ? (int) substr($lastCode->order_number, strlen($typePrefix . '-' . $year)) + 1 : 1;
-            $code = $typePrefix . '-' . $year . $newNumber;
-            $shipping_method = ShippingMethod::find($request->input('shipping_id'));
-            if ($shipping_method) {
-                $shipping_method_id = $shipping_method->id;
-                $shipping_charge = $shipping_method->price;
-            } else {
-                $shipping_charge = 130;
-                $totalAmount = $totalAmount + $shipping_charge;
-                $shipping_method_id = null;
-            }
-            // $order = Order::create([
-            //     'order_number'       => $code,
-            //     'user_id'            => $user_id,
-            //     'shipping_method_id' => $shipping_method_id,
-            //     'sub_total'          => $request->input('sub_total'),
-            //     'quantity'           => Cart::instance('cart')->count(),
-            //     'shipping_charge'    => $shipping_charge,
-            //     'total_amount'       => $totalAmount,
-            //     'payment_status'     => 'cod',
-            //     // 'payment_status'     => $request->input('payment_status'),
-            //     'status'             => 'pending',
-            //     'name'               => $request->input('name'),
-            //     'email'              => $request->input('email'),
-            //     'phone'              => $request->input('phone'),
-            //     'thana'              => $request->input('thana'),
-            //     'district'           => $request->input('district'),
-            //     'address'            => $request->input('address'),
-            //     'order_note'         => $request->input('order_note'),
-            //     'created_by'         => $user_id,
-            //     'order_created_at'   => Carbon::now(),
-            //     'created_at'         => Carbon::now(),
-            // ]);
-
-            // foreach (Cart::instance('cart')->content() as $item) {
-            //     OrderItem::create([
-            //         'order_id'      => $order->id,
-            //         'product_id'    => $item->id,
-            //         'user_id'       => $user_id,
-            //         'product_name'  => $item->name,
-            //         'product_color' => $item->model->color ?? null,
-            //         'product_sku'   => $item->model->sku ?? null,
-            //         'size'          => $item->options->size ?? null,
-            //         'price'         => $item->price,
-            //         'tax'           => $item->tax ?? 0,
-            //         'quantity'      => $item->qty,
-            //         'subtotal'      => $item->qty * $item->price,
-            //     ]);
-
-            //     // Update product stock
-            //     $product = Product::find($item->id);
-            //     $product->update([
-            //         'box_stock' => $product->box_stock - $item->qty,
-            //     ]);
-            // }
-
-            // Commit the transaction
-            DB::commit();
-
-            // Clear the cart after successful order
-            Cart::instance('cart')->destroy();
-            Session::flash('success', 'Order placed successfully!');
-            // return redirect()->route('bkash.payment', $order->order_number);
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->withInput();
-        }
 
         $website_url = URL::to("/");
 
@@ -412,6 +318,7 @@ class BkashController extends Controller
 
             if (array_key_exists("statusCode", $res_array) && $res_array['statusCode'] == '0000' && array_key_exists("transactionStatus", $res_array) && $res_array['transactionStatus'] == 'Completed') {
                 // payment success case
+                dd($request->all());
                 $data = [
 
                     'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
@@ -421,7 +328,6 @@ class BkashController extends Controller
                     'response'             => $res_array['trxID']
                 ];
                 return view('user.pages.orderHistory', $data);
-
             }
 
             return view('bkash.fail')->with([

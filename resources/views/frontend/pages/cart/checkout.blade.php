@@ -8,8 +8,8 @@
                 </li>
             </ul>
             <div class="ps-checkout__content">
-                <form id="checkoutForm" action="{{ route('checkout.store') }}" method="post"
-                {{-- <form id="checkoutForm" action="{{ route('url-create') }}" method="post" --}}
+                {{-- <form id="checkoutForm" action="{{ route('checkout.store') }}" method="post" --}}
+                <form id="checkoutForm" action="{{ route('url-create') }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="border-0 card">
