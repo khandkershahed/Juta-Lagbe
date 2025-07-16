@@ -395,7 +395,7 @@ class BkashController extends Controller
                 $res_array['transactionStatus'] === 'Completed'
             ) {
                 $data = session('bkash_checkout_data');
-                dd($data);
+                // dd($data);
                 // ✅ Protect against missing session
                 if (!$data) {
                     return view('bkash.fail')->with([
