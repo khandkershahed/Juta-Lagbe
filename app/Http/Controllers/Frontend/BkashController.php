@@ -276,11 +276,10 @@ class BkashController extends Controller
                     ]);
 
                     // Log the user in after registration
-                    Auth::login($user);
-                    $request->session()->regenerate();
+
                 }
                 // Get the user ID to track their order
-                $user_id = auth()->id();
+                $user_id = $user->id;
             }
         } catch (\Exception $e) {
             Session::flash('error', 'Check Your Mobile Number Correctly.');
@@ -396,7 +395,7 @@ class BkashController extends Controller
                 $res_array['transactionStatus'] === 'Completed'
             ) {
                 $data = session('bkash_checkout_data');
-
+                dd($data);
                 // ✅ Protect against missing session
                 if (!$data) {
                     return view('bkash.fail')->with([
@@ -461,7 +460,9 @@ class BkashController extends Controller
 
                     Cart::instance('cart')->destroy();
                     session()->forget('bkash_checkout_data'); // ✅ Clear session
-
+                    $user = User::find($data['user_id']);
+                    Auth::login($user);
+                    $request->session()->regenerate();
                     Session::flash('success', 'Order placed successfully!');
 
                     $data = [
