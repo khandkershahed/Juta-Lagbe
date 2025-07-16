@@ -42,9 +42,9 @@
                                                         for="phone">মোবাইল নম্বার<span class="text-danger">*</span>
                                                     </label>
                                                     <input id="phone" class="form-control ps-form__input"
-                                                        type="number" name="phone"
+                                                        type="number" name="phone" minlength="11"
                                                         value="{{ old('phone', optional(Auth::user())->phone) }}"
-                                                        autofocus="" maxlength="11" autocomplete="phone"
+                                                        autofocus="" maxlength="15" autocomplete="phone"
                                                         placeholder="মোবাইল নম্বার" required>
                                                 </div>
                                             </div>
