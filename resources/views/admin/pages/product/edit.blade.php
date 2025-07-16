@@ -379,15 +379,19 @@
                                                                                     data-close-on-select="false"
                                                                                     data-placeholder="Select an option"
                                                                                     data-allow-clear="true">
-                                                                                    <option>Choose Size</option>
-                                                                                    @foreach ([39, 40, 41, 42, 43, 44, 45] as $opt)
+
+                                                                                    <option value="">Choose Size
+                                                                                    </option>
+
+                                                                                    @for ($opt = 30; $opt <= 45; $opt++)
                                                                                         <option
                                                                                             value="{{ $opt }}"
-                                                                                            @selected(old('product_size', $size->size) == (string) $opt)>
+                                                                                            @selected(old('product_size', $size->size ?? null) == (string) $opt)>
                                                                                             {{ $opt }}
                                                                                         </option>
-                                                                                    @endforeach
+                                                                                    @endfor
                                                                                 </select>
+
                                                                             </div>
 
                                                                             <div class="col-md-4">
@@ -430,28 +434,16 @@
                                                                                 data-close-on-select="false"
                                                                                 data-placeholder="Select an option"
                                                                                 data-allow-clear="true">
-                                                                                <option>Choose Size</option>
-                                                                                <option value="39"
-                                                                                    @selected(old('product_size') == '39')>39
+
+                                                                                <option value="">Choose Size
                                                                                 </option>
-                                                                                <option value="40"
-                                                                                    @selected(old('product_size') == '40')>40
-                                                                                </option>
-                                                                                <option value="41"
-                                                                                    @selected(old('product_size') == '41')>41
-                                                                                </option>
-                                                                                <option value="42"
-                                                                                    @selected(old('product_size') == '42')>42
-                                                                                </option>
-                                                                                <option value="43"
-                                                                                    @selected(old('product_size') == '43')>43
-                                                                                </option>
-                                                                                <option value="44"
-                                                                                    @selected(old('product_size') == '44')>44
-                                                                                </option>
-                                                                                <option value="45"
-                                                                                    @selected(old('product_size') == '45')>45
-                                                                                </option>
+
+                                                                                @for ($size = 30; $size <= 45; $size++)
+                                                                                    <option
+                                                                                        value="{{ $size }}"
+                                                                                        @selected(old('product_size') == $size)>
+                                                                                        {{ $size }}</option>
+                                                                                @endfor
                                                                             </select>
                                                                         </div>
 
