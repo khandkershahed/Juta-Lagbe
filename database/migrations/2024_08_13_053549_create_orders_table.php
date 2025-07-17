@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->text('delivery_location')->nullable();
-            $table->string('thana')->nullable();
+            $table->string('thana')->nullable(); 
             $table->string('district')->nullable();
             $table->string('address')->nullable();
             $table->text('order_note')->nullable();

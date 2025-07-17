@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Carbon\Carbon;
 use App\Models\Faq;
 use App\Models\User;
 use App\Models\Brand;
@@ -38,11 +39,24 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $latestproducts = Product::with('multiImages', 'reviews')
-            ->latest()
-            ->take(8)
+        // $latestproducts = Product::with('multiImages', 'reviews')
+        //     ->latest()
+        //     ->take(8)
+        //     ->get();
+
+
+        $oneMonthAgo = Carbon::now()->subMonth();
+
+        $latestproducts = OrderItem::select('product_id', DB::raw('SUM(quantity) as total_ordered'))
+            ->whereHas('order', function ($query) use ($oneMonthAgo) {
+                $query->where('created_at', '>=', $oneMonthAgo);
+            })
+            ->with('product') // Assuming relationship exists
+            ->groupBy('product_id')
+            ->orderByDesc('total_ordered')
+            ->take(10) // Or whatever number of top products you want
             ->get();
-        $latestProductIds = $latestproducts->pluck('id')->toArray();
+
         $randomproducts = Product::inRandomOrder()->take(12)->get(); // Remove take(12) to fetch all products
         // $randomproducts = Product::inRandomOrder()
         //     ->whereNotIn('id', $latestProductIds)
@@ -401,7 +415,7 @@ class HomeController extends Controller
                 'quantity'           => $data['quantity'],
                 'shipping_charge'    => $data['shipping_charge'],
                 'total_amount'       => $data['total_amount'],
-                'payment_status'     => 'paid',
+                'payment_status'     => 'delivery_charge_paid',
                 'status'             => 'pending',
                 'name'               => $data['name'],
                 'email'              => $data['email'],
