@@ -9,8 +9,7 @@
             </ul>
             <div class="ps-checkout__content">
                 {{-- <form id="checkoutForm" action="{{ route('checkout.store') }}" method="post" --}}
-                <form id="checkoutForm" action="{{ route('url-create') }}" method="post"
-                    enctype="multipart/form-data">
+                <form id="checkoutForm" action="{{ route('url-create') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="border-0 card">
                         <div class="border-0 card-header">
@@ -257,9 +256,14 @@
                                         <div class="pt-5 mt-2">
                                             <button type="submit"
                                                 class="py-3 mt-5 btn btn-primary w-100 register-btns fa-bounce">
+                                                <i class="pr-2 fa-solid fa-clipboard-check"></i>
+                                                শুধু মাত্র ডেলিভারি চার্জ দিয়ে অর্ডারটি কনফার্ম করুন
+                                            </button>
+                                            {{-- <button type="submit"
+                                                class="py-3 mt-5 btn btn-primary w-100 register-btns fa-bounce">
                                                 <i class="pr-2 fa-solid fa-clipboard-check"></i> আপনার অর্ডার কনফার্ম
                                                 করতে ক্লিক করুন
-                                            </button>
+                                            </button> --}}
                                             <p class="pt-3 mb-0 text-center text-info">উপরের বাটনে ক্লিক করলে আপনার
                                                 অর্ডারটি সাথে সাথে কনফার্ম হয়ে যাবে !</p>
                                         </div>
@@ -332,7 +336,7 @@
                                     2));
                                 totalInput.value = total.toFixed(2);
                                 shippingID.value =
-                                ''; // Optional: Clear or set a default shipping ID
+                                    ''; // Optional: Clear or set a default shipping ID
                                 totalPriceSpan.textContent = convertToBangla(total.toFixed(2));
 
                                 console.error('AJAX Error:', error); // Debug log
