@@ -49,15 +49,62 @@ class HomeController extends Controller
         //     ->whereNotIn('id', $latestProductIds)
         //     ->get(); // Remove take(12) to fetch all products
         $oneMonthAgo = Carbon::now()->subMonth();
-        $latestproducts = Product::select('products.*', DB::raw('SUM(order_items.quantity) as total_ordered'))
-            ->join('order_items', 'products.id', '=', 'order_items.product_id')
+        $oneMonthAgo = Carbon::now()->subMonth();
+
+        $latestproducts = Product::join('order_items', 'products.id', '=', 'order_items.product_id')
             ->join('orders', 'orders.id', '=', 'order_items.order_id')
             ->where('orders.created_at', '>=', $oneMonthAgo)
-            ->groupBy('products.id')
+            ->groupBy(
+                'products.id',
+                'products.brand_id',
+                'products.category_id',
+                'products.name',
+                'products.slug',
+                'products.sku_code',
+                'products.mf_code',
+                'products.product_code',
+                'products.barcode_id',
+                'products.barcode',
+                'products.tags',
+                'products.color',
+                'products.size',
+                'products.video_link',
+                'products.short_description',
+                'products.overview',
+                'products.description',
+                'products.specification',
+                'products.warranty',
+                'products.thumbnail',
+                'products.box_contains',
+                'products.vat',
+                'products.tax',
+                'products.box_price',
+                'products.box_discount_price',
+                'products.unit_price',
+                'products.unit_discount_price',
+                'products.product_type',
+                'products.box_stock',
+                'products.stock',
+                'products.rating',
+                'products.is_refurbished',
+                'products.length',
+                'products.width',
+                'products.height',
+                'products.meta_title',
+                'products.meta_keywords',
+                'products.meta_description',
+                'products.create_date',
+                'products.added_by',
+                'products.status',
+                'products.created_at',
+                'products.updated_at'
+            )
+            ->select('products.*', DB::raw('SUM(order_items.quantity) as total_ordered'))
             ->orderByDesc('total_ordered')
-            ->with('multiImages') // if you have a relationship for additional images
-            ->take(20)
+            ->with('multiImages') // Optional, if you're using this relationship
+            ->take(10)
             ->get();
+
         // dd($latestproducts);
         $special_offer = SpecialOffer::latest()->first();
         $specialproducts = $special_offer ? $special_offer->products() : null;
