@@ -130,7 +130,9 @@
                                                         ফোন নাম্বার
                                                     </div>
                                                 </td>
-                                                <td class="fw-bold text-end"><a href="tel:{{ optional($order->user)->phone }}">{{ optional($order->user)->phone }}</a></td>
+                                                <td class="fw-bold text-end"><a
+                                                        href="tel:{{ optional($order->user)->phone }}">{{ optional($order->user)->phone }}</a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -243,15 +245,7 @@
                                                     মোট
                                                 </td>
                                                 <td class="text-end pe-5">
-                                                    ৳{{ $order->sub_total }}
-                                                </td>
-                                            </tr>
-                                            <tr style="background-color: #eeeeeead;">
-                                                <td colspan="6" class="text-end">
-                                                    ভ্যাট 0%
-                                                </td>
-                                                <td class="text-end pe-5">
-                                                    ৳0.00
+                                                    ৳{{ optional($order)->sub_total }}
                                                 </td>
                                             </tr>
                                             <tr style="background-color: #eeeeeed8;">
@@ -259,15 +253,23 @@
                                                     ডেলিভারি চার্জ
                                                 </td>
                                                 <td class="text-end pe-5">
-                                                    ৳{{ $order->shipping_charge }}.00
+                                                    ৳{{ optional($order)->shipping_charge }}.00
+                                                </td>
+                                            </tr>
+                                            <tr style="background-color: #eeeeeed8;">
+                                                <td colspan="6" class="text-end">
+                                                    অগ্রিম পরিশোধ
+                                                </td>
+                                                <td class="text-end pe-5">
+                                                    ৳{{ optional($order)->shipping_charge }}.00
                                                 </td>
                                             </tr>
                                             <tr style="background-color: #eee;">
                                                 <td colspan="6" class="text-gray-900 fs-3 text-end">
-                                                    সর্ব মোট
+                                                    সর্বমোট বকেয়া
                                                 </td>
                                                 <td class="text-gray-900 fs-3 fw-bolder text-end pe-5">
-                                                    ৳{{ $order->total_amount }}.00
+                                                    ৳{{ optional($order)->total_amount - optional($order)->shipping_charge }}.00
                                                 </td>
                                             </tr>
                                         </tbody>

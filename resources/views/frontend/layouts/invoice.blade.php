@@ -96,24 +96,27 @@
                             @endforeach
                             <tr class="">
                                 <td colspan="5" class="text-right">
-                                    <span>Subtotal</span>
+                                    <span>মোট</span>
                                 </td>
                                 <td class="text-right">
-                                    <span><span class="text-info">৳</span>{{ $order->sub_total }}</span>
-                                </td>
-                            </tr>
-                            <tr class="">
-                                <td colspan="5" class="text-right">
-                                    <span>VAT (0%)</span>
-                                </td>
-                                <td class="text-right">
-                                    <span><span class="text-info">৳</span>0.00</span>
+                                    <span><span class="text-info">৳</span>{{ optional($order)->sub_total }}</span>
                                 </td>
                             </tr>
                             @if (optional($order)->shippingCharge)
                                 <tr class="">
                                     <td colspan="5" class="text-right">
-                                        <span>Shipping Charge</span>
+                                        <span>ডেলিভারি চার্জ</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span><span
+                                                class="text-info">৳</span>{{ optional($order->shippingCharge)->price }}</span>
+                                    </td>
+                                </tr>
+                            @endif
+                            @if (optional($order)->shippingCharge)
+                                <tr class="">
+                                    <td colspan="5" class="text-right">
+                                        <span>অগ্রিম পরিশোধ</span>
                                     </td>
                                     <td class="text-right">
                                         <span><span
@@ -123,11 +126,11 @@
                             @endif
                             <tr class="invoice_table">
                                 <td colspan="5" class="text-right">
-                                    <span class="font-weight-bold">Grand Total</span>
+                                    <span class="font-weight-bold">সর্বমোট বকেয়া</span>
                                 </td>
                                 <td class="text-right font-weight-bold">
                                     <span><span
-                                            class="text-info">৳</span>{{ number_format(optional($order)->total_amount, 2) }}</span>
+                                            class="text-info">৳</span>{{ number_format((optional($order)->total_amount - optional($order->shippingCharge)->price), 2) }}</span>
                                 </td>
                             </tr>
                         </tbody>

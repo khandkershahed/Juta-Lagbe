@@ -123,27 +123,35 @@
                                                         @endforeach
                                                         <tr>
                                                             <td colspan="3" class="text-end">
-                                                                Subtotal
+                                                                মোট
                                                             </td>
                                                             <td class="text-end">
-                                                                ৳ {{ optional($order)->sub_total }}
+                                                                ৳{{ optional($order)->sub_total }}
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3" class="text-end">
-                                                                VAT (0%)
+                                                                ডেলিভারি চার্জ
                                                             </td>
                                                             <td class="text-end">
-                                                                ৳ 0.00
+                                                                ৳{{ optional($order)->shipping_charge }}.00
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="3" class="text-end">
+                                                                অগ্রিম পরিশোধ
+                                                            </td>
+                                                            <td class="text-end">
+                                                                ৳{{ optional($order)->shipping_charge }}.00
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3"
                                                                 class="fs-3 text-gray-900 fw-bold text-end">
-                                                                Grand Total
+                                                                সর্বমোট বকেয়া
                                                             </td>
                                                             <td class="text-gray-900 fs-3 fw-bolder text-end">
-                                                                ৳ {{ optional($order)->total_amount }}
+                                                                ৳ {{ optional($order)->total_amount - optional($order)->shipping_charge }}
                                                             </td>
                                                         </tr>
                                                     </tbody>
