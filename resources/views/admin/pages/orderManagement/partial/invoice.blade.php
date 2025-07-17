@@ -142,7 +142,11 @@
                                                                 অগ্রিম পরিশোধ
                                                             </td>
                                                             <td class="text-end">
-                                                                ৳{{ optional($order)->shipping_charge }}.00
+                                                                @if ($order->payment_status == 'delivery_charge_paid')
+                                                                    ৳{{ optional($order)->shipping_charge }}.00
+                                                                @else
+                                                                    ৳ 00.00
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -151,7 +155,12 @@
                                                                 সর্বমোট বকেয়া
                                                             </td>
                                                             <td class="text-gray-900 fs-3 fw-bolder text-end">
-                                                                ৳ {{ optional($order)->total_amount - optional($order)->shipping_charge }}
+                                                                @if ($order->payment_status == 'delivery_charge_paid')
+                                                                    ৳
+                                                                    {{ optional($order)->total_amount - optional($order)->shipping_charge }}.00
+                                                                @else
+                                                                    ৳ {{ optional($order)->total_amount }}.00
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     </tbody>
