@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Carbon\Carbon;
 use App\Models\Faq;
 use App\Models\User;
 use App\Models\Brand;
@@ -38,16 +39,26 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $latestproducts = Product::with('multiImages', 'reviews')
-            ->latest()
-            ->take(8)
-            ->get();
-        $latestProductIds = $latestproducts->pluck('id')->toArray();
+        // $latestproducts = Product::with('multiImages', 'reviews')
+        //     ->latest()
+        //     ->take(8)
+        //     ->get();
+        // $latestProductIds = $latestproducts->pluck('id')->toArray();
         $randomproducts = Product::inRandomOrder()->take(12)->get(); // Remove take(12) to fetch all products
         // $randomproducts = Product::inRandomOrder()
         //     ->whereNotIn('id', $latestProductIds)
         //     ->get(); // Remove take(12) to fetch all products
-
+        $oneMonthAgo = Carbon::now()->subMonth();
+        $latestproducts = Product::select('products.*', DB::raw('SUM(order_items.quantity) as total_ordered'))
+            ->join('order_items', 'products.id', '=', 'order_items.product_id')
+            ->join('orders', 'orders.id', '=', 'order_items.order_id')
+            ->where('orders.created_at', '>=', $oneMonthAgo)
+            ->groupBy('products.id')
+            ->orderByDesc('total_ordered')
+            ->with('multiImages') // if you have a relationship for additional images
+            ->take(20)
+            ->get();
+        // dd($latestproducts);
         $special_offer = SpecialOffer::latest()->first();
         $specialproducts = $special_offer ? $special_offer->products() : null;
 
