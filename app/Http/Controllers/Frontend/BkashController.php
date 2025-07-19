@@ -388,7 +388,7 @@ class BkashController extends Controller
             'mode'                 => '0011',
             'payerReference'       => $orderNumber,
             'callbackURL'          => url('/bkash-callback'),
-            'amount'               => $totalAmount,
+            'amount'               => $shipping_charge,
             'currency'             => 'BDT',
             'intent'               => 'sale',
             'merchantInvoiceNumber' => $orderNumber
