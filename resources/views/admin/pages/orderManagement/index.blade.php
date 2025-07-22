@@ -87,17 +87,18 @@
                 <thead>
                     <tr class="text-center text-gray-800 fw-semibold fs-6">
                         <th style="width: 4%;">Sl</th>
-                        <th style="width: 18%;">Product</th>
+                        <th style="width: 10%;">Product</th>
                         <th style="width: 8%;">Cost</th>
                         <th style="width: 6%;">QTy</th>
-                        <th style="width: 12%;">Order Number</th>
+                        <th style="width: 10%;">Order Number</th>
+                        <th style="width: 7%;">Phone</th>
                         <th style="width: 7%;">Customer</th>
                         <th style="width: 8%;">Created At</th>
                         <th style="width: 7%;">Total Price</th>
                         <th style="width: 7%;">Paid</th>
                         <th style="width: 7%;">Due</th>
                         <th style="width: 6%;">Status</th>
-                        <th style="width: 10%;">Action</th>
+                        <th style="width: 13%;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,7 +120,7 @@
                             {{-- First Order Item --}}
                             <td colspan="1">
                                 @if ($firstItem)
-                                    <div class="gap-3 d-flex align-items-center">
+                                    <div class="gap-3 ">
                                         <a href="#" class="bg-opacity-25 rounded symbol symbol-50px bg-secondary">
                                             <img src="{{ asset('storage/' . optional($firstItem->product)->thumbnail) }}"
                                                 alt="" />
@@ -128,9 +129,9 @@
                                             <a href="#" class="text-gray-900 fw-bold text-hover-primary">
                                                 {{ optional($firstItem->product)->name }}
                                             </a>
-                                            <div class="fs-7">
+                                            {{-- <div class="fs-7">
                                                 {{ optional($firstItem->product)->name }}
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 @else
@@ -153,6 +154,12 @@
                             <td>
                                 <a href="{{ route('admin.orderDetails', $order->id) }}">
                                     {{ $order->order_number }}
+                                </a>
+                            </td>
+                            <td>
+                                <span class="fw-bold text-info"><i class="fas fa-phone"></i></span>
+                                <a href="tel:{{ $order->phone }}">
+                                    {{ $order->phone }}
                                 </a>
                             </td>
                             <td>{{ optional($order->user)->name }}</td>
@@ -192,6 +199,8 @@
                             </td>
 
                             {{-- Order Status --}}
+
+
                             <td>
                                 <span
                                     class="badge fs-7 px-4 py-3 {{ $statusClassMap[$order->status] ?? 'badge-light-secondary' }}">
