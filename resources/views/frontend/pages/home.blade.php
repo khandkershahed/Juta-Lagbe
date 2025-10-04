@@ -669,7 +669,7 @@
 
     @include('frontend.layouts.HomeQuickViewModal')
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const players = Plyr.setup('.player', {
@@ -695,7 +695,7 @@
                 player.play(); // Start playback immediately
             });
         });
-    </script>
+    </script> -->
 
 
     <script>
