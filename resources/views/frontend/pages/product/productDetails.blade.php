@@ -19,6 +19,7 @@
             });
 
             fbq('trackCustom', 'ProductVisit', {
+                content_ids: ['{{ $product->sku_code }}'],
                 content_name: '{{ $product->name }}',
                 value: price,
                 currency: 'BDT'
