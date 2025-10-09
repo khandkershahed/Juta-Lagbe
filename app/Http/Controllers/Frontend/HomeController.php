@@ -426,6 +426,8 @@ class HomeController extends Controller
 
     public function checkoutSuccess(Request $request)
     {
+
+        
         $data = session('bkash_checkout_data');
 
         if (!$data) {
@@ -495,6 +497,8 @@ class HomeController extends Controller
                 }
             }
 
+
+
             DB::commit();
 
             Cart::instance('cart')->destroy();
@@ -505,7 +509,8 @@ class HomeController extends Controller
                 'pendingOrdersCount'   => Order::where('status', 'pending')->count(),
                 'deliveredOrdersCount' => Order::where('status', 'delivered')->count(),
                 'orders'               => Order::with('orderItems')->where('user_id', $user_id)->latest()->get(),
-                'latest_order'         => Order::where('user_id', $user_id)->latest()->first(['total_amount']),
+                'latest_order'         => Order::with('orderItems')->where('user_id', $user_id)->latest()->first(),
+                // 'latest_order'         => Order::with('orderItems')->where('user_id', $user_id)->latest()->first(['total_amount',]),
             ]);
         } catch (\Exception $e) {
             DB::rollBack();

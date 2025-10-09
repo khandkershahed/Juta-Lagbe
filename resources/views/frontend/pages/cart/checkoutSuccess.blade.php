@@ -2,9 +2,9 @@
 
     @push('pixel-events')
         <script>
-            const totalValue = {{ optional($order)->total_amount ?? 0 }};
+            const totalValue = {{ optional($latest_order)->total_amount ?? 0 }};
             const contentIds = {!! json_encode(
-                optional($order)->orderItems->map(fn($item) => optional($item->product)->sku_code)->filter()->values(),
+                optional($latest_order)->orderItems->map(fn($item) => optional($item->product)->sku_code)->filter()->values(),
             ) !!};
 
             fbq('track', 'Purchase', {

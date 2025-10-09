@@ -2,30 +2,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
 
-    @php
-        $cart_price = !empty($product->unit_discount_price) ? $product->unit_discount_price : $product->unit_price;
-    @endphp
 
-    @push('pixel-events')
-        <script>
-            const price = {{ $cart_price }};
-
-            fbq('track', 'ViewContent', {
-                content_ids: ['{{ $product->sku_code }}'],
-                content_type: 'product',
-                content_name: '{{ $product->name }}',
-                value: price,
-                currency: 'BDT'
-            });
-
-            fbq('trackCustom', 'ProductVisit', {
-                content_ids: ['{{ $product->sku_code }}'],
-                content_name: '{{ $product->name }}',
-                value: price,
-                currency: 'BDT'
-            });
-        </script>
-    @endpush
     @push('heads')
         @php
             $isProductPage = true;
@@ -305,6 +282,30 @@
             height: 65px;
         }
     </style>
+    @php
+        $cart_price = !empty($product->unit_discount_price) ? $product->unit_discount_price : $product->unit_price;
+    @endphp
+
+    @push('pixel-events')
+        <script>
+            const price = {{ $cart_price }};
+
+            fbq('track', 'ViewContent', {
+                content_ids: ['{{ $product->sku_code }}'],
+                content_type: 'product',
+                content_name: '{{ $product->name }}',
+                value: price,
+                currency: 'BDT'
+            });
+
+            fbq('trackCustom', 'ProductVisit', {
+                content_ids: ['{{ $product->sku_code }}'],
+                content_name: '{{ $product->name }}',
+                value: price,
+                currency: 'BDT'
+            });
+        </script>
+    @endpush
     <section>
         <div class="container">
             <div class="row">

@@ -24,7 +24,7 @@ class ClientController extends Controller
             'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
             'deliveredOrdersCount' => Order::latest('id')->where('status', 'delivered')->count(),
             'orders'               => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->get(),
-            'latest_order'         => Order::where('user_id', Auth::user()->id)->latest('id')->first(['total_amount']),
+            'latest_order'         => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->first(),
         ];
         return view('user.pages.orderHistory', $data);
     }
@@ -35,7 +35,7 @@ class ClientController extends Controller
             'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
             'deliveredOrdersCount' => Order::latest('id')->where('status', 'delivered')->count(),
             'orders'               => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->get(),
-            'latest_order'         => Order::where('user_id', Auth::user()->id)->latest('id')->first(['total_amount']),
+            'latest_order'         => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->first(),
         ];
         return view('frontend.pages.cart.checkoutSuccess', $data);
     }
