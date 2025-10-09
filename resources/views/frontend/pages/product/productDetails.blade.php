@@ -11,7 +11,7 @@
             const price = {{ $cart_price }};
 
             fbq('track', 'ViewContent', {
-                content_ids: ['{{ $product->id }}'],
+                content_ids: ['{{ $product->sku_code }}'],
                 content_type: 'product',
                 content_name: '{{ $product->name }}',
                 value: price,
