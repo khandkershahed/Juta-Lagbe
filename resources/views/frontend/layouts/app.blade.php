@@ -119,6 +119,8 @@
     </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=680603071634353&ev=PageView&noscript=1" /></noscript>
+
+    @stack('pixel-events')
     <!-- End Meta Pixel Code -->
     {!! optional($setting)->google_analytics !!}
     {!! optional($setting)->google_adsense !!}

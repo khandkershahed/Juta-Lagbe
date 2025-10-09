@@ -135,7 +135,7 @@
                                         </option>
                                     @endforeach
                                 </x-metronic.select-option>
-                            </div>
+                            </div> 
                             {{-- @php
                                 $sizes = isset($product->size) ? json_decode($product->size, true) : [];
                             @endphp

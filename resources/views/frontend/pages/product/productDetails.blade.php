@@ -1,9 +1,33 @@
 <x-frontend-app-layout :title="'Product Details'" :product="$product">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
+
+    @php
+        $cart_price = !empty($product->unit_discount_price) ? $product->unit_discount_price : $product->unit_price;
+    @endphp
+
+    @push('pixel-events')
+        <script>
+            const price = {{ $cart_price }};
+
+            fbq('track', 'ViewContent', {
+                content_ids: ['{{ $product->id }}'],
+                content_type: 'product',
+                content_name: '{{ $product->name }}',
+                value: price,
+                currency: 'BDT'
+            });
+
+            fbq('trackCustom', 'ProductVisit', {
+                content_name: '{{ $product->name }}',
+                value: price,
+                currency: 'BDT'
+            });
+        </script>
+    @endpush
     @push('heads')
         @php
-            $isProductPage = true; 
+            $isProductPage = true;
         @endphp
     @endpush
     <style>
@@ -481,14 +505,7 @@
                         </div>
                         <div class="mt-2 d-flex align-items-center card-cart-btn">
                             <!-- Order Modal  -->
-                            @php
-                                if (!empty($product->unit_discount_price)) {
-                                    $cart_price = $product->unit_discount_price;
-                                } else {
-                                    $cart_price = $product->unit_price;
-                                }
 
-                            @endphp
                             @if (count($product->sizes) > 0)
                                 <a href="#" data-product_id="{{ $product->id }}"
                                     data-product_price="{{ $cart_price }}"
@@ -791,22 +808,7 @@
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
-        <script>
-            fbq('track', 'ViewContent', {
-                content_ids: ['{{ $product->id }}'],
-                content_type: 'product',
-                value: {{ $cart_price }},
-                currency: 'BDT'
-            });
-        </script>
-        <script>
-            // fbq('track', 'ViewContent', {currency: "BDT", value: {{ $cart_price }}});
-            fbq('trackCustom', 'ProductVisit', {
-                content_name: '{{ $product->name }}',
-                value: {{ $cart_price }},
-                currency: 'BDT'
-            });
-        </script>
+
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {

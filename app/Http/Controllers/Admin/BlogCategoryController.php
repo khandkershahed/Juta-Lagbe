@@ -151,7 +151,7 @@ class BlogCategoryController extends Controller
 
         $uploadedFiles = [];
         foreach ($files as $key => $file) {
-            if (!empty($file)) {
+             if (!empty($file)) {
                 $filePath = 'blog_category/' . $key;
                 if ($blog_category) {
                     $oldFile = $blog_category->$key ?? null;

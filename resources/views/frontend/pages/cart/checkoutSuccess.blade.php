@@ -1,4 +1,17 @@
 <x-frontend-app-layout :title="'Your Order History'">
+    @push('pixel-events')
+        <script>
+            const totalValue = {{ optional($order)->total_amount ?? 0 }};
+            const contentIds = {!! json_encode(optional($order)->orderItems->pluck('product_id')) !!};
+            // Track the purchase with Meta Pixel
+            fbq('track', 'Purchase', {
+                content_ids: contentIds,
+                content_type: 'product',
+                value: totalValue,
+                currency: 'BDT'
+            });
+        </script>
+    @endpush
     <div class="breadcrumb-wrap">
         <div class="banner b-top bg-size bread-img">
             <img class="bg-img bg-top" src="img/banner-p.jpg" alt="banner" style="display: none;">
@@ -116,7 +129,7 @@
         </div>
     @endforeach
 
-    @push('scripts')
+    {{-- @push('scripts')
         <script>
             const totalValue = {{ optional($latest_order)->total_amount ?? 0 }};
             fbq('track', 'Purchase', {
@@ -124,5 +137,7 @@
                 currency: 'BDT'
             });
         </script>
-    @endpush
+    @endpush --}}
+
+
 </x-frontend-app-layout>
