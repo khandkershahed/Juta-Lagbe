@@ -14,13 +14,15 @@ class OrderManagementController extends Controller
      */
     public function index()
     {
+        ini_set('memory_limit', '256M');
         // Get the current month and year for comparison
         $currentMonth = now()->month;
         $currentYear = now()->year;
+        $orders = Order::with('orderItems')->latest()->get();
         $data = [
-            'orders' => Order::with('orderItems')->latest()->get(), // Group by user_id
-            'pendingOrdersCount' => Order::where('status', 'pending')->count(),
-            'deliveredOrdersCount' => Order::where('status', 'delivered')->count(),
+            'orders' => $orders, // Group by user_id
+            'pendingOrdersCount' => $orders->where('status', 'pending')->count(),
+            'deliveredOrdersCount' => $orders->where('status', 'delivered')->count(),
         ];
 
         // Return the view with the data
