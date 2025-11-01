@@ -365,7 +365,7 @@
             var product_id = button.getAttribute('data-product_id');
             var qty = button.getAttribute('data-product_qty'); // Get the quantity value
             var cartHeader = document.querySelector('.miniCart');
-            fbq('trackCustom', 'AddToCart', {
+            fbq('track', 'AddToCart', {
                 currency: "BDT",
                 content_ids: product_id, // 'REQUIRED': array of product IDs
                 content_type: 'product',
@@ -528,7 +528,7 @@
                     .val(); // Get the selected size from the radio buttons
                 var price = $(this).data('product_price');
                 // alert(price);
-                fbq('trackCustom', 'AddToCart', {
+                fbq('track', 'AddToCart', {
                     currency: "BDT",
                     value: price
                 });
