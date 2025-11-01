@@ -189,12 +189,7 @@ class HomeController extends Controller
     //     return view('frontend.pages.product.productDetails', $data);
     // }
 
-    // Your existing controller function, updated.
-    use Illuminate\View\View;
-    use App\Models\Product; // Make sure these paths are correct
-    use App\Models\ShippingMethod;
 
-    // ...
 
     public function productDetails($slug)
     {
@@ -226,7 +221,7 @@ class HomeController extends Controller
                 ->inRandomOrder()
                 ->limit(12)
                 ->get(),
-            'overallAvailability' => $overallAvailability, 
+            'overallAvailability' => $overallAvailability,
         ];
 
         // 5. Pass the data to the view
