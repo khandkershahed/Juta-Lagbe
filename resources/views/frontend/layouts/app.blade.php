@@ -22,7 +22,7 @@
             $productBrand = $product->brand->name ?? 'JutaLagbe'; // Default image
             $productID = $product->sku_code ?? $product->id; // Default image
             $productPrice = $product->unit_discount_price ?? $product->unit_price; // Default image
-            $productAvailability = $product->stock > 0 ? 'in stock' : 'out of stock'; // Default image
+            $productAvailability = $overallAvailability; // Default image
         @endphp
 
         <meta name="title" content="{{ $metaTitle }}" />

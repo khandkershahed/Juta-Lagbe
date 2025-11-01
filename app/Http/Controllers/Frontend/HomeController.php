@@ -179,13 +179,57 @@ class HomeController extends Controller
         ];
         return view('frontend.pages.blog.blogDetails', $data);
     }
+    // public function productDetails($slug)
+    // {
+    //     $data = [
+    //         'shippingmethods'  => ShippingMethod::active()->get(),
+    //         'product'          => Product::with('reviews', 'multiImages')->where('slug', $slug)->first(),
+    //         'related_products' => Product::select('id', 'slug', 'color', 'meta_title', 'thumbnail', 'name', 'box_discount_price', 'unit_discount_price', 'box_price', 'unit_price')->with('multiImages')->where('status', 'published')->inRandomOrder()->limit(12)->get(),
+    //     ];
+    //     return view('frontend.pages.product.productDetails', $data);
+    // }
+
+    // Your existing controller function, updated.
+    use Illuminate\View\View;
+    use App\Models\Product; // Make sure these paths are correct
+    use App\Models\ShippingMethod;
+
+    // ...
+
     public function productDetails($slug)
     {
+        // 1. Eager load all relationships, including 'sizes'
+        $product = Product::with('reviews', 'multiImages', 'sizes')
+            ->where('slug', $slug)
+            ->first();
+
+        // 2. Add a check for 404 if product not found
+        if (!$product) {
+            abort(404, 'Product not found');
+        }
+
+        // 3. Calculate the overall availability
+        $overallAvailability = 'out of stock';
+        if ($product->sizes && $product->sizes->some(function ($size) {
+            return $size->stock > 0;
+        })) {
+            $overallAvailability = 'in stock';
+        }
+
+        // 4. Build the data array, adding the new variable
         $data = [
-            'shippingmethods'  => ShippingMethod::active()->get(),
-            'product'          => Product::with('reviews', 'multiImages')->where('slug', $slug)->first(),
-            'related_products' => Product::select('id', 'slug', 'color', 'meta_title', 'thumbnail', 'name', 'box_discount_price', 'unit_discount_price', 'box_price', 'unit_price')->with('multiImages')->where('status', 'published')->inRandomOrder()->limit(12)->get(),
+            'shippingmethods'     => ShippingMethod::active()->get(),
+            'product'             => $product,
+            'related_products'    => Product::select('id', 'slug', 'color', 'meta_title', 'thumbnail', 'name', 'box_discount_price', 'unit_discount_price', 'box_price', 'unit_price')
+                ->with('multiImages')
+                ->where('status', 'published')
+                ->inRandomOrder()
+                ->limit(12)
+                ->get(),
+            'overallAvailability' => $overallAvailability, 
         ];
+
+        // 5. Pass the data to the view
         return view('frontend.pages.product.productDetails', $data);
     }
 
@@ -427,7 +471,7 @@ class HomeController extends Controller
     public function checkoutSuccess(Request $request)
     {
 
-        
+
         $data = session('bkash_checkout_data');
 
         if (!$data) {

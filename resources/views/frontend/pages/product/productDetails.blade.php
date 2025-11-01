@@ -4,6 +4,7 @@
 
 
     @push('heads')
+        {{-- $overallAvailability --}}
         @php
             $isProductPage = true;
         @endphp
@@ -433,7 +434,7 @@
                     <div class="product-details-juta">
                         <h3 class="title">{{ $product->name }}</h3>
                         <div>
-                            @if (!empty($product->stock) && $product->stock > 0)
+                            @if ($overallAvailability == 'in stock')
                                 <div class="mb-0">
                                     <span class="ps-badge bg-success rounded-0">Available</span>
                                 </div>
