@@ -35,7 +35,7 @@
         <meta property="og:site_name" content="{{ optional($setting)->site_title ?: config('app.name') }}" />
         <meta property="og:locale" content="en_US" />
         <meta property="product:brand" content="{{ $productBrand }}">
-        
+
         <meta property="product:condition" content="new">
         <meta property="product:price:amount" content="{{ $productPrice }}">
         <meta property="product:price:currency" content="BDT">
@@ -190,6 +190,10 @@
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P7PW24N5" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <!-- Preloader HTML -->
     <div id="preloader" class="flex-column">
         <div>
