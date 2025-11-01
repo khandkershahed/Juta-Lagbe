@@ -378,25 +378,106 @@ class HomeController extends Controller
 
         return response()->json([]);
     }
+
+
+    // public function checkout()
+    // {
+    //     $setting = Setting::first();
+    //     $minimumOrderAmount = $setting->minimum_order_amount ?? 0;
+
+    //     $formattedSubtotal = Cart::instance('cart')->subtotal();
+    //     $cleanSubtotal = preg_replace('/[^\d.]/', '', $formattedSubtotal);
+    //     $subTotal = (float)$cleanSubtotal;
+
+    //     if ($subTotal > $minimumOrderAmount) {
+    //         // $data = [
+    //         $shippingmethods = ShippingMethod::active()->get();
+    //         $cartItems       = Cart::instance('cart')->content();
+    //         $total           = Cart::instance('cart')->total();
+    //         $cartCount       = Cart::instance('cart')->count();
+    //         $user            = Auth::user();
+    //         $subTotal        = $subTotal;
+    //         $bd_divisions   = Division::all();
+    //         // ];
+    //         return view('frontend.pages.cart.checkout', compact(
+    //             'shippingmethods',
+    //             'cartItems',
+    //             'total',
+    //             'cartCount',
+    //             'user',
+    //             'subTotal',
+    //             'bd_divisions'
+    //         ));
+    //     } else {
+    //         // Redirect back with error message
+    //         Session::flash('error', "Order Process Failed. Try Again.");
+    //         // Session::flush();
+    //         return redirect()->back()->withInput();
+    //     }
+    // }
+
     public function checkout()
     {
         $setting = Setting::first();
         $minimumOrderAmount = $setting->minimum_order_amount ?? 0;
 
+        // Clean subtotal
         $formattedSubtotal = Cart::instance('cart')->subtotal();
         $cleanSubtotal = preg_replace('/[^\d.]/', '', $formattedSubtotal);
-        $subTotal = (float)$cleanSubtotal;
+        $subTotal = (float) $cleanSubtotal;
 
         if ($subTotal > $minimumOrderAmount) {
-            // $data = [
+
+            // --- Start Pixel Data Preparation ---
+            $cartItems = Cart::instance('cart')->content();
+            $cartCount = Cart::instance('cart')->count();
+
+            // 1️⃣ Get all category IDs from products (assuming category_id is cast as array)
+            $allCategoryIds = $cartItems->flatMap(function ($item) {
+                return ($item->model && is_array($item->model->category_id))
+                    ? $item->model->category_id
+                    : [];
+            })->unique()->filter()->values();
+
+            // 2️⃣ Get readable category names
+            $contentCategories = Category::whereIn('id', $allCategoryIds)->pluck('name')->join(', ');
+
+            // 3️⃣ Build contents array (always numeric)
+            $contents = $cartItems->map(function ($item) {
+                return [
+                    'id' => $item->model->sku_code ?? null,
+                    'quantity' => (int) $item->qty,
+                    'item_price' => (float) $item->price,
+                ];
+            })->values()->toArray(); // <- ensures it's a proper numeric array
+
+            // 4️⃣ Extract IDs and names for Pixel
+            $contentIds = collect($contents)->pluck('id')->filter()->values()->toArray();
+            $contentNames = $cartItems->map(function ($item) {
+                return optional($item->model)->name; // safely get name if model exists
+            })->filter()->join(', ');
+
+
+            // 5️⃣ Assemble InitiateCheckout event data
+            $initiateCheckoutData = [
+                'currency'         => 'BDT',
+                'value'            => $subTotal,
+                'content_name'     => $contentNames,
+                'content_category' => $contentCategories,
+                'content_ids'      => $contentIds,
+                'content_type'     => 'product',
+                'contents'         => $contents,
+                'num_items'        => (int) $cartCount,
+            ];
+            // --- End Pixel Data Preparation ---
+
+            // Other checkout page data
             $shippingmethods = ShippingMethod::active()->get();
-            $cartItems       = Cart::instance('cart')->content();
             $total           = Cart::instance('cart')->total();
-            $cartCount       = Cart::instance('cart')->count();
             $user            = Auth::user();
-            $subTotal        = $subTotal;
-            $bd_divisions   = Division::all();
-            // ];
+            $bd_divisions    = Division::all();
+
+            // Pass everything to the view
             return view('frontend.pages.cart.checkout', compact(
                 'shippingmethods',
                 'cartItems',
@@ -404,15 +485,18 @@ class HomeController extends Controller
                 'cartCount',
                 'user',
                 'subTotal',
-                'bd_divisions'
+                'bd_divisions',
+                'initiateCheckoutData' // <-- Pixel data passed to Blade
             ));
         } else {
-            // Redirect back with error message
+            // Redirect back if below minimum order
             Session::flash('error', "Order Process Failed. Try Again.");
-            // Session::flush();
             return redirect()->back()->withInput();
         }
     }
+
+
+
     public function buyNow($id)
     {
         try {

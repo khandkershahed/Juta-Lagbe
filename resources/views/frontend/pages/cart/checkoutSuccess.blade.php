@@ -17,6 +17,7 @@
     @endpush --}}
     {{-- THIS IS THE MODIFIED SECTION --}}
     @push('pixel-events')
+        {{-- @dd(json_encode($purchaseData['ecommerce']['num_items']) ) --}}
         {{-- Check if the purchase data was successfully prepared in the controller --}}
         @if (isset($purchaseData) && $purchaseData)
             <script>
@@ -24,17 +25,21 @@
                 const ecommerceData = {!! json_encode($purchaseData['ecommerce']) !!};
                 const userData = {!! json_encode($purchaseData['user_data']) !!};
                 const eventID = {!! json_encode($purchaseData['eventID']) !!};
-
-                // 1. Initialize Advanced Matching with user data
-                // !!! REPLACE 'YOUR_PIXEL_ID_HERE' with your actual Pixel ID !!!
-
                 // 2. Track the complete Purchase event
-                fbq('track', 'Purchase',
-                    ecommerceData, // This is the object with value, contents, etc.
-                    {
-                        eventID: eventID
-                    } // This is the eventID for deduplication
-                );
+                fbq('track', 'Purchase', {
+                    'currency': '{{ $purchaseData['ecommerce']['currency'] }}',
+                    'value': {{ $purchaseData['ecommerce']['value'] }},
+                    'content_name': '{{ $purchaseData['ecommerce']['content_name'] }}',
+                    'content_category': '{{ $purchaseData['ecommerce']['content_category'] }}',
+                    'content_ids': {!! json_encode($purchaseData['ecommerce']['content_ids']) !!},
+                    'content_type': 'product',
+                    'contents': [{
+                        'id': {!! json_encode($purchaseData['ecommerce']['contents'][0]['id']) !!},
+                        'quantity': {!! json_encode($purchaseData['ecommerce']['contents'][0]['quantity']) !!},
+                        'item_price': {!! json_encode($purchaseData['ecommerce']['contents'][0]['item_price']) !!}
+                    }],
+                    'num_items': {!! json_encode($purchaseData['ecommerce']['num_items']) !!}
+                });
             </script>
         @endif
     @endpush

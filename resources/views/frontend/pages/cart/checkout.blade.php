@@ -1,4 +1,16 @@
 <x-frontend-app-layout :title="'Checkout'">
+    {{-- === ADD THIS SCRIPT BLOCK === --}}
+    @push('pixel-events')
+        {{-- Check if the checkout data was successfully prepared in the controller --}}
+        @if (isset($initiateCheckoutData))
+            <script>
+                // Track the InitiateCheckout event
+                // This fires when the user lands on the checkout page
+                fbq('track', 'InitiateCheckout', {!! json_encode($initiateCheckoutData) !!});
+            </script>
+        @endif
+    @endpush
+    {{-- === END OF SCRIPT BLOCK === --}}
     <div class="ps-checkout">
         <div class="container px-0 pb-4 mb-5">
             <ul class="ps-breadcrumb">
@@ -8,8 +20,7 @@
                 </li>
             </ul>
             <div class="ps-checkout__content">
-                <form id="checkoutForm" action="{{ route('checkout.store') }}" method="post"
-                {{-- <form id="checkoutForm" action="{{ route('url-create') }}" method="post" --}}
+                <form id="checkoutForm" action="{{ route('checkout.store') }}" method="post" {{-- <form id="checkoutForm" action="{{ route('url-create') }}" method="post" --}}
                     enctype="multipart/form-data">
                     @csrf
                     <div class="border-0 card">
