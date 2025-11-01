@@ -7,6 +7,7 @@
         {{-- $overallAvailability --}}
         @php
             $isProductPage = true;
+            $productAvailability = $overallAvailability;
         @endphp
     @endpush
     <style>
