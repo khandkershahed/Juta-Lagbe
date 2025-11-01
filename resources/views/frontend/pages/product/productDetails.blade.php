@@ -294,7 +294,8 @@
 
             fbq('track', 'ViewContent', {
                 content_ids: ['{{ $product->sku_code }}'],
-                content_type: 'product',
+                content_category: '{{ $productCategoryName }}',
+                content_type: 'Product',
                 content_name: '{{ $product->name }}',
                 value: price,
                 currency: 'BDT'
@@ -513,6 +514,9 @@
                             @if (count($product->sizes) > 0)
                                 <a href="#" data-product_id="{{ $product->id }}"
                                     data-product_price="{{ $cart_price }}"
+                                    data-product_name="{{ $product->name }}"
+                                    data-product_category="{{ $productCategoryName }}"
+                                    data-product_sku="{{ $product->sku_code }}"
                                     class="py-3 btn btn-primary rounded-0 fa-bounce w-100 add_to_cart_btn_product_single">
                                     <i class="pr-2 fa-solid fa-basket-shopping"></i>
                                     অর্ডার করুন

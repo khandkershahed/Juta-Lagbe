@@ -1,6 +1,6 @@
 <x-frontend-app-layout :title="'Your Order History'">
 
-    @push('pixel-events')
+    {{-- @push('pixel-events')
         <script>
             const totalValue = {{ optional($latest_order)->total_amount ?? 0 }};
             const contentIds = {!! json_encode(
@@ -14,7 +14,31 @@
                 currency: 'BDT'
             });
         </script>
+    @endpush --}}
+    {{-- THIS IS THE MODIFIED SECTION --}}
+    @push('pixel-events')
+        {{-- Check if the purchase data was successfully prepared in the controller --}}
+        @if (isset($purchaseData) && $purchaseData)
+            <script>
+                // Safely encode the data from PHP into JavaScript variables
+                const ecommerceData = {!! json_encode($purchaseData['ecommerce']) !!};
+                const userData = {!! json_encode($purchaseData['user_data']) !!};
+                const eventID = {!! json_encode($purchaseData['eventID']) !!};
+
+                // 1. Initialize Advanced Matching with user data
+                // !!! REPLACE 'YOUR_PIXEL_ID_HERE' with your actual Pixel ID !!!
+
+                // 2. Track the complete Purchase event
+                fbq('track', 'Purchase',
+                    ecommerceData, // This is the object with value, contents, etc.
+                    {
+                        eventID: eventID
+                    } // This is the eventID for deduplication
+                );
+            </script>
+        @endif
     @endpush
+    {{-- END OF MODIFIED SECTION --}}
 
     <div class="breadcrumb-wrap">
         <div class="banner b-top bg-size bread-img">

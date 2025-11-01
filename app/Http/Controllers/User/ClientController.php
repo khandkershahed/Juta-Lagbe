@@ -28,17 +28,118 @@ class ClientController extends Controller
         ];
         return view('user.pages.orderHistory', $data);
     }
+    // public function checkoutSuccess()
+    // {
+    //     $data = [
+
+    //         'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
+    //         'deliveredOrdersCount' => Order::latest('id')->where('status', 'delivered')->count(),
+    //         'orders'               => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->get(),
+    //         'latest_order'         => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->first(),
+    //     ];
+    //     return view('frontend.pages.cart.checkoutSuccess', $data);
+    // }
+
+
+
     public function checkoutSuccess()
     {
-        $data = [
+        // Get the authenticated user
+        $user = Auth::user();
 
-            'pendingOrdersCount'   => Order::latest('id')->where('status', 'pending')->count(),
-            'deliveredOrdersCount' => Order::latest('id')->where('status', 'delivered')->count(),
-            'orders'               => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->get(),
-            'latest_order'         => Order::with('orderItems')->where('user_id', Auth::user()->id)->latest('id')->first(),
+        // Get the latest order with all necessary relationships
+        $latest_order = Order::with('orderItems.product', 'user')
+            ->where('user_id', $user->id)
+            ->latest('id')
+            ->first();
+
+        $purchaseData = null;
+
+        if ($latest_order) {
+            $orderItems = $latest_order->orderItems;
+
+            // --- 1. Category Logic (This is correct) ---
+            $allCategoryIds = $orderItems->flatMap(function ($item) {
+                return ($item->product && is_array($item->product->category_id)) ? $item->product->category_id : [];
+            })->unique()->filter()->values();
+
+            $contentCategories = Category::whereIn('id', $allCategoryIds)->pluck('name')->join(', ');
+
+
+            // --- 2. Product & Contents Logic (THIS IS THE FIX) ---
+
+            $contents = $orderItems->map(function ($item) {
+                // 1. Try to get SKU from the order_items table (best for historical accuracy)
+                $sku = $item->product_sku;
+
+                // 2. If it's empty, fall back to the related product's sku_code
+                // (We know $item->product exists because content_name is working)
+                if (empty($sku) && $item->product) {
+                    $sku = $item->product->sku_code; // Assuming 'sku_code' on products table
+                }
+
+                return [
+                    'id' => $sku, // Use the SKU we found
+                    'quantity' => (int) $item->quantity,
+                    'item_price' => (float) $item->price,
+                ];
+            });
+            // --- END OF FIX ---
+
+
+            $contentIds = $contents->pluck('id')->filter()->values(); // This will now work
+            $contentNames = $orderItems->pluck('product_name')->join(', ');
+
+            // --- 3. User Data Logic (This is correct) ---
+            $fullName = $latest_order->name ?? $user->name;
+            $nameParts = explode(' ', $fullName, 2);
+            $firstName = $nameParts[0];
+            $lastName = $nameParts[1] ?? null;
+
+            $user_data = [
+                'em' => strtolower($latest_order->email ?? $user->email),
+                'fn' => strtolower($firstName),
+                'ln' => $lastName ? strtolower($lastName) : null,
+                'ph' => preg_replace('/[^0-9]/', '', $latest_order->phone ?? $user->phone),
+                'ct' => strtolower(str_replace(' ', '', $latest_order->thana ?? $user->thana)),
+                'st' => strtolower($latest_order->district ?? $user->district),
+                'zp' => null,
+                'country' => 'bd',
+            ];
+
+            // --- 4. Ecommerce Data Object (This is correct) ---
+            $ecommerceData = [
+                'currency' => 'BDT',
+                'value' => (float) $latest_order->total_amount,
+                'content_name' => $contentNames,
+                'content_category' => $contentCategories,
+                'content_ids' => $contentIds, // This will now be populated
+                'content_type' => 'product',
+                'contents' => $contents, // This will now have the 'id'
+                'num_items' => (int) $latest_order->quantity,
+            ];
+
+            // --- 5. Assemble Final Data (This is correct) ---
+            $purchaseData = [
+                'ecommerce' => $ecommerceData,
+                'user_data' => array_filter($user_data),
+                'eventID' => $latest_order->order_number
+            ];
+        }
+        // dd($purchaseData);
+        // --- Original Data for the Page (This is correct) ---
+        $data = [
+            'pendingOrdersCount'   => Order::pending()->where('user_id', $user->id)->count(),
+            'deliveredOrdersCount' => Order::delivered()->where('user_id', $user->id)->count(),
+            'orders'               => Order::with('orderItems')->where('user_id', $user->id)->latest('id')->get(),
+            'latest_order'         => $latest_order,
+            'purchaseData'         => $purchaseData,
         ];
+
         return view('frontend.pages.cart.checkoutSuccess', $data);
     }
+
+
     public function paymentSuccess(Request $request)
     {
         // dd($request->status);

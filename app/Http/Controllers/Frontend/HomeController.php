@@ -190,38 +190,42 @@ class HomeController extends Controller
     // }
 
 
-
     public function productDetails($slug)
     {
-        // 1. Eager load all relationships, including 'sizes'
+        // Eager load all relationships
         $product = Product::with('reviews', 'multiImages', 'sizes')
             ->where('slug', $slug)
-            ->first();
+            ->firstOrFail(); // Use firstOrFail() for automatic 404
 
-        // 2. Add a check for 404 if product not found
-        if (!$product) {
-            abort(404, 'Product not found');
-        }
-
-        // 3. Calculate the overall availability
+        // --- Availability Logic (from our previous conversation) ---
         $overallAvailability = 'out of stock';
-        if ($product->sizes && $product->sizes->some(function ($size) {
-            return $size->stock > 0;
-        })) {
+        if ($product->sizes && $product->sizes->some(fn($size) => $size->stock > 0)) {
             $overallAvailability = 'in stock';
         }
 
-        // 4. Build the data array, adding the new variable
+        // --- NEW: Category Logic ---
+        $productCategoryName = '';
+        if (!empty($product->category_id)) {
+            // $product->category_id is now a PHP array ["4", "1"]
+            // We run one query to get all names
+            $productCategoryName = Category::whereIn('id', $product->category_id)
+                ->pluck('name')
+                ->join(', ');
+        }
+        // --- End New Category Logic ---
+
+        // 4. Build the data array
         $data = [
             'shippingmethods'     => ShippingMethod::active()->get(),
             'product'             => $product,
-            'related_products'    => Product::select('id', 'slug', 'color', 'meta_title', 'thumbnail', 'name', 'box_discount_price', 'unit_discount_price', 'box_price', 'unit_price')
+            'related_products'    => Product::select(/*...*/)
                 ->with('multiImages')
                 ->where('status', 'published')
                 ->inRandomOrder()
                 ->limit(12)
                 ->get(),
-            'overallAvailability' => $overallAvailability,
+            'overallAvailability' => $overallAvailability, // From last time
+            'productCategoryName' => $productCategoryName, // <-- ADD THIS
         ];
 
         // 5. Pass the data to the view

@@ -70,7 +70,24 @@
         {{ isset($metaTitle) && $metaTitle ? $metaTitle : (optional($setting)->site_title ? optional($setting)->site_title : config('app.name', 'E-Commerce')) }}
     </title>
     <!-- Open Graph / Facebook -->
-
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-P7PW24N5');
+    </script>
+    <!-- End Google Tag Manager -->
 
     <link rel="stylesheet" href="{{ asset('frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -114,11 +131,11 @@
             s.parentNode.insertBefore(t, s)
         }(window, document, 'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '680603071634353');
+        fbq('init', '8702338783127068');
         fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=680603071634353&ev=PageView&noscript=1" /></noscript>
+            src="https://www.facebook.com/tr?id=8702338783127068&ev=PageView&noscript=1" /></noscript>
 
     @stack('pixel-events')
     <!-- End Meta Pixel Code -->
@@ -514,8 +531,12 @@
             new Dashboard();
         });
     </script>
+
+
+
+    {{-- Event --}}
     {{-- add_to_cart_btn_product_single --}}
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('.add_to_cart_btn_product_single').click(function(e) {
                 e.preventDefault(); // Prevent the default action of the link
@@ -616,7 +637,122 @@
                 });
             });
         });
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            $('.add_to_cart_btn_product_single').click(function(e) {
+                e.preventDefault();
+
+                var $button = $(this); // Store reference to the button
+                var $quantityInput = $("input[name='quantity']");
+                var qty = parseInt($quantityInput.val()); // Use parseInt
+                var size = $("input[name='size']:checked").val();
+
+                // Get product data from data- attributes
+                var price = parseFloat($button.data('product_price'));
+                var product_id = $button.data('product_id').toString();
+                var product_name = $button.data('product_name').toString();
+                var product_category = $button.data('product_category').toString();
+                var product_sku = $button.data('product_sku').toString(); // Use SKU for content_id
+
+                // --- Validation First ---
+                if (!size) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'সাইজ নির্বাচন করা হয়নি',
+                        text: 'অনুগ্রহ করে পণ্যের একটি সাইজ নির্বাচন করুন।'
+                    });
+                    return;
+                }
+
+                if (qty <= 0) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'পরিমাণ ঠিক হয়নি',
+                        text: 'দয়া করে সঠিক পরিমাণ সিলেক্ট করুন।'
+                    });
+                    return;
+                }
+
+                var cartHeader = $('.miniCart');
+
+                $.ajax({
+                    type: "POST",
+                    url: '/cart/store/' + product_id,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        quantity: qty,
+                        size: size
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        const Toast = Swal.mixin({
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                        Toast.fire({
+                            icon: 'success',
+                            title: data.success
+                        });
+
+                        if ($.isEmptyObject(data.error)) {
+
+                            // --- GTM DataLayer Push ---
+                            // This replaces your fbq() call
+                            fbq('track', 'AddToCart', {
+                                'currency': 'BDT',
+                                'value': price * qty,
+                                'content_name': product_name,
+                                'content_category': product_category,
+                                'content_ids': [product_sku],
+                                'content_type': 'product',
+                                'contents': [{
+                                    'id': product_sku,
+                                    'quantity': qty,
+                                    'item_price': price
+                                }]
+                            });
+                            window.dataLayer = window.dataLayer || [];
+                            window.dataLayer.push({
+                                'event': 'add_to_cart', // This event name triggers your tag in GTM
+                                'ecommerce': {
+                                    'currency': 'BDT',
+                                    'value': price * qty,
+                                    'content_name': product_name,
+                                    'content_category': product_category,
+                                    'content_ids': [product_sku],
+                                    'content_type': 'product',
+                                    'contents': [{
+                                        'id': product_sku,
+                                        'quantity': qty,
+                                        'item_price': price
+                                    }]
+                                }
+                            });
+                            // --- End of GTM Push ---
+
+                            // Update mini cart and redirect
+                            cartHeader.html(data.cartHeader);
+                            $(".cartCount").html(data.cartCount);
+                            window.location.href = '/checkout';
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: data.error
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        // ... your existing error handling ...
+                    }
+                });
+            });
+        });
     </script>
+
+
+
     <script>
         $(document).ready(function() {
             $('.add_to_cartPage').click(function(e) {
