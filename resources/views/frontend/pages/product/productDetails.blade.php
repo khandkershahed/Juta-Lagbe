@@ -7,8 +7,8 @@
         {{-- $overallAvailability --}}
         @php
             $isProductPage = true;
-            $productAvailability = $overallAvailability;
         @endphp
+        <meta property="product:availability" content="{{ $overallAvailability }}">
     @endpush
     <style>
         .thumbnail-container .plyr__video-wrapper {

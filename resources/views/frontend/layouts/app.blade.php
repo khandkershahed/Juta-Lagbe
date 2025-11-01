@@ -35,7 +35,7 @@
         <meta property="og:site_name" content="{{ optional($setting)->site_title ?: config('app.name') }}" />
         <meta property="og:locale" content="en_US" />
         <meta property="product:brand" content="{{ $productBrand }}">
-        <meta property="product:availability" content="{{ $productAvailability }}">
+        
         <meta property="product:condition" content="new">
         <meta property="product:price:amount" content="{{ $productPrice }}">
         <meta property="product:price:currency" content="BDT">
