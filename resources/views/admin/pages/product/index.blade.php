@@ -48,8 +48,9 @@
                         </th> --}}
                         <th width="5%">{{ __('Sl') }}</th>
                         <th width="10%">{{ __('Product Image') }}</th>
-                        <th width="32%">{{ __('Product Name') }}</th>
+                        <th width="22%">{{ __('Product Name') }}</th>
                         <th width="13%">Category</th>
+                        <th width="10%">Content ID</th>
                         <th width="10%" class="text-center">{{ __('Stock') }}</th>
                         <th width="10%" class="text-center">{{ __('Price') }}</th>
                         <th width="10%">{{ __('Product Status') }}</th>
@@ -80,7 +81,7 @@
                                     @endif
                                 @endforeach
                             </td>
-
+                            <td>{{ $product->sku_code }}</td>
                             <td class="text-center">
 
                                 @if ($product->sizes->count() > 0)
