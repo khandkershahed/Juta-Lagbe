@@ -4,6 +4,13 @@
         {{-- Check if the checkout data was successfully prepared in the controller --}}
         @if (isset($initiateCheckoutData))
             <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'begin_checkout',
+                    ecommerce: {!! json_encode($initiateCheckoutData) !!}
+                });
+            </script>
+            <script>
                 // Track the InitiateCheckout event
                 // This fires when the user lands on the checkout page
                 fbq('track', 'InitiateCheckout', {!! json_encode($initiateCheckoutData) !!});

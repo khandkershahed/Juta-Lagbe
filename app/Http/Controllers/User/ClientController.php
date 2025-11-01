@@ -44,10 +44,8 @@ class ClientController extends Controller
 
     public function checkoutSuccess()
     {
-        // Get the authenticated user
         $user = Auth::user();
 
-        // Get the latest order with all necessary relationships
         $latest_order = Order::with('orderItems.product', 'user')
             ->where('user_id', $user->id)
             ->latest('id')
@@ -58,39 +56,34 @@ class ClientController extends Controller
         if ($latest_order) {
             $orderItems = $latest_order->orderItems;
 
-            // --- 1. Category Logic (This is correct) ---
+            // --- Category Logic ---
             $allCategoryIds = $orderItems->flatMap(function ($item) {
-                return ($item->product && is_array($item->product->category_id)) ? $item->product->category_id : [];
+                return ($item->product && is_array($item->product->category_id))
+                    ? $item->product->category_id
+                    : [];
             })->unique()->filter()->values();
 
-            $contentCategories = Category::whereIn('id', $allCategoryIds)->pluck('name')->join(', ');
+            $contentCategories = Category::whereIn('id', $allCategoryIds)
+                ->pluck('name')
+                ->join(', ');
 
-
-            // --- 2. Product & Contents Logic (THIS IS THE FIX) ---
-
+            // --- Product & Contents Logic ---
             $contents = $orderItems->map(function ($item) {
-                // 1. Try to get SKU from the order_items table (best for historical accuracy)
-                $sku = $item->product_sku;
-
-                // 2. If it's empty, fall back to the related product's sku_code
-                // (We know $item->product exists because content_name is working)
-                if (empty($sku) && $item->product) {
-                    $sku = $item->product->sku_code; // Assuming 'sku_code' on products table
-                }
-
+                $sku = $item->product_sku ?: optional($item->product)->sku_code;
                 return [
-                    'id' => $sku, // Use the SKU we found
+                    'id' => $sku,
                     'quantity' => (int) $item->quantity,
                     'item_price' => (float) $item->price,
                 ];
-            });
-            // --- END OF FIX ---
+            })->values()->toArray();
 
+            $contentIds = collect($contents)->pluck('id')->filter()->values()->toArray();
 
-            $contentIds = $contents->pluck('id')->filter()->values(); // This will now work
-            $contentNames = $orderItems->pluck('product_name')->join(', ');
+            $contentNames = $orderItems->map(function ($item) {
+                return $item->product_name ?? optional($item->product)->name;
+            })->filter()->join(', ');
 
-            // --- 3. User Data Logic (This is correct) ---
+            // --- User Data Logic ---
             $fullName = $latest_order->name ?? $user->name;
             $nameParts = explode(' ', $fullName, 2);
             $firstName = $nameParts[0];
@@ -107,27 +100,26 @@ class ClientController extends Controller
                 'country' => 'bd',
             ];
 
-            // --- 4. Ecommerce Data Object (This is correct) ---
+            // --- Ecommerce Data ---
             $ecommerceData = [
                 'currency' => 'BDT',
                 'value' => (float) $latest_order->total_amount,
                 'content_name' => $contentNames,
                 'content_category' => $contentCategories,
-                'content_ids' => $contentIds, // This will now be populated
+                'content_ids' => $contentIds,
                 'content_type' => 'product',
-                'contents' => $contents, // This will now have the 'id'
+                'contents' => $contents,
                 'num_items' => (int) $latest_order->quantity,
             ];
 
-            // --- 5. Assemble Final Data (This is correct) ---
+            // --- Final Purchase Data ---
             $purchaseData = [
                 'ecommerce' => $ecommerceData,
                 'user_data' => array_filter($user_data),
-                'eventID' => $latest_order->order_number
+                'eventID' => $latest_order->order_number,
             ];
         }
-        // dd($purchaseData);
-        // --- Original Data for the Page (This is correct) ---
+
         $data = [
             'pendingOrdersCount'   => Order::pending()->where('user_id', $user->id)->count(),
             'deliveredOrdersCount' => Order::delivered()->where('user_id', $user->id)->count(),
@@ -138,6 +130,7 @@ class ClientController extends Controller
 
         return view('frontend.pages.cart.checkoutSuccess', $data);
     }
+
 
 
     public function paymentSuccess(Request $request)

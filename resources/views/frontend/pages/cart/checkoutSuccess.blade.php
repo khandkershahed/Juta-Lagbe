@@ -17,15 +17,18 @@
     @endpush --}}
     {{-- THIS IS THE MODIFIED SECTION --}}
     @push('pixel-events')
-        {{-- @dd(json_encode($purchaseData['ecommerce']['num_items']) ) --}}
-        {{-- Check if the purchase data was successfully prepared in the controller --}}
         @if (isset($purchaseData) && $purchaseData)
             <script>
-                // Safely encode the data from PHP into JavaScript variables
-                const ecommerceData = {!! json_encode($purchaseData['ecommerce']) !!};
-                const userData = {!! json_encode($purchaseData['user_data']) !!};
-                const eventID = {!! json_encode($purchaseData['eventID']) !!};
-                // 2. Track the complete Purchase event
+                // 1️⃣  Push Purchase data into GTM
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'purchase',
+                    ecommerce: {!! json_encode($purchaseData['ecommerce']) !!},
+                    user_data: {!! json_encode($purchaseData['user_data']) !!},
+                    event_id: {!! json_encode($purchaseData['eventID']) !!}
+                });
+
+                // 2️⃣  (Optional) Fire Pixel directly as well
                 fbq('track', 'Purchase', {
                     'currency': '{{ $purchaseData['ecommerce']['currency'] }}',
                     'value': {{ $purchaseData['ecommerce']['value'] }},
@@ -33,16 +36,13 @@
                     'content_category': '{{ $purchaseData['ecommerce']['content_category'] }}',
                     'content_ids': {!! json_encode($purchaseData['ecommerce']['content_ids']) !!},
                     'content_type': 'product',
-                    'contents': [{
-                        'id': {!! json_encode($purchaseData['ecommerce']['contents'][0]['id']) !!},
-                        'quantity': {!! json_encode($purchaseData['ecommerce']['contents'][0]['quantity']) !!},
-                        'item_price': {!! json_encode($purchaseData['ecommerce']['contents'][0]['item_price']) !!}
-                    }],
+                    'contents': {!! json_encode($purchaseData['ecommerce']['contents']) !!},
                     'num_items': {!! json_encode($purchaseData['ecommerce']['num_items']) !!}
                 });
             </script>
         @endif
     @endpush
+
     {{-- END OF MODIFIED SECTION --}}
 
     <div class="breadcrumb-wrap">
