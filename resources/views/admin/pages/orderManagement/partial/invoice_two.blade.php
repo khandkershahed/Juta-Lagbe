@@ -98,7 +98,7 @@
                                                                     <div>
                                                                         @php
                                                                             $thumbnailPath = 'storage/' . optional($item->product)->thumbnail;
-                                                                            $thumbnailSrc = file_exists(public_path($thumbnailPath)) ? asset($thumbnailPath) : asset('frontend/img/no-product.jpg');
+                                                                            $thumbnailSrc = file_exists($thumbnailPath) ? asset($thumbnailPath) : asset('frontend/img/no-product.jpg');
                                                                         @endphp
                                                                         <img class="cart-img" width="50"
                                                                             src="{{ $thumbnailSrc }}"
