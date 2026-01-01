@@ -49,10 +49,58 @@
     <link href="{{ asset('admin/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+
+    {{-- ===== GLOBAL LOADER STYLE (ADDED) ===== --}}
+    <style>
+        #globalPageLoader {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.75);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease-in-out;
+        }
+
+        #globalPageLoader.is-active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        #globalPageLoader .loader-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 22px;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            min-width: 180px;
+        }
+
+        #globalPageLoader .loader-text {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+    </style>
 </head>
 
 <body id="kt_body"
     class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed">
+
+    {{-- ===== GLOBAL LOADER HTML (ADDED) ===== --}}
+    <div id="globalPageLoader" class="is-active">
+        <div class="loader-box">
+            <div class="spinner-border" role="status" aria-hidden="true"></div>
+            <div class="loader-text">Loading...</div>
+        </div>
+    </div>
 
 
     <div class="d-flex flex-column flex-root">
@@ -125,10 +173,6 @@
     {{-- <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script> --}}
     <script src="{{ asset('admin/assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
 
-
-
-
-
     <script src="{{ asset('admin/assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('admin/assets/js/custom/widgets.js') }}"></script>
     <script src="{{ asset('admin/assets/js/custom/apps/chat/chat.js') }}"></script>
@@ -142,6 +186,109 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     @include('toastr')
     @stack('scripts')
+
+    {{-- ===== GLOBAL LOADER SCRIPT (ADDED) ===== --}}
+    <script>
+        (function() {
+            const loaderEl = document.getElementById('globalPageLoader');
+            let activeRequests = 0;
+
+            function showLoader() {
+                if (!loaderEl) return;
+                loaderEl.classList.add('is-active');
+            }
+
+            function hideLoader() {
+                if (!loaderEl) return;
+                loaderEl.classList.remove('is-active');
+            }
+
+            function startRequest() {
+                activeRequests++;
+                showLoader();
+            }
+
+            function endRequest() {
+                activeRequests = Math.max(0, activeRequests - 1);
+                if (activeRequests === 0) {
+                    hideLoader();
+                }
+            }
+
+            // Hide loader after initial page load
+            window.addEventListener('load', function() {
+                activeRequests = 0;
+                hideLoader();
+            });
+
+            // Show loader on normal link navigation (not ajax buttons)
+            document.addEventListener('click', function(e) {
+                const a = e.target.closest('a');
+                if (!a) return;
+
+                // ignore anchors
+                const href = a.getAttribute('href');
+                if (!href || href === '#' || href.startsWith('javascript:')) return;
+
+                // ignore new tab
+                if (a.getAttribute('target') === '_blank') return;
+
+                // ignore download links
+                if (a.hasAttribute('download')) return;
+
+                // ignore bootstrap modal toggles
+                if (a.getAttribute('data-bs-toggle') === 'modal') return;
+
+                startRequest();
+            }, true);
+
+            // Show loader on form submit
+            document.addEventListener('submit', function() {
+                startRequest();
+            }, true);
+
+            // Hook jQuery AJAX if available
+            if (window.jQuery) {
+                $(document).ajaxStart(function() {
+                    startRequest();
+                });
+                $(document).ajaxStop(function() {
+                    // ajaxStop fires when all complete
+                    activeRequests = 0;
+                    hideLoader();
+                });
+            }
+
+            // Hook fetch()
+            if (window.fetch) {
+                const originalFetch = window.fetch;
+                window.fetch = function() {
+                    startRequest();
+                    return originalFetch.apply(this, arguments)
+                        .then(function(response) {
+                            endRequest();
+                            return response;
+                        })
+                        .catch(function(error) {
+                            endRequest();
+                            throw error;
+                        });
+                };
+            }
+
+            // Expose manual control if you need it
+            window.GlobalLoader = {
+                show: function() {
+                    startRequest();
+                },
+                hide: function() {
+                    activeRequests = 0;
+                    hideLoader();
+                }
+            };
+        })();
+    </script>
+
     <script>
         document.querySelectorAll('.ckeditor').forEach(element => {
             if (!element.classList.contains('ck-editor__editable_inline')) {
@@ -274,7 +421,7 @@
             new DataTableInitializer('.my-datatable');
         });
     </script>
-    
+
 
     <script>
         @if (Session::has('message'))
