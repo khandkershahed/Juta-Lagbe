@@ -275,8 +275,8 @@
         });
     </script>
     <script>
-        window.downloadInvoice = function(btnEl) {
-            const btn = btnEl ? btnEl : document.getElementById('downloadInvoiceBtn');
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.js-download-invoice');
             if (!btn) return;
 
             const spinner = btn.querySelector('.spinner-border');
@@ -286,7 +286,6 @@
             if (spinner) spinner.classList.remove('d-none');
             if (text) text.classList.add('opacity-50');
 
-            // ✅ find the currently opened invoice card inside the modal
             const modalBody = document.getElementById('globalInvoiceModalBody');
             if (!modalBody) {
                 btn.disabled = false;
@@ -295,7 +294,8 @@
                 return;
             }
 
-            const card = modalBody.querySelector('.card-print');
+            // ✅ Use your unique id if exists, else fallback to .card-print
+            const card = modalBody.querySelector('[id^="card-print-"]') || modalBody.querySelector('.card-print');
             if (!card) {
                 btn.disabled = false;
                 if (spinner) spinner.classList.add('d-none');
@@ -303,7 +303,6 @@
                 return;
             }
 
-            // ✅ open a new window and print only invoice HTML
             const printWindow = window.open('', '_blank', 'width=900,height=650');
             if (!printWindow) {
                 btn.disabled = false;
@@ -312,26 +311,24 @@
                 return;
             }
 
-            // Clone current page styles so invoice looks the same
             const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
                 .map(el => el.outerHTML)
                 .join("\n");
 
             printWindow.document.open();
             printWindow.document.write(`
-                    <html>
-                        <head>
-                            <title>Invoice</title>
-                            ${styles}
-                        </head>
-                        <body>
-                            ${card.outerHTML}
-                        </body>
-                    </html>
-                `);
+            <html>
+                <head>
+                    <title>Invoice</title>
+                    ${styles}
+                </head>
+                <body>
+                    ${card.outerHTML}
+                </body>
+            </html>
+        `);
             printWindow.document.close();
 
-            // Wait for assets/fonts then print
             printWindow.onload = function() {
                 setTimeout(function() {
                     printWindow.focus();
@@ -343,8 +340,9 @@
                     if (text) text.classList.remove('opacity-50');
                 }, 400);
             };
-        };
+        });
     </script>
+
     <script>
         @if (Session::has('message'))
             var type = "{{ Session::get('alert-type', 'info') }}"
