@@ -107,7 +107,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
             'blog-category'       => BlogCategoryController::class, //done
             'blog-tags'           => BlogTagController::class, //done
             'catalogue'           => CatalogueController::class, //done
-             //done
+            //done
         ],
         ['except' => ['show', 'create', 'edit']]
     );
@@ -157,7 +157,8 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::get('/order/report', 'orderReport')->name('orderReport');
         Route::put('/order/update/{id}', 'statusUpdate')->name('order.update');
         Route::delete('/order/delete/{id}', 'destroy')->name('order.destroy');
-
+        Route::get('/orders/{order}/invoice-modal', 'invoiceModal')->name('orders.invoiceModal');
+        Route::get('/order-report/{order}/invoice', 'orderReportInvoiceModal')->name('orderReportInvoiceModal');
     });
 
     Route::get('active-mail-configuration', [EmailSettingController::class, 'activeMailConfiguration'])->name('active.mail.configuration');
@@ -205,11 +206,9 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::post('/categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulk-delete');
 
     //search payment
-    Route::get('/bkash/search/{trxID}', [App\Http\Controllers\BkashTokenizePaymentController::class,'searchTnx'])->name('bkash-serach');
+    Route::get('/bkash/search/{trxID}', [App\Http\Controllers\BkashTokenizePaymentController::class, 'searchTnx'])->name('bkash-serach');
 
     //refund payment routes
-    Route::get('/bkash/refund', [App\Http\Controllers\BkashTokenizePaymentController::class,'refund'])->name('bkash-refund');
-    Route::get('/bkash/refund/status', [App\Http\Controllers\BkashTokenizePaymentController::class,'refundStatus'])->name('bkash-refund-status');
-
-
+    Route::get('/bkash/refund', [App\Http\Controllers\BkashTokenizePaymentController::class, 'refund'])->name('bkash-refund');
+    Route::get('/bkash/refund/status', [App\Http\Controllers\BkashTokenizePaymentController::class, 'refundStatus'])->name('bkash-refund-status');
 });
