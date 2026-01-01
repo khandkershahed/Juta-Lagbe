@@ -171,76 +171,7 @@
                     });
             });
 
-            document.addEventListener('click', function(e) {
-                const btn = e.target.closest('.js-download-invoice');
-                if (!btn) return;
-
-                const spinner = btn.querySelector('.spinner-border');
-                const text = btn.querySelector('.btn-text');
-
-                btn.disabled = true;
-                if (spinner) spinner.classList.remove('d-none');
-                if (text) text.classList.add('opacity-50');
-
-                const modalBody = document.getElementById('globalInvoiceModalBody');
-                if (!modalBody) {
-                    btn.disabled = false;
-                    if (spinner) spinner.classList.add('d-none');
-                    if (text) text.classList.remove('opacity-50');
-                    return;
-                }
-
-                const card = modalBody.querySelector('[id^="card-print-"]') || modalBody.querySelector('.card-print');
-                if (!card) {
-                    btn.disabled = false;
-                    if (spinner) spinner.classList.add('d-none');
-                    if (text) text.classList.remove('opacity-50');
-                    return;
-                }
-
-                const iframe = document.createElement('iframe');
-                iframe.style.position = 'fixed';
-                iframe.style.right = '0';
-                iframe.style.bottom = '0';
-                iframe.style.width = '0';
-                iframe.style.height = '0';
-                iframe.style.border = '0';
-                iframe.setAttribute('aria-hidden', 'true');
-                document.body.appendChild(iframe);
-
-                const doc = iframe.contentWindow.document;
-
-                const cssLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-                    .map(l => l.href)
-                    .filter(Boolean);
-
-                doc.open();
-                doc.write('<!doctype html><html><head><meta charset="utf-8"><title>Invoice</title>');
-                cssLinks.forEach(function(href) {
-                    doc.write('<link rel="stylesheet" href="' + href + '">');
-                });
-                doc.write('<style>@media print{body{margin:0}}</style>');
-                doc.write('</head><body></body></html>');
-                doc.close();
-
-                const cloned = card.cloneNode(true);
-                doc.body.appendChild(cloned);
-
-                setTimeout(function() {
-                    try {
-                        iframe.contentWindow.focus();
-                        iframe.contentWindow.print();
-                    } catch (err) {}
-
-                    if (document.body.contains(iframe)) {
-                        document.body.removeChild(iframe);
-                    }
-
-                    btn.disabled = false;
-                    if (spinner) spinner.classList.add('d-none');
-                    if (text) text.classList.remove('opacity-50');
-                }, 700);
-            });
+           
         </script>
     @endpush
 </x-admin-app-layout>
