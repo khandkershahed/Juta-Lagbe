@@ -97,6 +97,35 @@
                 <div class="border-0 modal-header d-flex justify-content-center">
                     <h1 class="mb-0" id="globalInvoiceModalTitle"></h1>
                 </div>
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
+                    rel="stylesheet">
+
+                <style>
+                    /* ===== Bangla Fix for Invoice PDF ===== */
+
+                    .card-print,
+                    .card-print * {
+                        font-family: 'Noto Sans Bengali', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+                        letter-spacing: 0 !important;
+                        word-spacing: 0 !important;
+                        line-height: 1.6 !important;
+
+                        /* CRITICAL */
+                        word-break: keep-all !important;
+                        overflow-wrap: normal !important;
+                        white-space: normal !important;
+                    }
+
+                    /* Prevent canvas text splitting */
+                    table,
+                    th,
+                    td,
+                    span,
+                    div {
+                        transform: translateZ(0);
+                    }
+                </style>
                 <div class="pt-0 modal-body" id="globalInvoiceModalBody">
                     <div class="text-center py-10">
                         <span class="spinner-border spinner-border-sm me-2"></span> Loading...
@@ -198,31 +227,30 @@
             });
         </script>
         <script>
-window.downloadInvoice = function () {
-    const invoice = document.querySelector('.card-print');
-    if (!invoice) return;
+            window.downloadInvoice = function() {
+                const invoice = document.querySelector('.card-print');
+                if (!invoice) return;
 
-    html2pdf().set({
-        margin: 10,
-        filename: `Invoice-${Date.now()}.pdf`,
-        image: {
-            type: 'jpeg',
-            quality: 0.98
-        },
-        html2canvas: {
-            scale: 3,                 // IMPORTANT for Bangla
-            useCORS: true,
-            allowTaint: true,
-            letterRendering: false    // VERY IMPORTANT
-        },
-        jsPDF: {
-            unit: 'mm',
-            format: 'a4',
-            orientation: 'portrait'
-        }
-    }).from(invoice).save();
-};
-</script>
-
+                html2pdf().set({
+                    margin: 10,
+                    filename: `Invoice-${Date.now()}.pdf`,
+                    image: {
+                        type: 'jpeg',
+                        quality: 0.98
+                    },
+                    html2canvas: {
+                        scale: 3, // IMPORTANT for Bangla
+                        useCORS: true,
+                        allowTaint: true,
+                        letterRendering: false // VERY IMPORTANT
+                    },
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait'
+                    }
+                }).from(invoice).save();
+            };
+        </script>
     @endpush
 </x-admin-app-layout>

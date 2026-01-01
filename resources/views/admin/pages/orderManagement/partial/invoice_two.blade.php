@@ -1,31 +1,4 @@
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
 
-<style>
-    /* ===== Bangla Fix for Invoice PDF ===== */
-
-    .card-print,
-    .card-print * {
-        font-family: 'Noto Sans Bengali', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-        letter-spacing: 0 !important;
-        word-spacing: 0 !important;
-        line-height: 1.6 !important;
-
-        /* CRITICAL */
-        word-break: keep-all !important;
-        overflow-wrap: normal !important;
-        white-space: normal !important;
-    }
-
-    /* Prevent canvas text splitting */
-    table,
-    th,
-    td,
-    span,
-    div {
-        transform: translateZ(0);
-    }
-</style>
 <div class="mx-4 mt-4 row" id="invoiceContent{{ optional($order)->id }}">
     <div class="px-0 shadow-sm card card-print">
         <div class="px-4 card-body">
