@@ -214,61 +214,6 @@
                 }
             });
         </script>
-        <script>
-            // window.downloadInvoice = function() {
-            //     // const invoice = document.querySelector('.card-print');
-            //     // if (!invoice) return;
-
-            //     // html2pdf().set({
-            //     //     margin: 10,
-            //     //     filename: `Invoice-${Date.now()}.pdf`,
-            //     //     image: {
-            //     //         type: 'jpeg',
-            //     //         quality: 0.98
-            //     //     },
-            //     //     html2canvas: {
-            //     //         scale: 3, // IMPORTANT for Bangla
-            //     //         useCORS: true,
-            //     //         allowTaint: true,
-            //     //         letterRendering: false // VERY IMPORTANT
-            //     //     },
-            //     //     jsPDF: {
-            //     //         unit: 'mm',
-            //     //         format: 'a4',
-            //     //         orientation: 'portrait'
-            //     //     }
-            //     // }).from(invoice).save();
-            //     const btn = document.getElementById('downloadInvoiceBtn');
-            //     const spinner = btn.querySelector('.spinner-border');
-            //     const text = btn.querySelector('.btn-text');
-
-            //     // Disable button & show spinner
-            //     btn.disabled = true;
-            //     spinner.classList.remove('d-none');
-            //     text.classList.add('opacity-50');
-
-            //     const invoiceId = "{{ optional($order)->id }}";
-            //     const invoiceElement = document.getElementById('card-print-' + invoiceId);
-
-            //     if (!invoiceElement) {
-            //         // fallback if something goes wrong
-            //         btn.disabled = false;
-            //         spinner.classList.add('d-none');
-            //         text.classList.remove('opacity-50');
-            //         return;
-            //     }
-
-            //     const invoiceContent = invoiceElement.innerHTML;
-            //     const originalContent = document.body.innerHTML;
-
-            //     // Small timeout so spinner renders before print dialog opens
-            //     setTimeout(() => {
-            //         document.body.innerHTML = invoiceContent;
-            //         window.print();
-            //         document.body.innerHTML = originalContent;
-            //         location.reload();
-            //     }, 300);
-            // };
-        </script>
+        
     @endpush
 </x-admin-app-layout>
