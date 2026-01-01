@@ -189,104 +189,21 @@
 
     {{-- ===== GLOBAL LOADER SCRIPT (ADDED) ===== --}}
     <script>
-        (function() {
-            const loaderEl = document.getElementById('globalPageLoader');
-            let activeRequests = 0;
-
-            function showLoader() {
-                if (!loaderEl) return;
-                loaderEl.classList.add('is-active');
+        // Option 1: Hide loader when the page (including images) is fully loaded
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('globalPageLoader');
+            if (loader) {
+                loader.classList.remove('is-active');
             }
+        });
 
-            function hideLoader() {
-                if (!loaderEl) return;
-                loaderEl.classList.remove('is-active');
+        // Option 2: Safety Fallback - In case a script hangs, force hide after 5 seconds
+        setTimeout(function() {
+            const loader = document.getElementById('globalPageLoader');
+            if (loader && loader.classList.contains('is-active')) {
+                loader.classList.remove('is-active');
             }
-
-            function startRequest() {
-                activeRequests++;
-                showLoader();
-            }
-
-            function endRequest() {
-                activeRequests = Math.max(0, activeRequests - 1);
-                if (activeRequests === 0) {
-                    hideLoader();
-                }
-            }
-
-            // Hide loader after initial page load
-            window.addEventListener('load', function() {
-                activeRequests = 0;
-                hideLoader();
-            });
-
-            // Show loader on normal link navigation (not ajax buttons)
-            document.addEventListener('click', function(e) {
-                const a = e.target.closest('a');
-                if (!a) return;
-
-                // ignore anchors
-                const href = a.getAttribute('href');
-                if (!href || href === '#' || href.startsWith('javascript:')) return;
-
-                // ignore new tab
-                if (a.getAttribute('target') === '_blank') return;
-
-                // ignore download links
-                if (a.hasAttribute('download')) return;
-
-                // ignore bootstrap modal toggles
-                if (a.getAttribute('data-bs-toggle') === 'modal') return;
-
-                startRequest();
-            }, true);
-
-            // Show loader on form submit
-            document.addEventListener('submit', function() {
-                startRequest();
-            }, true);
-
-            // Hook jQuery AJAX if available
-            if (window.jQuery) {
-                $(document).ajaxStart(function() {
-                    startRequest();
-                });
-                $(document).ajaxStop(function() {
-                    // ajaxStop fires when all complete
-                    activeRequests = 0;
-                    hideLoader();
-                });
-            }
-
-            // Hook fetch()
-            if (window.fetch) {
-                const originalFetch = window.fetch;
-                window.fetch = function() {
-                    startRequest();
-                    return originalFetch.apply(this, arguments)
-                        .then(function(response) {
-                            endRequest();
-                            return response;
-                        })
-                        .catch(function(error) {
-                            endRequest();
-                            throw error;
-                        });
-                };
-            }
-
-            // Expose manual control if you need it
-            window.GlobalLoader = {
-                show: function() {
-                    startRequest();
-                },
-                hide: function() {
-                    activeRequests = 0;
-                    hideLoader();
-                }
-            };
-        })();
+        }, 5000);
     </script>
 
     <script>
