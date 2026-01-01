@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <x-metronic.select-option name="status" class="form-select">
+                    <x-metronic.select-option id="status" name="status" class="form-select">
                         <option value="processing" @selected($order->status=='processing')>Processing</option>
                         <option value="shipped" @selected($order->status=='shipped')>Shipped</option>
                         <option value="delivered" @selected($order->status=='delivered')>Delivered</option>
