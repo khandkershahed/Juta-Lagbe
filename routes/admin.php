@@ -159,6 +159,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::delete('/order/delete/{id}', 'destroy')->name('order.destroy');
         Route::get('/orders/{order}/invoice-modal', 'invoiceModal')->name('orders.invoiceModal');
         Route::get('/order-report/{order}/invoice', 'orderReportInvoiceModal')->name('orderReportInvoiceModal');
+        Route::get('/orders/{order}/invoice-pdf', 'downloadInvoicePdf')->name('orders.invoice.pdf');
     });
 
     Route::get('active-mail-configuration', [EmailSettingController::class, 'activeMailConfiguration'])->name('active.mail.configuration');

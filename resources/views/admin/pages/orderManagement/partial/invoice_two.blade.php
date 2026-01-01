@@ -1,186 +1,250 @@
-<div class="mx-4 mt-4 row" id="invoiceContent{{ optional($order)->id }}">
-    <div class="col-12">
-        <div id="card-print-{{ optional($order)->id }}" class="px-0 shadow-sm card card-print w-100">
-            <div class="px-4 card-body">
-                <div class="mx-auto w-100">
-                    <div class="px-10 d-flex justify-content-between flex-column flex-sm-row mb-19">
-                        <h4 class="text-gray-800 fw-bolder fs-2qx pe-5 pb-7">INVOICE</h4>
+<!doctype html>
+<html lang="en">
 
-                        <div class="text-sm-end">
-                            <a href="#" class="d-block mw-150px ms-sm-auto">
-                                <img alt="Logo" src="{{ asset('images/default_logo.png') }}" class="w-100">
-                            </a>
+<head>
+    <meta charset="utf-8">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
 
-                            <div class="text-sm-end fw-semibold fs-4 text-muted mt-7">
-                                <div>
-                                    {{ optional($setting)->address_line_one }}
-                                    @if (optional($setting)->address_line_two)
-                                        , {{ optional($setting)->address_line_two }}
-                                    @endif
-                                </div>
-                                <div>{{ optional($setting)->primary_phone }}</div>
-                            </div>
-                        </div>
+        .container {
+            width: 100%;
+        }
+
+        .header {
+            display: table;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+        }
+
+        .header-right {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+            text-align: right;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .muted {
+            color: #666;
+        }
+
+        .section {
+            margin: 10px 0 15px;
+        }
+
+        .info-row {
+            display: table;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .info-col {
+            display: table-cell;
+            width: 33.33%;
+            vertical-align: top;
+        }
+
+        .separator {
+            border-top: 1px solid #ddd;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #252525;
+            color: #fff;
+            padding: 8px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .text-end {
+            text-align: right;
+        }
+
+        .footer {
+            background: #252525;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        .product-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .fs-16 {
+            font-size: 16px;
+        }
+
+        .fs-18 {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <div class="title">INVOICE</div>
+            </div>
+            <div class="header-right">
+                <div>
+                    <img src="{{ public_path('images/default_logo.png') }}" style="max-width: 140px;">
+                </div>
+                <div class="muted" style="margin-top: 8px;">
+                    <div>
+                        {{ optional($setting)->address_line_one }}
+                        @if (optional($setting)->address_line_two)
+                            , {{ optional($setting)->address_line_two }}
+                        @endif
                     </div>
-
-                    <div class="d-flex flex-column gap-7 gap-md-10">
-                        <div class="fw-bold fs-2">
-                            Dear, <span class="text-info">{{ optional($order->user)->name }}</span> <br>
-                            <span class="fs-6">{{ optional($order->user)->email }} </span>
-                            <span class="text-muted fs-5">Here are your order details. Thank you for
-                                your purchase.</span>
-                        </div>
-
-                        <div class="separator"></div>
-
-                        <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bold">
-                            <div class="flex-root d-flex flex-column">
-                                <span class="text-muted">অর্ডার আইডি</span>
-                                <span class="fs-5">#{{ optional($order)->order_number }}</span>
-                            </div>
-
-                            <div class="flex-root d-flex flex-column">
-                                <span class="text-muted">অর্ডার ডেট</span>
-                                <span class="fs-5">{{ optional($order)->created_at->format('d M, Y') }}</span>
-                            </div>
-
-                            <div class="flex-root d-flex flex-column">
-                                <span class="text-muted">ইনভয়েস আইডি</span>
-                                <span class="fs-5">#{{ optional($order)->order_number }}</span>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bold">
-                            <div class="flex-root d-flex flex-column">
-                                <span class="text-muted">Shipping Address</span>
-                                <span class="fs-6">
-                                    {{ optional($order)->thana }}, {{ optional($order)->address }},
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-between flex-column">
-                            <div class="table-responsive border-bottom">
-                                <table class="table mb-0 align-middle table-row-dashed fs-6 gx-5 gy-5">
-                                    <thead style="background-color: #252525">
-                                        <tr class="border-bottom fs-6 fw-bold text-muted">
-                                            <th class="">প্রোডাক্ট</th>
-                                            <th class="text-end ">কোড</th>
-                                            <th class="text-end ">কোয়ান্টিটি</th>
-                                            <th class="pl-5 text-end">টোটাল</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody class="text-gray-600 fw-semibold">
-                                        @foreach (optional($order)->orderItems as $item)
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div>
-                                                            @php
-                                                                $thumbnailPath =
-                                                                    'storage/' . optional($item->product)->thumbnail;
-                                                                $thumbnailSrc = asset($thumbnailPath);
-                                                            @endphp
-                                                            <img class="cart-img" width="50"
-                                                                src="{{ $thumbnailSrc }}"
-                                                                alt="{{ optional($item->product)->name }}">
-                                                        </div>
-
-                                                        <div class="ms-5 text-start">
-                                                            <div class="fw-bold text-start">
-                                                                {{ optional($item->product)->name }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-end">
-                                                    {{ optional($item->product)->sku_code }} </td>
-                                                <td class="text-end">
-                                                    {{ optional($item)->quantity }}
-                                                </td>
-                                                <td class="text-end">
-                                                    {{ optional($item)->quantity * optional($item)->price }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        <tr>
-                                            <td colspan="3" class="text-end">
-                                                প্রোডাক্টের দাম
-                                            </td>
-                                            <td class="text-end">
-                                                ৳ {{ $order->total_amount - $order->shipping_charge }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="text-end">
-                                                ডেলিভারি চার্জ
-                                            </td>
-                                            <td class="text-end">
-                                                ৳ {{ $order->shipping_charge }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="text-end">
-                                                পেইড এমাউন্ট
-                                            </td>
-                                            <td class="text-end">
-                                                @if ($order->payment_status == 'delivery_charge_paid')
-                                                    <span
-                                                        class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
-                                                @elseif ($order->payment_status == 'completely_paid')
-                                                    <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
-                                                @elseif ($order->payment_status == 'cod')
-                                                    <span class="text-info fw-bold">৳</span>0
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="text-end">
-                                                ডিউ এমাউন্ট
-                                            </td>
-                                            <td class="text-end">
-                                                @if ($order->payment_status == 'delivery_charge_paid')
-                                                    <span
-                                                        class="text-info fw-bold">৳</span>{{ $order->total_amount - $order->shipping_charge }}
-                                                @elseif ($order->payment_status == 'completely_paid')
-                                                    <span class="text-info fw-bold">৳</span>0
-                                                @elseif ($order->payment_status == 'cod')
-                                                    <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="text-gray-900 fs-3 fw-bold text-end">
-                                                সর্ব মোট
-                                            </td>
-                                            <td class="text-gray-900 fs-3 fw-bolder text-end">
-                                                ৳ {{ optional($order)->total_amount }}.00
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
+                    <div>{{ optional($setting)->primary_phone }}</div>
                 </div>
             </div>
-            <div class="p-4 text-center text-white border-0 card-footer" style="background-color: #252525;">
-                © {{ optional($setting)->website_name }}, LTD 2024.
+        </div>
+
+        <div class="section bold fs-16">
+            Dear, <span>{{ optional($order->user)->name }}</span><br>
+            <span class="muted">{{ optional($order->user)->email }}</span><br>
+            <span class="muted">Here are your order details. Thank you for your purchase.</span>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="info-row bold">
+            <div class="info-col">
+                <div class="muted">অর্ডার আইডি</div>
+                <div>#{{ optional($order)->order_number }}</div>
+            </div>
+            <div class="info-col">
+                <div class="muted">অর্ডার ডেট</div>
+                <div>{{ optional($order)->created_at->format('d M, Y') }}</div>
+            </div>
+            <div class="info-col">
+                <div class="muted">ইনভয়েস আইডি</div>
+                <div>#{{ optional($order)->order_number }}</div>
             </div>
         </div>
+
+        <div class="section">
+            <div class="bold muted">Shipping Address</div>
+            <div>{{ optional($order)->thana }}, {{ optional($order)->address }}</div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>প্রোডাক্ট</th>
+                    <th class="text-end">কোড</th>
+                    <th class="text-end">কোয়ান্টিটি</th>
+                    <th class="text-end">টোটাল</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (optional($order)->orderItems as $item)
+                    <tr>
+                        <td>
+                            <div style="display: table; width: 100%;">
+                                <div style="display: table-cell; width: 50px; vertical-align: middle;">
+                                    @php
+                                        $thumb = optional($item->product)->thumbnail
+                                            ? public_path('storage/' . optional($item->product)->thumbnail)
+                                            : null;
+                                    @endphp
+                                    @if ($thumb && file_exists($thumb))
+                                        <img class="product-img" src="{{ $thumb }}">
+                                    @endif
+                                </div>
+                                <div style="display: table-cell; vertical-align: middle;">
+                                    <div class="bold">{{ optional($item->product)->name }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-end">{{ optional($item->product)->sku_code }}</td>
+                        <td class="text-end">{{ optional($item)->quantity }}</td>
+                        <td class="text-end">{{ optional($item)->quantity * optional($item)->price }}</td>
+                    </tr>
+                @endforeach
+
+                <tr>
+                    <td colspan="3" class="text-end bold">প্রোডাক্টের দাম</td>
+                    <td class="text-end">৳ {{ $order->total_amount - $order->shipping_charge }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-end bold">ডেলিভারি চার্জ</td>
+                    <td class="text-end">৳ {{ $order->shipping_charge }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-end bold">পেইড এমাউন্ট</td>
+                    <td class="text-end">
+                        @if ($order->payment_status == 'delivery_charge_paid')
+                            ৳ {{ $order->shipping_charge }}
+                        @elseif ($order->payment_status == 'completely_paid')
+                            ৳ {{ $order->total_amount }}
+                        @elseif ($order->payment_status == 'cod')
+                            ৳ 0
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-end bold">ডিউ এমাউন্ট</td>
+                    <td class="text-end">
+                        @if ($order->payment_status == 'delivery_charge_paid')
+                            ৳ {{ $order->total_amount - $order->shipping_charge }}
+                        @elseif ($order->payment_status == 'completely_paid')
+                            ৳ 0
+                        @elseif ($order->payment_status == 'cod')
+                            ৳ {{ $order->total_amount }}
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-end bold fs-18">সর্ব মোট</td>
+                    <td class="text-end bold fs-18">৳ {{ optional($order)->total_amount }}.00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            © {{ optional($setting)->website_name }}, LTD 2024.
+        </div>
     </div>
-</div>
+</body>
 
-<div class="pt-10 d-flex justify-content-center align-items-center">
-    <button id="downloadInvoiceBtn" type="button"
-        class="p-3 ml-3 btn btn-dark rounded-pill d-flex align-items-center gap-2 js-download-invoice">
-        <span class="btn-text">
-            <i class="fa-solid fa-file-download"></i>
-            ইনভয়েস ডাউনলোড করুন
-        </span>
-
-        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-    </button>
-</div>
+</html>

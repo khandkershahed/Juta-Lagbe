@@ -147,10 +147,15 @@
                             @endif
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px js-invoice-print-btn"
+                            {{-- <button class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px js-invoice-print-btn"
                                 data-url="{{ route('admin.orderReportInvoiceModal', $order->id) }}">
                                 <i class="fa-solid fa-print"></i>
-                            </button>
+                            </button> --}}
+                            <a href="{{ route('admin.orders.invoice.pdf', $order->id) }}"
+                                class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px"
+                                title="#{{ $order->order_number }} অর্ডার ইনভয়েস">
+                                <i class="fa-solid fa-print"></i>
+                            </a>
                             <a href="{{ route('admin.orderDetails', $order->id) }}"
                                 class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px">
                                 <i class="fa-solid fa-eye" title="Order Details"></i>

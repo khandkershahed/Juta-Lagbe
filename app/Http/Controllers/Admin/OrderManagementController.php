@@ -54,6 +54,20 @@ class OrderManagementController extends Controller
         return view('admin.pages.orderManagement.partial.invoice_two', compact('order', 'setting'));
     }
 
+    public function downloadInvoicePdf(Order $order)
+    {
+        $order->load(['orderItems.product', 'user']);
+
+        // If you use settings in invoice, load it here exactly like your current system
+        $setting = \App\Models\Setting::first();
+
+        $pdf = Pdf::loadView('admin.pages.orderManagement.pdf.invoice_two', compact('order', 'setting'))
+            ->setPaper('a4', 'portrait');
+
+        $fileName = 'Invoice-' . $order->order_number . '.pdf';
+
+        return $pdf->download($fileName);
+    }
     // public function index()
     // {
     //     $data = [

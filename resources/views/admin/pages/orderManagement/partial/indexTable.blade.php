@@ -116,12 +116,18 @@
                 </td>
 
                 <td>
-                    <button type="button"
+                    {{-- <button type="button"
                         class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px js-invoice-print-btn"
                         data-url="{{ route('admin.orders.invoiceModal', $order->id) }}"
                         data-title="#{{ $order->order_number }} অর্ডার ইনভয়েস">
                         <i class="fa-solid fa-print"></i>
-                    </button>
+                    </button> --}}
+                    <a href="{{ route('admin.orders.invoice.pdf', $order->id) }}"
+                        class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px"
+                        title="#{{ $order->order_number }} অর্ডার ইনভয়েস">
+                        <i class="fa-solid fa-print"></i>
+                    </a>
+
 
                     <a href="{{ route('admin.orderDetails', $order->id) }}"
                         class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px"
@@ -154,19 +160,16 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST"
-                                        action="{{ route('admin.order.update', $order->id) }}"
+                                    <form method="POST" action="{{ route('admin.order.update', $order->id) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="pt-0 card-body text-start">
                                             <x-metronic.label class="col-lg-12">Change The Delivery
                                                 Status</x-metronic.label>
-                                            <x-metronic.select-option
-                                                id="status-{{ $order->id }}"
-                                                class="mb-2 form-select" data-control="select2"
-                                                data-hide-search="true" name="status"
-                                                data-placeholder="Select an option">
+                                            <x-metronic.select-option id="status-{{ $order->id }}"
+                                                class="mb-2 form-select" data-control="select2" data-hide-search="true"
+                                                name="status" data-placeholder="Select an option">
                                                 <option></option>
                                                 <option value="processing" @selected($order->status == 'processing')>
                                                     Processing
