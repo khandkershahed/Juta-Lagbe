@@ -1,6 +1,6 @@
 <div class="mx-4 mt-4 row" id="invoiceContent{{ optional($order)->id }}">
     <div class="px-0 shadow-sm card card-print">
-        <div class="px-0 card-body">
+        <div class="px-4 card-body">
             <div class="mx-auto w-100">
                 <div class="px-10 d-flex justify-content-between flex-column flex-sm-row mb-19">
                     <h4 class="text-gray-800 fw-bolder fs-2qx pe-5 pb-7">INVOICE</h4>
@@ -62,7 +62,7 @@
 
                     <div class="d-flex justify-content-between flex-column">
                         <div class="table-responsive border-bottom">
-                            <table class="table mb-0 align-middle table-row-dashed fs-6 gy-5">
+                            <table class="table mb-0 align-middle table-row-dashed fs-6 gx-5 gy-5">
                                 <thead style="background-color: #252525">
                                     <tr class="border-bottom fs-6 fw-bold text-muted">
                                         <th class="">প্রোডাক্ট</th>

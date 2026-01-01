@@ -68,7 +68,7 @@
 
                     <div class="d-flex justify-content-between flex-column">
                         <div class="table-responsive border-bottom mb-9">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                            <table class="table align-middle table-row-dashed fs-6 gx-5 gy-5 mb-0">
                                 <thead>
                                     <tr class="border-bottom fs-6 fw-bold text-muted">
                                         <th class="min-w-175px pb-2 ps-5">Products</th>
