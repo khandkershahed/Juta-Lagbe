@@ -7,8 +7,7 @@
 
                     <div class="text-sm-end">
                         <a href="#" class="d-block mw-150px ms-sm-auto">
-                            <img alt="Logo" src="{{ asset('images/default_logo.png') }}"
-                                class="w-100">
+                            <img alt="Logo" src="{{ asset('images/default_logo.png') }}" class="w-100">
                         </a>
 
                         <div class="text-sm-end fw-semibold fs-4 text-muted mt-7">
@@ -41,8 +40,7 @@
 
                         <div class="flex-root d-flex flex-column">
                             <span class="text-muted">অর্ডার ডেট</span>
-                            <span
-                                class="fs-5">{{ optional($order)->created_at->format('d M, Y') }}</span>
+                            <span class="fs-5">{{ optional($order)->created_at->format('d M, Y') }}</span>
                         </div>
 
                         <div class="flex-root d-flex flex-column">
@@ -79,11 +77,11 @@
                                                 <div class="d-flex align-items-center">
                                                     <div>
                                                         @php
-                                                            $thumbnailPath = 'storage/' . optional($item->product)->thumbnail;
+                                                            $thumbnailPath =
+                                                                'storage/' . optional($item->product)->thumbnail;
                                                             $thumbnailSrc = asset($thumbnailPath);
                                                         @endphp
-                                                        <img class="cart-img" width="50"
-                                                            src="{{ $thumbnailSrc }}"
+                                                        <img class="cart-img" width="50" src="{{ $thumbnailSrc }}"
                                                             alt="{{ optional($item->product)->name }}">
                                                     </div>
 
@@ -126,11 +124,9 @@
                                         </td>
                                         <td class="text-end">
                                             @if ($order->payment_status == 'delivery_charge_paid')
-                                                <span
-                                                    class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
+                                                <span class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
                                             @elseif ($order->payment_status == 'completely_paid')
-                                                <span
-                                                    class="text-info fw-bold">৳</span>{{ $order->total_amount }}
+                                                <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
                                             @elseif ($order->payment_status == 'cod')
                                                 <span class="text-info fw-bold">৳</span>0
                                             @endif
@@ -147,8 +143,7 @@
                                             @elseif ($order->payment_status == 'completely_paid')
                                                 <span class="text-info fw-bold">৳</span>0
                                             @elseif ($order->payment_status == 'cod')
-                                                <span
-                                                    class="text-info fw-bold">৳</span>{{ $order->total_amount  }}
+                                                <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
                                             @endif
                                         </td>
                                     </tr>
@@ -180,24 +175,47 @@
     </button>
 </div>
 
-<script>
-    function downloadInvoice() {
-        const invoice = document.querySelector('.card-print');
-        html2pdf(invoice, {
-            margin: 10,
-            filename: `Invoice-${Date.now()}.pdf`,
-            image: {
-                type: 'jpeg',
-                quality: 0.98
-            },
-            html2canvas: {
-                scale: 2
-            },
-            jsPDF: {
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait'
-            }
-        });
-    }
-</script>
+@push('scripts')
+    <script>
+        // function downloadInvoice() {
+        //     const invoice = document.querySelector('.card-print');
+        //     html2pdf(invoice, {
+        //         margin: 10,
+        //         filename: `Invoice-${Date.now()}.pdf`,
+        //         image: {
+        //             type: 'jpeg',
+        //             quality: 0.98
+        //         },
+        //         html2canvas: {
+        //             scale: 2
+        //         },
+        //         jsPDF: {
+        //             unit: 'mm',
+        //             format: 'a4',
+        //             orientation: 'portrait'
+        //         }
+        //     });
+        // }
+        window.downloadInvoice = function() {
+            const invoice = document.querySelector('.card-print');
+            if (!invoice) return;
+
+            html2pdf(invoice, {
+                margin: 10,
+                filename: `Invoice-${Date.now()}.pdf`,
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            });
+        };
+    </script>
+@endpush

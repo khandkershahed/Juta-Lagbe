@@ -168,24 +168,47 @@
     </div>
 </div>
 
-<script>
-    function downloadInvoice() {
-        const invoice = document.querySelector('.card-print');
-        html2pdf(invoice, {
-            margin: 10,
-            filename: `Invoice-${Date.now()}.pdf`,
-            image: {
-                type: 'jpeg',
-                quality: 0.98
-            },
-            html2canvas: {
-                scale: 2
-            },
-            jsPDF: {
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait'
-            }
-        });
-    }
-</script>
+@push('scripts')
+    <script>
+        // function downloadInvoice() {
+        //     const invoice = document.querySelector('.card-print');
+        //     html2pdf(invoice, {
+        //         margin: 10,
+        //         filename: `Invoice-${Date.now()}.pdf`,
+        //         image: {
+        //             type: 'jpeg',
+        //             quality: 0.98
+        //         },
+        //         html2canvas: {
+        //             scale: 2
+        //         },
+        //         jsPDF: {
+        //             unit: 'mm',
+        //             format: 'a4',
+        //             orientation: 'portrait'
+        //         }
+        //     });
+        // }
+        window.downloadInvoice = function() {
+            const invoice = document.querySelector('.card-print');
+            if (!invoice) return;
+
+            html2pdf(invoice, {
+                margin: 10,
+                filename: `Invoice-${Date.now()}.pdf`,
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            });
+        };
+    </script>
+@endpush
