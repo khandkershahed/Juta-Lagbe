@@ -105,7 +105,6 @@
                 });
             });
 
-
             function fetchOrders(startDate, endDate, pageUrl) {
                 var url = pageUrl ? pageUrl : '{{ route('admin.orderReport') }}';
 
@@ -140,6 +139,7 @@
 
                 var url = $(this).data('url');
 
+                $('#globalInvoiceModalTitle').html('');
                 $('#globalInvoiceModalBody').html(`
                     <div class="text-center py-10">
                         <span class="spinner-border spinner-border-sm me-2"></span> Loading...
@@ -170,109 +170,9 @@
                         `;
                     });
             });
-        </script>
-        <div class="modal fade" id="globalInvoiceModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="border-0 modal-header d-flex justify-content-center">
-                        <h1 class="mb-0" id="globalInvoiceModalTitle"></h1>
-                    </div>
 
-                    <div class="pt-0 modal-body" id="globalInvoiceModalBody">
-                        <div class="text-center py-10">
-                            <span class="spinner-border spinner-border-sm me-2"></span> Loading...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-    document.addEventListener('click', function(e) {
-        const btn = e.target.closest('.js-download-invoice');
-        if (!btn) return;
-
-        const spinner = btn.querySelector('.spinner-border');
-        const text = btn.querySelector('.btn-text');
-
-        btn.disabled = true;
-        if (spinner) spinner.classList.remove('d-none');
-        if (text) text.classList.add('opacity-50');
-
-        const modalBody = document.getElementById('globalInvoiceModalBody');
-        if (!modalBody) {
-            btn.disabled = false;
-            if (spinner) spinner.classList.add('d-none');
-            if (text) text.classList.remove('opacity-50');
-            return;
-        }
-
-        const card = modalBody.querySelector('[id^="card-print-"]') || modalBody.querySelector('.card-print');
-        if (!card) {
-            btn.disabled = false;
-            if (spinner) spinner.classList.add('d-none');
-            if (text) text.classList.remove('opacity-50');
-            return;
-        }
-
-        const printWindow = window.open('', '_blank', 'width=900,height=650');
-        if (!printWindow) {
-            btn.disabled = false;
-            if (spinner) spinner.classList.add('d-none');
-            if (text) text.classList.remove('opacity-50');
-            return;
-        }
-
-        // ✅ Copy ONLY CSS (no scripts)
-        const cssLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-            .map(l => l.href)
-            .filter(Boolean);
-
-        const styleTags = Array.from(document.querySelectorAll('style'))
-            .map(s => s.innerHTML)
-            .join("\n");
-
-        printWindow.document.open();
-        printWindow.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Invoice</title>');
-
-        // Add stylesheet links
-        cssLinks.forEach(function(href) {
-            printWindow.document.write('<link rel="stylesheet" href="' + href + '">');
-        });
-
-        // Add inline styles
-        if (styleTags.trim() !== '') {
-            printWindow.document.write('<style>' + styleTags + '</style>');
-        }
-
-        // Optional: small print page fix, no UI change on screen
-        printWindow.document.write('<style>@media print{body{margin:0} .modal{display:none}}</style>');
-
-        printWindow.document.write('</head><body></body></html>');
-        printWindow.document.close();
-
-        // Insert invoice HTML safely (no template strings)
-        printWindow.document.body.innerHTML = card.outerHTML;
-
-        // Print after load
-        printWindow.onload = function() {
-            setTimeout(function() {
-                printWindow.focus();
-                printWindow.print();
-                printWindow.close();
-
-                btn.disabled = false;
-                if (spinner) spinner.classList.add('d-none');
-                if (text) text.classList.remove('opacity-50');
-            }, 400);
-        };
-    });
-</script>
-
-
-        {{-- <script>
-            window.downloadInvoice = function(btnEl) {
-                const btn = btnEl ? btnEl : document.getElementById('downloadInvoiceBtn');
+            document.addEventListener('click', function(e) {
+                const btn = e.target.closest('.js-download-invoice');
                 if (!btn) return;
 
                 const spinner = btn.querySelector('.spinner-border');
@@ -282,7 +182,6 @@
                 if (spinner) spinner.classList.remove('d-none');
                 if (text) text.classList.add('opacity-50');
 
-                // ✅ find the currently opened invoice card inside the modal
                 const modalBody = document.getElementById('globalInvoiceModalBody');
                 if (!modalBody) {
                     btn.disabled = false;
@@ -291,7 +190,7 @@
                     return;
                 }
 
-                const card = modalBody.querySelector('.card-print');
+                const card = modalBody.querySelector('[id^="card-print-"]') || modalBody.querySelector('.card-print');
                 if (!card) {
                     btn.disabled = false;
                     if (spinner) spinner.classList.add('d-none');
@@ -299,47 +198,49 @@
                     return;
                 }
 
-                // ✅ open a new window and print only invoice HTML
-                const printWindow = window.open('', '_blank', 'width=900,height=650');
-                if (!printWindow) {
+                const iframe = document.createElement('iframe');
+                iframe.style.position = 'fixed';
+                iframe.style.right = '0';
+                iframe.style.bottom = '0';
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.style.border = '0';
+                iframe.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(iframe);
+
+                const doc = iframe.contentWindow.document;
+
+                const cssLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+                    .map(l => l.href)
+                    .filter(Boolean);
+
+                doc.open();
+                doc.write('<!doctype html><html><head><meta charset="utf-8"><title>Invoice</title>');
+                cssLinks.forEach(function(href) {
+                    doc.write('<link rel="stylesheet" href="' + href + '">');
+                });
+                doc.write('<style>@media print{body{margin:0}}</style>');
+                doc.write('</head><body></body></html>');
+                doc.close();
+
+                const cloned = card.cloneNode(true);
+                doc.body.appendChild(cloned);
+
+                setTimeout(function() {
+                    try {
+                        iframe.contentWindow.focus();
+                        iframe.contentWindow.print();
+                    } catch (err) {}
+
+                    if (document.body.contains(iframe)) {
+                        document.body.removeChild(iframe);
+                    }
+
                     btn.disabled = false;
                     if (spinner) spinner.classList.add('d-none');
                     if (text) text.classList.remove('opacity-50');
-                    return;
-                }
-
-                // Clone current page styles so invoice looks the same
-                const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
-                    .map(el => el.outerHTML)
-                    .join("\n");
-
-                printWindow.document.open();
-                printWindow.document.write(`
-                    <html>
-                        <head>
-                            <title>Invoice</title>
-                            ${styles}
-                        </head>
-                        <body>
-                            ${card.outerHTML}
-                        </body>
-                    </html>
-                `);
-                printWindow.document.close();
-
-                // Wait for assets/fonts then print
-                printWindow.onload = function() {
-                    setTimeout(function() {
-                        printWindow.focus();
-                        printWindow.print();
-                        printWindow.close();
-
-                        btn.disabled = false;
-                        if (spinner) spinner.classList.add('d-none');
-                        if (text) text.classList.remove('opacity-50');
-                    }, 400);
-                };
-            };
-        </script> --}}
+                }, 700);
+            });
+        </script>
     @endpush
 </x-admin-app-layout>
