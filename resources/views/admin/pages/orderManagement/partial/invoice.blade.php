@@ -175,7 +175,7 @@
 
 <div class="pt-10 d-flex justify-content-center align-items-center">
     <button id="downloadInvoiceBtn" class="p-3 ml-3 btn btn-dark rounded-pill d-flex align-items-center gap-2"
-        onclick="downloadInvoice()">
+        onclick="downloadInvoice(this)">
         <span class="btn-text">
             <i class="fa-solid fa-file-download"></i>
             ইনভয়েস ডাউনলোড করুন
@@ -185,7 +185,8 @@
     </button>
 </div>
 
-<script>
+
+{{-- <script>
     function downloadInvoice() {
         const btn = document.getElementById('downloadInvoiceBtn');
         const spinner = btn.querySelector('.spinner-border');
@@ -218,4 +219,4 @@
             location.reload();
         }, 300);
     }
-</script>
+</script> --}}

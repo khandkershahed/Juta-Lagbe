@@ -172,7 +172,7 @@
 
 <div class="pt-10 d-flex justify-content-center align-items-center">
     <button id="downloadInvoiceBtn" class="p-3 ml-3 btn btn-dark rounded-pill d-flex align-items-center gap-2"
-        onclick="downloadInvoice()">
+        onclick="downloadInvoice(this)">
         <span class="btn-text">
             <i class="fa-solid fa-file-download"></i>
             ইনভয়েস ডাউনলোড করুন
@@ -182,37 +182,4 @@
     </button>
 </div>
 
-<script>
-    function downloadInvoice() {
-        const btn = document.getElementById('downloadInvoiceBtn');
-        const spinner = btn.querySelector('.spinner-border');
-        const text = btn.querySelector('.btn-text');
 
-        // Disable button & show spinner
-        btn.disabled = true;
-        spinner.classList.remove('d-none');
-        text.classList.add('opacity-50');
-
-        const invoiceId = "{{ optional($order)->id }}";
-        const invoiceElement = document.getElementById('card-print-' + invoiceId);
-
-        if (!invoiceElement) {
-            // fallback if something goes wrong
-            btn.disabled = false;
-            spinner.classList.add('d-none');
-            text.classList.remove('opacity-50');
-            return;
-        }
-
-        const invoiceContent = invoiceElement.innerHTML;
-        const originalContent = document.body.innerHTML;
-
-        // Small timeout so spinner renders before print dialog opens
-        setTimeout(() => {
-            document.body.innerHTML = invoiceContent;
-            window.print();
-            document.body.innerHTML = originalContent;
-            location.reload();
-        }, 300);
-    }
-</script>

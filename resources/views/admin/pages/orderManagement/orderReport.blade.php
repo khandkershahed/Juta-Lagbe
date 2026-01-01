@@ -168,6 +168,76 @@
                     });
             });
         </script>
-        
+        <script>
+            window.downloadInvoice = function(btnEl) {
+                const btn = btnEl ? btnEl : document.getElementById('downloadInvoiceBtn');
+                if (!btn) return;
+
+                const spinner = btn.querySelector('.spinner-border');
+                const text = btn.querySelector('.btn-text');
+
+                btn.disabled = true;
+                if (spinner) spinner.classList.remove('d-none');
+                if (text) text.classList.add('opacity-50');
+
+                // ✅ find the currently opened invoice card inside the modal
+                const modalBody = document.getElementById('globalInvoiceModalBody');
+                if (!modalBody) {
+                    btn.disabled = false;
+                    if (spinner) spinner.classList.add('d-none');
+                    if (text) text.classList.remove('opacity-50');
+                    return;
+                }
+
+                const card = modalBody.querySelector('.card-print');
+                if (!card) {
+                    btn.disabled = false;
+                    if (spinner) spinner.classList.add('d-none');
+                    if (text) text.classList.remove('opacity-50');
+                    return;
+                }
+
+                // ✅ open a new window and print only invoice HTML
+                const printWindow = window.open('', '_blank', 'width=900,height=650');
+                if (!printWindow) {
+                    btn.disabled = false;
+                    if (spinner) spinner.classList.add('d-none');
+                    if (text) text.classList.remove('opacity-50');
+                    return;
+                }
+
+                // Clone current page styles so invoice looks the same
+                const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
+                    .map(el => el.outerHTML)
+                    .join("\n");
+
+                printWindow.document.open();
+                printWindow.document.write(`
+            <html>
+                <head>
+                    <title>Invoice</title>
+                    ${styles}
+                </head>
+                <body>
+                    ${card.outerHTML}
+                </body>
+            </html>
+        `);
+                printWindow.document.close();
+
+                // Wait for assets/fonts then print
+                printWindow.onload = function() {
+                    setTimeout(function() {
+                        printWindow.focus();
+                        printWindow.print();
+                        printWindow.close();
+
+                        btn.disabled = false;
+                        if (spinner) spinner.classList.add('d-none');
+                        if (text) text.classList.remove('opacity-50');
+                    }, 400);
+                };
+            };
+        </script>
     @endpush
 </x-admin-app-layout>
