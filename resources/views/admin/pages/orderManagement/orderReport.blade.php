@@ -10,7 +10,7 @@
         .card-print,
         .card-print * {
             font-family: 'Noto Sans Bengali', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-            
+
         }
 
 
@@ -25,12 +25,6 @@
                             <input class="form-control form-control-solid w-100 rounded-2" placeholder="Pick date range"
                                 id="kt_daterangepicker_2" />
                         </div>
-                        {{-- <div>
-                            <button class="btn btn-white rounded-2" id="printBtn">
-                                <i class="fa-solid fa-print pe-3"></i>
-                                Print
-                            </button>
-                        </div> --}}
                     </div>
                 </div>
                 <div class="card-body orderReportTable" id="orderReportTableContainer">
