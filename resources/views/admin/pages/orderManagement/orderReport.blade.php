@@ -167,12 +167,9 @@
         <script>
             window.downloadInvoice = function() {
                 const invoice = document.querySelector('.card-print');
-                if (!invoice) {
-                    console.warn('Invoice content not found');
-                    return;
-                }
+                if (!invoice) return;
 
-                html2pdf(invoice, {
+                html2pdf().set({
                     margin: 10,
                     filename: `Invoice-${Date.now()}.pdf`,
                     image: {
@@ -180,14 +177,17 @@
                         quality: 0.98
                     },
                     html2canvas: {
-                        scale: 2
+                        scale: 3, // IMPORTANT for Bangla
+                        useCORS: true,
+                        allowTaint: true,
+                        letterRendering: false // VERY IMPORTANT
                     },
                     jsPDF: {
                         unit: 'mm',
                         format: 'a4',
                         orientation: 'portrait'
                     }
-                });
+                }).from(invoice).save();
             };
         </script>
     @endpush
