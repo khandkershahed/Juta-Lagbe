@@ -1,17 +1,10 @@
 <x-admin-app-layout :title="'Order Report'">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+
     <style>
         thead {
             font-weight: bold;
         }
 
-        /* ===== Bangla Fix for Invoice PDF ===== */
-        .card-print,
-        .card-print * {
-            font-family: 'Noto Sans Bengali', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-
-        }
     </style>
     <div class="row">
         <div class="col-xl-12">
@@ -171,7 +164,7 @@
                     });
             });
 
-           
+
         </script>
     @endpush
 </x-admin-app-layout>
