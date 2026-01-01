@@ -175,15 +175,14 @@
 
 <div class="pt-10 d-flex justify-content-center align-items-center">
     <button id="downloadInvoiceBtn" type="button"
-    class="p-3 ml-3 btn btn-dark rounded-pill d-flex align-items-center gap-2 js-download-invoice">
-    <span class="btn-text">
-        <i class="fa-solid fa-file-download"></i>
-        ইনভয়েস ডাউনলোড করুন
-    </span>
+        class="p-3 ml-3 btn btn-dark rounded-pill d-flex align-items-center gap-2 js-download-invoice">
+        <span class="btn-text">
+            <i class="fa-solid fa-file-download"></i>
+            ইনভয়েস ডাউনলোড করুন
+        </span>
 
-    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-</button>
-
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+    </button>
 
 </div>
 

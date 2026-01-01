@@ -274,74 +274,7 @@
             new DataTableInitializer('.my-datatable');
         });
     </script>
-    <script>
-        document.addEventListener('click', function(e) {
-            const btn = e.target.closest('.js-download-invoice');
-            if (!btn) return;
-
-            const spinner = btn.querySelector('.spinner-border');
-            const text = btn.querySelector('.btn-text');
-
-            btn.disabled = true;
-            if (spinner) spinner.classList.remove('d-none');
-            if (text) text.classList.add('opacity-50');
-
-            const modalBody = document.getElementById('globalInvoiceModalBody');
-            if (!modalBody) {
-                btn.disabled = false;
-                if (spinner) spinner.classList.add('d-none');
-                if (text) text.classList.remove('opacity-50');
-                return;
-            }
-
-            // ✅ Use your unique id if exists, else fallback to .card-print
-            const card = modalBody.querySelector('[id^="card-print-"]') || modalBody.querySelector('.card-print');
-            if (!card) {
-                btn.disabled = false;
-                if (spinner) spinner.classList.add('d-none');
-                if (text) text.classList.remove('opacity-50');
-                return;
-            }
-
-            const printWindow = window.open('', '_blank', 'width=900,height=650');
-            if (!printWindow) {
-                btn.disabled = false;
-                if (spinner) spinner.classList.add('d-none');
-                if (text) text.classList.remove('opacity-50');
-                return;
-            }
-
-            const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
-                .map(el => el.outerHTML)
-                .join("\n");
-
-            printWindow.document.open();
-            printWindow.document.write(`
-            <html>
-                <head>
-                    <title>Invoice</title>
-                    ${styles}
-                </head>
-                <body>
-                    ${card.outerHTML}
-                </body>
-            </html>
-        `);
-            printWindow.document.close();
-
-            printWindow.onload = function() {
-                setTimeout(function() {
-                    printWindow.focus();
-                    printWindow.print();
-                    printWindow.close();
-
-                    btn.disabled = false;
-                    if (spinner) spinner.classList.add('d-none');
-                    if (text) text.classList.remove('opacity-50');
-                }, 400);
-            };
-        });
-    </script>
+    
 
     <script>
         @if (Session::has('message'))

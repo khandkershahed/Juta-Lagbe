@@ -35,8 +35,11 @@
     <div class="modal fade" id="globalInvoiceModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+                <div class="border-0 modal-header d-flex justify-content-center">
+                    <h1 class="mb-0" id="globalInvoiceModalTitle"></h1>
+                </div>
 
-                <div class="modal-body" id="globalInvoiceModalBody">
+                <div class="pt-0 modal-body" id="globalInvoiceModalBody">
                     <div class="text-center py-10">
                         <span class="spinner-border spinner-border-sm me-2"></span> Loading...
                     </div>
@@ -168,6 +171,93 @@
                     });
             });
         </script>
+        <div class="modal fade" id="globalInvoiceModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="border-0 modal-header d-flex justify-content-center">
+                        <h1 class="mb-0" id="globalInvoiceModalTitle"></h1>
+                    </div>
+
+                    <div class="pt-0 modal-body" id="globalInvoiceModalBody">
+                        <div class="text-center py-10">
+                            <span class="spinner-border spinner-border-sm me-2"></span> Loading...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // ✅ If you don't see this in console, your script is not loading at all.
+            console.log('Invoice print handler loaded');
+
+            document.addEventListener('click', function(e) {
+                const btn = e.target.closest('.js-download-invoice');
+                if (!btn) return;
+
+                const spinner = btn.querySelector('.spinner-border');
+                const text = btn.querySelector('.btn-text');
+
+                btn.disabled = true;
+                if (spinner) spinner.classList.remove('d-none');
+                if (text) text.classList.add('opacity-50');
+
+                const modalBody = document.getElementById('globalInvoiceModalBody');
+                if (!modalBody) {
+                    btn.disabled = false;
+                    if (spinner) spinner.classList.add('d-none');
+                    if (text) text.classList.remove('opacity-50');
+                    return;
+                }
+
+                const card = modalBody.querySelector('[id^="card-print-"]') || modalBody.querySelector('.card-print');
+                if (!card) {
+                    btn.disabled = false;
+                    if (spinner) spinner.classList.add('d-none');
+                    if (text) text.classList.remove('opacity-50');
+                    return;
+                }
+
+                const printWindow = window.open('', '_blank', 'width=900,height=650');
+                if (!printWindow) {
+                    btn.disabled = false;
+                    if (spinner) spinner.classList.add('d-none');
+                    if (text) text.classList.remove('opacity-50');
+                    return;
+                }
+
+                const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
+                    .map(el => el.outerHTML)
+                    .join("\n");
+
+                printWindow.document.open();
+                printWindow.document.write(`
+            <html>
+                <head>
+                    <title>Invoice</title>
+                    ${styles}
+                </head>
+                <body>
+                    ${card.outerHTML}
+                </body>
+            </html>
+        `);
+                printWindow.document.close();
+
+                printWindow.onload = function() {
+                    setTimeout(function() {
+                        printWindow.focus();
+                        printWindow.print();
+                        printWindow.close();
+
+                        btn.disabled = false;
+                        if (spinner) spinner.classList.add('d-none');
+                        if (text) text.classList.remove('opacity-50');
+                    }, 400);
+                };
+            });
+        </script>
+
         {{-- <script>
             window.downloadInvoice = function(btnEl) {
                 const btn = btnEl ? btnEl : document.getElementById('downloadInvoiceBtn');
