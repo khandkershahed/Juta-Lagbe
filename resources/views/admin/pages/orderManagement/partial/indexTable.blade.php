@@ -1,4 +1,4 @@
-<table class="table border rounded my-datatable table-striped table-row-bordered gy-5 gs-7">
+<table class="table border rounded table-striped table-row-bordered gy-5 gs-7">
     <thead>
         <tr class="text-center text-gray-800 fw-semibold fs-6">
             <th style="width: 4%;">Sl</th>
