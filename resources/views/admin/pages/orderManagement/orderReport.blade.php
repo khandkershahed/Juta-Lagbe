@@ -80,21 +80,24 @@
         </script>
 
         <script>
-            var currentStartDate = '';
-            var currentEndDate = '';
+            var currentStartDate = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
+            var currentEndDate = moment().format('YYYY-MM-DD');
 
             $(function() {
                 $('#kt_daterangepicker_2').daterangepicker({
                     opens: 'left',
+                    startDate: moment(currentStartDate),
+                    endDate: moment(currentEndDate),
                     locale: {
                         format: 'YYYY-MM-DD'
                     }
-                }, function(start, end, label) {
+                }, function(start, end) {
                     currentStartDate = start.format('YYYY-MM-DD');
                     currentEndDate = end.format('YYYY-MM-DD');
                     fetchOrders(currentStartDate, currentEndDate, null);
                 });
             });
+
 
             function fetchOrders(startDate, endDate, pageUrl) {
                 var url = pageUrl ? pageUrl : '{{ route('admin.orderReport') }}';
