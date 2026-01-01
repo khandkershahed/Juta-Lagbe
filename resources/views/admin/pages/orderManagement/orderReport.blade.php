@@ -188,75 +188,87 @@
         </div>
 
         <script>
-            // ✅ If you don't see this in console, your script is not loading at all.
-            console.log('Invoice print handler loaded');
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.js-download-invoice');
+        if (!btn) return;
 
-            document.addEventListener('click', function(e) {
-                const btn = e.target.closest('.js-download-invoice');
-                if (!btn) return;
+        const spinner = btn.querySelector('.spinner-border');
+        const text = btn.querySelector('.btn-text');
 
-                const spinner = btn.querySelector('.spinner-border');
-                const text = btn.querySelector('.btn-text');
+        btn.disabled = true;
+        if (spinner) spinner.classList.remove('d-none');
+        if (text) text.classList.add('opacity-50');
 
-                btn.disabled = true;
-                if (spinner) spinner.classList.remove('d-none');
-                if (text) text.classList.add('opacity-50');
+        const modalBody = document.getElementById('globalInvoiceModalBody');
+        if (!modalBody) {
+            btn.disabled = false;
+            if (spinner) spinner.classList.add('d-none');
+            if (text) text.classList.remove('opacity-50');
+            return;
+        }
 
-                const modalBody = document.getElementById('globalInvoiceModalBody');
-                if (!modalBody) {
-                    btn.disabled = false;
-                    if (spinner) spinner.classList.add('d-none');
-                    if (text) text.classList.remove('opacity-50');
-                    return;
-                }
+        const card = modalBody.querySelector('[id^="card-print-"]') || modalBody.querySelector('.card-print');
+        if (!card) {
+            btn.disabled = false;
+            if (spinner) spinner.classList.add('d-none');
+            if (text) text.classList.remove('opacity-50');
+            return;
+        }
 
-                const card = modalBody.querySelector('[id^="card-print-"]') || modalBody.querySelector('.card-print');
-                if (!card) {
-                    btn.disabled = false;
-                    if (spinner) spinner.classList.add('d-none');
-                    if (text) text.classList.remove('opacity-50');
-                    return;
-                }
+        const printWindow = window.open('', '_blank', 'width=900,height=650');
+        if (!printWindow) {
+            btn.disabled = false;
+            if (spinner) spinner.classList.add('d-none');
+            if (text) text.classList.remove('opacity-50');
+            return;
+        }
 
-                const printWindow = window.open('', '_blank', 'width=900,height=650');
-                if (!printWindow) {
-                    btn.disabled = false;
-                    if (spinner) spinner.classList.add('d-none');
-                    if (text) text.classList.remove('opacity-50');
-                    return;
-                }
+        // ✅ Copy ONLY CSS (no scripts)
+        const cssLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+            .map(l => l.href)
+            .filter(Boolean);
 
-                const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
-                    .map(el => el.outerHTML)
-                    .join("\n");
+        const styleTags = Array.from(document.querySelectorAll('style'))
+            .map(s => s.innerHTML)
+            .join("\n");
 
-                printWindow.document.open();
-                printWindow.document.write(`
-            <html>
-                <head>
-                    <title>Invoice</title>
-                    ${styles}
-                </head>
-                <body>
-                    ${card.outerHTML}
-                </body>
-            </html>
-        `);
-                printWindow.document.close();
+        printWindow.document.open();
+        printWindow.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Invoice</title>');
 
-                printWindow.onload = function() {
-                    setTimeout(function() {
-                        printWindow.focus();
-                        printWindow.print();
-                        printWindow.close();
+        // Add stylesheet links
+        cssLinks.forEach(function(href) {
+            printWindow.document.write('<link rel="stylesheet" href="' + href + '">');
+        });
 
-                        btn.disabled = false;
-                        if (spinner) spinner.classList.add('d-none');
-                        if (text) text.classList.remove('opacity-50');
-                    }, 400);
-                };
-            });
-        </script>
+        // Add inline styles
+        if (styleTags.trim() !== '') {
+            printWindow.document.write('<style>' + styleTags + '</style>');
+        }
+
+        // Optional: small print page fix, no UI change on screen
+        printWindow.document.write('<style>@media print{body{margin:0} .modal{display:none}}</style>');
+
+        printWindow.document.write('</head><body></body></html>');
+        printWindow.document.close();
+
+        // Insert invoice HTML safely (no template strings)
+        printWindow.document.body.innerHTML = card.outerHTML;
+
+        // Print after load
+        printWindow.onload = function() {
+            setTimeout(function() {
+                printWindow.focus();
+                printWindow.print();
+                printWindow.close();
+
+                btn.disabled = false;
+                if (spinner) spinner.classList.add('d-none');
+                if (text) text.classList.remove('opacity-50');
+            }, 400);
+        };
+    });
+</script>
+
 
         {{-- <script>
             window.downloadInvoice = function(btnEl) {
