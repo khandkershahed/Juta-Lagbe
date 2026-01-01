@@ -1,4 +1,34 @@
 <x-admin-app-layout :title="'Order Report'">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        thead {
+            font-weight: bold;
+        }
+
+        /* ===== Bangla Fix for Invoice PDF ===== */
+        .card-print,
+        .card-print * {
+            font-family: 'Noto Sans Bengali', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+            letter-spacing: 0 !important;
+            word-spacing: 0 !important;
+            line-height: 1.6 !important;
+
+            /* CRITICAL */
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            white-space: normal !important;
+        }
+
+        /* Prevent canvas text splitting */
+        table,
+        th,
+        td,
+        span,
+        div {
+            transform: translateZ(0);
+        }
+    </style>
     <div class="row">
         <div class="mx-auto col-xl-4">
             <div class="shadow-sm card card-flush">
@@ -97,35 +127,7 @@
                 <div class="border-0 modal-header d-flex justify-content-center">
                     <h1 class="mb-0" id="globalInvoiceModalTitle"></h1>
                 </div>
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
-                    rel="stylesheet">
 
-                <style>
-                    /* ===== Bangla Fix for Invoice PDF ===== */
-
-                    .card-print,
-                    .card-print * {
-                        font-family: 'Noto Sans Bengali', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-                        letter-spacing: 0 !important;
-                        word-spacing: 0 !important;
-                        line-height: 1.6 !important;
-
-                        /* CRITICAL */
-                        word-break: keep-all !important;
-                        overflow-wrap: normal !important;
-                        white-space: normal !important;
-                    }
-
-                    /* Prevent canvas text splitting */
-                    table,
-                    th,
-                    td,
-                    span,
-                    div {
-                        transform: translateZ(0);
-                    }
-                </style>
                 <div class="pt-0 modal-body" id="globalInvoiceModalBody">
                     <div class="text-center py-10">
                         <span class="spinner-border spinner-border-sm me-2"></span> Loading...
