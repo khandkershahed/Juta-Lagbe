@@ -273,52 +273,77 @@
         $(document).ready(function() {
             new DataTableInitializer('.my-datatable');
         });
-        // Modal js
-        // Make the DIV element draggable:
-        // var element = document.querySelector('.modal');
-        // dragElement(element);
+    </script>
+    <script>
+        window.downloadInvoice = function(btnEl) {
+            const btn = btnEl ? btnEl : document.getElementById('downloadInvoiceBtn');
+            if (!btn) return;
 
-        // function dragElement(elmnt) {
-        //     var pos1 = 0,
-        //         pos2 = 0,
-        //         pos3 = 0,
-        //         pos4 = 0;
-        //     if (elmnt.querySelector('.modal-content')) {
-        //         // if present, the header is where you move the DIV from:
-        //         elmnt.querySelector('.modal-content').onmousedown = dragMouseDown;
-        //     } else {
-        //         // otherwise, move the DIV from anywhere inside the DIV:
-        //         elmnt.onmousedown = dragMouseDown;
-        //     }
+            const spinner = btn.querySelector('.spinner-border');
+            const text = btn.querySelector('.btn-text');
 
-        //     function dragMouseDown(e) {
-        //         e = e || window.event;
-        //         // get the mouse cursor position at startup:
-        //         pos3 = e.clientX;
-        //         pos4 = e.clientY;
-        //         document.onmouseup = closeDragElement;
-        //         // call a function whenever the cursor moves:
-        //         document.onmousemove = elementDrag;
-        //     }
+            btn.disabled = true;
+            if (spinner) spinner.classList.remove('d-none');
+            if (text) text.classList.add('opacity-50');
 
-        //     function elementDrag(e) {
-        //         e = e || window.event;
-        //         // calculate the new cursor position:
-        //         pos1 = pos3 - e.clientX;
-        //         pos2 = pos4 - e.clientY;
-        //         pos3 = e.clientX;
-        //         pos4 = e.clientY;
-        //         // set the element's new position:
-        //         elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        //         elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        //     }
+            // ✅ find the currently opened invoice card inside the modal
+            const modalBody = document.getElementById('globalInvoiceModalBody');
+            if (!modalBody) {
+                btn.disabled = false;
+                if (spinner) spinner.classList.add('d-none');
+                if (text) text.classList.remove('opacity-50');
+                return;
+            }
 
-        //     function closeDragElement() {
-        //         // stop moving when mouse button is released:
-        //         document.onmouseup = null;
-        //         document.onmousemove = null;
-        //     }
-        // }
+            const card = modalBody.querySelector('.card-print');
+            if (!card) {
+                btn.disabled = false;
+                if (spinner) spinner.classList.add('d-none');
+                if (text) text.classList.remove('opacity-50');
+                return;
+            }
+
+            // ✅ open a new window and print only invoice HTML
+            const printWindow = window.open('', '_blank', 'width=900,height=650');
+            if (!printWindow) {
+                btn.disabled = false;
+                if (spinner) spinner.classList.add('d-none');
+                if (text) text.classList.remove('opacity-50');
+                return;
+            }
+
+            // Clone current page styles so invoice looks the same
+            const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
+                .map(el => el.outerHTML)
+                .join("\n");
+
+            printWindow.document.open();
+            printWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>Invoice</title>
+                            ${styles}
+                        </head>
+                        <body>
+                            ${card.outerHTML}
+                        </body>
+                    </html>
+                `);
+            printWindow.document.close();
+
+            // Wait for assets/fonts then print
+            printWindow.onload = function() {
+                setTimeout(function() {
+                    printWindow.focus();
+                    printWindow.print();
+                    printWindow.close();
+
+                    btn.disabled = false;
+                    if (spinner) spinner.classList.add('d-none');
+                    if (text) text.classList.remove('opacity-50');
+                }, 400);
+            };
+        };
     </script>
     <script>
         @if (Session::has('message'))

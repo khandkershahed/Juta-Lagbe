@@ -78,10 +78,12 @@
                                                     <div class="d-flex align-items-center">
                                                         <div>
                                                             @php
-                                                                $thumbnailPath = 'storage/' . optional($item->product)->thumbnail;
+                                                                $thumbnailPath =
+                                                                    'storage/' . optional($item->product)->thumbnail;
                                                                 $thumbnailSrc = asset($thumbnailPath);
                                                             @endphp
-                                                            <img class="cart-img" width="50" src="{{ $thumbnailSrc }}"
+                                                            <img class="cart-img" width="50"
+                                                                src="{{ $thumbnailSrc }}"
                                                                 alt="{{ optional($item->product)->name }}">
                                                         </div>
 
@@ -124,7 +126,8 @@
                                             </td>
                                             <td class="text-end">
                                                 @if ($order->payment_status == 'delivery_charge_paid')
-                                                    <span class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
+                                                    <span
+                                                        class="text-info fw-bold">৳</span>{{ $order->shipping_charge }}
                                                 @elseif ($order->payment_status == 'completely_paid')
                                                     <span class="text-info fw-bold">৳</span>{{ $order->total_amount }}
                                                 @elseif ($order->payment_status == 'cod')
@@ -180,6 +183,5 @@
 
         <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
     </button>
+
 </div>
-
-

@@ -168,7 +168,7 @@
                     });
             });
         </script>
-        <script>
+        {{-- <script>
             window.downloadInvoice = function(btnEl) {
                 const btn = btnEl ? btnEl : document.getElementById('downloadInvoiceBtn');
                 if (!btn) return;
@@ -213,16 +213,16 @@
 
                 printWindow.document.open();
                 printWindow.document.write(`
-            <html>
-                <head>
-                    <title>Invoice</title>
-                    ${styles}
-                </head>
-                <body>
-                    ${card.outerHTML}
-                </body>
-            </html>
-        `);
+                    <html>
+                        <head>
+                            <title>Invoice</title>
+                            ${styles}
+                        </head>
+                        <body>
+                            ${card.outerHTML}
+                        </body>
+                    </html>
+                `);
                 printWindow.document.close();
 
                 // Wait for assets/fonts then print
@@ -238,6 +238,6 @@
                     }, 400);
                 };
             };
-        </script>
+        </script> --}}
     @endpush
 </x-admin-app-layout>
