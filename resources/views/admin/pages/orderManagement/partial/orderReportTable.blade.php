@@ -101,7 +101,7 @@
                     <tr class="text-center">
                         <td>{{ $loop->iteration + ($orders->currentPage() - 1) * $orders->perPage() }}</td>
                         <td><a href="javascript:void(0)">{{ $order->order_number }}</a></td>
-                        <td>{{ optional($order->user)->first_name }} {{ optional($order->user)->last_name }}</td>
+                        <td>{{ optional($order->user)->name }}</td>
                         <td>{{ $order->created_at->format('Y-m-d') }}</td>
                         <td>
                             <span
