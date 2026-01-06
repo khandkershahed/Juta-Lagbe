@@ -19,27 +19,40 @@ class OrderManagementController extends Controller
         $pendingOrdersCount = Order::where('status', 'pending')->count();
         $deliveredOrdersCount = Order::where('status', 'delivered')->count();
 
-        $orders = Order::with([
-            'user',
-            'orderItems.product'
-        ])
-            ->latest()
-            ->paginate(25);
+        $query = Order::with(['user', 'orderItems.product'])->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('order_number', 'like', "%{$search}%")
+                    ->orWhere('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhere('transaction_id', 'like', "%{$search}%")
+                    ->orWhere('external_order_id', 'like', "%{$search}%");
+            });
+        }
+
+        $orders = $query->paginate(25)->withQueryString();
 
         if ($request->ajax()) {
-            return view('admin.pages.orderManagement.partial.indexTable', compact(
+            return view(
+                'admin.pages.orderManagement.partial.indexTable',
+                compact('orders')
+            )->render();
+        }
+
+        return view(
+            'admin.pages.orderManagement.index',
+            compact(
                 'orders',
                 'pendingOrdersCount',
                 'deliveredOrdersCount'
-            ));
-        }
-
-        return view('admin.pages.orderManagement.index', compact(
-            'orders',
-            'pendingOrdersCount',
-            'deliveredOrdersCount'
-        ));
+            )
+        );
     }
+
 
     public function invoiceModal(Request $request, Order $order)
     {

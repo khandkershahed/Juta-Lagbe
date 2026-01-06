@@ -89,6 +89,12 @@
             <div>
                 <h1 class="mb-0 text-center text-white w-100">Manage Your Orders</h1>
             </div>
+            <div class="mb-4 d-flex justify-content-end">
+                <div class="w-100 w-md-300px">
+                    <input type="text" id="orderSearchInput" class="form-control form-control-solid"
+                        placeholder="Search by Order No, Name, Phone, Email..." autocomplete="off">
+                </div>
+            </div>
         </div>
 
         <div class="card-body table-responsive" id="ordersTableContainer">
@@ -113,6 +119,49 @@
     </div>
 
     @push('scripts')
+        <script>
+            let searchTimer = null;
+
+            document.addEventListener('input', function(e) {
+                if (!e.target.matches('#orderSearchInput')) return;
+
+                clearTimeout(searchTimer);
+
+                searchTimer = setTimeout(async () => {
+                    const search = e.target.value.trim();
+                    const container = document.getElementById('ordersTableContainer');
+
+                    container.innerHTML = `
+                <div class="text-center py-10">
+                    <span class="spinner-border spinner-border-sm me-2"></span> Searching...
+                </div>
+            `;
+
+                    try {
+                        const url = new URL(window.location.href);
+                        url.searchParams.set('search', search);
+
+                        const res = await fetch(url.toString(), {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        });
+
+                        if (!res.ok) throw new Error('Search failed');
+
+                        container.innerHTML = await res.text();
+
+                    } catch (err) {
+                        container.innerHTML = `
+                    <div class="alert alert-danger mb-0">
+                        ${err.message ?? 'Search error'}
+                    </div>
+                `;
+                    }
+                }, 400); // debounce
+            });
+        </script>
+
         <script>
             document.addEventListener('click', async function(e) {
                 const link = e.target.closest('#ordersTableContainer .pagination a');
