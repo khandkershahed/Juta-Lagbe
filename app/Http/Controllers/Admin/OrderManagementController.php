@@ -106,10 +106,24 @@ class OrderManagementController extends Controller
     {
         $query = Order::query();
 
-        if ($request->has('start_date') && $request->has('end_date')) {
-            $startDate = $request->input('start_date');
-            $endDate = $request->input('end_date');
-            $query->whereBetween('order_created_at', [$startDate, $endDate]);
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween('order_created_at', [
+                $request->start_date,
+                $request->end_date
+            ]);
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('order_number', 'like', "%{$search}%")
+                    ->orWhere('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhere('transaction_id', 'like', "%{$search}%")
+                    ->orWhere('external_order_id', 'like', "%{$search}%");
+            });
         }
 
         $total_sale = (clone $query)->sum('total_amount');
@@ -119,17 +133,18 @@ class OrderManagementController extends Controller
         $orders = (clone $query)
             ->with(['user', 'orderItems.product'])
             ->latest('order_created_at')
-            ->paginate(25);
+            ->paginate(25)
+            ->withQueryString();
 
-        $data = [
-            'total_sale' => $total_sale,
-            'pendingOrdersCount' => $pendingOrdersCount,
-            'deliveredOrdersCount' => $deliveredOrdersCount,
-            'orders' => $orders,
-        ];
+        $data = compact(
+            'orders',
+            'total_sale',
+            'pendingOrdersCount',
+            'deliveredOrdersCount'
+        );
 
         if ($request->ajax()) {
-            return view('admin.pages.orderManagement.partial.orderReportTable', $data);
+            return view('admin.pages.orderManagement.partial.orderReportTable', $data)->render();
         }
 
         return view('admin.pages.orderManagement.orderReport', $data);

@@ -89,11 +89,9 @@
             <div>
                 <h1 class="mb-0 text-center text-white w-100">Manage Your Orders</h1>
             </div>
-            <div class="mb-4 d-flex justify-content-end">
-                <div class="w-100 w-md-300px">
-                    <input type="text" id="orderSearchInput" class="form-control form-control-solid"
-                        placeholder="Search by Order No, Name, Phone, Email..." autocomplete="off">
-                </div>
+            <div class="w-100 w-md-300px">
+                <input type="text" id="orderSearchInput" class="form-control form-control-solid"
+                    placeholder="Search by Order No, Name, Phone, Email..." autocomplete="off">
             </div>
         </div>
 
